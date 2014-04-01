@@ -1,4 +1,4 @@
-\documentclass[a4paper,twoside,draft]{report}
+\documentclass[a4paper,twoside]{report}
 \usepackage[british]{babel}
 \usepackage{csquotes}
 \usepackage[T1]{fontenc}
@@ -11,20 +11,22 @@
 \usepackage[backend=biber, style=authoryear, firstinits=true, uniquename=init]{biblatex}
 \usepackage{minted}
 \usepackage{booktabs}
-\usepackage{draftwatermark}
+\usepackage{setspace}
+\usepackage{blindtext}
 
 \addbibresource{dissertation.bib}
 
+\onehalfspacing
+
 \begin{document}
-\title{Representation of mountains in atmospheric models}
-\author{James Shaw}
-\date{}
-\maketitle
+\input{title}
 
 \begin{abstract}
 \end{abstract}
 
 \tableofcontents
+
+\Blinddocument
 
 \printbibliography
 
