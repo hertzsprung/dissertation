@@ -1,12 +1,14 @@
-\documentclass[a4paper,twoside,titlepage]{memoir} % draft
+\providecommand\classopts{}
+\providecommand\geometryopts{}
+\documentclass[a4paper,twoside\classopts]{memoir}
 \usepackage[utf8]{inputenc}
-\usepackage[pass]{geometry} % showframe
+\usepackage[pass\geometryopts]{geometry}
 \usepackage[british]{babel}
 \usepackage{csquotes}
 \usepackage[T1]{fontenc}
 \usepackage{charter}
 \usepackage[bitstream-charter]{mathdesign}
-\usepackage[final]{microtype}
+\usepackage[final,babel]{microtype}
 \usepackage{siunitx}
 \usepackage{amsmath}
 \usepackage{mathtools}
@@ -14,18 +16,28 @@
 \usepackage[backend=biber, style=authoryear, firstinits=true, uniquename=init]{biblatex}
 \usepackage{minted}
 \usepackage{booktabs}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,pdfpagelayout=TwoPageRight]{hyperref}
+\usepackage[final]{graphicx}
 \usepackage{blindtext}
 
 \addbibresource{dissertation.bib}
 
+\title{Representation of Mountains in Atmospheric Models}
+\author{James Shaw}
+\date{August 2014}
+
+\makeatletter
+\AtBeginDocument{
+  \hypersetup{
+    pdftitle = {\@title},
+    pdfauthor = {\@author}
+  }
+}
+\makeatother
 \OnehalfSpacing
 \chapterstyle{southall}
 \blindmathtrue
 
-\title{Representation of Mountains in Atmospheric Models}
-\author{James Shaw}
-\date{August 2014}
 
 \begin{document}
 \input{title}
