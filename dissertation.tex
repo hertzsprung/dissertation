@@ -1,10 +1,12 @@
-\documentclass[a4paper,twoside]{report}
-\usepackage[pass]{geometry}
+\documentclass[a4paper,twoside,titlepage]{memoir} % draft
+\usepackage[utf8]{inputenc}
+\usepackage[pass]{geometry} % showframe
 \usepackage[british]{babel}
 \usepackage{csquotes}
 \usepackage[T1]{fontenc}
 \usepackage{charter}
 \usepackage[bitstream-charter]{mathdesign}
+\usepackage[final]{microtype}
 \usepackage{siunitx}
 \usepackage{amsmath}
 \usepackage{mathtools}
@@ -12,23 +14,37 @@
 \usepackage[backend=biber, style=authoryear, firstinits=true, uniquename=init]{biblatex}
 \usepackage{minted}
 \usepackage{booktabs}
-\usepackage{setspace}
+\usepackage[hidelinks]{hyperref}
 \usepackage{blindtext}
 
 \addbibresource{dissertation.bib}
 
-\onehalfspacing
+\OnehalfSpacing
+\chapterstyle{southall}
+\blindmathtrue
+
+\title{Representation of Mountains in Atmospheric Models}
+\author{James Shaw}
+\date{August 2014}
 
 \begin{document}
 \input{title}
 
+\frontmatter
+\thispagestyle{plain}
+\null\vfil
 \begin{abstract}
+\blindtext
 \end{abstract}
+\vfil
 
-\tableofcontents
+\cleardoublepage
+\tableofcontents*
 
+\mainmatter
 \Blinddocument
 
+\backmatter
 \printbibliography
 
 \end{document}
