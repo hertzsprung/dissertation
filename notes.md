@@ -1,6 +1,6 @@
-1. What type of grid is "best" over orography?
+1. What type of grid (also called 'mesh') is "best" over orography?
    - terrain following
-   - cut cell
+   - cut cell (also called 'shaved cell')
    - some other type such as fully unstructured or nested refinement
 
 2. How does the "curl free pressure gradient" model that I describe in Weller and Sharhrokhi compare with other models?
@@ -28,6 +28,7 @@
 
 - What metrics to use to measure the "best" type of grid?
 - How to isolate the effects of the grid from other model implementation details?
+  - Hilary has an OpenFOAM model which we can choose the grid for
   - Perform same test on multiple models having the same grid type
 
 
