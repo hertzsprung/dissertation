@@ -6,6 +6,7 @@
 2. How does the "curl free pressure gradient" model that I describe in Weller and Sharhrokhi compare with other models?
 
 - What test case(s) should I subject the Weller and Sharhrokhi model to?
+  - integration time
   - advection type
     - resting atmosphere (Good et al 2013, ...)
     - uniform horizontal advection
@@ -16,10 +17,12 @@
     - Witch of Agnesi (Rising bubble, Good et al 2013)
     - plateau (Gallus and Klemp 1999)
     - Sinusoidal (Klemp 2011 via Good et al 2013)
+    - Circular Gaussian (Zaengl 2012)
+    - Schlaer (Schlaer et al 2002 via Zaengl 2012)
   - stability
     - neutrally stable (N=0) (Rising bubble, Good et al 2013)
     - N constant (Klemp 2011 via Good et al 2013)
-    - inversion layer (Good et al 2013)
+    - inversion layer (Good et al 2013, Klemp 2011)
   - temperature
     - isothermal
     - warm anomaly
