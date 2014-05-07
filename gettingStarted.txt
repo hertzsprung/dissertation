@@ -1,0 +1,148 @@
+Getting Started Guide for
+Using OpenFOAM on the Met Department Unix System
+
+Hilary Weller <h.weller@reading.ac.uk>
+
+Unix:
+~~~~
+
+First apply for an account on the Met department unix system:
+http://www.met.reading.ac.uk/it/home/admin/forms.html
+and ask to be enrolled on the blackboard unix coarse. 
+Do the blackboard unix coarse and see some of the documentation on using unix:
+http://www.met.reading.ac.uk/it/UNIX/unix-help/system/intro2unix.html
+Ask Hilary Weller <h.weller@reading.ac.uk> to ask a unix administrator to give you a directory on a fast processing machine (probably elder)
+
+Setting up your unix account:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The rest of this document assumes that you have a directory on a machine called "elder" and that directory is called:
+
+/export/elder/data-06/$USER
+
+where $USER is your user name. sws02hs is my user name and the name of my directory on elder
+
+1. First log into elder:
+ssh -Y yourUserName@elder.rdg.ac.uk
+
+2. Next add some lines to the end of your .profile file by editing the file and pasting the lines from another file. Edit both files by typing:
+
+gedit ~/.profile /export/elder/data-06/sws02hs/forStudents/profileExtra &
+(gedit is a nice text editor, ~ means your home directory and the trailing & means run the command in the background)
+
+Paste the lines in profileExtra at the end of your .profile
+You will need to edit some of the lines to conform to your directories.
+
+(You will find that you cannot edit profileExtra because it is in my directory rather than yours)
+
+3. elder (or any other unix machine) usually reads your .profile when you log in. You have just changed this file and you don't want to have to log in again to make elder re-read the file. You can force elder to read the file by typing:
+
+source ~/.profile
+
+Assuming that this gives no error messages, you are now ready to start using OpenFOAM. You can test this by typing:
+
+foamInstallationTest
+
+and check for error messages
+
+4. Notes on where things are installed and directories that you need to create and copy:
+The OpenFOAM installation is in directories defined by envoronment variables that you have defined in your .profile. The base installation is in
+
+/export/elder/data-06/sws02hs/OpenFOAM/OpenFOAM-2.3.0
+
+and subdirectories.
+
+You will also be using libraries and applications in my installation which is in
+
+/export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0
+
+and subdirectories.
+
+The directory where I create and run cases is:
+
+/export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0/run
+
+You will need a run directory so create one by going to your ELDER directory:
+cd $ELDER
+and then typing:
+mkdir -p OpenFOAM/$USER/run
+You will now be able to go to this directory from anywhere by typing:
+run
+
+5. OpenFOAM documentation and tutorials
+The documentation is in
+/export/elder/data-06/sws02hs/OpenFOAM/OpenFOAM-2.3.0/doc/Guides-a4/UserGuide.pdf
+and
+/export/elder/data-06/sws02hs/OpenFOAM/OpenFOAM-2.3.0/doc/Guides-a4/ProgrammersGuide.pdf
+First you will need the UserGuide so you can view it by typing:
+evince /export/elder/data-06/sws02hs/OpenFOAM/OpenFOAM-2.3.0/doc/Guides-a4/UserGuide.pdf &
+
+Copy the tutorials from the OpenFOAM installation directory into your run directory:
+cp -r /export/elder/data-06/sws02hs/OpenFOAM/OpenFOAM-2.3.0/tutorials $FOAM_RUN
+(cp -r means "recursive copy". ie copy all subdirectories and files.
+ $FOAM_RUN is an environment variable that points to your run directory)
+Now navigate to the tutorials directory:
+run
+cd tutorials
+and start to do some of the tutorials which are described in the UserGuide.pdf (start with the incompressible/icoFoam/cavity tutorial)
+
+6. Post-processing using plotPatchData
+The UserGuide recommends using paraFoam (which uses paraview) to view the mesh and the results. I have not been able to get paraFoam and paraview working on elder. So you will be using plotPatchData instead. 
+
+plotPatchData works by going to the case directory of the results that you want to view (eg incompressible/icoFoam/cavity) and typing, eg:
+
+plotPatchData -time 0 mesh
+or 
+plotPatchData U
+
+If you use the "-time timeName" option then you will only view results from that time directory. To use plotPatchData you must have a directory constant/gmtDicts which contains dictionaries (files) with names such as "mesh" and "U" which describes how data should be plot. Create the necessary directory (eg from within incompressible/icoFoam/cavity) type:
+mkdir constant/gmtDicts
+Copy a sample gmtDicts file:
+cp /export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0/applications/utilities/postProcessing/plotPatchData/plotPatchDataDict constant/gmtDicts/Up
+edit this file:
+gedit constant/gmtDicts/Up &
+(Up is given this name because it is a file to plot the velocity, U, and the pressure, p)
+read the extensive comments in this code in order to see how you can change this file to plot things differently. Now plot it by typing
+plotPatchData -time 0 Up
+
+This should give an error message! You have asked for the pressure (p) to be plotted from 0 to 0 every 0. Usually this is used to mean plot from the minimum to the maximum value with 20 intervals in between. But if you look at the pressure in the zero directory:
+more 0/p
+you will see that in the initial conditions (time 0) it is uniformly zero. Therefore either give a range a step size for plotting p in file constant/gmtDicts/p or comment out the line to plot p (and reduce the number of fields to plot).
+
+When you have run plotPatchData successfully you can view the output:
+gv 0/Up.eps &
+
+You should only see the mesh, not any velocity or pressure because the velocity and pressure are both zero in the initial conditions. 
+
+Exercise: The geometry is square but the output to plotPatchData is not square. Can you modify the input file (constant/gmtDicts/Up) so that the output is square?)
+
+Now run the case by typing:
+icoFoam
+in the case directory and view the velocity and pressure at other time steps.
+
+7. Have a closer look at the options for this tutorial in the UserGuide.pdf and look at some of the other tutorials and some of the mesh generation functionality in the UserGuide.pdf
+
+8. Running exnerFoam and exnerFoamH
+
+In order to solve the Euler equations you will be running a codes called:
+exnerFoam
+and
+exnerFoamH
+These solve the fully compressible Euler equations on a C-grid using prognostic variables of potential temperature (theta), Exner function of pressure (Pi) and velocity on the faces in between cells (Uf). To get started running exnerFoamH you can copy a case from me:
+
+run
+mkdir -p vSlice/restingScharKlemp
+cp -r /export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0/run/vSlice/restingScharKlemp/BTF_H vSlice/restingScharKlemp
+cd  vSlice/restingScharKlemp/BTF_H
+
+In order to create the mesh and the initial conditions, a number of applications are run. The applications to create the mesh are in the script runAll/mesh.sh. The applications to create the initial conditions are in script runAll/pre.sh. Have a look at this heavily commented code, see what each line does and set up the case.
+
+Once the initial conditions are defined in files 0/Uf, 0/theta and 0/Exner, you can run the code. Alot of output will be written to the screen and the code will take a while to run. So you should redirect the output and the error messages to a file (called log) and run in the background:
+exnerFoamH > log 2>&1 &
+to monitor the progress, see what is being written to the log file as it goes along:
+tail -f log
+To stop this process, type ^C
+
+you can now view the solution at a different time after the initialisation. For example, the solution after 6 hours is written into the directory 21600 (this is 6 hours in seconds). The normalised energy change and the maximum vertical velocity have also been written to a file "energy.dat". It might be useful to plot some of these columns on a line graph.
+
+Some visualisation of the results and some graphs are plot in the script in runAll/post.sh
