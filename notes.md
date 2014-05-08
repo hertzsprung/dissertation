@@ -1,7 +1,7 @@
 1. What type of grid (also called 'mesh') is "best" over orography?
    - terrain following
    - cut cell (also called 'shaved cell')
-   - some other type such as fully unstructured or nested refinement
+   - unstructured (Smolarkiewicz & Szmelter 2011)
 
 2. How does the "curl free pressure gradient" model that I describe in Weller and Sharhrokhi compare with other models?
 
@@ -28,13 +28,13 @@
     - warm anomaly (Norman et al 2011, Jebens et al 2011)
   - density current (Norman et al 2011, Melvin et al 2010, Jebens et al 2011)
   - gravity waves (Norman et al 2011, Jebens et al 2011)
+    - stratospheric gravity wave breaking (Smolarkiewicz & Szmelter 2011)
   - tracer advection (Good et al 2013)
 
 - What metrics to use to measure the "best" type of grid?
 - How to isolate the effects of the grid from other model implementation details?
   - Hilary has an OpenFOAM model which we can choose the grid for
   - Perform same test on multiple models having the same grid type
-
 
 Terrain-following
 =================
@@ -66,3 +66,10 @@ Jebens et al 2011
 - Partial Jacobian, fancy maths
 - Some focus on storage size
 - Tests: warm bubble, cold bubble (density current), gravity wave over orography test from Gallus & Klemp, warm bubble advected around circular osctacle
+
+Smolarkiewicz & Szmelter 2011
+-----------------------------
+- Very mathsy
+- Two unstructed meshes: one mimicking BTF, one pure triangles
+- Two equation sets: anelastic and psuedo-incompressible
+- Test: stratospheric gravity wave breaking
