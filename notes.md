@@ -12,7 +12,7 @@
     - uniform horizontal advection
     - zero wind below mountain top, sin^2 in middle layer, constant wind above (Schar et al 2002 via Good et al 2013)
   - terrain type
-    - no terrain
+    - no terrain (Norman et al 2011)
     - step function (Gallus and Klemp 1999)
     - Witch of Agnesi (Rising bubble, Good et al 2013)
     - plateau (Gallus and Klemp 1999)
@@ -25,8 +25,9 @@
     - inversion layer (Good et al 2013, Klemp 2011)
   - temperature
     - isothermal
-    - warm anomaly
-  - gravity waves
+    - warm anomaly (Norman et al 2011, Jebens et al 2011)
+  - density current (Norman et al 2011, Melvin et al 2010, Jebens et al 2011)
+  - gravity waves (Norman et al 2011, Jebens et al 2011)
   - tracer advection (Good et al 2013)
 
 - What metrics to use to measure the "best" type of grid?
@@ -37,6 +38,7 @@
 
 Terrain-following
 =================
++ cell sizes are nearly uniform (unlike cut cells that can be very small) -- permits use of explicit methods which are more easily parallelised (Jebens et al 2011)
 - errors in resting atmosphere due to horizontal pressure gradient give rise to spurious vertical velocities aloft (Klemp 2011 via Good et al 2013)
 
 Cut cell
@@ -45,3 +47,22 @@ Cut cell
   + thin-wall approximation artificially inflates volumes (Steppeler et al 2002, 2006 via Good et al 2013)
   + combine small cells near surface (Yamazaki & Satomura 2010 via Good et al 2013)
 + more accurate results (according to Yamazaki & Satomura 2010 via Good et al 2013)
+
+Paper summaries
+===============
+Norman et al 2011
+-----------------
+- Finite volume
+- Cartesian grid
+- No orography
+- Flux-based characteristic variables, seems a bit like semi-lag
+- Very mathsy, matrix representation of Euler equations
+- Stable even at large courant numbers
+- Tests: warm bubble, density current and NH internal gravity wave
+
+Jebens et al 2011
+-----------------
+- Cut cell
+- Partial Jacobian, fancy maths
+- Some focus on storage size
+- Tests: warm bubble, cold bubble (density current), gravity wave over orography test from Gallus & Klemp, warm bubble advected around circular osctacle
