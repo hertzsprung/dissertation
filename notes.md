@@ -1,6 +1,7 @@
 1. What type of grid (also called 'mesh') is "best" over orography?
    - terrain following
    - cut cell (also called 'shaved cell')
+   - partial step (Bonaventura)
    - unstructured (Smolarkiewicz & Szmelter 2011)
 
 2. How does the "curl free pressure gradient" model that I describe in Weller and Sharhrokhi compare with other models?
@@ -8,21 +9,21 @@
 - What test case(s) should I subject the Weller and Sharhrokhi model to?
   - integration time
   - advection type
-    - resting atmosphere (Good et al 2013, ...)
+    - resting atmosphere
     - uniform horizontal advection
     - zero wind below mountain top, sin^2 in middle layer, constant wind above (Schar et al 2002 via Good et al 2013)
   - terrain type
-    - no terrain (Norman et al 2011)
-    - step function (Gallus and Klemp 1999)
-    - Witch of Agnesi (Rising bubble, Good et al 2013)
-    - plateau (Gallus and Klemp 1999)
-    - Sinusoidal (Klemp 2011 via Good et al 2013)
-    - Circular Gaussian (Zaengl 2012)
-    - Schlaer (Schlaer et al 2002 via Zaengl 2012)
+    - no terrain
+    - step function (Gallus & Klemp 2000)
+    - Witch of Agnesi
+    - plateau
+    - Circular Gaussian
+    - Schaer
+  - terrain height
+  - terrain half-width
   - stability
-    - neutrally stable (N=0) (Rising bubble, Good et al 2013)
-    - N constant (Klemp 2011 via Good et al 2013)
-    - inversion layer (Good et al 2013, Klemp 2011)
+    - N constant
+    - inversion layer
   - temperature
     - isothermal
     - warm anomaly (Norman et al 2011, Jebens et al 2011)
@@ -47,9 +48,47 @@ Cut cell
   + thin-wall approximation artificially inflates volumes (Steppeler et al 2002, 2006 via Good et al 2013)
   + combine small cells near surface (Yamazaki & Satomura 2010 via Good et al 2013)
 + more accurate results (according to Yamazaki & Satomura 2010 via Good et al 2013)
+- boundary layer parameterisations rely on high resolution, uniform vertical resolution near the surface (Zaengl 2012)
 
 Paper summaries
 ===============
+Key papers:
+- Gallus & Klemp 2000
+- Schaer et al 2002
+- Weller & Shahrokhi 2014
+
+Klemp et al 2003
+----------------
+- Terrain-following
+- Analytic and numerical solutions
+
+Gallus & Klemp 2000
+-------------------
+- Step-terrain
+- Gravity wave and spurious vorticity production
+- Analytic and numerical solutions
+- Forcing vorticity=0 at corners "fixes" spurious voriticity but too restrictive in general
+- Tests: Witch of Agnessi hill, N constant, U constant
+
+Klemp 2011
+----------
+- Smoothed terrain following (STF)
+- Selectively smooths small-scale terrain
+- Well suited to height-based vertical coordinates since only computed once during initialisation
+- Compared to BTF, HTF and SLEVE (from Schaer et al 2002)
+- C grid
+- Tests: resting atmosphere based on Klemp et al 2007, Schaer exp mountain, 2--3km inversion layer, 5hr integration
+- Spurious circulations strongly dependent on vertical resolution but not horizontal
+
+Rosatti et al 2005
+------------------
+- Cut cell
+- C-type cartesian grid
+- Very mathsy
+- Subgrid velocity field construction with no-normal flow
+- Tests: trajectory test with flow around a cylinder, water flow around curved channel, hydrostatic and NH lee wave tests from Gallus & Klemp 2000
+- Good NH lee wave results obtained at coarser resolution than Gallus & Klemp 2000
+
 Norman et al 2011
 -----------------
 - Finite volume
@@ -64,6 +103,7 @@ Jebens et al 2011
 -----------------
 - Cut cell
 - Partial Jacobian, fancy maths
+- Implicit treatment of cut cells, explicit in free atmosphere
 - Some focus on storage size
 - Tests: warm bubble, cold bubble (density current), gravity wave over orography test from Gallus & Klemp, warm bubble advected around circular osctacle
 
@@ -71,8 +111,9 @@ Smolarkiewicz & Szmelter 2011
 -----------------------------
 - Very mathsy
 - Two unstructed meshes: one mimicking BTF, one pure triangles
+- No clear advantage of either mesh is mentioned
 - Two equation sets: anelastic and psuedo-incompressible
-- Test: stratospheric gravity wave breaking
+- Test: stratospheric gravity wave breaking, excited by small hill (Witch of Agnessi)
 
 OpenFOAM
 ========
