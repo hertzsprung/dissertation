@@ -73,3 +73,13 @@ Smolarkiewicz & Szmelter 2011
 - Two unstructed meshes: one mimicking BTF, one pure triangles
 - Two equation sets: anelastic and psuedo-incompressible
 - Test: stratospheric gravity wave breaking
+
+OpenFOAM
+========
+- Ubuntu 14.04 installation http://openfoamwiki.net/index.php/Installation/Linux/OpenFOAM-2.3.0/Ubuntu#Ubuntu_14.04
+- Generic Mapping Tools (GMT) http://gmt.soest.hawaii.edu/
+- *would be good to tree diff Hilary's OpenFoam tree with vanilla install*
+- runAll/mesh.sh creates mesh and adds mountain
+- add2DMountain /export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0/applications/utilities
+  - BTF, HTF, SLEVE (Schar et al 2002)
+  - ScharExp, ScharCos, ScharCosSmooth, AgnesiWitch, flatMountain
