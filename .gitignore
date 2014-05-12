@@ -96,3 +96,5 @@ owner
 points
 *.dep
 linux*DPOpt
+uptodate
+lnInclude
