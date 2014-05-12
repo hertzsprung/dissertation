@@ -94,3 +94,5 @@ faces
 neighbour
 owner
 points
+*.dep
+linux*DPOpt
