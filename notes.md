@@ -6,7 +6,11 @@
 
 2. How does the "curl free pressure gradient" model that I describe in Weller and Sharhrokhi compare with other models?
 
-- What test case(s) should I subject the Weller and Sharhrokhi model to?
+- What test case(s) should I subject the Weller and Sharhrokhi model to?  Hypothesis?
+  - 2D/3D
+  - grid resolution
+  - boundary conditions
+  - timestep
   - integration time
   - advection type
     - resting atmosphere
@@ -122,7 +126,8 @@ OpenFOAM
 - *would be good to tree diff Hilary's OpenFoam tree with vanilla install*
 - plotPatchData (custom OpenFOAM utility) uses psxy, part of GMT
 - runAll/mesh.sh creates mesh and adds mountain
-- add2DMountain /export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0/applications/utilities
+- add2DMountain /export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0/applications/utilities, depends on ExnerTheta library
   - BTF, HTF, SLEVE (Schar et al 2002)
   - ScharExp, ScharCos, ScharCosSmooth, AgnesiWitch, flatMountain
+- use snappyHexMesh for cut cells
 - TRiSK: http://www.geosci-model-dev.net/7/779/2014/gmd-7-779-2014.html
