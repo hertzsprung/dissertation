@@ -129,5 +129,5 @@ OpenFOAM
 - add2DMountain /export/elder/data-06/sws02hs/OpenFOAM/sws02hs-2.3.0/applications/utilities, depends on ExnerTheta library
   - BTF, HTF, SLEVE (Schar et al 2002)
   - ScharExp, ScharCos, ScharCosSmooth, AgnesiWitch, flatMountain
-- use snappyHexMesh for cut cells
+- use snappyHexMesh for cut cells http://www.openfoam.org/mantisbt/view.php?id=1083
 - TRiSK: http://www.geosci-model-dev.net/7/779/2014/gmd-7-779-2014.html
