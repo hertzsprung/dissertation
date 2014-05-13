@@ -87,3 +87,14 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
+
+# OpenFOAM
+boundary
+faces
+neighbour
+owner
+points
+*.dep
+linux*DPOpt
+uptodate
+lnInclude
