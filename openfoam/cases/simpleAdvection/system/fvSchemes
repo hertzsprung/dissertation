@@ -7,7 +7,8 @@ FoamFile {
 }
 
 divSchemes {
-    default         Gauss linear;
+    default         none;
+    div(phi,T)      Gauss linearUpwind grad(T);
 }
 
 gradSchemes {
@@ -21,3 +22,4 @@ laplacianSchemes {
 ddtSchemes {
     default         Euler;
 }
+
