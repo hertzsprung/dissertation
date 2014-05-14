@@ -1,0 +1,17 @@
+Gal-Chen, T. and R. C. J. Somerville, 1975: Numerical solution of the Navier-Stokes equations
+with topography. J. Comp. Phys., 17.3, 276–310.
+Lundquist, K. A., F. K. Chow, and J. K. Lundquist, 2010: Numerical errors in the presence of
+steep topography: analysis and alternatives. AMS 14th Mountain Meteorological Conference,
+Lake Tahoe, CA, United States, paper 10.1.
+Adcroft, A., C. Hill, and J. Marshall, 1997: Representation of topography by shaved cells in
+a height coordinate ocean model. Mon. Wea. Rev., 2293–2315.
+Leuenberger, D., M. Koller, O. Fuhrer, and C. Sch ̈ar, 2010: A generalisation of the SLEVE
+vertical coordinate. Mon. Wea. Rev., September 2010, 3683–3689.
+
+Benjamin, S. G., G. A. Grell, J. M. Brown, and T. G. Smirnova, 2004: Mesoscale weather
+prediction with the RUC hybrid isentropic-terrain-following coordinate model. Mon. Wea.
+Rev., 132, 473–494.
+Konor, C. S. and A. Arakawa, 1997: Design of an atmospheric model based on a generalized
+vertical coordinate. Mon. Wea. Rev., 125, 1649–1673.
+eça 1998 Orthogonal generation systems. Handbook of Grid Generation, J. F. Thompson,
+B. K. Soni, and N. P. Weatherill, Eds., CRC Press, Chapter 7.
