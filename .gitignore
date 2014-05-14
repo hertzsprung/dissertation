@@ -107,6 +107,7 @@ lnInclude
 **/7200
 **/constant/Exner_init
 **/constant/theta_init
+*.OpenFOAM
 
 # general
 *.dat
