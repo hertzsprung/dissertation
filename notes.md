@@ -33,13 +33,28 @@
     - warm anomaly (Norman et al 2011, Jebens et al 2011)
   - density current (Norman et al 2011, Melvin et al 2010, Jebens et al 2011)
   - gravity waves (Norman et al 2011, Jebens et al 2011)
-    - stratospheric gravity wave breaking (Smolarkiewicz & Szmelter 2011)
+    - physically meaningful (happens in real life)
+    - tests advection
+    - needs smooth mountain
+  - stratospheric gravity wave breaking (Smolarkiewicz & Szmelter 2011)
   - tracer advection (Good et al 2013)
+
+
+  - tracer advection (Schaer et al 2002, also Good et al 2013)
+    - doesn't test much for cut cells (except that we haven't screwed up)
+    - only tests advection scheme (and mesh type)
+    - doesn't have any momentum equations so doesn't test horiz pressure gradients or anything like that
+    - hypothesise should work flawlessly for cut cell (since grid is regular aloft)
+    - not so good for terrain-following
+  - rising bubble over orography (Good et al 2013 (did she get it from someone else?))
+    - good test for terrain following, should be flawless for cut cell
 
 - What metrics to use to measure the "best" type of grid?
 - How to isolate the effects of the grid from other model implementation details?
   - Hilary has an OpenFOAM model which we can choose the grid for
   - Perform same test on multiple models having the same grid type
+
+- what do we mean by "centre of a quadrilateral" (or, in 3D, centre of a hexahedron)? http://en.wikipedia.org/wiki/Quadrilateral#Remarkable_points_and_lines_in_a_convex_quadrilateral
 
 Terrain-following
 =================
