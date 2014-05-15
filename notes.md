@@ -47,7 +47,7 @@
     - hypothesise should work flawlessly for cut cell (since grid is regular aloft)
     - not so good for terrain-following
     - could compare TF/cut cell with regular grid with no orography, and/or an analytic solution
-    - how to measure the error? M Rout suggests Leuenberger 2001
+    - how to measure the error? M Rout suggests Leuenberger 2001, M Jones suggests Williamson et al 1992 error norms
     - choice of advection scheme?
   - rising bubble over orography (Good et al 2013 (did she get it from someone else?))
     - good test for terrain following, should be flawless for cut cell
