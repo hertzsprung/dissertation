@@ -1,4 +1,4 @@
 #!/bin/bash -e
 
-exnerFoamH > $case/log 2>&1 &
+exnerFoamH > log 2>&1 &
 
