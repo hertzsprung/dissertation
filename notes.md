@@ -46,10 +46,11 @@
     - doesn't have any momentum equations so doesn't test horiz pressure gradients or anything like that
     - hypothesise should work flawlessly for cut cell (since grid is regular aloft)
     - not so good for terrain-following
+    - could compare TF/cut cell with regular grid with no orography, and/or an analytic solution
+    - how to measure the error? M Rout suggests Leuenberger 2001
+    - choice of advection scheme?
   - rising bubble over orography (Good et al 2013 (did she get it from someone else?))
     - good test for terrain following, should be flawless for cut cell
-    - could compare TF/cut cell with regular grid with no orography, and/or an analytic solution
-    - how to measure the error?
 
 - What metrics to use to measure the "best" type of grid?
 - How to isolate the effects of the grid from other model implementation details?
