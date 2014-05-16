@@ -57,7 +57,7 @@
   - Hilary has an OpenFOAM model which we can choose the grid for
   - Perform same test on multiple models having the same grid type
 
-- what do we mean by "centre of a quadrilateral" (or, in 3D, centre of a hexahedron)? http://en.wikipedia.org/wiki/Quadrilateral#Remarkable_points_and_lines_in_a_convex_quadrilateral
+- "centre of a quadrilateral" (or, in 3D, centre of a hexahedron) is the centre of mass http://en.wikipedia.org/wiki/Quadrilateral#Remarkable_points_and_lines_in_a_convex_quadrilateral
 
 Terrain-following
 =================
