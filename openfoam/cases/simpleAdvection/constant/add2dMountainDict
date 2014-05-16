@@ -31,7 +31,9 @@ FoamFile
 
 mountainType ScharCos; // ScharCos or AgnessiWitch 
 
-coordSys BTF; //SLEVE or BTF or HTF
+coordSys HTF; //SLEVE or BTF or HTF
+
+HTF_scaleHeight 8e3;
 
 // top of coordinate system (at or below domain height)
 zt 25e3;
