@@ -109,5 +109,8 @@ lnInclude
 **/constant/theta_init
 *.OpenFOAM
 
+# PyFoam
+PyFoamHistory
+
 # general
 *.dat
