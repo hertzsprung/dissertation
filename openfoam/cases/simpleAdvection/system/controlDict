@@ -14,3 +14,5 @@ endTime         10000; // nearly 3 hours
 deltaT          5;
 writeControl    runTime;
 writeInterval   500; // about 5 minutes
+libs            ("libfiniteVolumeUser.so");
+
