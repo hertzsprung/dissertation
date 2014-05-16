@@ -10,7 +10,7 @@ application     simpleAdvection;
 startFrom       startTime;
 startTime       0;
 stopAt          endTime;
-endTime         21600; // 6 hours
-deltaT          100;
+endTime         10000; // nearly 3 hours
+deltaT          5;
 writeControl    runTime;
-writeInterval   300; // every 5 minutes
+writeInterval   500; // about 5 minutes
