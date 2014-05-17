@@ -41,6 +41,7 @@ using namespace Foam::constant::mathematical;
 
 int main(int argc, char *argv[])
 {
+    Foam::argList::validOptions.insert("x0", "x0");
 #   include "setRootCase.H"
 #   include "createTime.H"
 #   include "createMesh.H"
@@ -69,13 +70,16 @@ int main(int argc, char *argv[])
     // Initial maximum tracer value
     const scalar rho0(readScalar(initDict.lookup("rho0")));
     // Initial tracer position
-    const scalar x0(readScalar(initDict.lookup("x0")));
+    scalar x0(readScalar(initDict.lookup("x0")));
     const scalar z0(readScalar(initDict.lookup("z0")));
     // Half widths
     const scalar Ax(readScalar(initDict.lookup("Ax")));
     const scalar Az(readScalar(initDict.lookup("Az")));
-    
-    
+
+    if (args.options().found("x0"))
+    {
+        x0 = readScalar(IStringStream(args.options()["x0"])());
+    }
     
     Info << "Creating initial tracer field T" << endl;
     volScalarField T
