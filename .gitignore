@@ -111,6 +111,7 @@ lnInclude
 
 # PyFoam
 PyFoamHistory
+PlyParser_FoamFileParser_parsetab.py
 
 # general
 *.dat
