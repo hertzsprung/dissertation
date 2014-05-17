@@ -15,7 +15,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 // which coordinate transform BTF = 0, HTF = 1, SLEVE = 2, STF = 3
-coordSys 1;
+coordSys 0;
 
 umax 10;
 yumax 500;

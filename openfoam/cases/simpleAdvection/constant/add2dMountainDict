@@ -31,7 +31,7 @@ FoamFile
 
 mountainType ScharCos; // ScharCos or AgnessiWitch 
 
-coordSys HTF; //SLEVE or BTF or HTF
+coordSys BTF; //SLEVE or BTF or HTF
 
 HTF_scaleHeight 25e3;
 
