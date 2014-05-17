@@ -11,11 +11,11 @@ solvers {
     T {
         solver          PBiCG;
         preconditioner  DILU;
-        tolerance       1e-06;
+        tolerance       1e-08
         relTol          0;
     }
 }
 
 SIMPLE {
-    nNonOrthogonalCorrectors 0;
+    nNonOrthogonalCorrectors 1;
 }

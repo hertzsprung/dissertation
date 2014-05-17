@@ -8,7 +8,8 @@ FoamFile {
 
 divSchemes {
     default         none;
-    div(phi,T)      Gauss cubicUpwindCPCFit 3; // TODO: don't know what "3" means -- the number of dimensions?
+    div(phi,T)      Gauss vanLeer01;
+//    div(phi,T)      Gauss cubicUpwindCPCFit 3;
 }
 
 gradSchemes {
@@ -20,6 +21,10 @@ laplacianSchemes {
 }
 
 ddtSchemes {
-    default         Euler;
+    default         backward;
 }
 
+fluxRequired {
+    default         no;
+    T;
+}
