@@ -33,7 +33,7 @@ mountainType ScharCos; // ScharCos or AgnessiWitch
 
 coordSys HTF; //SLEVE or BTF or HTF
 
-HTF_scaleHeight 8e3;
+HTF_scaleHeight 25e3;
 
 // top of coordinate system (at or below domain height)
 zt 25e3;
