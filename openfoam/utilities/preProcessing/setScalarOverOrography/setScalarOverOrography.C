@@ -41,13 +41,15 @@ using namespace Foam::constant::mathematical;
 
 int main(int argc, char *argv[])
 {
-    Foam::argList::validOptions.insert("x0", "x0");
+    Foam::argList::addOption("x0", "int", "specify horizontal placement of tracer, overrides x0 specified in initialConditions dictionary");
+    Foam::argList::addBoolOption("withoutWindField", "omit wind field U from output");
+    Foam::argList::addOption("tracerFieldFileName", "filename", "specify the name of the tracer field file name (default 'T')");
 #   include "setRootCase.H"
 #   include "createTime.H"
 #   include "createMesh.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-    Info<< "Reading initial conditions\n" << endl;
+    Info << "Reading initial conditions" << endl;
 
     IOdictionary initDict
     (
@@ -75,56 +77,60 @@ int main(int argc, char *argv[])
     // Half widths
     const scalar Ax(readScalar(initDict.lookup("Ax")));
     const scalar Az(readScalar(initDict.lookup("Az")));
+    string tracerFieldFileName = "T";
+    if (args.options().found("tracerFieldFileName")) {
+        tracerFieldFileName = args.options()["tracerFieldFileName"];
+    }
 
-    if (args.options().found("x0"))
-    {
+    if (args.options().found("x0")) {
         x0 = readScalar(IStringStream(args.options()["x0"])());
     }
     
-    Info << "Creating initial tracer field T" << endl;
+    Info << "Creating initial tracer field " << tracerFieldFileName << endl;
     volScalarField T
     (
-        IOobject("T", runTime.timeName(), mesh),
+        IOobject(tracerFieldFileName, runTime.timeName(), mesh),
         mesh,
-        dimensionedScalar("T", dimless, scalar(0)),
+        dimensionedScalar(tracerFieldFileName, dimless, scalar(0)),
         "zeroGradient"
     );
     
-    Info << "Creating initial wind field U" << endl;
-    volVectorField U
-    (
-        IOobject("U", runTime.timeName(), mesh),
-        mesh,
-        dimensionedVector("U", dimVelocity, vector(0,0,0)),
-        "zeroGradient"
-    );
+    if (!args.options().found("withoutWindField")) {
+	Info << "Creating initial wind field U" << endl;
+	volVectorField U
+	(
+		IOobject("U", runTime.timeName(), mesh),
+		mesh,
+		dimensionedVector("U", dimVelocity, vector(0,0,0)),
+		"zeroGradient"
+	);
+
+        forAll(T, cellI) {
+            const point& c = mesh.C()[cellI]; // Gets the mesh values from mesh.C
+
+	    if (c.z() > z1 && c.z() < z2) { // region of changing wind speed
+		    U[cellI] = vector( pow((Foam::sin(M_PI/2*(c.z()-z1)/(z2-z1))),2), 0, 0 );
+	    } else if (c.z() >= z2) { // region of constant max wind speed
+		    U[cellI] = vector(u0, 0, 0);
+	    }
+	}
+
+    	U.write();
+    }
         
-    // Loop through all T and U and set correct values depending on location
-    forAll(T, cellI)
-    {
+    // Loop through all T and set correct values depending on location
+    forAll(T, cellI) {
         const point& c = mesh.C()[cellI]; // Gets the mesh values from mesh.C
-                       
-        if (c.z() > z1 && c.z() < z2) // region of changing wind speed
-        {
-            U[cellI] = vector( pow((Foam::sin(M_PI/2*(c.z()-z1)/(z2-z1))),2) , 0, 0 );
-        }
-        if (c.z() >= z2) // region of constant max wind speed
-        {
-            U[cellI] = vector(u0, 0, 0);
-        }
         
         // Define r as used in the initial tracer field
         double r = Foam::sqrt(pow((c.x()-x0)/Ax,2)+pow((c.z()-z0)/Az,2));
         
-        if (r<=1)
-        {
+        if (r<=1) {
             T[cellI] = rho0*pow(Foam::cos(M_PI*r/2),2);
         }       
-    
     };
     
     T.write();
-    U.write();
     
     Info<< "End\n" << endl;
     
