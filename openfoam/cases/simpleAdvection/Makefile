@@ -18,6 +18,9 @@ MESH_FILES := \
   constant/polyMesh/owner \
   constant/polyMesh/points
 
+# snappyHexMesh: blockMeshDict  level0Edge  refinementHistory  cellLevel      pointLevel  surfaceIndex
+
+
 RM := rm -f
 BLOCK_MESH := blockMesh
 ADD_2D_MOUNTAIN := add2dMountain
