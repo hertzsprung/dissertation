@@ -1,7 +1,9 @@
 CASE := .
 
 BLOCK_MESH_DICT := constant/polyMesh/blockMeshDict
+SNAPPY_HEX_MESH_DICT := system/snappyHexMeshDict
 INITIAL_CONDITIONS := constant/initialConditions
+TRI_SURFACE_DIR := constant/triSurface
 
 END_TIME := 10000
 ANALYTIC_TRACER_FILENAME := T_analytic
@@ -11,38 +13,54 @@ FINAL_TRACER_FIELD := $(END_TIME)/T
 ANALYTIC_TRACER_FIELD := 0/T_analytic # TODO: should really be in $(END_TIME) directory but don't know how to make OpenFOAM do this
 FINAL_DIFFERENCE := $(END_TIME)/T_diff
 
-MESH_FILES := \
+BLOCK_MESH_FILES := \
   constant/polyMesh/boundary \
   constant/polyMesh/faces \
   constant/polyMesh/neighbour \
   constant/polyMesh/owner \
   constant/polyMesh/points
 
-# snappyHexMesh: blockMeshDict  level0Edge  refinementHistory  cellLevel      pointLevel  surfaceIndex
+SNAPPY_HEX_MESH_FILES := \
+  constant/polyMesh/level0Edge \
+  constant/polyMesh/refinementHistory \
+  constant/polyMesh/cellLevel \
+  constant/polyMesh/pointLevel \
+  constant/polyMesh/surfaceIndex
 
-
+CP := cp
 RM := rm -f
+MKDIR := mkdir -p
 BLOCK_MESH := blockMesh
 ADD_2D_MOUNTAIN := add2dMountain
 SET_SCALAR_OVER_OROGRAPHY := setScalarOverOrography
 SCALAR_TRANSPORT_FOAM := scalarTransportFoam
 SUM_FIELDS := sumFields
+WRITE_MESH_OBJ := writeMeshObj
+SNAPPY_HEX_MESH := snappyHexMesh
 
-.PHONY: clean all
+.PHONY: clean all mesh
 
 .INTERMEDIATE: $(BLOCK_MESH_DICT).intermediate initialFields.intermediate
 
 all: $(FINAL_DIFFERENCE)
 
+mesh: $(BLOCK_MESH_FILES)
+
 clean:
 	pyFoamClearCase.py --additional=0 $(CASE)
-	$(RM) $(MESH_FILES)
+	$(RM) $(BLOCK_MESH_FILES) $(SNAPPY_HEX_MESH_FILES) patchFaces*.obj
+	$(RM) -r $(TRI_SURFACE_DIR)
 
-$(MESH_FILES): $(BLOCK_MESH_DICT).intermediate
+$(BLOCK_MESH_FILES): $(BLOCK_MESH_DICT).intermediate
 
-$(BLOCK_MESH_DICT).intermediate: $(BLOCK_MESH_DICT)
+$(BLOCK_MESH_DICT).intermediate: $(BLOCK_MESH_DICT) $(SNAPPY_HEX_MESH_DICT)
 	$(BLOCK_MESH) -dict $(BLOCK_MESH_DICT) -case $(CASE)
 	$(ADD_2D_MOUNTAIN)
+	$(WRITE_MESH_OBJ) -patchFaces -time -1 -constant
+	$(MKDIR) $(TRI_SURFACE_DIR)
+	$(CP) patchFaces_ground_constant.obj $(TRI_SURFACE_DIR)
+	$(BLOCK_MESH) -dict $(BLOCK_MESH_DICT) -case $(CASE) # regenerate regular grid without add2dMountain
+	$(SNAPPY_HEX_MESH) -overwrite -case $(CASE$) -dict $(SNAPPY_HEX_MESH_DICT)
 
 $(INITIAL_FIELDS): initialFields.intermediate
 
@@ -57,3 +75,6 @@ $(ANALYTIC_TRACER_FIELD): $(INITIAL_CONDITIONS) $(MESH_FILES)
 
 $(FINAL_DIFFERENCE): $(ANALYTIC_TRACER_FIELD) $(FINAL_TRACER_FIELD)
 	$(SUM_FIELDS) $(END_TIME) T_diff 0 T_analytic $(END_TIME) T -scale0 1 -scale1 -1 # subtract final numerical from analytic solution
+
+$(CUT_CELL_MESH):
+	

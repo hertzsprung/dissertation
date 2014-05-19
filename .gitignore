@@ -108,6 +108,16 @@ lnInclude
 **/constant/Exner_init
 **/constant/theta_init
 *.OpenFOAM
+triSurface
+cellLevel
+cellZones
+faceZones
+pointLevel
+pointZones
+level0Edge
+refinementHistory
+surfaceIndex
+patchFaces*.obj
 
 # PyFoam
 PyFoamHistory
