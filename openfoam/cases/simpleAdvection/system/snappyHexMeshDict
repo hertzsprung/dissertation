@@ -31,7 +31,7 @@ castellatedMeshControls {
 
 	refinementSurfaces {
 		patchFaces_ground_constant.obj {
-			level		(2 2);
+			level		(0 0);
 		}
 	}
 
