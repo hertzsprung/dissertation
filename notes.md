@@ -149,3 +149,6 @@ OpenFOAM
   - ScharExp, ScharCos, ScharCosSmooth, AgnesiWitch, flatMountain
 - use snappyHexMesh for cut cells http://www.openfoam.org/mantisbt/view.php?id=1083
 - TRiSK: http://www.geosci-model-dev.net/7/779/2014/gmd-7-779-2014.html
+l1 = sum(mag(phi)*vol) / total_vol
+l2 = sum(sqr(phi)*vol) / sqrt(l2/total_vol)
+l0 = sum(phi*vol) / total_vol
