@@ -10,30 +10,30 @@ FoamFile {
 	ground {
 		type		wall;
 		nFaces		1;
-		startFace	1;
+		startFace	0;
 	}
 
 	upperLid {
 		type		wall;
 		nFaces		1;
-		startFace	4;
+		startFace	2;
 	}
 
 	leftWall {
 		type		patch;
 		nFaces		1;
-		startFace	2;
+		startFace	1;
 	}
 
 	rightWall {
 		type		wall;
 		nFaces		1;
-		startFace	5;
+		startFace	3;
 	}
 
 	frontAndBack {
 		type		empty;
 		nFaces		2;
-		startFace	0;
+		startFace	4;
 	}
 )
