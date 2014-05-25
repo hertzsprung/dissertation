@@ -98,13 +98,7 @@ points
 linux*DPOpt
 uptodate
 lnInclude
-**/0
-**/10800
-**/14400
-**/18000
-**/21600
-**/3600
-**/7200
+**/[0-9]*
 **/constant/Exner_init
 **/constant/theta_init
 *.OpenFOAM
