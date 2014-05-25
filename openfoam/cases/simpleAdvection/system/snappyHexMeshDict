@@ -11,6 +11,8 @@ addLayers       false;
 
 mergeTolerance	1e-06;
 
+debug		0;
+
 geometry {
 	patchFaces_ground_constant.obj {
 		type	triSurfaceMesh;	
