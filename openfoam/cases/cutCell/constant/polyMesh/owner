@@ -7,15 +7,14 @@ FoamFile {
 }
 
 (
-0 // 0 middle
-0 // 1 leftWallLeftCell
-1 // 2 rightWallRightCell
-0 // 3 groundLeftCell
-1 // 4 groundRightCell
-0 // 5 upperLidLeftCell
-1 // 6 upperLidRightCell
-0 // 7 frontLeftCell
-1 // 8 frontRightCell
-0 // 9 backLeftCell
-1 // 10 backRightCell
+0 // middle
+0 // left face
+1 // right face
+0 // ground left
+1 // ground right
+1 // upper face
+0 // front left
+1 // front right
+0 // back left
+1 // back right
 )

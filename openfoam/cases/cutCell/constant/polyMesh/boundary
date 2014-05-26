@@ -15,7 +15,7 @@ FoamFile {
 
 	upperLid {
 		type		wall;
-		nFaces		2;
+		nFaces		1;
 		startFace	5;
 	}
 
@@ -34,6 +34,6 @@ FoamFile {
 	frontAndBack {
 		type		empty;
 		nFaces		4;
-		startFace	7;
+		startFace	6;
 	}
 )

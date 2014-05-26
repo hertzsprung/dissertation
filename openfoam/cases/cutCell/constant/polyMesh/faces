@@ -7,15 +7,14 @@ FoamFile {
 }
 
 (
-(1 2  6  5) // 0 middle
-(0 3  7  4) // 1 leftWallLeftCell
-(8 9 11 10) // 2 rightWallRightCell
-(0 1  2  3) // 3 groundLeftCell
-(1 2 10  8) // 4 groundRightCell
-(4 5  6  7) // 5 upperLidLeftCell
-(5 9 11  6) // 6 upperLidRightCell
-(0 1  5  4) // 7 frontLeftCell
-(1 8  9  5) // 8 frontRightCell
-(3 2  6  7) // 9 backLeftCell
-(2 6 11 10) // 10 backRightCell
+(1 6 8 4) // middle
+(0 3 8 6) // left face
+(2 5 9 7) // right face
+(0 1 4 3) // ground left
+(1 2 5 4) // ground right
+(6 7 9 8) // upper face
+(0 1 6) // front left
+(1 2 7 6) // front right
+(3 4 8) // back left
+(4 5 9 8) // back right
 )
