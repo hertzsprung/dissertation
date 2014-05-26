@@ -7,14 +7,15 @@ FoamFile {
 }
 
 (
-(1 6 8 4) // middle
-(0 3 8 6) // left face
-(2 5 9 7) // right face
+(1 4 10 8) // middle
+(0 3 10 8) // left
+(2 5 7 6) // right lower
+(6 7 11 9) // right slant upper
 (0 1 4 3) // ground left
 (1 2 5 4) // ground right
-(6 7 9 8) // upper face
-(0 1 6) // front left
-(1 2 7 6) // front right
-(3 4 8) // back left
-(4 5 9 8) // back right
+(8 9 11 10) // upper lid
+(0 1 8) // front left
+(1 2 6 9 8) // front right
+(3 4 10) // back left
+(4 5 7 11 10) // back right
 )
