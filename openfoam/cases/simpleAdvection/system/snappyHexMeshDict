@@ -11,6 +11,8 @@ addLayers       false;
 
 mergeTolerance	1e-06;
 
+debug		0;
+
 geometry {
 	patchFaces_ground_constant.obj {
 		type	triSurfaceMesh;	
@@ -24,7 +26,7 @@ castellatedMeshControls {
 	minRefinementCells		0;
 	resolveFeatureAngle		30;
 	nCellsBetweenLevels		1;
-	allowFreeStandingZoneFaces	true;
+	allowFreeStandingZoneFaces	false;
 
 	features (
 	);
@@ -44,10 +46,14 @@ snapControls {
 	tolerance			2.0;
 	nSolveIter			30;
 	nRelaxIter			5;
+
 }
 
 addLayersControls {
 	layers {
+		patchFaces_ground_constant.obj {
+			nSurfaceLayers 1;
+		}
 	}
 	relativeSizes			true;
         expansionRatio			1.0;
@@ -55,11 +61,20 @@ addLayersControls {
 	minThickness			0.25;
 	nGrow				0;
 	featureAngle			130;
+	nRelaxIter			5;
+	nSmoothSurfaceNormals		1;
+	nSmoothNormals			3;
+	nSmoothThickness		10;
 	maxFaceThicknessRatio		0.5;
 	nBufferCellsNoExtrude		0;
+	maxThicknessToMedialRatio	0.3;
+	minMedialAxisAngle		90;
 	nLayerIter			50;
 }
 
 meshQualityControls {
 	#include "$WM_PROJECT_DIR/etc/caseDicts/meshQualityDict"
+
+        nSmoothScale			4;
+	errorReduction			0.75;
 }
