@@ -11,7 +11,7 @@ addLayers       false;
 
 mergeTolerance	1e-06;
 
-debug		0;
+debug		1;
 
 geometry {
 	patchFaces_ground_constant.obj {
