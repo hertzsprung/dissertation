@@ -1,0 +1,32 @@
+advection_noOrography_CASE := openfoam/cases/advection/noOrography
+
+END_TIME := 10000
+
+advection_noOrography_INITIAL_CONDITIONS := $(advection_noOrography_CASE)/constant/initialConditions
+advection_noOrography_TRANSPORT_PROPERTIES := $(advection_noOrography_CASE)/constant/transportProperties
+advection_noOrography_INITIAL_FIELDS := $(addprefix $(advection_noOrography_CASE)/,0/U 0/T)
+advection_noOrography_FINAL_TRACER_FIELD := $(advection_noOrography_CASE)/$(END_TIME)/T
+
+PY_FOAM_CLEAR_CASE := pyFoamClearCase.py
+SET_SCALAR_OVER_OROGRAPHY := setScalarOverOrography
+SCALAR_TRANSPORT_FOAM := scalarTransportFoam
+
+.PHONY: advection-noOrography clean-advection-noOrography
+.INTERMEDIATE: advection-noOrography.intermediate
+
+advection-noOrography: $(advection_noOrography_FINAL_TRACER_FIELD)
+
+clean-advection-noOrography:
+	$(PY_FOAM_CLEAR_CASE) --additional=0 $(advection_noOrography_CASE)
+
+$(advection_noOrography_FINAL_TRACER_FIELD): $(advection_noOrography_INITIAL_FIELDS)
+	$(SCALAR_TRANSPORT_FOAM) -case $(advection_noOrography_CASE)
+
+$(advection_noOrography_INITIAL_FIELDS): advection-noOrography.intermediate
+
+advection-noOrography.intermediate: \
+		$(advection_noOrography_INITIAL_CONDITIONS) \
+		$(advection_noOrography_TRANSPORT_PROPERTIES) \
+		$(mesh_noOrography_MESH_PATHS)
+	$(SET_SCALAR_OVER_OROGRAPHY) -case $(advection_noOrography_CASE)
+
