@@ -1274,7 +1274,7 @@
     </Proxy>
     <Proxy group="sources" type="PV4FoamReader" id="3406" servers="1">
       <Property name="FileName" id="3406.FileName" number_of_elements="1">
-        <Element index="0" value="/home/jshaw/dissertation/openfoam/cases/simpleAdvection/cutCell/cutCell.OpenFOAM"/>
+        <Element index="0" value="/home/jshaw/dissertation/openfoam/cases/simpleAdvection/snapMesh/cutCell.OpenFOAM"/>
         <Domain name="files" id="3406.FileName.files"/>
       </Property>
       <Property name="LagrangianFieldArrayStatus" id="3406.LagrangianFieldArrayStatus"/>
@@ -1360,7 +1360,7 @@
     </Proxy>
     <Proxy group="sources" type="objreader" id="3597" servers="1">
       <Property name="FileName" id="3597.FileName" number_of_elements="1">
-        <Element index="0" value="/home/jshaw/dissertation/openfoam/cases/simpleAdvection/cutCell/patchFaces_ground_constant.obj"/>
+        <Element index="0" value="/home/jshaw/dissertation/openfoam/cases/simpleAdvection/snapMesh/patchFaces_ground_constant.obj"/>
         <Domain name="files" id="3597.FileName.files"/>
       </Property>
     </Proxy>

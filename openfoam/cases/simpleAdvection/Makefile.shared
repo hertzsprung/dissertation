@@ -1,7 +1,6 @@
 CASE := .
 
 BLOCK_MESH_DICT := constant/polyMesh/blockMeshDict
-SNAPPY_HEX_MESH_DICT := system/snappyHexMeshDict
 INITIAL_CONDITIONS := constant/initialConditions
 TRI_SURFACE_DIR := constant/triSurface
 
@@ -38,9 +37,8 @@ SCALAR_TRANSPORT_FOAM := scalarTransportFoam
 SUM_FIELDS := sumFields
 GLOBAL_SUM := globalSum
 WRITE_MESH_OBJ := writeMeshObj
-SNAPPY_HEX_MESH := snappyHexMesh
 
-.PHONY: clean all mesh
+.PHONY: clean all mesh mountainMesh
 
 .INTERMEDIATE: $(BLOCK_MESH_DICT).intermediate initialFields.intermediate
 
@@ -55,12 +53,11 @@ clean:
 
 $(BLOCK_MESH_FILES): $(BLOCK_MESH_DICT).intermediate
 
-$(BLOCK_MESH_DICT).intermediate: $(BLOCK_MESH_DICT)
+$(BLOCK_MESH_DICT).intermediate: mountainMesh
+
+mountainMesh: $(BLOCK_MESH_DICT) 
 	$(BLOCK_MESH) -dict $(BLOCK_MESH_DICT) -case $(CASE)
 	$(ADD_2D_MOUNTAIN)
-	$(WRITE_MESH_OBJ) -patchFaces -time -1 -constant
-	$(MKDIR) $(TRI_SURFACE_DIR)
-	$(CP) patchFaces_ground_constant.obj $(TRI_SURFACE_DIR)
 
 $(INITIAL_FIELDS): initialFields.intermediate
 

@@ -1,9 +1,10 @@
 include ../Makefile.shared
 
-# TODO: avoid the small amount of C&P from Makefile.shared
-$(BLOCK_MESH_DICT).intermediate: $(BLOCK_MESH_DICT) $(SNAPPY_HEX_MESH_DICT)
-	$(BLOCK_MESH) -dict $(BLOCK_MESH_DICT) -case $(CASE)
-	$(ADD_2D_MOUNTAIN)
+SNAPPY_HEX_MESH_DICT := system/snappyHexMeshDict
+
+SNAPPY_HEX_MESH := snappyHexMesh
+
+$(BLOCK_MESH_DICT).intermediate: mountainMesh $(SNAPPY_HEX_MESH_DICT)
 	$(WRITE_MESH_OBJ) -patchFaces -time -1 -constant
 	$(MKDIR) $(TRI_SURFACE_DIR)
 	$(CP) patchFaces_ground_constant.obj $(TRI_SURFACE_DIR)
