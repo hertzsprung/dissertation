@@ -1,28 +1,35 @@
-advection_noOrography_CASE := openfoam/cases/advection/noOrography
-
 END_TIME := 10000
+INITIAL_CONDITIONS := constant/initialConditions
+TRANSPORT_PROPERTIES := constant/transportProperties
 
-advection_noOrography_INITIAL_CONDITIONS := $(advection_noOrography_CASE)/constant/initialConditions
-advection_noOrography_TRANSPORT_PROPERTIES := $(advection_noOrography_CASE)/constant/transportProperties
-advection_noOrography_INITIAL_FIELDS := $(addprefix $(advection_noOrography_CASE)/,0/U 0/T)
-advection_noOrography_FINAL_TRACER_FIELD := $(advection_noOrography_CASE)/$(END_TIME)/T
+ADVECTION_FINAL_TRACER_FIELD := $(END_TIME)/T
+ADVECTION_INITIAL_FIELDS := 0/U 0/T
 
-.PHONY: advection-noOrography clean-advection-noOrography
-.INTERMEDIATE: advection-noOrography.intermediate
+# $(1) -- simulation case path
+# $(2) -- subproject label (e.g. advection_noOrography)
+# $(3) -- mesh case path (e.g. btf/schaerCos)
+define ADVECTION_TEMPLATE
 
-advection-noOrography: $(advection_noOrography_FINAL_TRACER_FIELD)
+  .PHONY: $(2) clean-$(2)
+  .INTERMEDIATE: $(2).intermediate
 
-clean-advection-noOrography:
-	$(PY_FOAM_CLEAR_CASE) --additional=0 $(advection_noOrography_CASE)
+  $(2): $(1)/$(ADVECTION_FINAL_TRACER_FIELD)
 
-$(advection_noOrography_FINAL_TRACER_FIELD): $(advection_noOrography_INITIAL_FIELDS)
-	$(SCALAR_TRANSPORT_FOAM) -case $(advection_noOrography_CASE)
+  clean-$(2):
+	$(PY_FOAM_CLEAR_CASE) --additional=0 $(1)
 
-$(advection_noOrography_INITIAL_FIELDS): advection-noOrography.intermediate
+  $(1)/$(ADVECTION_FINAL_TRACER_FIELD): $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS))
+	$(SCALAR_TRANSPORT_FOAM) -case $(1)
 
-advection-noOrography.intermediate: \
-		$(advection_noOrography_INITIAL_CONDITIONS) \
-		$(advection_noOrography_TRANSPORT_PROPERTIES) \
-		$(mesh_noOrography_MESH_PATHS)
-	$(SET_SCALAR_OVER_OROGRAPHY) -case $(advection_noOrography_CASE)
+  $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS)): $(2).intermediate
+
+  $(2).intermediate: \
+    $(addprefix $(3)/,$(mesh_FILES)) \
+    $(1)/$(INITIAL_CONDITIONS) \
+    $(1)/$(TRANSPORT_PROPERTIES)
+	$(SET_SCALAR_OVER_OROGRAPHY) -case $(1)
+
+endef
+
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography,advection-noOrography,openfoam/cases/mesh/noOrography))
 
