@@ -1,0 +1,24 @@
+mesh_btfSchaerCos_CASE := openfoam/cases/mesh/btf/schaerCos
+
+mesh_2dMountain_DICT := constant/add2dMountainDict
+
+mesh_btfSchaerCos_POLY_MESH_DIR := $(mesh_btfSchaerCos_CASE)/$(mesh_POLY_MESH_DIR)
+mesh_btfSchaerCos_MESH_PATHS := $(addprefix $(mesh_btfSchaerCos_CASE)/,$(mesh_FILES))
+mesh_btfSchaerCos_2D_MOUNTAIN_DICT := $(mesh_btfSchaerCos_CASE)/$(mesh_2dMountain_DICT)
+
+CP := cp
+MKDIR := mkdir
+ADD_2D_MOUNTAIN := add2dMountain
+
+.PHONY: mesh-btfSchaerCos
+.INTERMEDIATE: btfSchaerCos.intermediate
+
+mesh-btfSchaerCos: $(mesh_btfSchaerCos_MESH_PATHS)
+
+clean-mesh-btfSchaerCos:
+	$(RM) $(mesh_btfSchaerCos_MESH_PATHS)
+
+$(mesh_btfSchaerCos_MESH_PATHS): $(mesh_btfSchaerCos_2D_MOUNTAIN_DICT) $(mesh_noOrography_MESH_PATHS)
+	$(MKDIR) -p $(mesh_btfSchaerCos_POLY_MESH_DIR)
+	$(CP) $(mesh_noOrography_MESH_PATHS) $(mesh_btfSchaerCos_POLY_MESH_DIR)
+	$(ADD_2D_MOUNTAIN) -case $(mesh_btfSchaerCos_CASE)

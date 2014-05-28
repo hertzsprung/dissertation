@@ -1,0 +1,8 @@
+mesh_POLY_MESH_DIR := constant/polyMesh
+
+mesh_FILES := \
+  $(mesh_POLY_MESH_DIR)/boundary \
+  $(mesh_POLY_MESH_DIR)/faces \
+  $(mesh_POLY_MESH_DIR)/neighbour \
+  $(mesh_POLY_MESH_DIR)/owner \
+  $(mesh_POLY_MESH_DIR)/points
