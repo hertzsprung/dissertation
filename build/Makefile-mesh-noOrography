@@ -5,8 +5,6 @@ mesh_noOrography_BLOCK_MESH_DICT := $(mesh_noOrography_CASE)/$(mesh_noOrography_
 
 mesh_noOrography_MESH_PATHS := $(addprefix $(mesh_noOrography_CASE)/,$(mesh_FILES))
 
-BLOCK_MESH := blockMesh
-
 .PHONY: mesh-noOrography clean-mesh-noOrography
 .INTERMEDIATE: mesh-noOrography.intermediate
 

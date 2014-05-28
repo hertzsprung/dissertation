@@ -6,10 +6,6 @@ mesh_btfSchaerCos_POLY_MESH_DIR := $(mesh_btfSchaerCos_CASE)/$(mesh_POLY_MESH_DI
 mesh_btfSchaerCos_MESH_PATHS := $(addprefix $(mesh_btfSchaerCos_CASE)/,$(mesh_FILES))
 mesh_btfSchaerCos_2D_MOUNTAIN_DICT := $(mesh_btfSchaerCos_CASE)/$(mesh_2dMountain_DICT)
 
-CP := cp
-MKDIR := mkdir
-ADD_2D_MOUNTAIN := add2dMountain
-
 .PHONY: mesh-btfSchaerCos
 .INTERMEDIATE: btfSchaerCos.intermediate
 
