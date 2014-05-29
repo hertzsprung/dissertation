@@ -22,6 +22,8 @@ define 2DMOUNTAIN_TEMPLATE
 	$(CP) $(4) $(1)/$(ADD_2D_MOUNTAIN_DICT)
 	$(MKDIR) -p $(1)/system
 	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $(1)/$(CONTROL_DICT)
+	$(LN) -fs $(COMMON_CASE)/system/fvSchemesDummy $(1)/$(FV_SCHEMES)
+	$(LN) -fs $(COMMON_CASE)/system/fvSolutionDummy $(1)/$(FV_SOLUTION)
 	$(ADD_2D_MOUNTAIN) -case $(1) > $(2).add2dMountain.log
 
 endef
