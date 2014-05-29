@@ -19,7 +19,7 @@ define MESH_TEMPLATE
   $(1)/system:
 	$(MKDIR) -p $(1)/system
 
-  $(addprefix $(1)/,$(SYSTEM_FILES)): $(1)/system
+  $(addprefix $(1)/,$(SYSTEM_FILES)): | $(1)/system
 
   $(1)/$(CONTROL_DICT):
 	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $$@

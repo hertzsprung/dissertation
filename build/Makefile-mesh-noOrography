@@ -24,9 +24,9 @@ define BLOCK_MESH_TEMPLATE
 	$(BLOCK_MESH) -case $(3) > $(2).blockMesh.log
 
   $(3)/$(BLOCK_MESH_DICT): \
-    $(3)/$(POLY_MESH_DIR) \
     $(1)/$(BLOCK_MESH_DICT_TEMPLATE) \
-    $(4)
+    $(4) \
+  | $(3)/$(POLY_MESH_DIR)
 	$(1)/subst.sh $(4) < $(1)/$(BLOCK_MESH_DICT_TEMPLATE) > $(3)/$(BLOCK_MESH_DICT)
 
   $(3)/$(POLY_MESH_DIR):
