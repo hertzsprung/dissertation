@@ -62,17 +62,19 @@ $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,
 
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos/advection))
 
-#$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snap/schaerCos/vanLeer,advection-snap-schaerCos-vanLeer,openfoam/cases/mesh/snap/schaerCos))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snap/schaerCos/vanLeer,advection-snap-schaerCos-vanLeer,openfoam/cases/mesh/snap/schaerCos/advection))
 
 all:: \
   advection-noOrography-vanLeer \
   advection-noOrography-tvdLimitedCubicUpwindCPCFit \
   advection-btf-schaerCos-vanLeer \
-  advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit
+  advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
+  advection-snap-schaerCos-vanLeer
 
 clean:: \
   clean-advection-noOrography-vanLeer \
   clean-advection-noOrography-tvdLimitedCubicUpwindCPCFit \
   clean-advection-btf-schaerCos-vanLeer \
-  clean-advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit
+  clean-advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
+  clean-advection-snap-schaerCos-vanLeer
 
