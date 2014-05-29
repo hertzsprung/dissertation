@@ -24,6 +24,7 @@ define ADVECTION_TEMPLATE
   clean-$(2):
 	$(PY_FOAM_CLEAR_CASE) --additional=0 $(1)
 	$(RM) $(1)/$(ADVECTION_TRACER_ERROR) $(2)*.log
+	-$(UNLINK) $(1)/$(POLY_MESH_DIR)
 
   $(1)/$(ADVECTION_TRACER_ERROR): $(1)/$(ADVECTION_FINAL_TRACER_DIFF)
 	$(GLOBAL_SUM) -case $(1) -time $(END_TIME) T_diff > $(2).globalSum.log
@@ -58,3 +59,4 @@ $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/vanLeer,ad
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/tvdLimitedCubicUpwindCPCFit,advection-noOrography-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/noOrography))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,advection-btf-schaerCos-vanLeer,openfoam/cases/mesh/btf/schaerCos))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snap/schaerCos/vanLeer,advection-snap-schaerCos-vanLeer,openfoam/cases/mesh/snap/schaerCos))

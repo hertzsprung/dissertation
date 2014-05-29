@@ -11,5 +11,5 @@ $(eval $(call MESH_TEMPLATE,$(mesh_noOrography_CASE),mesh-noOrography))
 $(mesh_noOrography_MESH_PATHS): mesh-noOrography.intermediate
 
 mesh-noOrography.intermediate: $(mesh_noOrography_BLOCK_MESH_DICT)
-	$(BLOCK_MESH) -dict $(BLOCK_MESH_DICT) -case $(mesh_noOrography_CASE)
+	$(BLOCK_MESH) -dict $(BLOCK_MESH_DICT) -case $(mesh_noOrography_CASE) > mesh-noOrography.blockMesh.log
 
