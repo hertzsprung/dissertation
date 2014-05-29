@@ -6,7 +6,9 @@ ADD_2D_MOUNTAIN_DICT := constant/add2dMountainDict
 # $(4) -- add2dMountainDict path
 define 2DMOUNTAIN_TEMPLATE
 
-  .PHON: $(2) clean-$(2)
+  $(eval $(call MESH_TEMPLATE,$(1)))
+
+  .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
 
   $(2): $(addprefix $(1)/,$(MESH_FILES))
@@ -16,14 +18,13 @@ define 2DMOUNTAIN_TEMPLATE
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
-  $(2).intermediate: $(4) $(addprefix $(3)/,$(MESH_FILES))
+  $(2).intermediate: \
+    $(4) \
+    $(addprefix $(3)/,$(MESH_FILES)) \
+    $(addprefix $(1)/,$(SYSTEM_FILES))
 	$(MKDIR) -p $(1)/$(POLY_MESH_DIR)
 	$(CP) $(addprefix $(3)/,$(MESH_FILES)) $(1)/$(POLY_MESH_DIR)
 	$(CP) $(4) $(1)/$(ADD_2D_MOUNTAIN_DICT)
-	$(MKDIR) -p $(1)/system
-	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $(1)/$(CONTROL_DICT)
-	$(LN) -fs $(COMMON_CASE)/system/fvSchemesDummy $(1)/$(FV_SCHEMES)
-	$(LN) -fs $(COMMON_CASE)/system/fvSolutionDummy $(1)/$(FV_SOLUTION)
 	$(ADD_2D_MOUNTAIN) -case $(1) > $(2).add2dMountain.log
 
 endef

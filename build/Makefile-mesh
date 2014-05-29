@@ -8,15 +8,26 @@ MESH_FILES := \
   $(POLY_MESH_DIR)/owner \
   $(POLY_MESH_DIR)/points
 
-# $(1) -- mesh case path
-# $(2) -- subproject label (e.g. mesh-noOrography)
+SYSTEM_FILES := \
+  system/controlDict \
+  system/fvSchemes \
+  system/fvSolution
+
+# $(1) -- case path
 define MESH_TEMPLATE
 
-  .PHONY: $(2) clean-$(2)
+  $(1)/system:
+	$(MKDIR) -p $(1)/system
 
-  $(2): $(addprefix $(1)/,$(MESH_FILES))
+  $(addprefix $(1)/,$(SYSTEM_FILES)): $(1)/system
 
-  clean-$(2)::
-	$(RM) $(addprefix $(1)/,$(MESH_FILES))
+  $(1)/$(CONTROL_DICT):
+	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $$@
+
+  $(1)/$(FV_SCHEMES):
+	$(LN) -fs $(COMMON_CASE)/system/fvSchemesDummy $$@
+
+  $(1)/$(FV_SOLUTION):
+	$(LN) -fs $(COMMON_CASE)/system/fvSolutionDummy $$@
 
 endef
