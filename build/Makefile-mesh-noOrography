@@ -6,6 +6,8 @@ BLOCK_MESH_DICT_TEMPLATE := blockMeshDict.template
 # $(4) -- .boundaries file
 define BLOCK_MESH_TEMPLATE
 
+  $(eval $(call MESH_TEMPLATE,$(3)))
+
   .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
 
@@ -16,10 +18,9 @@ define BLOCK_MESH_TEMPLATE
 
   $(addprefix $(3)/,$(MESH_FILES)): $(2).intermediate
 
-  $(2).intermediate: $(3)/$(BLOCK_MESH_DICT)
-	# TODO: refactor common dummy links into Makefile-mesh
-	$(MKDIR) -p $(3)/system
-	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $(3)/$(CONTROL_DICT)
+  $(2).intermediate: \
+    $(3)/$(BLOCK_MESH_DICT) \
+    $(addprefix $(3)/,$(SYSTEM_FILES))
 	$(BLOCK_MESH) -case $(3) > $(2).blockMesh.log
 
   $(3)/$(BLOCK_MESH_DICT): \
@@ -30,8 +31,6 @@ define BLOCK_MESH_TEMPLATE
 
   $(3)/$(POLY_MESH_DIR):
 	$(MKDIR) -p $(3)/$(POLY_MESH_DIR)
-
-  # TODO: ln -fs system files so the mesh is viewable in paraFoam
 
 endef
 
