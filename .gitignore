@@ -112,6 +112,7 @@ level0Edge
 refinementHistory
 surfaceIndex
 patchFaces*.obj
+polyMesh
 
 # PyFoam
 PyFoamHistory
