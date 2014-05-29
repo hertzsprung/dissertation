@@ -16,26 +16,34 @@ SNAPPY_HEX_MESH_FILES := \
 # $(2) -- subproject label (e.g. mesh-btf-schaerCos)
 # $(3) -- terrain following mesh case path
 # $(4) -- no orography mesh case path (e.g. mesh-noOrography)
+# $(5) -- snappyHexMeshDict path
 define SNAPPY_HEX_MESH_TEMPLATE
 
   $(eval $(call MESH_TEMPLATE,$(1),$(2)))
-   
+
   .INTERMEDIATE: $(2).intermediate
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
-  $(2).intermediate: $(1)/$(SNAPPY_HEX_MESH_DICT) $(addprefix $(3)/,$(MESH_FILES))
+  $(2).intermediate: \
+    $(4)/$(BLOCK_MESH_DICT) \
+    $(5) \
+    $(addprefix $(3)/,$(MESH_FILES)) \
+    $(addprefix $(1)/,$(SYSTEM_FILES)) \
+  | $(1)/$(TRI_SURFACE_DIR) \
+    $(1)/$(POLY_MESH_DIR)
 	$(WRITE_MESH_OBJ) -case $(3) -patchFaces -time -1 -constant > $(2).writeMeshObj.log
-	$(MKDIR) -p $(1)/$(TRI_SURFACE_DIR)
 	$(CP) $(3)/$(GROUND_PATCH) $(1)/$(TRI_SURFACE_DIR)/	
 	$(BLOCK_MESH) -dict $(abspath $(4))/$(BLOCK_MESH_DICT) -case $(1) > $(2).blockMesh.log 
-	$(RM) $(SNAPPY_HEX_MESH_FILES)
-	$(SNAPPY_HEX_MESH) -overwrite -case $(1) -dict $(SNAPPY_HEX_MESH_DICT) > $(2).snappyHexMesh.log
+	$(RM) $(addprefix $(1)/,SNAPPY_HEX_MESH_FILES)
+	$(SNAPPY_HEX_MESH) -overwrite -case $(1) -dict $(abspath $(5)) > $(2).snappyHexMesh.log
 
-  clean-$(2)::
-	$(RM) -r $(3)/patchFaces*.obj $(1)/$(TRI_SURFACE_DIR) $(addprefix $(1)/,$(SNAPPY_HEX_MESH_FILES))
+  $(1)/$(TRI_SURFACE_DIR):
+	$(MKDIR) -p $(1)/$(TRI_SURFACE_DIR)
 
 endef
 
-$(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos,mesh-snap-schaerCos,openfoam/cases/mesh/btf/schaerCos,openfoam/cases/mesh/noOrography))
+$(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/advection,mesh-snap-schaerCos-advection,openfoam/cases/mesh/btf/schaerCos/advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/snap/snappyHexMeshDict))
+
+clean:: clean-mesh-snap-schaerCos-advection
 

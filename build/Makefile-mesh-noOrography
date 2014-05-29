@@ -1,20 +1,14 @@
 BLOCK_MESH_DICT_TEMPLATE := blockMeshDict.template
 
 # $(1) -- root directory
-# $(2) -- subproject label (e.g. mesh-noOrography)
+# $(2) -- subproject label (e.g. mesh-noOrography-advection)
 # $(3) -- boundary-specific case path
 # $(4) -- .boundaries file
 define BLOCK_MESH_TEMPLATE
 
-  $(eval $(call MESH_TEMPLATE,$(3)))
+  $(eval $(call MESH_TEMPLATE,$(3),$(2)))
 
-  .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
-
-  $(2): $(addprefix $(3)/,$(MESH_FILES))
-
-  clean-$(2):
-	$(RM) -r $(3)
 
   $(addprefix $(3)/,$(MESH_FILES)): $(2).intermediate
 
@@ -28,9 +22,6 @@ define BLOCK_MESH_TEMPLATE
     $(4) \
   | $(3)/$(POLY_MESH_DIR)
 	$(1)/subst.sh $(4) < $(1)/$(BLOCK_MESH_DICT_TEMPLATE) > $(3)/$(BLOCK_MESH_DICT)
-
-  $(3)/$(POLY_MESH_DIR):
-	$(MKDIR) -p $(3)/$(POLY_MESH_DIR)
 
 endef
 

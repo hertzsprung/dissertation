@@ -115,6 +115,7 @@ patchFaces*.obj
 polyMesh
 **/mesh/noOrography/**/
 **/mesh/btf
+**/mesh/snap/**/
 
 # PyFoam
 PyFoamHistory
