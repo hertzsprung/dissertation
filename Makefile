@@ -1,4 +1,5 @@
 MAKEFLAGS += --no-builtin-rules
+.DEFAULT_GOAL := all
 .DELETE_ON_ERROR:
 .SUFFIXES:
 
@@ -14,19 +15,7 @@ include build/Makefile-resting
 
 .PHONY: all clean
 
-all:: \
-  all-latex \
-  advection-noOrography-vanLeer \
-  advection-noOrography-tvdLimitedCubicUpwindCPCFit \
-  advection-btf-schaerCos-vanLeer \
-  advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit
+all:: all-latex
 
-clean:: \
-  clean-latex \
-  clean-advection-noOrography-vanLeer \
-  clean-advection-noOrography-tvdLimitedCubicUpwindCPCFit \
-  clean-advection-btf-schaerCos-vanLeer \
-  clean-advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
-  clean-advection-snap-schaerCos-vanLeer \
-  clean-mesh-btf-schaerCos \
+clean:: clean-latex
 

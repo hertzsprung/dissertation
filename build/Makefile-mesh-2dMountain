@@ -21,12 +21,17 @@ define 2DMOUNTAIN_TEMPLATE
   $(2).intermediate: \
     $(4) \
     $(addprefix $(3)/,$(MESH_FILES)) \
-    $(addprefix $(1)/,$(SYSTEM_FILES))
-	$(MKDIR) -p $(1)/$(POLY_MESH_DIR)
+    $(addprefix $(1)/,$(SYSTEM_FILES)) \
+  | $(1)/$(POLY_MESH_DIR)
 	$(CP) $(addprefix $(3)/,$(MESH_FILES)) $(1)/$(POLY_MESH_DIR)
 	$(CP) $(4) $(1)/$(ADD_2D_MOUNTAIN_DICT)
 	$(ADD_2D_MOUNTAIN) -case $(1) > $(2).add2dMountain.log
 
+  $(1)/$(POLY_MESH_DIR):
+	$(MKDIR) -p $(1)/$(POLY_MESH_DIR)
+
 endef
 
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos/advection,mesh-btf-schaerCos-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/2dMountain/btf-schaerCos.add2dMountainDict))
+
+clean:: clean-mesh-btf-schaerCos-advection
