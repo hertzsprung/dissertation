@@ -1,15 +1,38 @@
-mesh_noOrography_CASE := openfoam/cases/mesh/noOrography
+BLOCK_MESH_DICT_TEMPLATE := blockMeshDict.template
 
-mesh_noOrography_BLOCK_MESH_DICT := $(mesh_noOrography_CASE)/$(BLOCK_MESH_DICT)
+# $(1) -- root directory
+# $(2) -- subproject label (e.g. mesh-noOrography)
+# $(3) -- boundary-specific case path
+# $(4) -- .boundaries file
+define BLOCK_MESH_TEMPLATE
 
-mesh_noOrography_MESH_PATHS := $(addprefix $(mesh_noOrography_CASE)/,$(MESH_FILES))
+  .PHONY: $(2) clean-$(2)
+  .INTERMEDIATE: $(2).intermediate
 
-$(eval $(call MESH_TEMPLATE,$(mesh_noOrography_CASE),mesh-noOrography))
+  $(2): $(addprefix $(3)/,$(MESH_FILES))
 
-.INTERMEDIATE: mesh-noOrography.intermediate
+  clean-$(2):
+	$(RM) -r $(3)
 
-$(mesh_noOrography_MESH_PATHS): mesh-noOrography.intermediate
+  $(addprefix $(3)/,$(MESH_FILES)): $(2).intermediate
 
-mesh-noOrography.intermediate: $(mesh_noOrography_BLOCK_MESH_DICT)
-	$(BLOCK_MESH) -dict $(BLOCK_MESH_DICT) -case $(mesh_noOrography_CASE) > mesh-noOrography.blockMesh.log
+  $(2).intermediate: $(3)/$(BLOCK_MESH_DICT)
+	$(MKDIR) -p $(3)/system
+	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $(3)/$(CONTROL_DICT)
+	$(BLOCK_MESH) -case $(3) > $(2).blockMesh.log
 
+  $(3)/$(BLOCK_MESH_DICT): $(1)/$(BLOCK_MESH_DICT_TEMPLATE) $(4)
+	$(MKDIR) -p $(3)/$(POLY_MESH_DIR)
+	$(1)/subst.sh $(4) < $(1)/$(BLOCK_MESH_DICT_TEMPLATE) > $(3)/$(BLOCK_MESH_DICT)
+
+  # TODO: ln -fs system files so the mesh is viewable in paraFoam
+
+endef
+
+$(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography,mesh-noOrography-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/noOrography/advection.boundaries))
+
+$(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography,mesh-noOrography-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/noOrography/resting.boundaries))
+
+clean:: \
+  clean-mesh-noOrography-advection \
+  clean-mesh-noOrography-resting

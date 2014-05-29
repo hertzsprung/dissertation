@@ -27,28 +27,28 @@ blocks (
 
 boundary (
 	inlet {
-		type patch;
+		type $INLET_TYPE;
 		faces (
 			(0 3 7 4)
 		);
 	}
 
 	outlet {
-		type wall;
+		type $OUTLET_TYPE;
 		faces (
 			(1 2 6 5)
 		);
 	}
 
 	ground {
-		type wall;
+		type $GROUND_TYPE;
 		faces (
 			(0 1 2 3)
 		);	
 	}
 
 	upperLid {
-		type wall;
+		type $UPPER_LID_TYPE;
 		faces (
 			(4 5 6 7)
 		);

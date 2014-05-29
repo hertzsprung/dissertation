@@ -14,7 +14,7 @@ include build/Makefile-resting
 
 .PHONY: all clean
 
-all: \
+all:: \
   all-latex \
   advection-noOrography-vanLeer \
   advection-noOrography-tvdLimitedCubicUpwindCPCFit \
@@ -23,14 +23,13 @@ all: \
   advection-snap-schaerCos-vanLeer \
   mesh-snap-schaerCos
 
-clean: \
+clean:: \
   clean-latex \
   clean-advection-noOrography-vanLeer \
   clean-advection-noOrography-tvdLimitedCubicUpwindCPCFit \
   clean-advection-btf-schaerCos-vanLeer \
   clean-advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
   clean-advection-snap-schaerCos-vanLeer \
-  clean-mesh-noOrography \
   clean-mesh-btf-schaerCos \
   clean-mesh-snap-schaerCos
 
