@@ -1,11 +1,12 @@
 .PHONY: all clean
 .DELETE_ON_ERROR:
 
-all: all-latex advection-noOrography mesh-btfSchaerCos
+all: all-latex advection-noOrography advection-btf-schaerCos-vanLeer
 
 clean: \
   clean-latex \
   clean-advection-noOrography \
+  clean-advection-btf-schaerCos-vanLeer \
   clean-mesh-noOrography \
   clean-mesh-btfSchaerCos
 

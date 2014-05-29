@@ -1,8 +1,8 @@
-mesh_POLY_MESH_DIR := constant/polyMesh
+POLY_MESH_DIR := constant/polyMesh
 
 mesh_FILES := \
-  $(mesh_POLY_MESH_DIR)/boundary \
-  $(mesh_POLY_MESH_DIR)/faces \
-  $(mesh_POLY_MESH_DIR)/neighbour \
-  $(mesh_POLY_MESH_DIR)/owner \
-  $(mesh_POLY_MESH_DIR)/points
+  $(POLY_MESH_DIR)/boundary \
+  $(POLY_MESH_DIR)/faces \
+  $(POLY_MESH_DIR)/neighbour \
+  $(POLY_MESH_DIR)/owner \
+  $(POLY_MESH_DIR)/points
