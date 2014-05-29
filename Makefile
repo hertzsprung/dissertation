@@ -19,9 +19,7 @@ all:: \
   advection-noOrography-vanLeer \
   advection-noOrography-tvdLimitedCubicUpwindCPCFit \
   advection-btf-schaerCos-vanLeer \
-  advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
-  advection-snap-schaerCos-vanLeer \
-  mesh-snap-schaerCos
+  advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit
 
 clean:: \
   clean-latex \
@@ -31,5 +29,4 @@ clean:: \
   clean-advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
   clean-advection-snap-schaerCos-vanLeer \
   clean-mesh-btf-schaerCos \
-  clean-mesh-snap-schaerCos
 

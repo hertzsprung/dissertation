@@ -11,7 +11,7 @@ ADVECTION_TRACER_ERROR := globalSumT_diff.dat
 
 # $(1) -- simulation case path
 # $(2) -- subproject label (e.g. advection_noOrography)
-# $(3) -- mesh case path (e.g. btf/schaerCos)
+# $(3) -- mesh case path (e.g. btf/schaerCos/advection)
 # TODO: assign $(addprefix $(1)/,...) stuff to a variable
 define ADVECTION_TEMPLATE
 
@@ -54,8 +54,12 @@ define ADVECTION_TEMPLATE
 
 endef
 
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/vanLeer,advection-noOrography-vanLeer,openfoam/cases/mesh/noOrography))
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/tvdLimitedCubicUpwindCPCFit,advection-noOrography-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/noOrography))
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,advection-btf-schaerCos-vanLeer,openfoam/cases/mesh/btf/schaerCos))
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos))
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snap/schaerCos/vanLeer,advection-snap-schaerCos-vanLeer,openfoam/cases/mesh/snap/schaerCos))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/vanLeer,advection-noOrography-vanLeer,openfoam/cases/mesh/noOrography/advection))
+
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/tvdLimitedCubicUpwindCPCFit,advection-noOrography-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/noOrography/advection))
+
+#$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,advection-btf-schaerCos-vanLeer,openfoam/cases/mesh/btf/schaerCos))
+
+#$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos))
+
+#$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snap/schaerCos/vanLeer,advection-snap-schaerCos-vanLeer,openfoam/cases/mesh/snap/schaerCos))

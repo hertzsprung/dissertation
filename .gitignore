@@ -113,6 +113,7 @@ refinementHistory
 surfaceIndex
 patchFaces*.obj
 polyMesh
+**/mesh/noOrography/**/
 
 # PyFoam
 PyFoamHistory

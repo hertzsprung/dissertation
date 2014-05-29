@@ -21,9 +21,14 @@ define BLOCK_MESH_TEMPLATE
 	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $(3)/$(CONTROL_DICT)
 	$(BLOCK_MESH) -case $(3) > $(2).blockMesh.log
 
-  $(3)/$(BLOCK_MESH_DICT): $(1)/$(BLOCK_MESH_DICT_TEMPLATE) $(4)
-	$(MKDIR) -p $(3)/$(POLY_MESH_DIR)
+  $(3)/$(BLOCK_MESH_DICT): \
+    $(3)/$(POLY_MESH_DIR) \
+    $(1)/$(BLOCK_MESH_DICT_TEMPLATE) \
+    $(4)
 	$(1)/subst.sh $(4) < $(1)/$(BLOCK_MESH_DICT_TEMPLATE) > $(3)/$(BLOCK_MESH_DICT)
+
+  $(3)/$(POLY_MESH_DIR):
+	$(MKDIR) -p $(3)/$(POLY_MESH_DIR)
 
   # TODO: ln -fs system files so the mesh is viewable in paraFoam
 
