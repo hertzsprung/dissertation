@@ -1,7 +1,3 @@
-PDFLATEX := pdflatex --shell-escape# --interaction=nonstopmode
-BIBER := biber
-TEXCOUNT := texcount
-GREP := grep
 GREP_WARN := $(GREP) --color -i -f latex-warnings -C3 -H
 
 DOCUMENT := dissertation

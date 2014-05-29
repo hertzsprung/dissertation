@@ -6,6 +6,8 @@ TRANSPORT_PROPERTIES := constant/transportProperties
 
 ADVECTION_FINAL_TRACER_FIELD := $(END_TIME)/T
 ADVECTION_INITIAL_FIELDS := 0/U 0/T
+ADVECTION_FINAL_TRACER_DIFF := $(END_TIME)/T_diff
+ADVECTION_ANALYTIC_TRACER_FIELD := 0/T_analytic # TODO: should really be in $(END_TIME) directory but don't know how to make OpenFOAM do this
 
 # $(1) -- simulation case path
 # $(2) -- subproject label (e.g. advection_noOrography)
@@ -16,10 +18,18 @@ define ADVECTION_TEMPLATE
   .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
 
-  $(2): $(1)/$(ADVECTION_FINAL_TRACER_FIELD)
+  $(2): $(1)/$(ADVECTION_FINAL_TRACER_DIFF)
 
   clean-$(2):
 	$(PY_FOAM_CLEAR_CASE) --additional=0 $(1)
+
+  $(1)/$(ADVECTION_FINAL_TRACER_DIFF): \
+    $(1)/$(ADVECTION_FINAL_TRACER_FIELD) \
+    $(1)/$(ADVECTION_ANALYTIC_TRACER_FIELD)
+	$(SUM_FIELDS) -case $(1) $(END_TIME) T_diff 0 T_analytic $(END_TIME) T -scale0 1 -scale1 -1 # subtract final numerical from analytic solution
+
+  $(1)/$(ADVECTION_ANALYTIC_TRACER_FIELD): $(1)/$(INITIAL_CONDITIONS) $(addprefix $(3)/,$(MESH_FILES))
+	$(SET_SCALAR_OVER_OROGRAPHY) -case $(1) -x0 50000 -withoutWindField -tracerFieldFileName T_analytic # TODO: don't hardwire x0 value
 
   $(1)/$(ADVECTION_FINAL_TRACER_FIELD): $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS))
 	$(SCALAR_TRANSPORT_FOAM) -case $(1) > $(2).scalarTransportFoam.log
