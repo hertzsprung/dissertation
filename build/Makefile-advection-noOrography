@@ -28,7 +28,7 @@ define ADVECTION_TEMPLATE
 
   $(2).intermediate: \
     $(1)/$(POLY_MESH_DIR) \
-    $(addprefix $(3)/,$(mesh_FILES)) \
+    $(addprefix $(3)/,$(MESH_FILES)) \
     $(1)/$(INITIAL_CONDITIONS) \
     $(1)/$(TRANSPORT_PROPERTIES)
 	$(SET_SCALAR_OVER_OROGRAPHY) -case $(1) > $(2).setScalarOverOrography.log

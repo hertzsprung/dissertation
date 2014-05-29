@@ -1,6 +1,6 @@
 POLY_MESH_DIR := constant/polyMesh
 
-mesh_FILES := \
+MESH_FILES := \
   $(POLY_MESH_DIR)/boundary \
   $(POLY_MESH_DIR)/faces \
   $(POLY_MESH_DIR)/neighbour \
