@@ -99,8 +99,6 @@ linux*DPOpt
 uptodate
 lnInclude
 **/[0-9]*
-**/constant/Exner_init
-**/constant/theta_init
 *.OpenFOAM
 triSurface
 cellLevel

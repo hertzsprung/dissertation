@@ -31,4 +31,4 @@ define RESTING_TEMPLATE
 
 endef
 
-$(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/btf/schaerCos,resting-btf-schaerCos,openfoam/cases/mesh/btf/schaerCos))
+$(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/btf/schaerCos,resting-btf-schaerCos,openfoam/cases/mesh/btf/schaerCos/resting))
