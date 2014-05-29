@@ -17,6 +17,8 @@ SNAPPY_HEX_MESH_FILES := \
 # $(3) -- terrain following mesh case path
 # $(4) -- no orography mesh case path (e.g. mesh-noOrography)
 define SNAPPY_HEX_MESH_TEMPLATE
+
+  $(eval $(call MESH_TEMPLATE,$(1),$(2)))
    
   .INTERMEDIATE: $(2).intermediate
 
@@ -35,6 +37,5 @@ define SNAPPY_HEX_MESH_TEMPLATE
 
 endef
 
-$(eval $(call MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos,mesh-snap-schaerCos))
 $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos,mesh-snap-schaerCos,openfoam/cases/mesh/btf/schaerCos,openfoam/cases/mesh/noOrography))
 

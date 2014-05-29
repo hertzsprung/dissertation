@@ -5,6 +5,8 @@ ADD_2D_MOUNTAIN_DICT := constant/add2dMountainDict
 # $(3) -- no orography mesh case path (e.g. mesh-noOrography)
 define 2DMOUNTAIN_TEMPLATE
 
+  $(eval $(call MESH_TEMPLATE,$(1),$(2)))
+
   .INTERMEDIATE: $(2).intermediate
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
@@ -16,5 +18,4 @@ define 2DMOUNTAIN_TEMPLATE
 
 endef
 
-$(eval $(call MESH_TEMPLATE,openfoam/cases/mesh/btf/schaerCos,mesh-btf-schaerCos))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos,mesh-btf-schaerCos,openfoam/cases/mesh/noOrography))
