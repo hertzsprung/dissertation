@@ -6,24 +6,9 @@ FoamFile {
     object      fvSchemes;
 }
 
+#include "$COMMON_CASE/system/fvSchemesAdvection"
+
 divSchemes {
     default         none;
     div(phi,T)      Gauss vanLeer;
-}
-
-gradSchemes {
-    default         Gauss linear;
-}
-
-laplacianSchemes {
-    default         Gauss linear corrected;
-}
-
-ddtSchemes {
-    default         backward;
-}
-
-fluxRequired {
-    default         no;
-    T;
 }
