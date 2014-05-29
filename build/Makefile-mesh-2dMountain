@@ -1,20 +1,20 @@
-mesh_btfSchaerCos_CASE := openfoam/cases/mesh/btf/schaerCos
+ADD_2D_MOUNTAIN_DICT := constant/add2dMountainDict
 
-mesh_2dMountain_DICT := constant/add2dMountainDict
+# $(1) -- mountainous mesh case path
+# $(2) -- subproject label (e.g. mesh-btf-schaerCos)
+# $(3) -- no orography mesh case path (e.g. mesh-noOrography)
+define 2DMOUNTAIN_TEMPLATE
 
-mesh_btfSchaerCos_POLY_MESH_DIR := $(mesh_btfSchaerCos_CASE)/$(POLY_MESH_DIR)
-mesh_btfSchaerCos_MESH_PATHS := $(addprefix $(mesh_btfSchaerCos_CASE)/,$(MESH_FILES))
-mesh_btfSchaerCos_2D_MOUNTAIN_DICT := $(mesh_btfSchaerCos_CASE)/$(mesh_2dMountain_DICT)
+  .INTERMEDIATE: $(2).intermediate
 
-.PHONY: mesh-btfSchaerCos
-.INTERMEDIATE: btfSchaerCos.intermediate
+  $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
-mesh-btfSchaerCos: $(mesh_btfSchaerCos_MESH_PATHS)
+  $(2).intermediate: $(1)/$(ADD_2D_MOUNTAIN_DICT) $(addprefix $(3)/,$(MESH_FILES))
+	$(MKDIR) -p $(1)/$(POLY_MESH_DIR)
+	$(CP) $(addprefix $(3)/,$(MESH_FILES)) $(1)/$(POLY_MESH_DIR)
+	$(ADD_2D_MOUNTAIN) -case $(1) > $(2).add2dMountain.log
 
-clean-mesh-btfSchaerCos:
-	$(RM) $(mesh_btfSchaerCos_MESH_PATHS)
+endef
 
-$(mesh_btfSchaerCos_MESH_PATHS): $(mesh_btfSchaerCos_2D_MOUNTAIN_DICT) $(mesh_noOrography_MESH_PATHS)
-	$(MKDIR) -p $(mesh_btfSchaerCos_POLY_MESH_DIR)
-	$(CP) $(mesh_noOrography_MESH_PATHS) $(mesh_btfSchaerCos_POLY_MESH_DIR)
-	$(ADD_2D_MOUNTAIN) -case $(mesh_btfSchaerCos_CASE)
+$(eval $(call MESH_TEMPLATE,openfoam/cases/mesh/btf/schaerCos,mesh-btf-schaerCos))
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos,mesh-btf-schaerCos,openfoam/cases/mesh/noOrography))

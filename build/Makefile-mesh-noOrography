@@ -1,17 +1,13 @@
 mesh_noOrography_CASE := openfoam/cases/mesh/noOrography
 
-mesh_noOrography_BLOCK_MESH_DICT_FILENAME := constant/polyMesh/blockMeshDict
+mesh_noOrography_BLOCK_MESH_DICT_FILENAME := $(POLY_MESH_DIR)/blockMeshDict
 mesh_noOrography_BLOCK_MESH_DICT := $(mesh_noOrography_CASE)/$(mesh_noOrography_BLOCK_MESH_DICT_FILENAME)
 
 mesh_noOrography_MESH_PATHS := $(addprefix $(mesh_noOrography_CASE)/,$(MESH_FILES))
 
-.PHONY: mesh-noOrography clean-mesh-noOrography
+$(eval $(call MESH_TEMPLATE,$(mesh_noOrography_CASE),mesh-noOrography))
+
 .INTERMEDIATE: mesh-noOrography.intermediate
-
-mesh-noOrography: $(mesh_noOrography_MESH_PATHS)
-
-clean-mesh-noOrography:
-	$(RM) $(mesh_noOrography_MESH_PATHS)
 
 $(mesh_noOrography_MESH_PATHS): mesh-noOrography.intermediate
 
