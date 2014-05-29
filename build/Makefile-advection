@@ -54,5 +54,5 @@ define ADVECTION_TEMPLATE
 endef
 
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography,advection-noOrography,openfoam/cases/mesh/noOrography))
-
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,advection-btf-schaerCos-vanLeer,openfoam/cases/mesh/btf/schaerCos))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos))
