@@ -3,19 +3,27 @@ ADD_2D_MOUNTAIN_DICT := constant/add2dMountainDict
 # $(1) -- mountainous mesh case path
 # $(2) -- subproject label (e.g. mesh-btf-schaerCos)
 # $(3) -- no orography mesh case path (e.g. mesh-noOrography)
+# $(4) -- add2dMountainDict path
 define 2DMOUNTAIN_TEMPLATE
 
-  $(eval $(call MESH_TEMPLATE,$(1),$(2)))
-
+  .PHON: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
+
+  $(2): $(addprefix $(1)/,$(MESH_FILES))
+
+  clean-$(2):
+	$(RM) -r $(1)
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
-  $(2).intermediate: $(1)/$(ADD_2D_MOUNTAIN_DICT) $(addprefix $(3)/,$(MESH_FILES))
+  $(2).intermediate: $(4) $(addprefix $(3)/,$(MESH_FILES))
 	$(MKDIR) -p $(1)/$(POLY_MESH_DIR)
 	$(CP) $(addprefix $(3)/,$(MESH_FILES)) $(1)/$(POLY_MESH_DIR)
+	$(CP) $(4) $(1)/$(ADD_2D_MOUNTAIN_DICT)
+	$(MKDIR) -p $(1)/system
+	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $(1)/$(CONTROL_DICT)
 	$(ADD_2D_MOUNTAIN) -case $(1) > $(2).add2dMountain.log
 
 endef
 
-$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos,mesh-btf-schaerCos,openfoam/cases/mesh/noOrography))
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos/advection,mesh-btf-schaerCos-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/2dMountain/btf-schaerCos.add2dMountainDict))

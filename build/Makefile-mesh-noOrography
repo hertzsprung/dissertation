@@ -17,6 +17,7 @@ define BLOCK_MESH_TEMPLATE
   $(addprefix $(3)/,$(MESH_FILES)): $(2).intermediate
 
   $(2).intermediate: $(3)/$(BLOCK_MESH_DICT)
+	# TODO: refactor common dummy links into Makefile-mesh
 	$(MKDIR) -p $(3)/system
 	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $(3)/$(CONTROL_DICT)
 	$(BLOCK_MESH) -case $(3) > $(2).blockMesh.log

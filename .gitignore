@@ -114,6 +114,7 @@ surfaceIndex
 patchFaces*.obj
 polyMesh
 **/mesh/noOrography/**/
+**/mesh/btf
 
 # PyFoam
 PyFoamHistory
