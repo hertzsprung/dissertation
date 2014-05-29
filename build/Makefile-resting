@@ -23,7 +23,7 @@ define RESTING_TEMPLATE
 
   clean-$(2):
 	$(PY_FOAM_CLEAR_CASE) $(1)
-	$(RM) $(RESTING_INITIAL_FIELDS)
+	$(RM) $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS))
 
   # TODO: C&Ped from advection
   $(1)/$(POLY_MESH_DIR): $(3)/$(POLY_MESH_DIR)
@@ -32,3 +32,5 @@ define RESTING_TEMPLATE
 endef
 
 $(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/btf/schaerCos,resting-btf-schaerCos,openfoam/cases/mesh/btf/schaerCos/resting))
+
+clean:: clean-resting-btf-schaerCos
