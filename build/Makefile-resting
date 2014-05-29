@@ -1,0 +1,34 @@
+RESTING_END_TIME := 21600
+RESTING_FINAL_THETA_FIELD := $(RESTING_END_TIME)/theta
+RESTING_INITIAL_FIELDS := 0/BruntFreq 0/BruntFreq2f 0/theta 0/thetaf
+
+THETA_INIT := constant/theta_init
+
+# $(1) -- simulation case path
+# $(2) -- subproject label (e.g. advection_noOrography)
+# $(3) -- mesh case path (e.g. btf/schaerCos)
+define RESTING_TEMPLATE
+
+  .PHONY: $(2) clean-$(2)
+
+  $(2): $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS))
+
+  $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS)): $(2).intermediate
+
+  $(2).intermediate: \
+    $(1)/$(POLY_MESH_DIR) \
+    $(addprefix $(3)/,$(MESH_FILES)) \
+    $(1)/$(THETA_INIT)
+	$(SET_THETA) -case $(1)
+
+  clean-$(2):
+	$(PY_FOAM_CLEAR_CASE) $(1)
+	$(RM) $(RESTING_INITIAL_FIELDS)
+
+  # TODO: C&Ped from advection
+  $(1)/$(POLY_MESH_DIR): $(3)/$(POLY_MESH_DIR)
+	$(LN) -fs $(abspath $(3)/$(POLY_MESH_DIR)) $(1)/$(POLY_MESH_DIR)
+
+endef
+
+$(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/btf/schaerCos,resting-btf-schaerCos,openfoam/cases/mesh/btf/schaerCos))

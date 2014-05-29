@@ -17,3 +17,4 @@ SET_SCALAR_OVER_OROGRAPHY := setScalarOverOrography
 SCALAR_TRANSPORT_FOAM := scalarTransportFoam
 SUM_FIELDS := sumFields
 GLOBAL_SUM := globalSum
+SET_THETA := setTheta

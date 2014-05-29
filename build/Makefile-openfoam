@@ -1,0 +1,1 @@
+export COMMON_CASE := $(abspath openfoam/cases/common)
