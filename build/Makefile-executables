@@ -20,3 +20,4 @@ SUM_FIELDS := sumFields
 GLOBAL_SUM := globalSum
 SET_THETA := setTheta
 SET_EXNER_BALANCED_H := setExnerBalancedH
+EXNER_FOAM_H := exnerFoamH

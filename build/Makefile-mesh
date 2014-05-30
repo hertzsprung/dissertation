@@ -8,11 +8,6 @@ MESH_FILES := \
   $(POLY_MESH_DIR)/owner \
   $(POLY_MESH_DIR)/points
 
-SYSTEM_FILES := \
-  system/controlDict \
-  system/fvSchemes \
-  system/fvSolution
-
 # $(1) -- case path
 # $(2) -- subproject label
 define MESH_TEMPLATE

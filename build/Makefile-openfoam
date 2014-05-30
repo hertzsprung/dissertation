@@ -3,3 +3,8 @@ export COMMON_CASE := $(abspath openfoam/cases/common)
 CONTROL_DICT := system/controlDict
 FV_SCHEMES := system/fvSchemes
 FV_SOLUTION := system/fvSolution
+
+SYSTEM_FILES := \
+  $(CONTROL_DICT) \
+  $(FV_SCHEMES) \
+  $(FV_SOLUTION)

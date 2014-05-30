@@ -3,6 +3,8 @@ RESTING_FINAL_THETA_FIELD := $(RESTING_END_TIME)/theta
 RESTING_INITIAL_EXNER_FIELD := 0/Exner
 RESTING_INITIAL_THETA_FIELDS := 0/BruntFreq 0/BruntFreq2f 0/theta 0/thetaf
 RESTING_INITIAL_FIELDS := $(RESTING_INITIAL_THETA_FIELDS) $(RESTING_INITIAL_EXNER_FIELD)
+# TODO: any others?  e.g. U or Uf?
+RESTING_FINAL_FIELDS := $(RESTING_END_TIME)/Exner $(RESTING_END_TIME)/theta
 
 THETA_INIT := constant/theta_init
 EXNER_INIT := constant/Exner_init
@@ -13,9 +15,16 @@ EXNER_INIT := constant/Exner_init
 define RESTING_TEMPLATE
 
   .PHONY: $(2) clean-$(2)
-  .INTERMEDIATE: $(2).theta.intermediate
+  .INTERMEDIATE: $(2).theta.intermediate $(2).exnerFoam.intermediate
 
-  $(2): $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS))
+  $(2): $(addprefix $(1)/,$(RESTING_FINAL_FIELDS))
+
+  $(addprefix $(1)/,$(RESTING_FINAL_FIELDS)): $(2).exnerFoam.intermediate
+
+  $(2).exnerFoam.intermediate: \
+    $(addprefix $(1)/,$(SYSTEM_FILES)) \
+    $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS))
+	$(EXNER_FOAM_H) -case $(1)
 
   $(addprefix $(1)/,$(RESTING_INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 
@@ -30,6 +39,7 @@ define RESTING_TEMPLATE
     $(addprefix $(3)/,$(MESH_FILES)) \
     $(1)/$(EXNER_INIT)
 	$(SET_EXNER_BALANCED_H) -case $(1)
+	$(SED) -i 's/fixedValue;/fixedFluxBuoyantExner; gradient uniform 0;/g' $(RESTING_INITIAL_EXNER_FIELD)
 
   clean-$(2):
 	$(PY_FOAM_CLEAR_CASE) $(1)
