@@ -3,6 +3,7 @@ LN := ln
 UNLINK := unlink
 MKDIR := mkdir
 GREP := grep
+SED := sed
 
 PDFLATEX := pdflatex --shell-escape --interaction=nonstopmode
 BIBER := biber
@@ -18,3 +19,4 @@ SCALAR_TRANSPORT_FOAM := scalarTransportFoam
 SUM_FIELDS := sumFields
 GLOBAL_SUM := globalSum
 SET_THETA := setTheta
+SET_EXNER_BALANCED_H := setExnerBalancedH

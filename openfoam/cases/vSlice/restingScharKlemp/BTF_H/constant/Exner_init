@@ -40,7 +40,11 @@ boundaryField
         gradient        uniform 0;
         value           uniform 1;
     }
-    frontAndBack
+    front
+    {
+        type            empty;
+    }
+    back
     {
         type            empty;
     }

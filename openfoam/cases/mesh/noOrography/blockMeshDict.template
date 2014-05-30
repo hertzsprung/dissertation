@@ -47,8 +47,8 @@ boundary (
 		);	
 	}
 
-	upperLid {
-		type $UPPER_LID_TYPE;
+	top {
+		type $TOP_TYPE;
 		faces (
 			(4 5 6 7)
 		);

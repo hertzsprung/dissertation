@@ -21,7 +21,7 @@ internalField   uniform 315;
 
 boundaryField
 {
-    upperLid
+    top
     {
         type            fixedGradient;
         gradient        uniform 0.0035555937;
