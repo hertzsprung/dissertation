@@ -1,4 +1,0 @@
-INLET_TYPE=symmetryPlane
-OUTLET_TYPE=symmetryPlane
-UPPER_LID_TYPE=wall
-GROUND_TYPE=wall

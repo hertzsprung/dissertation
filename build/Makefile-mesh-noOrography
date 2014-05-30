@@ -1,33 +1,27 @@
-BLOCK_MESH_DICT_TEMPLATE := blockMeshDict.template
-
-# $(1) -- root directory
+# $(1) -- boundary-specific case path
 # $(2) -- subproject label (e.g. mesh-noOrography-advection)
-# $(3) -- boundary-specific case path
-# $(4) -- .boundaries file
+# $(3) -- blockMeshDict file
 define BLOCK_MESH_TEMPLATE
 
-  $(eval $(call MESH_TEMPLATE,$(3),$(2)))
+  $(eval $(call MESH_TEMPLATE,$(1),$(2)))
 
   .INTERMEDIATE: $(2).intermediate
 
-  $(addprefix $(3)/,$(MESH_FILES)): $(2).intermediate
+  $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
   $(2).intermediate: \
-    $(3)/$(BLOCK_MESH_DICT) \
-    $(addprefix $(3)/,$(SYSTEM_FILES))
-	$(BLOCK_MESH) -case $(3) > $(2).blockMesh.log
+    $(1)/$(BLOCK_MESH_DICT) \
+    $(addprefix $(1)/,$(SYSTEM_FILES))
+	$(BLOCK_MESH) -case $(1) > $(2).blockMesh.log
 
-  $(3)/$(BLOCK_MESH_DICT): \
-    $(1)/$(BLOCK_MESH_DICT_TEMPLATE) \
-    $(4) \
-  | $(3)/$(POLY_MESH_DIR)
-	$(1)/subst.sh $(4) < $(1)/$(BLOCK_MESH_DICT_TEMPLATE) > $(3)/$(BLOCK_MESH_DICT)
+  $(1)/$(BLOCK_MESH_DICT): $(3) | $(1)/$(POLY_MESH_DIR)
+	$(CP) $(3) $(1)/$(BLOCK_MESH_DICT)
 
 endef
 
-$(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography,mesh-noOrography-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/noOrography/advection.boundaries))
+$(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography/advection,mesh-noOrography-advection,openfoam/cases/mesh/noOrography/blockMeshDictAdvection))
 
-$(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography,mesh-noOrography-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/noOrography/resting.boundaries))
+$(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography/resting,mesh-noOrography-resting,openfoam/cases/mesh/noOrography/blockMeshDictResting))
 
 clean:: \
   clean-mesh-noOrography-advection \

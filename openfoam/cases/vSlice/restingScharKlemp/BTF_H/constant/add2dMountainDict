@@ -29,7 +29,7 @@ FoamFile
 // HTF: hybrid terrain following
 // SLEVE: smooth level vertical from Schar e al 2002
 
-mountainType ScharExp; // ScharCos or AgnessiWitch 
+mountainType ScharCos; // ScharCos or AgnessiWitch 
 
 coordSys BTF; //SLEVE or BTF or HTF
 

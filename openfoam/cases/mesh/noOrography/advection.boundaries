@@ -1,4 +1,0 @@
-INLET_TYPE=patch
-OUTLET_TYPE=wall
-UPPER_LID_TYPE=wall
-GROUND_TYPE=wall

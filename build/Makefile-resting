@@ -24,7 +24,7 @@ define RESTING_TEMPLATE
   $(2).exnerFoam.intermediate: \
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
     $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS))
-	$(EXNER_FOAM_H) -case $(1)
+	$(EXNER_FOAM_H) -case $(1) > $(2).exnerFoamH.log
 
   $(addprefix $(1)/,$(RESTING_INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 
@@ -32,14 +32,14 @@ define RESTING_TEMPLATE
     $(1)/$(POLY_MESH_DIR) \
     $(addprefix $(3)/,$(MESH_FILES)) \
     $(1)/$(THETA_INIT)
-	$(SET_THETA) -case $(1)
+	$(SET_THETA) -case $(1) > $(2).setTheta.log
 
   $(1)/$(RESTING_INITIAL_EXNER_FIELD): \
     $(1)/$(POLY_MESH_DIR) \
     $(addprefix $(3)/,$(MESH_FILES)) \
     $(1)/$(EXNER_INIT)
-	$(SET_EXNER_BALANCED_H) -case $(1)
-	$(SED) -i 's/fixedValue;/fixedFluxBuoyantExner; gradient uniform 0;/g' $(RESTING_INITIAL_EXNER_FIELD)
+	$(SET_EXNER_BALANCED_H) -case $(1) > $(2).setExnerBalancedH.log
+	$(SED) -i 's/fixedValue;/fixedFluxBuoyantExner; gradient uniform 0;/g' $(1)/$(RESTING_INITIAL_EXNER_FIELD)
 
   clean-$(2):
 	$(PY_FOAM_CLEAR_CASE) $(1)
