@@ -20,7 +20,7 @@ geometry {
 }
 
 castellatedMeshControls {
-	locationInMesh			(0 0 15);
+	locationInMesh			(0 0 50);
 	maxLocalCells			100000;
 	maxGlobalCells			2000000;
 	minRefinementCells		0;
