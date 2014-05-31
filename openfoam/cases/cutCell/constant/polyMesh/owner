@@ -7,15 +7,22 @@ FoamFile {
 }
 
 (
-0 // middle
-0 // left
-1 // right lower
-1 // right slant upper
+0 // middle lower
+1 // middle upper
+0 // left lower
+1 // left upper
+0 // right lower
+3 // right upper
 0 // ground left
-1 // ground right
-1 // upper lid
-0 // front left
-1 // front right
-0 // back left
-1 // back right
+2 // ground right
+1 // top left
+3 // top right
+0 // front left lower
+2 // front right lower
+1 // front left upper
+3 // front right upper
+0 // back left lower
+2 // back right lower
+1 // back left upper
+3 // back right upper
 )

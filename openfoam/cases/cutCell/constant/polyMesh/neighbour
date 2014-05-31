@@ -6,4 +6,4 @@ FoamFile {
     object      neighbour;
 }
 
-(1)
+(1 3 2)

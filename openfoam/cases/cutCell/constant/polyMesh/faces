@@ -6,16 +6,24 @@ FoamFile {
     object      faces;
 }
 
+// middle, left, right, ground, top, front, back
 (
-(1 4 10 8) // middle
-(0 3 10 8) // left
-(2 5 7 6) // right lower
-(6 7 11 9) // right slant upper
-(0 1 4 3) // ground left
-(1 2 5 4) // ground right
-(8 9 11 10) // upper lid
-(0 1 8) // front left
-(1 2 6 9 8) // front right
-(3 4 10) // back left
-(4 5 7 11 10) // back right
+(1 10 13 4) // middle lower
+(4 13 16 7) // middle upper
+(0 1 4 3) // left lower
+(3 4 15 6) // left upper
+(2 11 14 5) // right lower
+(5 14 17 8) // right upper
+(0 1 10 9) // ground left
+(1 2 11 10) // ground right
+(6 7 16 15) // top left
+(7 8 17 16) // top right
+(0 1 4 3) // front left lower
+(1 2 5 4) // front right lower
+(3 4 7 6) // front left upper
+(4 5 8 7) // front right upper
+(9 10 13 12) // back left lower
+(10 11 14 13) // back right lower
+(12 13 16 15) // back left upper
+(13 14 17 16) // back right upper
 )
