@@ -14,13 +14,13 @@ mergeTolerance	1e-06;
 debug		0;
 
 geometry {
-	patchFaces_ground_constant.obj {
+	ground.obj {
 		type	triSurfaceMesh;	
 	}
 }
 
 castellatedMeshControls {
-	locationInMesh			(500 500 19750);
+	locationInMesh			(0 0 15);
 	maxLocalCells			100000;
 	maxGlobalCells			2000000;
 	minRefinementCells		0;
@@ -32,7 +32,7 @@ castellatedMeshControls {
 	);
 
 	refinementSurfaces {
-		patchFaces_ground_constant.obj {
+		ground.obj {
 			level		(0 0);
 		}
 	}
@@ -50,7 +50,7 @@ snapControls {
 
 addLayersControls {
 	layers {
-		patchFaces_ground_constant.obj {
+		ground.obj {
 			nSurfaceLayers 1;
 		}
 	}
