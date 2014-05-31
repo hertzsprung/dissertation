@@ -1,28 +1,45 @@
-FoamFile {
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
     version     2.0;
     format      ascii;
     class       labelList;
+    note        "nPoints: 18 nCells: 4 nFaces: 20 nInternalFaces: 4";
     location    "constant/polyMesh";
     object      owner;
 }
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+
+20
 (
-0 // middle lower
-1 // middle upper
-0 // left lower
-1 // left upper
-0 // right lower
-3 // right upper
-0 // ground left
-2 // ground right
-1 // top left
-3 // top right
-0 // front left lower
-2 // front right lower
-1 // front left upper
-3 // front right upper
-0 // back left lower
-2 // back right lower
-1 // back left upper
-3 // back right upper
+0
+0
+1
+2
+0
+2
+1
+3
+0
+1
+2
+3
+0
+2
+1
+3
+0
+2
+1
+3
 )
+
+
+// ************************************************************************* //
