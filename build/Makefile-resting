@@ -1,23 +1,35 @@
 RESTING_END_TIME := 21600
 RESTING_FINAL_THETA_FIELD := $(RESTING_END_TIME)/theta
+RESTING_INITIAL_UF_FIELD :=0/Uf
 RESTING_INITIAL_EXNER_FIELD := 0/Exner
 RESTING_INITIAL_THETA_FIELDS := 0/BruntFreq 0/BruntFreq2f 0/theta 0/thetaf
-RESTING_INITIAL_FIELDS := $(RESTING_INITIAL_THETA_FIELDS) $(RESTING_INITIAL_EXNER_FIELD)
+RESTING_INITIAL_FIELDS := \
+  $(RESTING_INITIAL_THETA_FIELDS) \
+  $(RESTING_INITIAL_EXNER_FIELD) \
+  $(RESTING_INITIAL_UF_FIELD)
 # TODO: any others?  e.g. U or Uf?
 RESTING_FINAL_FIELDS := $(RESTING_END_TIME)/Exner $(RESTING_END_TIME)/theta
 
 THETA_INIT := constant/theta_init
 EXNER_INIT := constant/Exner_init
+ENVIRONMENTAL_PROPERTIES := constant/environmentalProperties
+THERMOPHYSICAL_PROPERTIES := constant/thermophysicalProperties
 
 # $(1) -- simulation case path
 # $(2) -- subproject label (e.g. advection_noOrography)
 # $(3) -- mesh case path (e.g. btf/schaerCos)
 define RESTING_TEMPLATE
 
+  $(eval $(call CASE_TEMPLATE,$(1)))
+
   .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).theta.intermediate $(2).exnerFoam.intermediate
 
   $(2): $(addprefix $(1)/,$(RESTING_FINAL_FIELDS))
+
+  clean-$(2):
+	$(PY_FOAM_CLEAR_CASE) $(1)
+	$(RM) $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS))
 
   $(addprefix $(1)/,$(RESTING_FINAL_FIELDS)): $(2).exnerFoam.intermediate
 
@@ -28,22 +40,45 @@ define RESTING_TEMPLATE
 
   $(addprefix $(1)/,$(RESTING_INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 
-  $(2).theta.intermediate: \
+  $(2).theta.intermediate $(1)/$(RESTING_INITIAL_EXNER_FIELD): \
+    $(1)/$(ENVIRONMENTAL_PROPERTIES) \
+    $(1)/$(THERMOPHYSICAL_PROPERTIES) \
     $(1)/$(POLY_MESH_DIR) \
     $(addprefix $(3)/,$(MESH_FILES)) \
-    $(1)/$(THETA_INIT)
+
+  $(2).theta.intermediate: $(1)/$(THETA_INIT)
 	$(SET_THETA) -case $(1) > $(2).setTheta.log
 
-  $(1)/$(RESTING_INITIAL_EXNER_FIELD): \
-    $(1)/$(POLY_MESH_DIR) \
-    $(addprefix $(3)/,$(MESH_FILES)) \
-    $(1)/$(EXNER_INIT)
+  $(1)/$(RESTING_INITIAL_EXNER_FIELD): $(1)/$(EXNER_INIT)
 	$(SET_EXNER_BALANCED_H) -case $(1) > $(2).setExnerBalancedH.log
 	$(SED) -i 's/fixedValue;/fixedFluxBuoyantExner; gradient uniform 0;/g' $(1)/$(RESTING_INITIAL_EXNER_FIELD)
 
-  clean-$(2):
-	$(PY_FOAM_CLEAR_CASE) $(1)
-	$(RM) $(addprefix $(1)/,$(RESTING_INITIAL_FIELDS))
+  $(1)/$(RESTING_INITIAL_UF_FIELD): | $(1)/0
+	$(LN) -fs $(COMMON_CASE)/$(RESTING_INITIAL_UF_FIELD) $$@
+
+  $(1)/0 $(1)/constant:
+	$(MKDIR) -p $$@
+
+  $(1)/$(THETA_INIT): | $(1)/constant
+	$(LN) -fs $(COMMON_CASE)/$(THETA_INIT) $$@
+
+  $(1)/$(EXNER_INIT): | $(1)/constant
+	$(LN) -fs $(COMMON_CASE)/$(EXNER_INIT) $$@
+
+  $(1)/$(ENVIRONMENTAL_PROPERTIES): | $(1)/constant
+	$(LN) -fs $(COMMON_CASE)/$(ENVIRONMENTAL_PROPERTIES) $$@
+
+  $(1)/$(THERMOPHYSICAL_PROPERTIES): | $(1)/constant
+	$(LN) -fs $(COMMON_CASE)/$(THERMOPHYSICAL_PROPERTIES) $$@
+
+  $(1)/$(CONTROL_DICT):
+	$(LN) -fs $(COMMON_CASE)/system/controlDictResting $$@
+
+  $(1)/$(FV_SCHEMES):
+	$(LN) -fs $(COMMON_CASE)/system/fvSchemesResting $$@
+
+  $(1)/$(FV_SOLUTION):
+	$(LN) -fs $(COMMON_CASE)/system/fvSolutionResting $$@
 
   # TODO: C&Ped from advection
   $(1)/$(POLY_MESH_DIR): $(3)/$(POLY_MESH_DIR)

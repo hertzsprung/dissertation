@@ -14,6 +14,8 @@ MESH_FILES := \
 # $(2) -- subproject label
 define MESH_TEMPLATE
 
+  $(eval $(call CASE_TEMPLATE,$(1)))
+
   .PHONY: $(2) clean-$(2)
 
   $(2): $(addprefix $(1)/,$(MESH_FILES))
@@ -22,12 +24,7 @@ define MESH_TEMPLATE
 	$(RM) -r $(1)
 
   $(1)/$(POLY_MESH_DIR):
-	$(MKDIR) -p $(1)/$(POLY_MESH_DIR)
-
-  $(1)/system:
-	$(MKDIR) -p $(1)/system
-
-  $(addprefix $(1)/,$(SYSTEM_FILES)): | $(1)/system
+	$(MKDIR) -p $$@
 
   $(1)/$(CONTROL_DICT):
 	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $$@

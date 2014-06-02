@@ -114,6 +114,7 @@ polyMesh
 **/mesh/noOrography/**/
 **/mesh/btf
 **/mesh/snap/**/
+**/resting/**/
 
 # PyFoam
 PyFoamHistory
