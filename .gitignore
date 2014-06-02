@@ -124,3 +124,6 @@ PlyParser_FoamFileParser_parsetab.py
 
 # vim
 *.swp
+
+# ctags
+tags

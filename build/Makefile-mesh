@@ -1,8 +1,10 @@
 POLY_MESH_DIR := constant/polyMesh
 BLOCK_MESH_DICT := $(POLY_MESH_DIR)/blockMeshDict
 
+BOUNDARY := $(POLY_MESH_DIR)/boundary
+
 MESH_FILES := \
-  $(POLY_MESH_DIR)/boundary \
+  $(BOUNDARY) \
   $(POLY_MESH_DIR)/faces \
   $(POLY_MESH_DIR)/neighbour \
   $(POLY_MESH_DIR)/owner \

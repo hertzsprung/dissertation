@@ -1,9 +1,11 @@
 CP := cp
+MV := mv
 LN := ln
 UNLINK := unlink
 MKDIR := mkdir
 GREP := grep
 SED := sed
+PERL := perl
 
 PDFLATEX := pdflatex --shell-escape --interaction=nonstopmode
 BIBER := biber
