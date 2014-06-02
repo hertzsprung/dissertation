@@ -49,6 +49,8 @@ $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/advect
 
 $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/resting,mesh-snap-schaerCos-resting,openfoam/cases/mesh/btf/schaerCos/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
 
+$(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerExp/resting,mesh-snap-schaerExp-resting,openfoam/cases/mesh/btf/schaerExp/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
+
 clean:: \
   clean-mesh-snap-schaerCos-advection \
   clean-mesh-snap-schaerCos-resting

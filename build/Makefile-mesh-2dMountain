@@ -27,7 +27,11 @@ $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos/advection,me
 
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos/resting,mesh-btf-schaerCos-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/btf-schaerCos-resting.add2dMountainDict))
 
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/resting,mesh-btf-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/btf-schaerExp-resting.add2dMountainDict))
+
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerCos/resting,mesh-sleve-schaerCos-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerCos-resting.add2dMountainDict))
+
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/resting,mesh-sleve-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerExp-resting.add2dMountainDict))
 
 clean:: \
   clean-mesh-btf-schaerCos-advection \
