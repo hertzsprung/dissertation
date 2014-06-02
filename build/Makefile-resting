@@ -90,6 +90,8 @@ $(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/noOrography,resting-noOrog
 
 $(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/btf/schaerCos,resting-btf-schaerCos,openfoam/cases/mesh/btf/schaerCos/resting))
 
+$(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/sleve/schaerCos,resting-sleve-schaerCos,openfoam/cases/mesh/sleve/schaerCos/resting))
+
 $(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/snap/schaerCos,resting-snap-schaerCos,openfoam/cases/mesh/snap/schaerCos/resting))
 
 clean:: \

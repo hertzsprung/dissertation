@@ -7,4 +7,5 @@ set key outside
 
 plot	'snap/schaerCos/energy.dat' using 1:6 title 'snappyHexMesh', \
 	'noOrography/energy.dat' using 1:6 title 'noOrography', \
-	'btf/schaerCos/energy.dat' using 1:6 title 'btf_h'
+	'btf/schaerCos/energy.dat' using 1:6 title 'btf_h', \
+	'sleve/schaerCos/energy.dat' using 1:6 title 'sleve_h'
