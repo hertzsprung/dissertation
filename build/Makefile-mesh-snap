@@ -35,7 +35,7 @@ define SNAPPY_HEX_MESH_TEMPLATE
 	$(WRITE_MESH_OBJ) -case $(3) -patchFaces -time -1 -constant > $(2).writeMeshObj.log
 	$(CP) $(3)/$(GROUND_PATCH) $(1)/$(TRI_SURFACE_DIR)/	
 	$(BLOCK_MESH) -dict $(abspath $(4))/$(BLOCK_MESH_DICT) -case $(1) > $(2).blockMesh.log 
-	$(RM) $(addprefix $(1)/,SNAPPY_HEX_MESH_FILES)
+	$(RM) $(addprefix $(1)/,$(SNAPPY_HEX_MESH_FILES))
 	$(SNAPPY_HEX_MESH) -overwrite -case $(1) -dict $(abspath $(5)) > $(2).snappyHexMesh.log
 
   $(1)/$(TRI_SURFACE_DIR):
