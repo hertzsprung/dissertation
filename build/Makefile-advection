@@ -21,7 +21,7 @@ define ADVECTION_TEMPLATE
   $(2): $(1)/$(ADVECTION_TRACER_ERROR)
 
   clean-$(2):
-	$(PY_FOAM_CLEAR_CASE) --additional=0 $(1)
+	$(PY_FOAM_CLEAR_CASE) --processors-remove --additional=0 $(1)
 	$(RM) $(1)/$(ADVECTION_TRACER_ERROR) $(2)*.log
 	-$(UNLINK) $(1)/$(POLY_MESH_DIR)
 
@@ -37,8 +37,13 @@ define ADVECTION_TEMPLATE
   $(1)/$(ADVECTION_ANALYTIC_TRACER_FIELD): $(1)/$(INITIAL_CONDITIONS) $(addprefix $(3)/,$(MESH_FILES))
 	$(SET_SCALAR_OVER_OROGRAPHY) -case $(1) -x0 50000 -withoutWindField -tracerFieldFileName T_analytic > $(2).setScalarOverOrography.analytic.log # TODO: don't hardwire x0 value
 
-  $(1)/$(ADVECTION_FINAL_TRACER_FIELD): $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS))
-	$(SCALAR_TRANSPORT_FOAM) -case $(1) > $(2).scalarTransportFoam.log
+  $(1)/$(ADVECTION_FINAL_TRACER_FIELD): \
+    $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS)) \
+    $(1)/$(DECOMPOSE_PAR_DICT) \
+    $(addprefix $(1)/,$(SYSTEM_FILES))
+	$(DECOMPOSE_PAR) -case $(1) -force > $(2).decomposePar.log
+	$(MPI_RUN) -np $(PROCESSORS) $(SCALAR_TRANSPORT_FOAM) -case $(1) -parallel > $(2).scalarTransportFoam.log
+	$(RECONSTRUCT_PAR) -case $(1) > $(2).reconstructPar.log
 
   $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS)): $(2).intermediate
 
@@ -51,6 +56,9 @@ define ADVECTION_TEMPLATE
 
   $(1)/$(POLY_MESH_DIR): $(3)/$(POLY_MESH_DIR)
 	$(LN) -fs $(abspath $(3)/$(POLY_MESH_DIR)) $(1)/$(POLY_MESH_DIR)
+
+  $(1)/$(DECOMPOSE_PAR_DICT): $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT)
+	$(LN) -fs $$< $$@
 
 endef
 

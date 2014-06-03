@@ -6,12 +6,16 @@ MKDIR := mkdir
 GREP := grep
 SED := sed
 PERL := perl
+ENV_SUBST := envsubst
 
 PDFLATEX := pdflatex --shell-escape --interaction=nonstopmode
 BIBER := biber
 TEXCOUNT := texcount
 
+MPI_RUN := mpirun
 BLOCK_MESH := blockMesh
+DECOMPOSE_PAR := decomposePar
+RECONSTRUCT_PAR := reconstructPar
 SNAPPY_HEX_MESH := snappyHexMesh
 WRITE_MESH_OBJ := writeMeshObj
 ADD_2D_MOUNTAIN := add2dMountain

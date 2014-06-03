@@ -1,13 +1,21 @@
 export COMMON_CASE := $(abspath openfoam/cases/common)
+ifndef PROCESSORS
+  # because jasmin doesn't have nproc installed for some reason
+  export PROCESSORS := $(shell lscpu | grep "^CPU(s)" | tr -s ' ' | cut -d' ' -f2)
+endif
 
 CONTROL_DICT := system/controlDict
 FV_SCHEMES := system/fvSchemes
 FV_SOLUTION := system/fvSolution
+DECOMPOSE_PAR_DICT := system/decomposeParDict
 
 SYSTEM_FILES := \
   $(CONTROL_DICT) \
   $(FV_SCHEMES) \
   $(FV_SOLUTION)
+
+$(COMMON_CASE)/$(DECOMPOSE_PAR_DICT):
+	$(ENV_SUBST) < $@.template > $@
 
 # $(1) -- case path
 define CASE_TEMPLATE
