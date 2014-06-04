@@ -1,3 +1,4 @@
+GRAVITY_WAVES_END_TIME := 18000
 SPONGE_LAYER := constant/muSponge
 
 # $(1) -- simulation case path
@@ -5,7 +6,7 @@ SPONGE_LAYER := constant/muSponge
 # $(3) -- mesh case path
 define GRAVITY_WAVES_TEMPLATE
 
-  $(eval $(call PHYSICAL_TEST_CASE_TEMPLATE,$(1),$(2),$(3)))
+  $(eval $(call PHYSICAL_TEST_CASE_TEMPLATE,$(1),$(2),$(3),$(GRAVITY_WAVES_END_TIME)))
 
   .PHONY: $(2) clean-$(2)
 
@@ -13,10 +14,12 @@ define GRAVITY_WAVES_TEMPLATE
 
   clean:: clean-$(2)
 
-  $(2): $(addprefix $(1)/,$(INITIAL_PHYSICAL_FIELDS))
+  $(2): $(addprefix $(1)/$(GRAVITY_WAVES_END_TIME)/,$(FINAL_PHYSICAL_FIELDS))
 
   clean-$(2):
 	$(RM) -r $(1)
+
+  $(2).exnerFoam.intermediate: $(1)/$(SPONGE_LAYER)
 
   $(1)/$(SPONGE_LAYER): \
     $(1)/$(ENVIRONMENTAL_PROPERTIES) \
