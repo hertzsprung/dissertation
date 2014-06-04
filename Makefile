@@ -12,6 +12,7 @@ include build/Makefile-mesh-2dMountain
 include build/Makefile-mesh-snap
 include build/Makefile-advection
 include build/Makefile-resting
+include build/Makefile-gravityWaves
 
 .PHONY: all clean
 

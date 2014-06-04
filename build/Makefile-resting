@@ -12,12 +12,11 @@ RESTING_FINAL_FIELDS := $(RESTING_END_TIME)/Exner $(RESTING_END_TIME)/theta
 
 THETA_INIT := constant/theta_init
 EXNER_INIT := constant/Exner_init
-ENVIRONMENTAL_PROPERTIES := constant/environmentalProperties
 THERMOPHYSICAL_PROPERTIES := constant/thermophysicalProperties
 
 # $(1) -- simulation case path
-# $(2) -- subproject label (e.g. advection_noOrography)
-# $(3) -- mesh case path (e.g. btf/schaerCos)
+# $(2) -- subproject label
+# $(3) -- mesh case path
 define RESTING_TEMPLATE
 
   $(eval $(call CASE_TEMPLATE,$(1)))
@@ -26,6 +25,8 @@ define RESTING_TEMPLATE
   .INTERMEDIATE: $(2).theta.intermediate $(2).exnerFoam.intermediate
 
   $(2): $(addprefix $(1)/,$(RESTING_FINAL_FIELDS))
+
+  clean:: clean-$(2)
 
   clean-$(2):
 	$(PY_FOAM_CLEAR_CASE) $(1)
@@ -66,7 +67,7 @@ define RESTING_TEMPLATE
 	$(LN) -fs $(COMMON_CASE)/$(EXNER_INIT) $$@
 
   $(1)/$(ENVIRONMENTAL_PROPERTIES): | $(1)/constant
-	$(LN) -fs $(COMMON_CASE)/$(ENVIRONMENTAL_PROPERTIES) $$@
+	$(LN) -fs $(COMMON_CASE)/constant/environmentalProperties.resting $$@
 
   $(1)/$(THERMOPHYSICAL_PROPERTIES): | $(1)/constant
 	$(LN) -fs $(COMMON_CASE)/$(THERMOPHYSICAL_PROPERTIES) $$@
@@ -100,7 +101,3 @@ $(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/snap/schaerCos,resting-sna
 
 $(eval $(call RESTING_TEMPLATE,openfoam/cases/resting/snap/schaerExp,resting-snap-schaerExp,openfoam/cases/mesh/snap/schaerExp/resting))
 
-clean:: \
-  clean-resting-noOrography \
-  clean-resting-btf-schaerCos \
-  clean-resting-snap-schaerCos

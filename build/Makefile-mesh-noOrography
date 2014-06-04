@@ -23,6 +23,8 @@ $(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography/advection,mesh
 
 $(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography/resting,mesh-noOrography-resting,openfoam/cases/mesh/noOrography/blockMeshDictResting))
 
+$(eval $(call BLOCK_MESH_TEMPLATE,openfoam/cases/mesh/noOrography/gravityWaves,mesh-noOrography-gravityWaves,openfoam/cases/mesh/noOrography/blockMeshDictGravityWaves))
+
 clean:: \
   clean-mesh-noOrography-advection \
   clean-mesh-noOrography-resting

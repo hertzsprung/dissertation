@@ -9,6 +9,8 @@ FV_SCHEMES := system/fvSchemes
 FV_SOLUTION := system/fvSolution
 DECOMPOSE_PAR_DICT := system/decomposeParDict
 
+ENVIRONMENTAL_PROPERTIES := constant/environmentalProperties
+
 SYSTEM_FILES := \
   $(CONTROL_DICT) \
   $(FV_SCHEMES) \

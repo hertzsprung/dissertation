@@ -33,6 +33,4 @@ $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerCos/resting,me
 
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/resting,mesh-sleve-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerExp-resting.add2dMountainDict))
 
-clean:: \
-  clean-mesh-btf-schaerCos-advection \
-  clean-mesh-btf-schaerCos-resting
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/gravityWaves,mesh-btf-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/btf-schaerExp-gravityWaves.add2dMountainDict))

@@ -19,6 +19,7 @@ RECONSTRUCT_PAR := reconstructPar
 SNAPPY_HEX_MESH := snappyHexMesh
 WRITE_MESH_OBJ := writeMeshObj
 ADD_2D_MOUNTAIN := add2dMountain
+CREATE_SPONGE_LAYER := createSpongeLayer
 PY_FOAM_CLEAR_CASE := pyFoamClearCase.py
 SET_SCALAR_OVER_OROGRAPHY := setScalarOverOrography
 SCALAR_TRANSPORT_FOAM := scalarTransportFoam

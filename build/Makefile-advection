@@ -10,9 +10,8 @@ ADVECTION_ANALYTIC_TRACER_FIELD := 0/T_analytic # TODO: should really be in $(AD
 ADVECTION_TRACER_ERROR := globalSumT_diff.dat
 
 # $(1) -- simulation case path
-# $(2) -- subproject label (e.g. advection_noOrography)
-# $(3) -- mesh case path (e.g. btf/schaerCos/advection)
-# TODO: assign $(addprefix $(1)/,...) stuff to a variable
+# $(2) -- subproject label
+# $(3) -- mesh case path
 define ADVECTION_TEMPLATE
 
   .PHONY: $(2) clean-$(2)

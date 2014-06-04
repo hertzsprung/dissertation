@@ -1,0 +1,26 @@
+SPONGE_LAYER := constant/muSponge
+
+# $(1) -- simulation case path
+# $(2) -- subproject label
+# $(3) -- mesh case path
+define GRAVITY_WAVES_TEMPLATE
+
+  .PHONY: $(2) clean-$(2)
+
+  $(2): $(1)/$(SPONGE_LAYER)
+
+  clean-$(2):
+	$(RM) -r $(1)
+
+  $(1)/$(SPONGE_LAYER): $(1)/$(ENVIRONMENTAL_PROPERTIES)
+	$(CREATE_SPONGE_LAYER) -case $(1) > $(2).createSpongeLayer.log
+
+  $(1)/$(ENVIRONMENTAL_PROPERTIES): | $(1)/constant
+	$(LN) -fs $(COMMON_CASE)/constant/environmentalProperties.resting $$@
+
+  $(1)/constant:
+	$(MKDIR) -p $$@
+
+endef
+
+$(eval $(call GRAVITY_WAVES_TEMPLATE,openfoam/cases/gravityWaves/btf/schaerExp,gravityWaves-btf-schaerExp,openfoam/cases/mesh/btf/schaerExp/gravityWaves))

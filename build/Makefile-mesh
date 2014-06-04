@@ -20,6 +20,8 @@ define MESH_TEMPLATE
 
   $(2): $(addprefix $(1)/,$(MESH_FILES))
 
+  clean:: clean-$(2)
+
   clean-$(2):
 	$(RM) -r $(1)
 
