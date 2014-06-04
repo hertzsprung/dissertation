@@ -1,0 +1,48 @@
+INITIAL_THETA_FIELDS := 0/BruntFreq 0/BruntFreq2f 0/theta 0/thetaf
+INITIAL_EXNER_FIELD := 0/Exner
+INITIAL_UF_FIELD :=0/Uf
+INITIAL_PHYSICAL_FIELDS := \
+  $(INITIAL_THETA_FIELDS) \
+  $(INITIAL_EXNER_FIELD) \
+  $(INITIAL_UF_FIELD)
+
+THETA_INIT := constant/theta_init
+EXNER_INIT := constant/Exner_init
+THERMOPHYSICAL_PROPERTIES := constant/thermophysicalProperties
+
+# $(1) -- simulation case path
+# $(2) -- subproject label
+# $(3) -- mesh case path
+define PHYSICAL_TEST_CASE_TEMPLATE
+
+  .INTERMEDIATE: $(2).theta.intermediate
+
+  $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
+
+  $(addprefix $(1)/,$(INITIAL_THETA_FIELDS)): $(2).theta.intermediate
+
+  $(1)/$(INITIAL_EXNER_FIELD): $(1)/$(EXNER_INIT)
+	$(SET_EXNER_BALANCED_H) -case $(1) > $(2).setExnerBalancedH.log
+	$(SED) -i 's/fixedValue;/fixedFluxBuoyantExner; gradient uniform 0;/g' $(1)/$(INITIAL_EXNER_FIELD)
+
+  $(2).theta.intermediate $(1)/$(INITIAL_EXNER_FIELD): \
+    $(1)/$(ENVIRONMENTAL_PROPERTIES) \
+    $(1)/$(THERMOPHYSICAL_PROPERTIES) \
+    $(1)/$(POLY_MESH_DIR) \
+    $(addprefix $(3)/,$(MESH_FILES)) \
+    $(addprefix $(1)/,$(SYSTEM_FILES))
+
+  $(2).theta.intermediate: $(1)/$(THETA_INIT)
+	$(SET_THETA) -case $(1) > $(2).setTheta.log
+
+  $(1)/$(THETA_INIT) \
+  $(1)/$(EXNER_INIT) \
+  $(1)/$(ENVIRONMENTAL_PROPERTIES) \
+  $(1)/$(THERMOPHYSICAL_PROPERTIES): | $(1)/constant
+
+  $(1)/$(INITIAL_UF_FIELD): | $(1)/0
+
+  $(1)/0 $(1)/constant:
+	$(MKDIR) -p $$@
+
+endef
