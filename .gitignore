@@ -99,6 +99,7 @@ linux*DPOpt
 uptodate
 lnInclude
 **/[0-9]*
+!2dMountain
 *.OpenFOAM
 triSurface
 cellLevel
@@ -111,11 +112,11 @@ refinementHistory
 surfaceIndex
 patchFaces*.obj
 polyMesh
-**/mesh/noOrography/**/
+**/mesh/noOrography
 **/mesh/btf
-**/mesh/snap/**/
-**/resting/**/
-**/gravityWaves/**/
+**/mesh/snap
+**/resting
+**/gravityWaves
 decomposeParDict
 
 # PyFoam
