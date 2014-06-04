@@ -27,8 +27,11 @@ define PHYSICAL_TEST_CASE_TEMPLATE
 
   $(2).exnerFoam.intermediate: \
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
-    $(addprefix $(1)/,$(INITIAL_PHYSICAL_FIELDS))
-	$(EXNER_FOAM_H) -case $(1) > $(2).exnerFoamH.log
+    $(addprefix $(1)/,$(INITIAL_PHYSICAL_FIELDS)) \
+    $(1)/$(DECOMPOSE_PAR_DICT)
+	$(DECOMPOSE_PAR) -case $(1) -force -constant > $(2).decomposePar.log
+	$(MPI_RUN) -np $(PROCESSORS) $(EXNER_FOAM_H) -case $(1) -parallel > $(2).exnerFoamH.log
+	$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
 
   $(addprefix $(1)/,$(INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 

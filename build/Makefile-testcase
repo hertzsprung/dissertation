@@ -8,4 +8,7 @@ define TEST_CASE_TEMPLATE
   $(1)/$(POLY_MESH_DIR): $(3)/$(POLY_MESH_DIR)
 	$(LN) -fs $(abspath $(3)/$(POLY_MESH_DIR)) $(1)/$(POLY_MESH_DIR)
 
+  $(1)/$(DECOMPOSE_PAR_DICT): $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT)
+	$(LN) -fs $$< $$@
+
 endef
