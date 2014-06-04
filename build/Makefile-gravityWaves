@@ -5,21 +5,40 @@ SPONGE_LAYER := constant/muSponge
 # $(3) -- mesh case path
 define GRAVITY_WAVES_TEMPLATE
 
+  $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
+
   .PHONY: $(2) clean-$(2)
+
+  all:: $(2)
+
+  clean:: clean-$(2)
 
   $(2): $(1)/$(SPONGE_LAYER)
 
   clean-$(2):
 	$(RM) -r $(1)
 
-  $(1)/$(SPONGE_LAYER): $(1)/$(ENVIRONMENTAL_PROPERTIES)
+  $(1)/$(SPONGE_LAYER): \
+    $(1)/$(ENVIRONMENTAL_PROPERTIES) \
+    $(1)/$(POLY_MESH_DIR) \
+    $(addprefix $(3)/,$(MESH_FILES)) \
+    $(addprefix $(1)/,$(SYSTEM_FILES))
 	$(CREATE_SPONGE_LAYER) -case $(1) > $(2).createSpongeLayer.log
 
   $(1)/$(ENVIRONMENTAL_PROPERTIES): | $(1)/constant
-	$(LN) -fs $(COMMON_CASE)/constant/environmentalProperties.resting $$@
+	$(LN) -fs $(COMMON_CASE)/$(ENVIRONMENTAL_PROPERTIES).gravityWaves $$@
 
   $(1)/constant:
 	$(MKDIR) -p $$@
+
+  $(1)/$(CONTROL_DICT):
+	$(LN) -fs $(COMMON_CASE)/$(CONTROL_DICT).gravityWaves $$@
+
+  $(1)/$(FV_SCHEMES):
+	$(LN) -fs $(COMMON_CASE)/$(FV_SCHEMES).gravityWaves $$@
+
+  $(1)/$(FV_SOLUTION):
+	$(LN) -fs $(COMMON_CASE)/$(FV_SOLUTION).gravityWaves $$@
 
 endef
 

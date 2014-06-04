@@ -21,8 +21,10 @@ $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT):
 
 # $(1) -- case path
 define CASE_TEMPLATE
+
   $(1)/system:
 	$(MKDIR) -p $(1)/system
 
   $(addprefix $(1)/,$(SYSTEM_FILES)): | $(1)/system
+
 endef

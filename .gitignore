@@ -115,6 +115,7 @@ polyMesh
 **/mesh/btf
 **/mesh/snap/**/
 **/resting/**/
+**/gravityWaves/**/
 decomposeParDict
 
 # PyFoam

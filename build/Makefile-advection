@@ -14,8 +14,14 @@ ADVECTION_TRACER_ERROR := globalSumT_diff.dat
 # $(3) -- mesh case path
 define ADVECTION_TEMPLATE
 
+  $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
+
   .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
+
+  all:: $(2)
+
+  clean:: clean-$(2)
 
   $(2): $(1)/$(ADVECTION_TRACER_ERROR)
 
@@ -53,9 +59,6 @@ define ADVECTION_TEMPLATE
     $(1)/$(TRANSPORT_PROPERTIES)
 	$(SET_SCALAR_OVER_OROGRAPHY) -case $(1) > $(2).setScalarOverOrography.initial.log
 
-  $(1)/$(POLY_MESH_DIR): $(3)/$(POLY_MESH_DIR)
-	$(LN) -fs $(abspath $(3)/$(POLY_MESH_DIR)) $(1)/$(POLY_MESH_DIR)
-
   $(1)/$(DECOMPOSE_PAR_DICT): $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT)
 	$(LN) -fs $$< $$@
 
@@ -70,18 +73,4 @@ $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos/advection))
 
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snap/schaerCos/vanLeer,advection-snap-schaerCos-vanLeer,openfoam/cases/mesh/snap/schaerCos/advection))
-
-all:: \
-  advection-noOrography-vanLeer \
-  advection-noOrography-tvdLimitedCubicUpwindCPCFit \
-  advection-btf-schaerCos-vanLeer \
-  advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
-  advection-snap-schaerCos-vanLeer
-
-clean:: \
-  clean-advection-noOrography-vanLeer \
-  clean-advection-noOrography-tvdLimitedCubicUpwindCPCFit \
-  clean-advection-btf-schaerCos-vanLeer \
-  clean-advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit \
-  clean-advection-snap-schaerCos-vanLeer
 
