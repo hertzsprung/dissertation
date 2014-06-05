@@ -152,3 +152,4 @@ OpenFOAM
 l1 = sum(mag(phi)*vol) / total_vol
 l2 = sum(sqr(phi)*vol) / sqrt(l2/total_vol)
 l0 = sum(phi*vol) / total_vol
+./OpenFOAM-2.3.0/platforms/linux64GccDPOpt/lib/openmpi-1.6.5/libPstream.so
