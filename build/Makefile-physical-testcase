@@ -17,6 +17,8 @@ THERMOPHYSICAL_PROPERTIES := constant/thermophysicalProperties
 # $(2) -- subproject label
 # $(3) -- mesh case path
 # $(4) -- end time
+# $(5) -- exnerFoam executable
+# $(6) -- setExnerBalancedH executable
 define PHYSICAL_TEST_CASE_TEMPLATE
 
   $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
@@ -30,13 +32,13 @@ define PHYSICAL_TEST_CASE_TEMPLATE
     $(addprefix $(1)/,$(INITIAL_PHYSICAL_FIELDS)) \
     $(1)/$(DECOMPOSE_PAR_DICT)
 	$(DECOMPOSE_PAR) -case $(1) -force -constant > $(2).decomposePar.log
-	$(MPI_RUN) -np $(PROCESSORS) $(EXNER_FOAM_H) -case $(1) -parallel > $(2).exnerFoamH.log
+	$(MPI_RUN) -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).exnerFoamH.log
 	$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
 
   $(addprefix $(1)/,$(INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 
   $(1)/$(INITIAL_EXNER_FIELD): $(1)/$(EXNER_INIT)
-	$(SET_EXNER_BALANCED_H) -case $(1) > $(2).setExnerBalancedH.log
+	$(6) -case $(1) > $(2).setExnerBalancedH.log
 	$(SED) -i 's/fixedValue;/fixedFluxBuoyantExner; gradient uniform 0;/g' $(1)/$(INITIAL_EXNER_FIELD)
 
   $(2).theta.intermediate $(1)/$(INITIAL_EXNER_FIELD): \
