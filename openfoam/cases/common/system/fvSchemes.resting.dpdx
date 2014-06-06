@@ -27,20 +27,19 @@ ddtSchemes
     default Euler;
 }
 offCentre 0.5;
-
 SIgravityWaves true;
 
 gradSchemes
 {
     default         none;
-    grad(theta)     Gauss cubicUpwindCPCFit 3;
+    grad(theta)     Gauss midPoint;
 }
 
 divSchemes
 {
-    default          none;
-    div(phi,theta)   Gauss cubicUpwindCPCFit 3;
-    div(phi,U)       Gauss cubicUpwindCPCFit 3;
+    default             none;
+    div(phi,theta)    Gauss cubicUpwindCPCFit 3;
+    div(phi,U)        Gauss cubicUpwindCPCFit 3;
 }
 
 laplacianSchemes
@@ -54,9 +53,9 @@ interpolationSchemes
     interpolate(theta)    midPoint;
     interpolate(rho)    midPoint;
     interpolate(convection(phi,U)) midPoint;
-    interpolate(u) midPoint;
+    interpolate(U) midPoint;
     interpolate(grad(theta)) midPoint;
-    H                        midPoint;
+    interpolate(Exner)       midPoint;
 }
 
 snGradSchemes

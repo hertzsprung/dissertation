@@ -53,6 +53,6 @@ runTimeModifiable no;
 adjustTimeStep no;
 maxCo          1;
 
-libs            ("libExnerTheta.so");
+libs            ("libExnerTheta.so" "libfiniteVolumeUser.so");
 
 // ************************************************************************* //

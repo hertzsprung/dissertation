@@ -31,9 +31,10 @@ define PHYSICAL_TEST_CASE_TEMPLATE
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
     $(addprefix $(1)/,$(INITIAL_PHYSICAL_FIELDS)) \
     $(1)/$(DECOMPOSE_PAR_DICT)
-	$(DECOMPOSE_PAR) -case $(1) -force -constant > $(2).decomposePar.log
-	$(MPI_RUN) -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).exnerFoamH.log
-	$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
+	#$(DECOMPOSE_PAR) -case $(1) -force -constant > $(2).decomposePar.log
+	#$(MPI_RUN) -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).exnerFoamH.log
+	#$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
+	$(5) -case $(1) > $(2).exnerFoamH.log
 
   $(addprefix $(1)/,$(INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 
