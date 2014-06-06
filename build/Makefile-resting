@@ -12,6 +12,15 @@ endef
 # $(1) -- simulation case path
 # $(2) -- subproject label
 # $(3) -- mesh case path
+define RESTING_DPDX_TEMPLATE
+
+  $(eval $(call RESTING_TEMPLATE,$(1),$(2),$(3),$(EXNER_FOAM),$(SET_EXNER_BALANCED)))
+
+endef
+
+# $(1) -- simulation case path
+# $(2) -- subproject label
+# $(3) -- mesh case path
 # $(4) -- exnerFoam executable
 # $(5) -- setExnerBalancedH executable
 define RESTING_TEMPLATE
@@ -45,18 +54,18 @@ define RESTING_TEMPLATE
 	$(LN) -fs $(COMMON_CASE)/$(THERMOPHYSICAL_PROPERTIES) $$@
 
   $(1)/$(CONTROL_DICT):
-	$(LN) -fs $(COMMON_CASE)/system/controlDictResting $$@
+	$(LN) -fs $(COMMON_CASE)/$(CONTROL_DICT).resting $$@
 
   $(1)/$(FV_SCHEMES):
-	$(LN) -fs $(COMMON_CASE)/system/fvSchemesResting $$@
+	$(LN) -fs $(COMMON_CASE)/$(FV_SCHEMES).resting $$@
 
   $(1)/$(FV_SOLUTION):
-	$(LN) -fs $(COMMON_CASE)/system/fvSolutionResting $$@
+	$(LN) -fs $(COMMON_CASE)/$(FV_SOLUTION).resting $$@
 
 endef
 
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/noOrography/h,resting-noOrography-h,openfoam/cases/mesh/noOrography/resting))
-$(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/noOrography/dpdx,resting-noOrography-dpdx,openfoam/cases/mesh/noOrography/resting))
+$(eval $(call RESTING_DPDX_TEMPLATE,openfoam/cases/resting/noOrography/dpdx,resting-noOrography-dpdx,openfoam/cases/mesh/noOrography/resting))
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/btf/schaerExp,resting-btf-schaerExp,openfoam/cases/mesh/btf/schaerExp/resting))
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/sleve/schaerExp,resting-sleve-schaerExp,openfoam/cases/mesh/sleve/schaerExp/resting))
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/snap/schaerExp,resting-snap-schaerExp,openfoam/cases/mesh/snap/schaerExp/resting))
