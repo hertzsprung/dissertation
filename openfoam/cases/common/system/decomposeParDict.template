@@ -8,4 +8,9 @@ FoamFile {
 
 
 numberOfSubdomains $PROCESSORS;
-method scotch;
+method simple;
+
+simpleCoeffs {
+	n	($PROCESSORS 1 1);
+	delta	0.001;
+}
