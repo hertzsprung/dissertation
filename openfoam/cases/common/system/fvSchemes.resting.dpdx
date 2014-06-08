@@ -37,14 +37,14 @@ gradSchemes
 
 divSchemes
 {
-    default             none;
-    div(phi,theta)    Gauss cubicUpwindCPCFit 3;
-    div(phi,U)        Gauss cubicUpwindCPCFit 3;
+    default           none;
+    div(phi,theta)    Gauss quadraticUpwindFit 3;
+    div(phi,U)        Gauss quadraticUpwindFit 3;
 }
 
 laplacianSchemes
 {
-    default         Gauss linear linearFit 3;
+    default         Gauss linear linearFitUser 3;
 }
 
 interpolationSchemes
@@ -61,8 +61,8 @@ interpolationSchemes
 snGradSchemes
 {
     default         none;
-    snGrad(Exner)   linearFit 3;
-    snGrad(theta)   linearFit 3;
+    snGrad(Exner)   linearFitUser 3;
+    snGrad(theta)   linearFitUser 3;
 }
 
 fluxRequired
