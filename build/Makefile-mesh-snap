@@ -21,14 +21,13 @@ define SNAPPY_HEX_MESH_TEMPLATE
 
   $(eval $(call MESH_TEMPLATE,$(1),$(2)))
 
-  .INTERMEDIATE: $(2).intermediate $(2).intermediate.mesh
+  .INTERMEDIATE: $(2).intermediate $(2).intermediate.blockMesh
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
   $(2).intermediate: \
-    $(4)/$(BLOCK_MESH_DICT) \
+    $(2).intermediate.blockMesh \
     $(5) \
-    $(addprefix $(1)/,$(MESH_FILES)) \
     $(addprefix $(3)/,$(MESH_FILES)) \
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
   | $(1)/$(TRI_SURFACE_DIR)
@@ -39,19 +38,28 @@ define SNAPPY_HEX_MESH_TEMPLATE
 	$(MV) $(1)/$(BOUNDARY) $(1)/$(BOUNDARY).snappyHexMeshGenerated
 	$(PERL) -ne 'print if !( m/^\s*ground/ .. m/}/ or /^\d*$$$$/ )' < $(1)/$(BOUNDARY).snappyHexMeshGenerated | $(SED) -e 's/patchFaces_ground_constant.obj/ground/' > $(1)/$(BOUNDARY)
 
-  $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate.mesh
-
-  $(2).intermediate.mesh: $(4)/$(BLOCK_MESH_DICT) \
-    $(addprefix $(1)/,$(SYSTEM_FILES)) \
-  | $(1)/$(POLY_MESH_DIR)
-	$(BLOCK_MESH) -dict $(abspath $(4))/$(BLOCK_MESH_DICT) -case $(1) > $(2).blockMesh.log 
+  $(2).intermediate.blockMesh: $(4)/$(BLOCK_MESH_DICT)
 
   $(1)/$(TRI_SURFACE_DIR):
 	$(MKDIR) -p $(1)/$(TRI_SURFACE_DIR)
 
 endef
 
-$(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/advection,mesh-snap-schaerCos-advection,openfoam/cases/mesh/btf/schaerCos/advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/snap/snappyHexMeshDict))
-$(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/resting,mesh-snap-schaerCos-resting,openfoam/cases/mesh/btf/schaerCos/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
-$(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerExp/resting,mesh-snap-schaerExp-resting,openfoam/cases/mesh/btf/schaerExp/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
+# $(1) -- snap mesh case path
+# $(2) -- subproject label (e.g. mesh-btf-schaerCos)
+# $(3) -- terrain following mesh case path
+# $(4) -- no orography mesh case path (e.g. mesh-noOrography)
+# $(5) -- snappyHexMeshDict path
+define SNAP_MESH_TEMPLATE
+
+  $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,$(1),$(2),$(3),$(4),$(5)))
+
+  $(2).intermediate.blockMesh:
+	$(BLOCK_MESH) -dict $(abspath $(4))/$(BLOCK_MESH_DICT) -case $(1) > $(2).blockMesh.log 
+
+endef
+
+$(eval $(call SNAP_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/advection,mesh-snap-schaerCos-advection,openfoam/cases/mesh/btf/schaerCos/advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/snap/snappyHexMeshDict))
+$(eval $(call SNAP_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/resting,mesh-snap-schaerCos-resting,openfoam/cases/mesh/btf/schaerCos/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
+$(eval $(call SNAP_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerExp/resting,mesh-snap-schaerExp-resting,openfoam/cases/mesh/btf/schaerExp/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
 
