@@ -22,10 +22,7 @@ FoamFile
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application buoyantFoam;
-
 startFrom       startTime;
-//startFrom       latestTime;
 
 startTime       0;
 
@@ -33,7 +30,7 @@ stopAt          endTime;
 
 endTime         18000;
 
-deltaT          40;
+deltaT          8;
 
 writeControl    runTime;
 
