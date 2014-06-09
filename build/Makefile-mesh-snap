@@ -21,24 +21,30 @@ define SNAPPY_HEX_MESH_TEMPLATE
 
   $(eval $(call MESH_TEMPLATE,$(1),$(2)))
 
-  .INTERMEDIATE: $(2).intermediate
+  .INTERMEDIATE: $(2).intermediate $(2).intermediate.mesh
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
   $(2).intermediate: \
     $(4)/$(BLOCK_MESH_DICT) \
     $(5) \
+    $(addprefix $(1)/,$(MESH_FILES)) \
     $(addprefix $(3)/,$(MESH_FILES)) \
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
-  | $(1)/$(TRI_SURFACE_DIR) \
-    $(1)/$(POLY_MESH_DIR)
+  | $(1)/$(TRI_SURFACE_DIR)
 	$(WRITE_MESH_OBJ) -case $(3) -patchFaces -time -1 -constant > $(2).writeMeshObj.log
 	$(CP) $(3)/$(GROUND_PATCH) $(1)/$(TRI_SURFACE_DIR)/	
-	$(BLOCK_MESH) -dict $(abspath $(4))/$(BLOCK_MESH_DICT) -case $(1) > $(2).blockMesh.log 
 	$(RM) $(addprefix $(1)/,$(SNAPPY_HEX_MESH_FILES))
 	$(SNAPPY_HEX_MESH) -overwrite -case $(1) -dict $(abspath $(5)) > $(2).snappyHexMesh.log
 	$(MV) $(1)/$(BOUNDARY) $(1)/$(BOUNDARY).snappyHexMeshGenerated
 	$(PERL) -ne 'print if !( m/^\s*ground/ .. m/}/ or /^\d*$$$$/ )' < $(1)/$(BOUNDARY).snappyHexMeshGenerated | $(SED) -e 's/patchFaces_ground_constant.obj/ground/' > $(1)/$(BOUNDARY)
+
+  $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate.mesh
+
+  $(2).intermediate.mesh: $(4)/$(BLOCK_MESH_DICT) \
+    $(addprefix $(1)/,$(SYSTEM_FILES)) \
+  | $(1)/$(POLY_MESH_DIR)
+	$(BLOCK_MESH) -dict $(abspath $(4))/$(BLOCK_MESH_DICT) -case $(1) > $(2).blockMesh.log 
 
   $(1)/$(TRI_SURFACE_DIR):
 	$(MKDIR) -p $(1)/$(TRI_SURFACE_DIR)
@@ -46,12 +52,6 @@ define SNAPPY_HEX_MESH_TEMPLATE
 endef
 
 $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/advection,mesh-snap-schaerCos-advection,openfoam/cases/mesh/btf/schaerCos/advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/snap/snappyHexMeshDict))
-
 $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/resting,mesh-snap-schaerCos-resting,openfoam/cases/mesh/btf/schaerCos/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
-
 $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerExp/resting,mesh-snap-schaerExp-resting,openfoam/cases/mesh/btf/schaerExp/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
-
-clean:: \
-  clean-mesh-snap-schaerCos-advection \
-  clean-mesh-snap-schaerCos-resting
 
