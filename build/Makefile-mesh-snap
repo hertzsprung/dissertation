@@ -38,8 +38,6 @@ define SNAPPY_HEX_MESH_TEMPLATE
 	$(MV) $(1)/$(BOUNDARY) $(1)/$(BOUNDARY).snappyHexMeshGenerated
 	$(PERL) -ne 'print if !( m/^\s*ground/ .. m/}/ or /^\d*$$$$/ )' < $(1)/$(BOUNDARY).snappyHexMeshGenerated | $(SED) -e 's/patchFaces_ground_constant.obj/ground/' > $(1)/$(BOUNDARY)
 
-  $(2).intermediate.blockMesh: $(4)/$(BLOCK_MESH_DICT)
-
   $(1)/$(TRI_SURFACE_DIR):
 	$(MKDIR) -p $(1)/$(TRI_SURFACE_DIR)
 
@@ -54,7 +52,7 @@ define SNAP_MESH_TEMPLATE
 
   $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,$(1),$(2),$(3),$(4),$(5)))
 
-  $(2).intermediate.blockMesh:
+  $(2).intermediate.blockMesh: $(4)/$(BLOCK_MESH_DICT)
 	$(BLOCK_MESH) -dict $(abspath $(4))/$(BLOCK_MESH_DICT) -case $(1) > $(2).blockMesh.log 
 
 endef

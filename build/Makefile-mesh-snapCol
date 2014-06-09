@@ -1,0 +1,15 @@
+# $(1) -- snap mesh case path
+# $(2) -- subproject label (e.g. mesh-btf-schaerCos)
+# $(3) -- terrain following mesh case path
+# $(4) -- no orography mesh case path (e.g. mesh-noOrography)
+# $(5) -- snappyHexMeshDict path
+define SNAP_COL_MESH_TEMPLATE
+
+  $(eval $(call SNAPPY_HEX_MESH_TEMPLATE,$(1),$(2),$(3),$(4),$(5)))
+
+  $(2).intermediate.blockMesh: $(addprefix $(4)/,$(MESH_FILES)) | $(1)/$(POLY_MESH_DIR)
+	$(CP) $(addprefix $(4)/,$(MESH_FILES)) $(1)/$(POLY_MESH_DIR) 
+
+endef
+
+$(eval $(call SNAP_COL_MESH_TEMPLATE,openfoam/cases/mesh/snapCol/schaerExp/resting,mesh-snapCol-schaerExp-resting,openfoam/cases/mesh/btf/schaerExp/resting,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
