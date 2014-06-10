@@ -37,7 +37,7 @@ endef
 # $(5) -- setExnerBalancedH executable
 define RESTING_TEMPLATE
 
-  $(eval $(call PHYSICAL_TEST_CASE_TEMPLATE,$(1),$(2),$(3),$(RESTING_END_TIME),$(4),$(5)))
+  $(eval $(call $(PHYSICAL_TEST_CASE_TEMPLATE),$(1),$(2),$(3),$(RESTING_END_TIME),$(4),$(5)))
 
   .PHONY: $(2) clean-$(2)
 

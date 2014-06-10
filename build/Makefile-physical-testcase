@@ -13,13 +13,52 @@ THETA_INIT := constant/theta_init
 EXNER_INIT := constant/Exner_init
 THERMOPHYSICAL_PROPERTIES := constant/thermophysicalProperties
 
+ifdef PARALLEL
+	PHYSICAL_TEST_CASE_TEMPLATE := PHYSICAL_TEST_CASE_PARALLEL_TEMPLATE
+else
+	PHYSICAL_TEST_CASE_TEMPLATE := PHYSICAL_TEST_CASE_SERIAL_TEMPLATE
+endif
+
 # $(1) -- simulation case path
 # $(2) -- subproject label
 # $(3) -- mesh case path
 # $(4) -- end time
 # $(5) -- exnerFoam executable
 # $(6) -- setExnerBalancedH executable
-define PHYSICAL_TEST_CASE_TEMPLATE
+define PHYSICAL_TEST_CASE_PARALLEL_TEMPLATE
+
+  $(eval $(call ABSTRACT_PHYSICAL_TEST_CASE_TEMPLATE,$(1),$(2),$(3),$(4),$(5),$(6)))
+
+  $(2).exnerFoam.intermediate:
+	$(DECOMPOSE_PAR) -case $(1) -force -constant > $(2).decomposePar.log
+	openfoam/bin/correctMPIinitialUf.sh $(1)
+	$(MPI_RUN) -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).exnerFoamH.log
+	$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
+
+endef
+
+# $(1) -- simulation case path
+# $(2) -- subproject label
+# $(3) -- mesh case path
+# $(4) -- end time
+# $(5) -- exnerFoam executable
+# $(6) -- setExnerBalancedH executable
+define PHYSICAL_TEST_CASE_SERIAL_TEMPLATE
+
+  $(eval $(call ABSTRACT_PHYSICAL_TEST_CASE_TEMPLATE,$(1),$(2),$(3),$(4),$(5),$(6)))
+
+  $(2).exnerFoam.intermediate:
+	$(5) -case $(1) > $(2).exnerFoamH.log
+
+endef
+
+# $(1) -- simulation case path
+# $(2) -- subproject label
+# $(3) -- mesh case path
+# $(4) -- end time
+# $(5) -- exnerFoam executable
+# $(6) -- setExnerBalancedH executable
+define ABSTRACT_PHYSICAL_TEST_CASE_TEMPLATE
 
   $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
 
@@ -31,10 +70,6 @@ define PHYSICAL_TEST_CASE_TEMPLATE
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
     $(addprefix $(1)/,$(INITIAL_PHYSICAL_FIELDS)) \
     $(1)/$(DECOMPOSE_PAR_DICT)
-	$(DECOMPOSE_PAR) -case $(1) -force -constant > $(2).decomposePar.log
-	openfoam/bin/correctMPIinitialUf.sh $(1)
-	$(MPI_RUN) -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).exnerFoamH.log
-	$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
 
   $(addprefix $(1)/,$(INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 

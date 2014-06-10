@@ -6,8 +6,7 @@ SPONGE_LAYER := constant/muSponge
 # $(3) -- mesh case path
 define GRAVITY_WAVES_TEMPLATE
 
-
-  $(eval $(call PHYSICAL_TEST_CASE_TEMPLATE,$(1),$(2),$(3),$(GRAVITY_WAVES_END_TIME),$(EXNER_FOAM_H),$(SET_EXNER_BALANCED_H)))
+  $(eval $(call $(PHYSICAL_TEST_CASE_TEMPLATE),$(1),$(2),$(3),$(GRAVITY_WAVES_END_TIME),$(EXNER_FOAM_H),$(SET_EXNER_BALANCED_H)))
 
   .PHONY: $(2) clean-$(2)
 
