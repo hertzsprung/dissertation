@@ -55,3 +55,4 @@ define GRAVITY_WAVES_TEMPLATE
 endef
 
 $(eval $(call GRAVITY_WAVES_TEMPLATE,openfoam/cases/gravityWaves/btf/schaerExp,gravityWaves-btf-schaerExp,openfoam/cases/mesh/btf/schaerExp/gravityWaves))
+$(eval $(call GRAVITY_WAVES_TEMPLATE,openfoam/cases/gravityWaves/snap/schaerExp,gravityWaves-snap-schaerExp,openfoam/cases/mesh/snap/schaerExp/gravityWaves))

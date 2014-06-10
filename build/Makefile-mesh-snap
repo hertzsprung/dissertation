@@ -60,4 +60,5 @@ endef
 $(eval $(call SNAP_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/advection,mesh-snap-schaerCos-advection,openfoam/cases/mesh/btf/schaerCos/advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/snap/snappyHexMeshDict))
 $(eval $(call SNAP_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerCos/resting,mesh-snap-schaerCos-resting,openfoam/cases/mesh/btf/schaerCos/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
 $(eval $(call SNAP_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerExp/resting,mesh-snap-schaerExp-resting,openfoam/cases/mesh/btf/schaerExp/resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
+$(eval $(call SNAP_MESH_TEMPLATE,openfoam/cases/mesh/snap/schaerExp/gravityWaves,mesh-snap-schaerExp-gravityWaves,openfoam/cases/mesh/btf/schaerExp/gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/snap/snappyHexMeshDict))
 
