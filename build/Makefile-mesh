@@ -18,7 +18,12 @@ define MESH_TEMPLATE
 
   .PHONY: $(2) clean-$(2)
 
-  $(2): $(addprefix $(1)/,$(MESH_FILES))
+  $(2): \
+    $(addprefix $(1)/,$(MESH_FILES)) \
+    $(1)/$(2).OpenFOAM
+
+  $(1)/$(2).OpenFOAM:
+	$(TOUCH) $$@
 
   clean:: clean-$(2)
 

@@ -5,6 +5,7 @@ UNLINK := unlink
 MKDIR := mkdir
 GREP := grep
 SED := sed
+TOUCH := touch
 PERL := perl
 ENV_SUBST := envsubst
 

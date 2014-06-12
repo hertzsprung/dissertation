@@ -37,11 +37,11 @@ define GRAVITY_WAVES_TEMPLATE
   $(1)/$(FV_SOLUTION):
 	$(LN) -fs $(COMMON_CASE)/$(FV_SOLUTION).gravityWaves $$@
 
-  $(1)/$(THETA_INIT):
-	$(LN) -fs $(COMMON_CASE)/$(THETA_INIT).gravityWaves $$@
+  $(1)/$(THETA_INIT): $(COMMON_CASE)/$(THETA_INIT).gravityWaves
+	$(LN) $(COMMON_CASE)/$(THETA_INIT).gravityWaves $$@
 
-  $(1)/$(EXNER_INIT):
-	$(LN) -fs $(COMMON_CASE)/$(EXNER_INIT).gravityWaves $$@
+  $(1)/$(EXNER_INIT): $(COMMON_CASE)/$(EXNER_INIT).gravityWaves
+	$(CP) $(COMMON_CASE)/$(EXNER_INIT).gravityWaves $$@
 
   $(1)/$(INITIAL_UF_FIELD):
 	$(LN) -fs $(COMMON_CASE)/$(INITIAL_UF_FIELD).gravityWaves $$@

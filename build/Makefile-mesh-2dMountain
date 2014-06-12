@@ -35,8 +35,8 @@ define 2DMOUNTAIN_INITIAL_TEMPLATE
   $(eval $(call 2DMOUNTAIN_TEMPLATE,$(1),$(2),$(3),$(4)))
 
   $(2).intermediate:
-	$(RM) -r $(1)/$(POLY_MESH_DIR)
-	$(MV) $(1)/0/polyMesh $(1)/$(POLY_MESH_DIR)
+#	$(RM) -r $(1)/$(POLY_MESH_DIR)
+	$(MV) $(1)/0/polyMesh/* $(1)/$(POLY_MESH_DIR)/
 
 endef
 
