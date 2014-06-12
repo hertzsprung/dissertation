@@ -7,7 +7,7 @@ FoamFile {
 }
 
 mountainType ScharExp;
-coordSys SNAP;
+coordSys SNAP_BELOW;
 
 // top of coordinate system (at or below domain height)
 zt 20e3;
