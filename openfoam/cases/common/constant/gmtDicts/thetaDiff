@@ -1,5 +1,4 @@
-FoamFile
-{
+FoamFile {
     version         1.4;
     format          ascii;
 
@@ -12,18 +11,10 @@ FoamFile
     object          gmtDict;
 }
 
-// How to plot
-// Compulsory inputs
 projection "X18c/9c";
 projection2D XZ;
 
-FieldsToPlot
-1
-(
+FieldsToPlot (
     [thetaDiff filledContours -1.05 1.05 0.1 "$GMTU/colours/red_white_blue.cpt"]
-//    [thetaDiff rawValues -0.1 0.1 0.01 "$GMTU/colours/red_white_blue.cpt"]
 );
 annotate "minMax 0.01 -0.005";
-
-//region "-7000/7000/0/7000";
-//boundaryMarks "5e3/5e3";
