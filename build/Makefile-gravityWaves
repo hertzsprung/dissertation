@@ -34,7 +34,7 @@ define GRAVITY_WAVES_TEMPLATE
   $(1)/$(FINAL_W_CONTOURS): \
     $(addprefix $(1)/$(GRAVITY_WAVES_END_TIME)/,$(FINAL_PHYSICAL_FIELDS)) \
     $(1)/$(W_CONTOURS_DICT)
-	$(PLOT_PATCH_DATA) -case $(1) -time $(GRAVITY_WAVES_END_TIME) > $(2).plotPatchData.w.log
+	$(PLOT_PATCH_DATA) -case $(1) -time $(GRAVITY_WAVES_END_TIME) w > $(2).plotPatchData.w.log
 
   $(1)/$(W_CONTOURS_DICT): $(COMMON_CASE)/$(W_CONTOURS_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $(COMMON_CASE)/$(W_CONTOURS_DICT) $$@

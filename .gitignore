@@ -131,3 +131,6 @@ PlyParser_FoamFileParser_parsetab.py
 
 # ctags
 tags
+
+# gmt
+.gmtcommands4

@@ -3,6 +3,7 @@ ifndef PROCESSORS
   # because jasmin doesn't have nproc installed for some reason
   export PROCESSORS := $(shell lscpu | grep "^CPU(s)" | tr -s ' ' | cut -d' ' -f2)
 endif
+export GMTU := $(abspath openfoam/gmt)
 
 CONTROL_DICT := system/controlDict
 FV_SCHEMES := system/fvSchemes
