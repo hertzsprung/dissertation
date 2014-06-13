@@ -1,5 +1,4 @@
-FoamFile
-{
+FoamFile {
     version         2.2;
     format          ascii;
 
@@ -12,15 +11,11 @@ FoamFile
     object          gmtDict;
 }
 
-// How to plot
-// Compulsory inputs
 projection "X10c/8c";
 projection2D XZ;
 boundaryPatch ground;
 
-FieldsToPlot
-2
-(
+FieldsToPlot (
     [Uf vectorContours 0.05 3 0.05 "black" 2]
     [Uf vectorContours -3 -0.05 0.05 "black,10_10:0" 2]
 );
