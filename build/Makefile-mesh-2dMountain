@@ -25,24 +25,10 @@ define 2DMOUNTAIN_TEMPLATE
 
 endef
 
-# $(1) -- mountainous mesh case path
-# $(2) -- subproject label (e.g. mesh-btf-schaerCos)
-# $(3) -- no orography mesh case path (e.g. mesh-noOrography)
-# $(4) -- add2dMountainDict path
-define 2DMOUNTAIN_INITIAL_TEMPLATE
-
-  $(eval $(call 2DMOUNTAIN_TEMPLATE,$(1),$(2),$(3),$(4)))
-
-  $(2).intermediate:
-#	$(RM) -r $(1)/$(POLY_MESH_DIR)
-	$(MV) $(1)/0/polyMesh/* $(1)/$(POLY_MESH_DIR)/
-
-endef
-
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos/advection,mesh-btf-schaerCos-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/2dMountain/btf-schaerCos-advection.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos/resting,mesh-btf-schaerCos-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/btf-schaerCos-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/resting,mesh-btf-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/btf-schaerExp-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerCos/resting,mesh-sleve-schaerCos-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerCos-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/resting,mesh-sleve-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerExp-resting.add2dMountainDict))
-$(eval $(call 2DMOUNTAIN_INITIAL_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/resting,mesh-snapCol-2dMountain-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/snapCol-schaerExp-resting.add2dMountainDict))
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/resting,mesh-snapCol-2dMountain-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/snapCol-schaerExp-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/gravityWaves,mesh-btf-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/btf-schaerExp-gravityWaves.add2dMountainDict))
