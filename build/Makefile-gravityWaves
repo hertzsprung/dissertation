@@ -1,5 +1,6 @@
 GRAVITY_WAVES_END_TIME := 18000
 SPONGE_LAYER := constant/muSponge
+GMT_DICTS := constant/gmtDicts
 FINAL_W_CONTOURS := $(GRAVITY_WAVES_END_TIME)/w.eps
 W_CONTOURS_DICT := constant/gmtDicts/w
 
@@ -35,6 +36,9 @@ define GRAVITY_WAVES_TEMPLATE
     $(1)/$(W_CONTOURS_DICT)
 	$(PLOT_PATCH_DATA) -case $(1) -time $(GRAVITY_WAVES_END_TIME) > $(2).plotPatchData.w.log
 
+  $(1)/$(W_CONTOURS_DICT): $(COMMON_CASE)/$(W_CONTOURS_DICT) | $(1)/$(GMT_DICTS)
+	$(LN) -fs $(COMMON_CASE)/$(W_CONTOURS_DICT) $$@
+
   $(1)/$(CONTROL_DICT):
 	$(LN) -fs $(COMMON_CASE)/$(CONTROL_DICT).gravityWaves $$@
 
@@ -45,7 +49,7 @@ define GRAVITY_WAVES_TEMPLATE
 	$(LN) -fs $(COMMON_CASE)/$(FV_SOLUTION).gravityWaves $$@
 
   $(1)/$(THETA_INIT): $(COMMON_CASE)/$(THETA_INIT).gravityWaves
-	$(LN) $(COMMON_CASE)/$(THETA_INIT).gravityWaves $$@
+	$(CP) $(COMMON_CASE)/$(THETA_INIT).gravityWaves $$@
 
   $(1)/$(EXNER_INIT): $(COMMON_CASE)/$(EXNER_INIT).gravityWaves
 	$(CP) $(COMMON_CASE)/$(EXNER_INIT).gravityWaves $$@
@@ -58,6 +62,9 @@ define GRAVITY_WAVES_TEMPLATE
 
   $(1)/$(THERMOPHYSICAL_PROPERTIES):
 	$(LN) -fs $(COMMON_CASE)/$(THERMOPHYSICAL_PROPERTIES) $$@
+
+  $(1)/$(GMT_DICTS):
+	$(MKDIR) -p $$@
 
 endef
 

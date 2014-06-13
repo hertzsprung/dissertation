@@ -80,9 +80,9 @@ define ABSTRACT_PHYSICAL_TEST_CASE_TEMPLATE
   $(2).theta.intermediate $(1)/$(INITIAL_EXNER_FIELD): \
     $(1)/$(ENVIRONMENTAL_PROPERTIES) \
     $(1)/$(THERMOPHYSICAL_PROPERTIES) \
-    $(1)/$(POLY_MESH_DIR) \
     $(addprefix $(3)/,$(MESH_FILES)) \
-    $(addprefix $(1)/,$(SYSTEM_FILES))
+    $(addprefix $(1)/,$(SYSTEM_FILES)) \
+  | $(1)/$(POLY_MESH_DIR)
 
   $(2).theta.intermediate: $(1)/$(THETA_INIT)
 	$(SET_THETA) -case $(1) > $(2).setTheta.log
