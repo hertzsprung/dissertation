@@ -31,3 +31,4 @@ SET_EXNER_BALANCED := setExnerBalanced
 SET_EXNER_BALANCED_H := setExnerBalancedH
 EXNER_FOAM := exnerFoam
 EXNER_FOAM_H := exnerFoamH
+PLOT_PATCH_DATA := plotPatchData
