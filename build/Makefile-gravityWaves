@@ -2,7 +2,10 @@ GRAVITY_WAVES_END_TIME := 18000
 SPONGE_LAYER := constant/muSponge
 GMT_DICTS := constant/gmtDicts
 FINAL_W_CONTOURS := $(GRAVITY_WAVES_END_TIME)/w.eps
-W_CONTOURS_DICT := constant/gmtDicts/w
+FINAL_THETA_DIFF_FIELD := $(GRAVITY_WAVES_END_TIME)/thetaDiff
+FINAL_THETA_DIFF_PLOT := $(GRAVITY_WAVES_END_TIME)/thetaDiff.eps
+W_CONTOURS_DICT := $(GMT_DICTS)/w
+THETA_DIFF_DICT := $(GMT_DICTS)/thetaDiff
 
 # $(1) -- simulation case path
 # $(2) -- subproject label
@@ -17,7 +20,7 @@ define GRAVITY_WAVES_TEMPLATE
 
   clean:: clean-$(2)
 
-  $(2): $(1)/$(FINAL_W_CONTOURS)
+  $(2): $(1)/$(FINAL_W_CONTOURS) $(1)/$(FINAL_THETA_DIFF_PLOT)
 
   clean-$(2):
 	$(RM) -r $(1)
@@ -38,6 +41,18 @@ define GRAVITY_WAVES_TEMPLATE
 
   $(1)/$(W_CONTOURS_DICT): $(COMMON_CASE)/$(W_CONTOURS_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $(COMMON_CASE)/$(W_CONTOURS_DICT) $$@
+
+  $(1)/$(FINAL_THETA_DIFF_PLOT): \
+    $(1)/$(THETA_DIFF_DICT) \
+    $(1)/$(FINAL_THETA_DIFF_FIELD)
+	$(PLOT_PATCH_DATA) -case $(1) -time $(GRAVITY_WAVES_END_TIME) thetaDiff > $(2).plotPatchData.thetaDiff.log
+
+  $(1)/$(FINAL_THETA_DIFF_FIELD): \
+    $(addprefix $(1)/$(GRAVITY_WAVES_END_TIME)/,$(FINAL_PHYSICAL_FIELDS))
+	$(SUM_FIELDS) -case $(1) $(GRAVITY_WAVES_END_TIME) thetaDiff $(GRAVITY_WAVES_END_TIME) theta 0 theta -scale0 1 -scale1 -1 > $(2).sumFields.thetaDiff.log
+
+  $(1)/$(THETA_DIFF_DICT): $(COMMON_CASE)/$(THETA_DIFF_DICT) | $(1)/$(GMT_DICTS)
+	$(LN) -fs $(COMMON_CASE)/$(THETA_DIFF_DICT) $$@
 
   $(1)/$(CONTROL_DICT):
 	$(LN) -fs $(COMMON_CASE)/$(CONTROL_DICT).gravityWaves $$@

@@ -73,7 +73,7 @@ define ABSTRACT_PHYSICAL_TEST_CASE_TEMPLATE
 
   $(addprefix $(1)/,$(INITIAL_THETA_FIELDS)): $(2).theta.intermediate
 
-  $(1)/$(INITIAL_EXNER_FIELD): $(1)/$(EXNER_INIT)
+  $(1)/$(INITIAL_EXNER_FIELD): | $(1)/$(EXNER_INIT)
 	$(6) -case $(1) > $(2).setExnerBalancedH.log
 	$(SED) -i 's/fixedValue;/fixedFluxBuoyantExner; gradient uniform 0;/g' $(1)/$(INITIAL_EXNER_FIELD)
 
@@ -84,7 +84,7 @@ define ABSTRACT_PHYSICAL_TEST_CASE_TEMPLATE
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
   | $(1)/$(POLY_MESH_DIR)
 
-  $(2).theta.intermediate: $(1)/$(THETA_INIT)
+  $(2).theta.intermediate: | $(1)/$(THETA_INIT)
 	$(SET_THETA) -case $(1) > $(2).setTheta.log
 
   $(1)/$(THETA_INIT) \
