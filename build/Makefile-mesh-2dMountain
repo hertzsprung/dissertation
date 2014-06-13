@@ -8,8 +8,7 @@ define 2DMOUNTAIN_TEMPLATE
 
   $(eval $(call MESH_TEMPLATE,$(1),$(2)))
 
-  .PHONY: $(2).add2dMountain
-  .INTERMEDIATE: $(2).intermediate
+  .INTERMEDIATE: $(2).intermediate $(2).add2dMountain
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
