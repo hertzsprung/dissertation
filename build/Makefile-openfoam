@@ -24,8 +24,20 @@ $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT): $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT).templ
 define CASE_TEMPLATE
 
   $(1)/system:
-	$(MKDIR) -p $(1)/system
+	$(MKDIR) -p $$@
 
   $(addprefix $(1)/,$(SYSTEM_FILES)): | $(1)/system
+
+endef
+
+# $(1) -- case path
+# $(2) -- label (e.g. gravityWaves)
+# $(3) -- endTime
+# $(4) -- timestep
+# $(5) -- write interval
+define CONTROL_DICT_TEMPLATE
+
+  $(1)/$(CONTROL_DICT): $(COMMON_CASE)/$(CONTROL_DICT).$(2).template
+	END_TIME=$(3) TIMESTEP=$(4) WRITE_INTERVAL=$(5) $(ENV_SUBST) < $$< > $$@
 
 endef
