@@ -1,12 +1,12 @@
-GRAVITY_WAVES_END_TIME := 16
-GRAVITY_WAVES_WRITE_INTERVAL := 8
+GRAVITY_WAVES_END_TIME := 18000
+GRAVITY_WAVES_WRITE_INTERVAL := 3600
 GRAVITY_WAVES_TIMES := $(shell openfoam/bin/timeSeq.sh $(GRAVITY_WAVES_END_TIME) $(GRAVITY_WAVES_WRITE_INTERVAL))
 SPONGE_LAYER := constant/muSponge
 GMT_DICTS := constant/gmtDicts
 W_CONTOURS := $(addsuffix /w.eps,$(GRAVITY_WAVES_TIMES))
 THETA_DIFF_FIELDS := $(addsuffix /thetaDiff,$(GRAVITY_WAVES_TIMES))
 THETA_DIFF_PLOTS := $(addsuffix /thetaDiff.eps,$(GRAVITY_WAVES_TIMES))
-FINAL_THETA_DIFF_ZOOM := $(GRAVITY_WAVES_END_TIME)/thetaDiffZoom.eps
+THETA_DIFF_ZOOM_PLOTS := $(addsuffix /thetaDiffZoom.eps,$(GRAVITY_WAVES_TIMES))
 W_CONTOURS_DICT := $(GMT_DICTS)/w
 THETA_DIFF_DICT := $(GMT_DICTS)/thetaDiff
 THETA_DIFF_ZOOM_DICT := $(GMT_DICTS)/thetaDiffZoom
@@ -20,14 +20,14 @@ define GRAVITY_WAVES_TEMPLATE
 
   $(eval $(call CONTROL_DICT_TEMPLATE,$(1),gravityWaves,$(GRAVITY_WAVES_END_TIME),8,$(GRAVITY_WAVES_WRITE_INTERVAL)))
 
-  .INTERMEDIATE: $(2).wContours.intermediate $(2).thetaDiff.intermediate
+  .INTERMEDIATE: $(2).wContours.intermediate $(2).thetaDiff.intermediate $(2).thetaDiffZoom.intermediate
   .PHONY: $(2) clean-$(2)
 
   all:: $(2)
 
   clean:: clean-$(2)
 
-  $(2): $(addprefix $(1)/,$(W_CONTOURS)) $(addprefix $(1)/,$(THETA_DIFF_PLOTS)) $(1)/$(FINAL_THETA_DIFF_ZOOM)
+  $(2): $(addprefix $(1)/,$(W_CONTOURS)) $(addprefix $(1)/,$(THETA_DIFF_PLOTS)) $(addprefix $(1)/,$(THETA_DIFF_ZOOM_PLOTS))
 
   clean-$(2):
 	$(RM) -r $(1)
@@ -48,7 +48,7 @@ define GRAVITY_WAVES_TEMPLATE
     $(1)/$(W_CONTOURS_DICT)
 	$(PLOT_PATCH_DATA) -case $(1) w > $(2).plotPatchData.w.log
 
-  $(2).thetaDiff.intermediate $(1)/$(FINAL_THETA_DIFF_ZOOM): \
+  $(2).thetaDiff.intermediate $(2).thetaDiffZoom.intermediate: \
     $(addprefix $(1)/,$(THETA_DIFF_FIELDS))
 
   $(addprefix $(1)/,$(THETA_DIFF_PLOTS)): $(2).thetaDiff.intermediate
@@ -56,12 +56,14 @@ define GRAVITY_WAVES_TEMPLATE
   $(2).thetaDiff.intermediate: $(1)/$(THETA_DIFF_DICT)
 	$(PLOT_PATCH_DATA) -case $(1) thetaDiff > $(2).plotPatchData.thetaDiff.log
 
+  $(addprefix $(1)/,$(THETA_DIFF_ZOOM_PLOTS)): $(2).thetaDiffZoom.intermediate
+
+  $(2).thetaDiffZoom.intermediate: $(1)/$(THETA_DIFF_ZOOM_DICT)
+	$(PLOT_PATCH_DATA) -case $(1) thetaDiffZoom > $(2).plotPatchData.thetaDiffZoom.log
+
   $(1)/%/thetaDiff: \
     $(addprefix $(1)/$(GRAVITY_WAVES_END_TIME)/,$(FINAL_PHYSICAL_FIELDS))
 	$(SUM_FIELDS) -case $(1) $$$$(basename $$$$(dirname $$@)) thetaDiff $$$$(basename $$$$(dirname $$@)) theta 0 theta -scale0 1 -scale1 -1 > $(2).sumFields.thetaDiff.$$$$(basename $$$$(dirname $$@)).log
-
-  $(1)/$(FINAL_THETA_DIFF_ZOOM): $(1)/$(THETA_DIFF_ZOOM_DICT)
-	$(PLOT_PATCH_DATA) -case $(1) -time $(GRAVITY_WAVES_END_TIME) thetaDiffZoom > $(2).plotPatchData.thetaDiffZoom.log
 
   $(1)/$(W_CONTOURS_DICT): $(COMMON_CASE)/$(W_CONTOURS_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $(COMMON_CASE)/$(W_CONTOURS_DICT) $$@
