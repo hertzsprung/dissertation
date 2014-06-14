@@ -37,7 +37,7 @@ endef
 # $(5) -- setExnerBalancedH executable
 define RESTING_TEMPLATE
 
-  $(eval $(call PHYSICAL_TEST_CASE_TEMPLATE,$(1),$(2),$(3),$(RESTING_END_TIME),$(4),$(5)))
+  $(eval $(call $(PHYSICAL_TEST_CASE_TEMPLATE),$(1),$(2),$(3),$(RESTING_END_TIME),$(4),$(5)))
 
   .PHONY: $(2) clean-$(2)
 
@@ -50,11 +50,11 @@ define RESTING_TEMPLATE
   clean-$(2):
 	$(RM) -r $(1)
 
-  $(1)/$(THETA_INIT):
-	$(LN) -fs $(COMMON_CASE)/$(THETA_INIT) $$@
+  $(1)/$(THETA_INIT): $(COMMON_CASE)/$(THETA_INIT)
+	$(CP) -fs $(COMMON_CASE)/$(THETA_INIT) $$@
 
-  $(1)/$(EXNER_INIT):
-	$(LN) -fs $(COMMON_CASE)/$(EXNER_INIT) $$@
+  $(1)/$(EXNER_INIT): $(COMMON_CASE)/$(EXNER_INIT)
+	$(CP) $(COMMON_CASE)/$(EXNER_INIT) $$@
 
   $(1)/$(INITIAL_UF_FIELD):
 	$(LN) -fs $(COMMON_CASE)/$(INITIAL_UF_FIELD) $$@
@@ -77,4 +77,5 @@ $(eval $(call RESTING_DPDX_TEMPLATE,openfoam/cases/resting/btf/schaerExp/dpdx,re
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/sleve/schaerExp,resting-sleve-schaerExp,openfoam/cases/mesh/sleve/schaerExp/resting))
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/snap/schaerExp/h,resting-snap-schaerExp-h,openfoam/cases/mesh/snap/schaerExp/resting))
 $(eval $(call RESTING_DPDX_TEMPLATE,openfoam/cases/resting/snap/schaerExp/dpdx,resting-snap-schaerExp-dpdx,openfoam/cases/mesh/snap/schaerExp/resting))
+$(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/snapCol/schaerExp/h,resting-snapCol-schaerExp-h,openfoam/cases/mesh/snapCol/schaerExp/resting))
 

@@ -8,11 +8,13 @@ define 2DMOUNTAIN_TEMPLATE
 
   $(eval $(call MESH_TEMPLATE,$(1),$(2)))
 
-  .INTERMEDIATE: $(2).intermediate
+  .INTERMEDIATE: $(2).intermediate $(2).add2dMountain
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
-  $(2).intermediate: \
+  $(2).intermediate: $(2).add2dMountain
+
+  $(2).add2dMountain: \
     $(4) \
     $(addprefix $(3)/,$(MESH_FILES)) \
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
@@ -29,4 +31,5 @@ $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/resting,mesh
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerCos/resting,mesh-sleve-schaerCos-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerCos-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/resting,mesh-sleve-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerExp-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/resting,mesh-snapCol-2dMountain-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/snapCol-schaerExp-resting.add2dMountainDict))
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/gravityWaves,mesh-snapCol-2dMountain-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/snapCol-schaerExp-gravityWaves.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/gravityWaves,mesh-btf-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/btf-schaerExp-gravityWaves.add2dMountainDict))

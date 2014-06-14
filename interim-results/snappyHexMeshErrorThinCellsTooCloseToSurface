@@ -1,0 +1,16 @@
+snappyHexMesh -overwrite -case openfoam/cases/mesh/snapCol/schaerExp/resting -dict /home/jshaw/dissertation/openfoam/cases/mesh/snap/snappyHexMeshDict > mesh-snapCol-schaerExp-resting.snappyHexMesh.log
+#0  Foam::error::printStack(Foam::Ostream&) at ??:?
+#1  Foam::sigFpe::sigHandler(int) at ??:?
+#2   in "/lib/x86_64-linux-gnu/libc.so.6"
+#3  Foam::combineFaces::regioniseFaces(double, int, Foam::List<int> const&, Foam::Map<int>&) const at ??:?
+#4  Foam::combineFaces::getMergeSets(double, double, Foam::HashSet<int, Foam::Hash<int> > const&) const at ??:?
+#5  Foam::meshRefinement::mergePatchFacesUndo(double, double, Foam::List<int> const&, Foam::dictionary const&, Foam::List<int> const&) at ??:?
+#6  Foam::autoRefineDriver::mergePatchFaces(Foam::refinementParameters const&, Foam::dictionary const&) at ??:?
+#7  Foam::autoRefineDriver::doRefine(Foam::dictionary const&, Foam::refinementParameters const&, Foam::snapParameters const&, bool, Foam::dictionary const&) at ??:?
+#8  
+ at ??:?
+#9  __libc_start_main in "/lib/x86_64-linux-gnu/libc.so.6"
+#10  
+ at ??:?
+Floating point exception (core dumped)
+make: *** [mesh-snapCol-schaerExp-resting.intermediate] Error 136

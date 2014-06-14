@@ -1,0 +1,20 @@
+FoamFile {
+    version         1.4;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "constant";
+    local           "";
+
+    class           dictionary;
+    object          gmtDict;
+}
+
+projection "X18c/9c";
+projection2D XZ;
+
+FieldsToPlot (
+    [thetaDiff filledContours -1.05 1.05 0.1 "$GMTU/colours/red_white_blue.cpt"]
+);
+annotate "minMax 0.01 -0.005";

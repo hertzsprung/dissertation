@@ -13,3 +13,4 @@ define SNAP_COL_MESH_TEMPLATE
 endef
 
 $(eval $(call SNAP_COL_MESH_TEMPLATE,openfoam/cases/mesh/snapCol/schaerExp/resting,mesh-snapCol-schaerExp-resting,openfoam/cases/mesh/btf/schaerExp/resting,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/resting,openfoam/cases/mesh/snap/snappyHexMeshDict))
+$(eval $(call SNAP_COL_MESH_TEMPLATE,openfoam/cases/mesh/snapCol/schaerExp/gravityWaves,mesh-snapCol-schaerExp-gravityWaves,openfoam/cases/mesh/btf/schaerExp/gravityWaves,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/gravityWaves,openfoam/cases/mesh/snap/snappyHexMeshDict))

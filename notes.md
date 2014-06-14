@@ -6,6 +6,33 @@
 
 2. How does the "curl free pressure gradient" model that I describe in Weller and Sharhrokhi compare with other models?
 
+Report
+======
+- Motivation
+- Introduce TF and cut-cell grids
+- Introduce Weller&Sharhrokhi model
+  - fully-compressible equation set
+  - coordinate system vs discretisation (Hilary says amounts to the same in the end)
+  - advection scheme
+  - dp/dx vs H operator
+- Test cases
+  - Advection (?)
+  - Resting atmosphere
+  - Gravity waves
+
+  - noOrography (meaningless for gravity waves test?)
+  - BTF, HTF, SLEVE
+  - one or more snappy meshes
+
+  - why choose these test cases?
+  - what features are they designed to test?
+  - what metrics are used to measure the results?
+    - why are these metrics useful?
+  - how do my results compare with those from the literature?
+
+
+--------------------------------------------------------------------------------
+
 - What test case(s) should I subject the Weller and Sharhrokhi model to?  Hypothesis?
   - 2D/3D
   - grid resolution
