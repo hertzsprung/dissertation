@@ -10,7 +10,7 @@ mountainType ScharExp;
 coordSys BTF;
 
 // top of coordinate system (at or below domain height)
-zt 20e3;
+zt 30e3;
 // horizontal scale of large scale mountains
 a 5e3;
 // mountain height
