@@ -1,0 +1,10 @@
+\section{Advection}
+\begin{itemize}
+\item Advection of tracer blob above orography (advection equation, not real dynamics)
+\item No wind near ground, uniform zonal wind aloft
+\item Compared meshes, and vanLeer versus tvdLimitedCubicUpwindCPCFit.  Compared against noOrography as a baseline.
+\item Looked at l2 error norm at t=10000s by comparing with analytic tracer (created with setScalarOverOrography)
+\item Cut-cell style meshes, unsurprisingly, same l2 error as noOrography
+\item tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive
+\end{itemize}
+
