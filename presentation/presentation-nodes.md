@@ -1,0 +1,9 @@
+- Motivation
+- Meshes (one slide per item)
+  - Introduce TF (BTF, SLEVE)
+  - Introduce cut-cell (Klein et al 2009)
+  - Introduce my meshes (snapCol, one other?)
+- Results
+  - Advection animation: TF bad, cut cell good!
+  - Resting atmosphere
+  - Gravity waves
