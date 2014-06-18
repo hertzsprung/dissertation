@@ -62,7 +62,7 @@ endef
 
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/vanLeer,advection-noOrography-vanLeer,openfoam/cases/mesh/noOrography/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/tvdLimitedCubicUpwindCPCFit,advection-noOrography-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/noOrography/advection))
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerExp/vanLeer,advection-btf-schaerExp-vanLeer,openfoam/cases/mesh/btf/schaerExp/advection))
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerExp/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerExp-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerExp/advection))
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snapCol/schaerExp/vanLeer,advection-snapCol-schaerExp-vanLeer,openfoam/cases/mesh/snapCol/schaerExp/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,advection-btf-schaerCos-vanLeer,openfoam/cases/mesh/btf/schaerCos/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snapCol/schaerCos/vanLeer,advection-snapCol-schaerCos-vanLeer,openfoam/cases/mesh/snapCol/schaerCos/advection))
 
