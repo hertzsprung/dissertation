@@ -5,5 +5,5 @@
   - Introduce my meshes (snapCol, one other?)
 - Results
   - Advection animation: TF bad, cut cell good!
-  - Resting atmosphere
-  - Gravity waves
+  - Resting atmosphere: TF bad, cut cell good!
+  - Gravity waves: TF good, cut cell possible issue
