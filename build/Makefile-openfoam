@@ -17,8 +17,15 @@ SYSTEM_FILES := \
   $(FV_SCHEMES) \
   $(FV_SOLUTION)
 
+.PHONY: clean-decomposeParDict
+
 $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT): $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT).template
 	$(ENV_SUBST) < $@.template > $@
+
+clean:: clean-decomposeParDict
+
+clean-decomposeParDict:
+	$(RM) $(COMMON_CASE)/$(DECOMPOSE_PAR_DICT)
 
 # $(1) -- case path
 define CASE_TEMPLATE

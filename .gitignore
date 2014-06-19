@@ -115,6 +115,8 @@ polyMesh
 **/mesh/noOrography
 **/mesh/btf
 **/mesh/snap
+**/mesh/snapCol
+**/mesh/snapCol-2dMountain
 **/resting
 **/gravityWaves
 decomposeParDict
