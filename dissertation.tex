@@ -27,13 +27,6 @@
 \usepackage[final]{graphicx}
 \usepackage{blindtext}
 
-\xpatchbibmacro{date+extrayear}{%
-  \printtext[parens]%
-}{%
-  \setunit{\addcomma\space}%
-  \printtext%
-}{}{}
-
 \addbibresource{journals.bib}
 \addbibresource{dissertation.bib}
 
