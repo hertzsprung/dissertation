@@ -13,13 +13,28 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{subcaption}
-\usepackage[backend=biber, style=authoryear, firstinits=true, uniquename=init]{biblatex}
+\usepackage{xpatch}
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  firstinits=true,
+  doi=false,
+  isbn=false,
+  uniquename=init]{biblatex}
 \usepackage{minted}
 \usepackage{booktabs}
 \usepackage[hidelinks,pdfpagelayout=TwoPageRight]{hyperref}
 \usepackage[final]{graphicx}
 \usepackage{blindtext}
 
+\xpatchbibmacro{date+extrayear}{%
+  \printtext[parens]%
+}{%
+  \setunit{\addcomma\space}%
+  \printtext%
+}{}{}
+
+\addbibresource{journals.bib}
 \addbibresource{dissertation.bib}
 
 \makeatletter
