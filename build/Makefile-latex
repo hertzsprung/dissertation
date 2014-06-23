@@ -1,7 +1,8 @@
 GREP_WARN := $(GREP) --color -i -f latex-warnings -C3 -H
 
 DOCUMENT := dissertation
-COMPONENTS := title.tex meshes.tex results.tex advection.tex resting.tex gravityWaves.tex
+COMPONENTS := title.tex intro.tex meshes.tex results.tex advection.tex resting.tex gravityWaves.tex
+BIBLIOGRAPHIES := dissertation.bib journals.bib
 
 .PHONY: all-latex wc draft clean-latex
 
@@ -16,7 +17,7 @@ wc:
 draft:
 	@$(PDFLATEX) "\def\classopts{,draft}\def\geometryopts{,showframe}\input{$(DOCUMENT)}"
 
-$(DOCUMENT).pdf: $(DOCUMENT).tex $(COMPONENTS) dissertation.bib
+$(DOCUMENT).pdf: $(DOCUMENT).tex $(COMPONENTS) $(BIBLIOGRAPHIES) biblatex.cfg
 	@$(PDFLATEX) -draftmode $(DOCUMENT) # > /dev/null 2>&1
 	@$(BIBER) $(DOCUMENT) | tee $(DOCUMENT).biber.log | $(GREP_WARN) --label=biber
 	@$(PDFLATEX) $(DOCUMENT) | tee $(DOCUMENT).pdflatex.log | $(GREP_WARN) --label=pdflatex
