@@ -1,0 +1,15 @@
+\chapter{Introduction}
+
+%- traditional NWP, hydrostatic models, used pressure coords, varied over time (steppeler2002)
+%- current nonhydrostatic models have geometric vertical coords constant in time (steppeler2012)
+%---------------------
+
+Atmospheric flow over orography has significant effects on mesoscale weather, and even affects synoptic scale and global circulation \autocite{good2013}.
+
+Current numerical weather prediction (NWP) models aim to forecast local weather.  Unlike their predecessors, these models operate on high resolution grids where the hydrostatic balance approximation becomes invalid and vertical acceleration cannot be neglected \autocite{steppeler2002}.
+
+TODO: Vertical motion is important... orographically induced winds (steppeler2002), buoyancy effects.  Hence a vertical coordinate/grid that minimises numerical errors is desirable. TODO: distinguish between coordinates and grids (metric terms etc)
+
+Terrain following coordinates are in widespread use in operational nonhydrostatic models.  In these vertical geometric coordinate systems the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.  Such coordinates are attractive because cell sizes remain almost constant (Jebens 2011) and they are simple to represent in a rectangular data structure (Lock2012),  However, as horizontal model resolution increases, steeper orographic gradients induce spurious winds due to numerical errors. \autocite{TODO}  TODO: elaborate on how these errors arise.  These are truncation errors?  Janjic 1989
+
+The cut cell (or `shaved cell')  method is an alternative to terrain following coordinates.  Here, the surface terrain is intersected with a regular Cartesian grid such that cells are cut where they intersect with the ground.  TODO: disadvantage: boundary layer parameterisations (Zaengl 2012)

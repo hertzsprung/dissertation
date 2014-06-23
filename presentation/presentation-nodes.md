@@ -9,12 +9,17 @@ Some models use a finite difference approximation where space is subdivided into
 
 What do we do when the grid encounters a mountain?  Several techniques:
 - terrain following
+  - most widely-used in operational NWP
   - basic terrain following
-  TODO: pros&cons
   - SLEVE
+    - improvement over BTF
+    - small-scale features smoothed faster than large-scale
+
+  - as resolution increases, gradients get steeper 
+  - can cause spurious wind (Steppeler 2013)
 - cut cell
-  TODO: pros&cons
-  (figure source: Klein et al 2009)
+  + handles steeper terrain
+  + less spurious wind
 - others, e.g. unstructured mesh
   (figure source: Smolarkiewicz & Szmelter) http://ral.ucar.edu/hap/events/orographic-precip/images/2wed/am/day2-Wed_am_3-Orogunmesh2.ppt)
 
@@ -25,6 +30,7 @@ Results
 ADVECTION
 - Continuous and discretised equation (show finite difference graph again, too)
 - draw cartoon on board showing tracer, wind field aloft and zero near ground
+- ASK AUDIENCE: which grid will be better, BTF or cut cell?
 - BTF
 - SnapCol (not quite cut cell but close enough)
 
@@ -36,5 +42,5 @@ GRAVITY WAVES
 - show animation
 - discovered 
   - Resting atmosphere: TF bad, cut cell good!
-  - Gravity waves: TF good, cut cell possible issue
+  - Gravity waves: TF good, cut cell possible issue -- TODO further work
 

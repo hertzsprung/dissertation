@@ -86,6 +86,24 @@ Report
 
 - "centre of a quadrilateral" (or, in 3D, centre of a hexahedron) is the centre of mass http://en.wikipedia.org/wiki/Quadrilateral#Remarkable_points_and_lines_in_a_convex_quadrilateral
 
+
+advantages of TF
++ one-to-one transformation (Good et al 2013)
++ easier to implement variable vertical resolution (Good et al 2013)
+
+disadvantages of TF
+- spurious wind (Janjic 1989)
+- horizontal diffusion (Zaengl 2002)
+- gradients get steeper as resolution increases (Jebens et al 2011)
+
+advantages of cut cells
++ less spurious wind (Good et al 2013)
++ better and handling steeper terrain (Good et al 2013, Klein et al 2009)
+
+disadvantages of cut cells
+- timestep restriction due to small cells
+- boundary layer parameterisations rely on high res, uniform vertical resolution near the surface (Zaengl 2012)
+
 Terrain-following
 =================
 + cell sizes are nearly uniform (unlike cut cells that can be very small) -- permits use of explicit methods which are more easily parallelised (Jebens et al 2011)
