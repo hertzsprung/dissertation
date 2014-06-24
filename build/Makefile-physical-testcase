@@ -6,12 +6,13 @@ INITIAL_PHYSICAL_FIELDS := \
   $(INITIAL_EXNER_FIELD) \
   $(INITIAL_UF_FIELD)
 
-  # TODO: any others?  e.g. U or Uf?
+# TODO: any others?  e.g. U or Uf?
 FINAL_PHYSICAL_FIELDS := Exner theta
 
 THETA_INIT := constant/theta_init
 EXNER_INIT := constant/Exner_init
 THERMOPHYSICAL_PROPERTIES := constant/thermophysicalProperties
+DIAGNOSTICS := energy.dat courant.dat
 
 ifdef PARALLEL
 	PHYSICAL_TEST_CASE_TEMPLATE := PHYSICAL_TEST_CASE_PARALLEL_TEMPLATE
@@ -34,6 +35,7 @@ define PHYSICAL_TEST_CASE_PARALLEL_TEMPLATE
 	openfoam/bin/correctMPIinitialUf.sh $(1) > $(2).correctMPIinitialUf.log
 	$(MPI_RUN) -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).$(5).log
 	$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
+	$(CP) $(addprefix $(1)/processor0/,$(DIAGNOSTICS)) $(1)/
 
 endef
 
