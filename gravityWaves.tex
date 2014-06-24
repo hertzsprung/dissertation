@@ -13,7 +13,10 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 	\item plot UfDiff as a vector field doesn't seem to show any velocity anomalies in BTF or snalCol (Figure~\ref{fig:gw:ufdiff})
 	\item plot of $\theta$ field shows that mixing is not strong enough to overcome stratification (Figure~\ref{fig:gw:theta})
 	\item doubling mountain height causes mixing to appear in BTF case, and increases to three rows of mixing in SnapCol (Figure~\ref{fig:gw:double-height})
+	\item halving $\Delta z$ also causes BTF mixing but less severe, also three rows of mixing in SnapCol (not shown)
+	\item the results for dp/dx show mixing in BTF, and increased mixing in SnapCol (not shown)
 \end{itemize}
+Could also try changing stability (zN in environmentalProperties)
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFSnapColVelocityVectors.png}
@@ -36,12 +39,6 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 	\caption{double height mountain, thetaDiff after t=18000s}
 	\label{fig:gw:double-height}
 \end{figure}
-
-To see if the computational mode is present in more than one test case, try:
-\begin{itemize}
-\item halving $\Delta z$ --- are 2 rows of cells still affected (suggests computational mode), or 4 rows (physical problem?)
-\item change stability (zN in environmentalProperties)
-\end{itemize}
 
 \begin{figure}
 \includegraphics[width=\textwidth]{interim-results/gravityWavesBTFsnapMidZoom3600.png}
