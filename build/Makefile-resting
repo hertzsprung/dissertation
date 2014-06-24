@@ -45,7 +45,7 @@ define RESTING_TEMPLATE
 	$(RM) -r $(1)
 
   $(1)/$(THETA_INIT): $(COMMON_CASE)/$(THETA_INIT)
-	$(CP) -fs $(COMMON_CASE)/$(THETA_INIT) $$@
+	$(CP) $(COMMON_CASE)/$(THETA_INIT) $$@
 
   $(1)/$(EXNER_INIT): $(COMMON_CASE)/$(EXNER_INIT)
 	$(CP) $(COMMON_CASE)/$(EXNER_INIT) $$@
