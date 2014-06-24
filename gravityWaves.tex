@@ -16,7 +16,14 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 	\item halving $\Delta z$ also causes BTF mixing but less severe, also three rows of mixing in SnapCol (not shown)
 	\item the results for dp/dx show mixing in BTF, and increased mixing in SnapCol (not shown)
 \end{itemize}
-Could also try changing stability (zN in environmentalProperties)
+
+This suggests irreversible thermodynamic mixing (caused by numerical errors).  In reality, viscous effects would cause such mixing, but our equation set has no viscosity so there should be no mixing.  We can further investigate this mixing by
+\begin{itemize}
+	\item plotting energy changes
+	\item comparing with snap mesh (which has no small cells)
+	\item isolating value of nonlinear momentum term
+	\item comparing with high resolution solution
+\end{itemize}
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFSnapColVelocityVectors.png}
