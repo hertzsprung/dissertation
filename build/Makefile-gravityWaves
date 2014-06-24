@@ -14,6 +14,30 @@ THETA_DIFF_ZOOM_DICT := $(GMT_DICTS)/thetaDiffZoom
 # $(1) -- simulation case path
 # $(2) -- subproject label
 # $(3) -- mesh case path
+define GRAVITY_WAVES_H_OP_TEMPLATE
+
+  $(eval $(call GRAVITY_WAVES_TEMPLATE,$(1),$(2),$(3)))
+
+  $(1)/$(FV_SCHEMES):
+	$(LN) -fs $(COMMON_CASE)/$(FV_SCHEMES).gravityWaves.h $$@
+
+endef
+
+# $(1) -- simulation case path
+# $(2) -- subproject label
+# $(3) -- mesh case path
+define GRAVITY_WAVES_DPDX_TEMPLATE
+
+  $(eval $(call GRAVITY_WAVES_TEMPLATE,$(1),$(2),$(3)))
+
+  $(1)/$(FV_SCHEMES):
+	$(LN) -fs $(COMMON_CASE)/$(FV_SCHEMES).gravityWaves.dpdx $$@
+
+endef
+
+# $(1) -- simulation case path
+# $(2) -- subproject label
+# $(3) -- mesh case path
 define GRAVITY_WAVES_TEMPLATE
 
   $(eval $(call $(PHYSICAL_TEST_CASE_TEMPLATE),$(1),$(2),$(3),$(GRAVITY_WAVES_END_TIME),$(EXNER_FOAM_H),$(SET_EXNER_BALANCED_H)))
@@ -74,9 +98,6 @@ define GRAVITY_WAVES_TEMPLATE
   $(1)/$(THETA_DIFF_DICT): $(COMMON_CASE)/$(THETA_DIFF_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $(COMMON_CASE)/$(THETA_DIFF_DICT) $$@
 
-  $(1)/$(FV_SCHEMES):
-	$(LN) -fs $(COMMON_CASE)/$(FV_SCHEMES).gravityWaves $$@
-
   $(1)/$(FV_SOLUTION):
 	$(LN) -fs $(COMMON_CASE)/$(FV_SOLUTION).gravityWaves $$@
 
@@ -100,6 +121,7 @@ define GRAVITY_WAVES_TEMPLATE
 
 endef
 
-$(eval $(call GRAVITY_WAVES_TEMPLATE,openfoam/cases/gravityWaves/btf/schaerExp,gravityWaves-btf-schaerExp,openfoam/cases/mesh/btf/schaerExp/gravityWaves))
-$(eval $(call GRAVITY_WAVES_TEMPLATE,openfoam/cases/gravityWaves/snap/schaerExp,gravityWaves-snap-schaerExp,openfoam/cases/mesh/snap/schaerExp/gravityWaves))
-$(eval $(call GRAVITY_WAVES_TEMPLATE,openfoam/cases/gravityWaves/snapCol/schaerExp,gravityWaves-snapCol-schaerExp,openfoam/cases/mesh/snapCol/schaerExp/gravityWaves))
+$(eval $(call GRAVITY_WAVES_H_OP_TEMPLATE,openfoam/cases/gravityWaves/btf/schaerExp/h,gravityWaves-btf-schaerExp-h,openfoam/cases/mesh/btf/schaerExp/gravityWaves))
+$(eval $(call GRAVITY_WAVES_H_OP_TEMPLATE,openfoam/cases/gravityWaves/snap/schaerExp/h,gravityWaves-snap-schaerExp-h,openfoam/cases/mesh/snap/schaerExp/gravityWaves))
+$(eval $(call GRAVITY_WAVES_H_OP_TEMPLATE,openfoam/cases/gravityWaves/snapCol/schaerExp/h,gravityWaves-snapCol-schaerExp-h,openfoam/cases/mesh/snapCol/schaerExp/gravityWaves))
+$(eval $(call GRAVITY_WAVES_DPDX_TEMPLATE,openfoam/cases/gravityWaves/btf/schaerExp/dpdx,gravityWaves-btf-schaerExp-dpdx,openfoam/cases/mesh/btf/schaerExp/gravityWaves))
