@@ -16,7 +16,7 @@ define MESH_TEMPLATE
 
   $(eval $(call CASE_TEMPLATE,$(1)))
 
-  .PHONY: $(2) clean-$(2)
+  .PHONY: $(2) clean-$(2) check-$(2)
 
   $(2): \
     $(addprefix $(1)/,$(MESH_FILES)) \
@@ -29,6 +29,9 @@ define MESH_TEMPLATE
 
   clean-$(2):
 	$(RM) -r $(1)
+
+  check-$(2):
+	$(CHECK_MESH) -case $(1) -constant | $(TEE) $(2).checkMesh.log | $(GREP) -q "Mesh OK."
 
   $(1)/$(POLY_MESH_DIR):
 	$(MKDIR) -p $$@

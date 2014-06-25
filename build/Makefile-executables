@@ -6,6 +6,7 @@ MKDIR := mkdir
 GREP := grep
 SED := sed
 TOUCH := touch
+TEE := tee
 PERL := perl
 ENV_SUBST := envsubst
 
@@ -15,6 +16,7 @@ TEXCOUNT := texcount
 
 MPI_RUN := mpirun
 BLOCK_MESH := blockMesh
+CHECK_MESH := checkMesh
 DECOMPOSE_PAR := decomposePar
 RECONSTRUCT_PAR := reconstructPar
 SNAPPY_HEX_MESH := snappyHexMesh
