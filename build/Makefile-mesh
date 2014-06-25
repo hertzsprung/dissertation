@@ -10,6 +10,12 @@ MESH_FILES := \
   $(POLY_MESH_DIR)/owner \
   $(POLY_MESH_DIR)/points
 
+ifndef NO_CHECK_MESH
+  CHECK_MESH_OK = $(CHECK_MESH) -case $(1) -constant | $(TEE) $(2).checkMesh.log | $(GREP) -q "Mesh OK."
+else
+  CHECK_MESH_OK = true
+endif
+
 # $(1) -- case path
 # $(2) -- subproject label
 define MESH_TEMPLATE
@@ -31,7 +37,7 @@ define MESH_TEMPLATE
 	$(RM) -r $(1)
 
   check-$(2):
-	$(CHECK_MESH) -case $(1) -constant | $(TEE) $(2).checkMesh.log | $(GREP) -q "Mesh OK."
+	$(CHECK_MESH_OK)
 
   $(1)/$(POLY_MESH_DIR):
 	$(MKDIR) -p $$@
