@@ -17,14 +17,6 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 	\item the results for dp/dx show mixing in BTF, and increased mixing in SnapCol (not shown)
 \end{itemize}
 
-This suggests irreversible thermodynamic mixing (caused by numerical errors).  In reality, viscous effects would cause such mixing, but our equation set has no viscosity so there should be no mixing.  We can further investigate this mixing by
-\begin{itemize}
-	\item plotting energy changes
-	\item comparing with snap mesh (which has no small cells)
-	\item isolating value of nonlinear momentum term
-	\item comparing with high resolution solution
-\end{itemize}
-
 \begin{figure}
 	\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFSnapColVelocityVectors.png}
 	\caption{UfDiff after t=18000s, BTF and SnapCol meshes}
@@ -58,3 +50,24 @@ This suggests irreversible thermodynamic mixing (caused by numerical errors).  I
 \caption{Vertical mixing after t=18000s.  Confusingly, snap mesh right, BTF left!}
 \label{fig:gw:mixing-18000s}
 \end{figure}
+
+This suggests irreversible thermodynamic mixing (caused by numerical errors).  In reality, viscous effects would cause such mixing, but our equation set has no viscosity so there should be no mixing.  We can further investigate this mixing by
+\begin{itemize}
+	\item plotting energy changes
+	\item comparing with snap/snapOrtho mesh (which have no small cells) -- TODO: which one should we use, the more orthogonal one?
+	\item isolating value of nonlinear momentum term
+	\item comparing with high resolution solution
+\end{itemize}
+
+\subsection{Courant number}
+
+Mean Courant numbers for cut-cell meshes are lower than BTF.  Surprisingly, mean courant number is slightly higher for snap mesh which has no small cells (Figure~\ref{fig:gw:courant}).  Max Courant numbers are reversed: BTF has the lowest max Co, snap mesh significantly higher.  TODO: find out what 
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{interim-results/gravityWavesCourants.png}
+	\caption{Courant number for gravityWaves}
+	\label{fig:gw:courant}
+\end{figure}
+
+\subsection{Energy}
+TODO
