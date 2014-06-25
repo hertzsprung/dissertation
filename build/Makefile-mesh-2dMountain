@@ -33,4 +33,6 @@ $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerC
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/resting,mesh-snapCol-2dMountain-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/snapCol-schaerExp-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/gravityWaves,mesh-snapCol-2dMountain-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/snapCol-schaerExp-gravityWaves.add2dMountainDict))
 
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapOrtho-2dMountain/schaerExp/gravityWaves,mesh-snapOrtho-2dMountain-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/snapOrtho-schaerExp-gravityWaves.add2dMountainDict))
+
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/gravityWaves,mesh-btf-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/btf-schaerExp-gravityWaves.add2dMountainDict))
