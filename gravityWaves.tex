@@ -60,8 +60,15 @@ This suggests irreversible thermodynamic mixing (caused by numerical errors).  I
 \end{itemize}
 
 \subsection{Courant number}
+\begin{align}
+	\mathrm{Co} = \frac{\Delta t u \cdot S}{V}
+\end{align}
 
-Mean Courant numbers for cut-cell meshes are lower than BTF.  Surprisingly, mean courant number is slightly higher for snap mesh which has no small cells (Figure~\ref{fig:gw:courant}).  Max Courant numbers are reversed: BTF has the lowest max Co, snap mesh significantly higher.  TODO: find out what 
+\begin{itemize}
+	\item Mean Courant numbers for cut-cell meshes and SLEVE are lower than BTF.  This could be because cells are relatively smaller aloft.
+	\item Surprisingly, mean Courant number is slightly higher for snap mesh which has no small cells (Figure~\ref{fig:gw:courant}).
+	\item SLEVE and BTF have the lowest max Co numbers, snap mesh significantly higher.  Since snap mesh does not have small cells, does this imply that snap mesh has higher winds?
+\end{itemize}
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{interim-results/gravityWavesCourants.png}
@@ -70,4 +77,14 @@ Mean Courant numbers for cut-cell meshes are lower than BTF.  Surprisingly, mean
 \end{figure}
 
 \subsection{Energy}
-TODO
+\begin{itemize}
+	\item Cut cell meshes are worse than TF meshes.  Snap loses internal energy much quicker than other meshes; i.e. it gets colder. (Figure~\ref{fig:gw:energy})
+\end{itemize}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{interim-results/gravityWavesEnergy.png}
+	\caption{Energy changes}
+	\label{fig:gw:energy}
+\end{figure}
+
+Looking at max Courant number for SLEVE, and energy loss graphs for all meshes, we see a change of behaviour at t=10000s (about 2.8 hours).  This might be related to gravity waves reflecting off the inlet or outlet boundary.  Changing the wind speed would let us investigate further.
