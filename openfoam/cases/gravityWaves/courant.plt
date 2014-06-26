@@ -3,7 +3,7 @@ set output 'courant.svg'
 set style data lines
 set multiplot layout 2,1
 
-set xlabel "t (s)"
+set xlabel "t (hours)"
 set key outside top
 
 set title "max Co"
