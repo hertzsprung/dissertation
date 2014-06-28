@@ -4,13 +4,13 @@
 %- current nonhydrostatic models have geometric vertical coords constant in time (steppeler2012)
 %---------------------
 
-Atmospheric flow over orography has significant effects on mesoscale weather, and even affects synoptic scale and global circulation \autocite{good2013}.
+Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{TODO}.  Terrain also affects global circulation by exerting low-level form drag \autocite{lottmiller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.
 
-Current numerical weather prediction (NWP) models aim to forecast local weather.  Unlike their predecessors, these models operate on high resolution grids where the hydrostatic balance approximation is no longer valid and vertical acceleration cannot be neglected \autocite{steppeler2003}.
+%Current numerical weather prediction (NWP) models aim to forecast local weather.  Unlike their predecessors, these models operate on high resolution grids where the hydrostatic balance approximation is no longer valid and vertical acceleration cannot be neglected \autocite{steppeler2003}.
 
-TODO: Vertical motion is important... orographically induced winds (steppeler2002), buoyancy effects.  Hence a vertical coordinate/grid that minimises numerical errors is desirable. TODO: distinguish between coordinates and grids (metric terms etc)
+%TODO: Vertical motion is important... orographically induced winds (steppeler2002), buoyancy effects.  Hence a vertical coordinate/grid that minimises numerical errors is desirable. TODO: distinguish between coordinates and grids (metric terms etc)
 
-Terrain following coordinates are in widespread use in operational nonhydrostatic models.  In these vertical, geometric coordinate systems the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.  Such coordinates are attractive because cell sizes remain almost constant (Jebens 2011) and terrain following grids are simple to represent in a rectangular data structure (Lock2012),  However, as horizontal model resolution increases, steeper orographic gradients induce spurious winds due to numerical errors. \autocite{TODO}  TODO: elaborate on how these errors arise.  These are truncation errors?  Janjic 1989
+Terrain following coordinates are in widespread use in operational nonhydrostatic models.  In these vertical, geometric coordinate systems the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.  Such coordinates are attractive because cell sizes remain almost constant (Jebens 2011) and terrain following grids are simple to represent in a rectangular data structure (Lock2012).  However, as horizontal model resolution increases, steeper orographic gradients induce spurious winds due to numerical errors. \autocite{TODO}  TODO: elaborate on how these errors arise.  These are truncation errors?  Janjic 1989
 
 TODO: what has been done to reduce these errors?
 % Klemp 2011 presents this nicely
