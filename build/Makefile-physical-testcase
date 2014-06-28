@@ -33,7 +33,7 @@ define PHYSICAL_TEST_CASE_PARALLEL_TEMPLATE
   $(2).exnerFoam.intermediate:
 	$(DECOMPOSE_PAR) -case $(1) -force -constant > $(2).decomposePar.log
 	openfoam/bin/correctMPIinitialUf.sh $(1) > $(2).correctMPIinitialUf.log
-	$(MPI_RUN) -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).$(5).log
+	$(MPI_RUN) --hostfile machines -np $(PROCESSORS) $(5) -case $(1) -parallel > $(2).$(5).log
 	$(RECONSTRUCT_PAR) -case $(1) -constant > $(2).reconstructPar.log
 	$(CP) $(addprefix $(1)/processor0/,$(DIAGNOSTICS)) $(1)/
 

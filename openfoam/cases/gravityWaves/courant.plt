@@ -4,6 +4,7 @@ set style data lines
 set multiplot layout 2,1
 
 set xlabel "t (hours)"
+set yrange [0.2:0.4]
 set key outside top
 
 set title "max Co"
@@ -11,6 +12,8 @@ plot	'btf/schaerExp/h/courant.dat' using ($1/3600):3 title 'btf/h', \
 	'sleve/schaerExp/h/courant.dat' using ($1/3600):3 title 'sleve/h', \
 	'snapCol/schaerExp/h/courant.dat' using ($1/3600):3 title 'snapCol/h', \
 	'snap/schaerExp/h/courant.dat' using ($1/3600):3 title 'snap/h'
+
+set yrange [*:*]
 
 set title "mean Co"
 plot	'btf/schaerExp/h/courant.dat' using ($1/3600):2 title 'btf/h', \
