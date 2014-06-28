@@ -38,5 +38,7 @@ spongeTop  30.0001e3;
 spongeMean 1.2;
 xSpongeCentre -150e3;
 xSpongeEnd -140e3;
+x2SpongeCentre 150e3;
+x2SpongeEnd 140e3;
 
 // ************************************************************************* //

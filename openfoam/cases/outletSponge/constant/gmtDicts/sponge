@@ -19,9 +19,8 @@ projection2D XZ;
 
 FieldsToPlot
 (
-    [muSponge rawValues 0 2.5 0.2 "$GMTU/colours/white_blue_red.cpt"]
+    [muSponge rawValues 0 0 0 "$GMTU/colours/white_blue_red.cpt"]
 );
 
-annotate "minMax 0.01 -0.005";
-region "-150e3/150e3/0/30e3";
+region "-150e3/150e3/15e3/30e3";
 
