@@ -14,16 +14,17 @@ FoamFile
 
 // How to plot
 // Compulsory inputs
-projection "X36c/9c";
+projection "X40c/9c";
 projection2D XZ;
 
 FieldsToPlot (
-    [ExnerDiff rawValues -0.00008 0.00008 0.00001 "$GMTU/colours/red_white_blue.cpt"]
-    [Uf vectors 50 1 "blue"]
+//    [ExnerDiff rawValues -0.0003 0.00001 0.00005 "$GMTU/colours/red_white_blue.cpt"]
+    [thetaDiff rawValues -0.1 0.1 0.01 "$GMTU/colours/red_white_blue.cpt"]
+    [Uf vectors 50 1 "green"]
     [nonlinearMomentum vectors 8000 1 "red"]
     [none mesh "gray"]
 );
 annotate "minMax 0.01 -0.005";
 
-region "-30e3/30e3/0/1e3";
-boundaryMarks "30000/100";
+region "-10e3/40e3/0/1e3";
+boundaryMarks "20000/100";
