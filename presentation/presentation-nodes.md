@@ -22,7 +22,6 @@ My goal: determine "best" type of grid over mountains
 Results
 -------
 ADVECTION
-- Continuous and discretised equation (show finite difference graph again, too)
 - draw cartoon on board showing tracer, wind field aloft and zero near ground
 - ASK AUDIENCE: which grid will be better, BTF or cut cell?
 - BTF
