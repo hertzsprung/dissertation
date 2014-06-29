@@ -1,12 +1,18 @@
 \chapter{Introduction}
+% why is orography important?
+% explain the difference between coordinates and grids
+% how is it currently represented in models?
+% evolution of terrain following coordinates
 
 %- traditional NWP, hydrostatic models, used pressure coords, varied over time (steppeler2002)
 %- current nonhydrostatic models have geometric vertical coords constant in time (steppeler2012)
 %---------------------
 
-Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{TODO}.  Terrain also affects global circulation by exerting low-level form drag \autocite{lottmiller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.
+Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{TODO}.  Terrain also affects global circulation by exerting low-level drag \autocite{lottmiller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.
 
-%Current numerical weather prediction (NWP) models aim to forecast local weather.  Unlike their predecessors, these models operate on high resolution grids where the hydrostatic balance approximation is no longer valid and vertical acceleration cannot be neglected \autocite{steppeler2003}.
+To capture these effects, numerical weather prediction (NWP) models must represent the underlying orography.   
+
+Traditional numerical weather prediction (NWP) models operate at resolutions where the hydrostatic balance approximation is valid and the use of pressure-based vertical coordinates simplify the equations \autocite{eliassen1949}.  TODO: talk about sigma coordinates briefly.  However, unlike their predecessors, current high resolution models deviate from hydrostatic balance because the aspect ratio between vertical and horizontal scales is too large \autocite{daley1988}.  Hence, most nonhydrostatic models use geometric vertical coordinates \autocite{steppeler2003}.
 
 %TODO: Vertical motion is important... orographically induced winds (steppeler2002), buoyancy effects.  Hence a vertical coordinate/grid that minimises numerical errors is desirable. TODO: distinguish between coordinates and grids (metric terms etc)
 
