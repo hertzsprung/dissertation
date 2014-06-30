@@ -104,6 +104,19 @@ disadvantages of cut cells
 - timestep restriction due to small cells
 - boundary layer parameterisations rely on high res, uniform vertical resolution near the surface (Zaengl 2012)
 
+Coordinate transform
+====================
++ Rectangular domain
++ Simplifies lower boundary conditions
+- Extra metric terms in equation set (not necessarily a problem) (G-C&S 1975)
+- New singularities appear that weren't present in the original equation set (G-C&S 1975)
+
+
+Cartesian coordinates
+=====================
+- complicates lower boundary because surface normal does not align with coordinate system (no normal flow)
+
+
 Terrain-following
 =================
 + cell sizes are nearly uniform (unlike cut cells that can be very small) -- permits use of explicit methods which are more easily parallelised (Jebens et al 2011)
