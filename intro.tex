@@ -1,39 +1,27 @@
 \chapter{Introduction}
-% why is orography important?
-% coordinate system: geometric, pressure, entropy
-% how is it currently represented in models?
-% evolution of terrain following coordinates
 
-
-%- traditional NWP, hydrostatic models, used pressure coords, varied over time (steppeler2002)
-%- current nonhydrostatic models have geometric vertical coords constant in time (steppeler2012)
-%---------------------
-
-Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{TODO}.  Terrain also affects global circulation by exerting low-level drag \autocite{lott-miller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.
+Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{barry2008}.  Terrain also affects global circulation by exerting low-level drag \autocite{lott-miller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.
 
 To capture these effects, numerical weather prediction (NWP) models must solve the equations of motion on a grid that represents the orography.  There are two main approaches: transform the coordinates so that the domain becomes rectangular, or use Cartesian coordinates and apply special treatment to the lower boundary \autocite{galchen-somerville1975}.
 
-Terrain following (TF) coordinates are in widespread use in operational models.  In this transformed coordinate system the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.  It is well-known that TF coordinates perform badly with steep orography.  As spatial resolution in NWP models increases terrain gradients becomes steeper.  This leads to greater errors in the horizontal pressure gradient and associated spurious winds (TODO: Dempsey and Davis 1998?).  TODO: attempts at improving them (HTF, SLEVE, STF...)  Nevertheless, such coordinates are attractive because they simplify the lower boundary condition, their rectangular structure is simple to process by computer \autocite{schaer2002}, and cell sizes remain almost constant \autocite{jebens2011}.
+Terrain following (TF) coordinates are in widespread use in operational models.  In this transformed coordinate system the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.  It is well-known that TF coordinates perform badly in the presence of steep orography.  As spatial resolution in NWP models increases, gradients in terrain become steeper.  This leads to greater errors in the horizontal pressure gradient which results in spurious winds \autocite{dempsey-davis1998}.
+
+Much work has been done to reduce these errors by smoothing the effects of terrain with height.  \cite{galchen-somerville1975} proposed a basic terrain following (BTF) coordinate system, defined as
+\begin{align}
+z = \left( H - z_s \right) \frac{Z}{H} + z_s
+\end{align}
+where, in two dimensions, $z(x, Z)$ is the height of the coordinate surface at level $Z$, $H$ is the height of the domain, and $z_s(x)$ is the height of the terrain surface.  The terrain's influence decays linearly with height but disappears only at the top of the domain.
+
+The hybrid terrain following (HTF) coordinates of \cite{simmons-burridge1981} improve upon BTF coordinates by allowing the vertical decay profile can be controlled.  By choosing a suitable profile, terrain influence decays more rapidly than BTF to produce surfaces of constant height aloft \autocite{klemp2011}.
+
+The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.  \cite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into small-scale and large-scale components, each having different exponential decay profiles.  \cite{klemp2011} took an alternative approach, using a multipass smoothing operator.
+
+%TODO: the other approach of improving accuracy of pressure gradient (Klemp 2011, Mahrer
+
+Despite their associated numerical errors, TF coordinates are attractive because they simplify the lower boundary condition, their rectangular structure is simple to process by computer \autocite{schaer2002}, and cell sizes remain almost constant \autocite{jebens2011}.
 
 In contrast, Cartesian coordinate grids have cells of varying sizes immediately above the ground.  %TODO: step orography, cut cell, small cell problem.
 
-%However, as horizontal model resolution increases, steeper orographic gradients induce spurious winds due to numerical errors. \autocite{TODO}  TODO: elaborate on how these errors arise.  These are truncation errors?  Janjic 1989
-
-%Traditional numerical weather prediction (NWP) models operate at resolutions where the hydrostatic balance approximation is valid and the use of pressure-based vertical coordinates simplify the equations \autocite{eliassen1949}.  TODO: talk about sigma coordinates briefly.  However, unlike their predecessors, current high resolution models deviate from hydrostatic balance because the aspect ratio between vertical and horizontal scales is too large \autocite{daley1988}.  Hence, most nonhydrostatic models use geometric vertical coordinates \autocite{steppeler2003}.
-
-%TODO: Vertical motion is important... orographically induced winds (steppeler2002), buoyancy effects.  Hence a vertical coordinate/grid that minimises numerical errors is desirable. TODO: distinguish between coordinates and grids (metric terms etc)
-
-
-TODO: what has been done to reduce these errors?
-% Klemp 2011 presents this nicely
-Basic terrain following (BTF) \autocite{galchen-somerville1975} 
-\begin{align}
-z = \left( z_t - h \right) \frac{\zeta}{z_t} + h = \zeta + \left( 1 - \frac{\zeta}{z_t} \right) h
-\end{align}
-where TODO define $z$, $z_t$, $\zeta$ and $h$ is the terrain height.
-
-HTF (Arakawa and Lamb 1977) (Simmons and Burridge 1981)
-SLEVE
 STF (Klemp 2011)
 
 The cut cell (or `shaved cell')  method is an alternative to terrain following coordinates.  Here, the surface terrain is intersected with a regular Cartesian grid such that cells are cut where they intersect with the ground.  TODO: disadvantage: boundary layer parameterisations (Zaengl 2012)

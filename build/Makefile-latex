@@ -9,7 +9,7 @@ BIBLIOGRAPHIES := dissertation.bib journals.bib
 all-latex: $(DOCUMENT).pdf
 
 clean-latex:
-	rm -rf $(DOCUMENT).pdf *.bbl *.bcf *.blg *.toc *.run.xml *.pyg *.log *.aux
+	rm -rf $(DOCUMENT).pdf *.bbl *.bcf *.blg *.toc *.run.xml *.pyg *.log *.aux *.out
 
 wc:
 	$(TEXCOUNT) $(DOCUMENT).tex
@@ -18,6 +18,7 @@ draft:
 	@$(PDFLATEX) "\def\classopts{,draft}\def\geometryopts{,showframe}\input{$(DOCUMENT)}"
 
 $(DOCUMENT).pdf: $(DOCUMENT).tex $(COMPONENTS) $(BIBLIOGRAPHIES) biblatex.cfg
-	@$(PDFLATEX) -draftmode $(DOCUMENT) # > /dev/null 2>&1
-	@$(BIBER) $(DOCUMENT) | tee $(DOCUMENT).biber.log | $(GREP_WARN) --label=biber
-	@$(PDFLATEX) $(DOCUMENT) | tee $(DOCUMENT).pdflatex.log | $(GREP_WARN) --label=pdflatex
+	$(PDFLATEX) -draftmode $(DOCUMENT) # > /dev/null 2>&1
+	$(BIBER) $(DOCUMENT)
+#	$(BIBER) $(DOCUMENT) | tee $(DOCUMENT).biber.log | $(GREP_WARN) --label=biber
+	$(PDFLATEX) $(DOCUMENT) | tee $(DOCUMENT).pdflatex.log | $(GREP_WARN) --label=pdflatex
