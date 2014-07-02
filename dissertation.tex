@@ -29,6 +29,7 @@
 \usepackage[hidelinks,pdfpagelayout=TwoPageRight]{hyperref}
 \usepackage[final]{graphicx}
 \usepackage{blindtext}
+\usepackage{xcolor}
 
 \addbibresource{journals.bib}
 \addbibresource{dissertation.bib}
@@ -56,6 +57,8 @@
 
 
 \begin{document}
+\newcommand{\TODO}[1]{\textcolor{purple}{TODO: \emph{#1}}}
+\newcommand{\TODOsidenote}[1]{\marginpar{\footnotesize{\TODO{#1}}}}
 \input{mathmacros}
 \input{title}
 
@@ -72,6 +75,7 @@
 
 \mainmatter
 \input{intro}
+\chapter{Methodology}
 \input{meshes}
 \input{results}
 
