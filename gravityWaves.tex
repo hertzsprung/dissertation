@@ -51,23 +51,41 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 \label{fig:gw:mixing-18000s}
 \end{figure}
 
-This suggests irreversible thermodynamic mixing (caused by numerical errors).  In reality, viscous effects would cause such mixing, but our equation set has no viscosity so there should be no mixing.  We can further investigate this mixing by
-\begin{itemize}
-	\item plotting energy changes
-	\item comparing with snap/snapOrtho mesh (which have no small cells) -- TODO: which one should we use, the more orthogonal one?
-	\item isolating value of nonlinear momentum term
-	\item comparing with high resolution solution
-\end{itemize}
+This suggests irreversible thermodynamic mixing (caused by numerical errors).  In reality, viscous effects would cause such mixing, but our equation set has no viscosity so there should be no mixing.
+
+By isolating the nonlinear advection term in the momentum equations ($\del \rho \vect{u} \vect{u}$) we can see the different in flows between BTF and SnapCol meshes (Figure~\ref{fig:gw:nonlinear-advection}).  Looking at $U_f$ we can see larger velocities in small cells near mountain peaks, but otherwise flow fields are qualitatively in good agreement.
+
+Noticing that $U_f$ follows the BTF mesh but does not follow the SnapCol mesh, we suspect that the thermal mixing may be caused by numerical diffusion (as we same with horizontal tracer advection).  This time, however, the flow is not horizontal, so it is SnapCol that has more diffusion.  To quantify this diffusion, we're going to measure entropy change.  We expect higher entropies where more mixing has occurred.  From Lauritzen and Thuburn 2012:
+
+\begin{align}
+	S &= - k_B \sum \theta \ln \theta \rho V
+	\intertext{and, as a normalised change}
+	\ell_s &= \frac{S - S^\mathrm{(initial)}}{S^\mathrm{(initial)}}
+\end{align}
+We could also compare with high resolution solution (coarse-grained), but Hilary hasn't got this working yet.  Adding an outlet sponge layer might help.
 
 \subsection{Courant number}
-\begin{align}
-	\mathrm{Co} = \frac{\Delta t u \cdot S}{V}
-\end{align}
 
 \begin{itemize}
 	\item Mean Courant numbers for cut-cell meshes and SLEVE are lower than BTF.  This could be because cells are relatively smaller aloft.
 	\item Surprisingly, mean Courant number is slightly higher for snap mesh which has no small cells (Figure~\ref{fig:gw:courant}).
 	\item SLEVE and BTF have the lowest max Co numbers, snap mesh significantly higher.  Since snap mesh does not have small cells, does this imply that snap mesh has higher winds?
+\end{itemize}
+
+Hilary mentioned that the reason that small cells aren't too much of a problem is that the small face is vertically oriented and has the majority of the flow fluxing through it.
+
+\begin{align}
+	\mathrm{Co} &= \frac{\Delta t}{2 V \rho} \sum{U}
+	\intertext{where $U = \rho \vect{u} \cdot \vect{S}$ (ish.  see Eqn 6 in W\&S2014).  Given large near-horizontal surface $S_1$ and adjoining small vertical surface $S_2$}
+	&= \frac{\Delta t}{2 S_1 S_2} \left( \vect{u} \cdot S_1 + \vect{u} \cdot S_2 \right)
+	\intertext{which, when $S_2$ is sufficiently small}
+	&\approx \frac{\Delta t}{2 S_1} \left( \vect{u} \cdot S_1 \right)
+\end{align}
+Hence, the Courant number is less affected by small cells with near-horizontal flow.
+
+\begin{itemize}
+	\item We can try increasing $\Delta t$ until SnapCol becomes unstable ($\mathrm{Co} > 1$), and compare results with TF meshes (and possibly Snap/SnapOrtho meshes) with the same timestep.  This will show that small cells are a problem.
+	\item We could even try a sinking bubble test where the momentum will be fluxing through the large, almost-horizontally oriented face along the terrain surface
 \end{itemize}
 
 \begin{figure}
