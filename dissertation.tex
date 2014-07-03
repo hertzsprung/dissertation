@@ -17,11 +17,13 @@
 \usepackage{xpatch}
 \usepackage[
   backend=biber,
-  style=authoryear,
+  style=authoryear-comp,
   firstinits=true,
   doi=false,
   isbn=false,
   uniquename=init,
+  uniquelist=minyear,
+  labeldate=true,
   maxnames=2,
   hyperref=true]{biblatex}
 \usepackage{minted}
@@ -58,7 +60,7 @@
 
 \begin{document}
 \newcommand{\TODO}[1]{\textcolor{purple}{TODO: \emph{#1}}}
-\newcommand{\TODOsidenote}[1]{\marginpar{\footnotesize{\TODO{#1}}}}
+\newcommand{\TODOsidenote}[1]{\marginpar{\footnotesize{\TODO{#1}}\vspace{0.3em}}}
 \input{mathmacros}
 \input{title}
 
