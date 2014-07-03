@@ -12,7 +12,7 @@ clean-latex:
 	rm -rf $(DOCUMENT).pdf *.bbl *.bcf *.blg *.toc *.run.xml *.pyg *.log *.aux *.out
 
 wc:
-	$(TEXCOUNT) $(DOCUMENT).tex
+	$(TEXCOUNT) -merge -sub=chapter $(DOCUMENT).tex
 
 draft:
 	@$(PDFLATEX) "\def\classopts{,draft}\def\geometryopts{,showframe}\input{$(DOCUMENT)}"
