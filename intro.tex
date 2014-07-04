@@ -7,23 +7,19 @@ There are two main approaches: transform the coordinates so that the domain beco
 
 Terrain following (TF) coordinates are in widespread use in operational models.  In this transformed coordinate system the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.
 
-A variety of vertical coordinates are used in TF models.  The equations of motion with the hydrostatic approximation are simplified by using pressure coordinates \autocite{eliassen1949}.  However, in the presence of orography, the lower boundary condition becomes complicated because surfaces of constant pressure intersect the terrain.  This motivated \textcite{phillips1957} to create the sigma coordinate, in which pressure is normalised such that $\sigma$ ranges between zero at the top of the domain and one at the surface.
-Most hydrostatic models use normalised pressure coordinates.  With some exceptions, such as \textcite{xue-thorpe1991}, height-based coordinates are a popular choice for nonhydrostatic models \autocite{steppeler2003}.
+A variety of vertical coordinates can be used in TF models.  The equations of motion with the hydrostatic approximation are simplified by using pressure coordinates \autocite{eliassen1949}.  However, in the presence of orography, the lower boundary condition becomes complicated because surfaces of constant pressure intersect the terrain.  This motivated \textcite{phillips1957} to create the sigma coordinate in which pressure is normalised such that $\sigma$ ranges between zero at the top of the domain, and one at the surface.
+Most hydrostatic models use normalised pressure coordinates.  With some exceptions, such as \textcite{xue-thorpe1991}, nonhydrostatic models use height-based coordinates \autocite{steppeler2003}.
 \TODOsidenote{there are others such as isentropic (briefly mentioned in Mesinger1988), isopycnal etc... don't know if they're worth mentioning}
 
 It is well-known that TF coordinates perform badly in the presence of steep orography.  As spatial resolution in NWP models increases, gradients in terrain become steeper.  This leads to greater errors in the horizontal pressure gradient which results in spurious winds \autocite{dempsey-davis1998}.  \TODOsidenote{I'll explain how the spurious winds happens in a later section}  Much work has been done to reduce error associated with TF coordinates: firstly, by smoothing the effects of terrain with height and, secondly, by improving the accuracy of the horizontal pressure gradient itself.
 
-\textcite{galchen-somerville1975} proposed a basic terrain following (BTF) coordinate system, defined as
-\begin{align}
-z = \left( H - z_s \right) \frac{Z}{H} + z_s
-\end{align}
-where, in two dimensions, $z(x, Z)$ is the height of the coordinate surface at level $Z$, $H$ is the height of the domain, and $z_s(x)$ is the height of the terrain surface.  \TODOsidenote{maybe move this maths into a later section (since we're actually running tests on BTF grid)} \TODOsidenote{should I stick with Klemp's notation? I was planning on using z/Z and relating this to transform theory/Jacobian stuff.}  The terrain's influence decays linearly with height but disappears only at the top of the domain.
+\textcite{galchen-somerville1975} proposed a basic terrain following (BTF) coordinate system in which the terrain's influence decays linearly with height but disappears only at the top of the domain.  \TODOsidenote{say what's bad about BTF}  \TODOsidenote{I'll give the mathematical definition of BTF in a later section}
 
 The hybrid terrain following (HTF) coordinates of \textcite{simmons-burridge1981} improve upon BTF coordinates by allowing the vertical decay profile can be controlled.  By choosing a suitable profile, terrain influence decays more rapidly than BTF to produce surfaces of constant height aloft \autocite{klemp2011}.
 
 The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.  \textcite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into small-scale and large-scale components, each having different exponential decay profiles.  \TODOsidenote{if I'm going to include results from SLEVE grid, I'll have to say more about how it works}  \textcite{klemp2011} took an alternative approach, using a multipass smoothing operator, and found that errors were reduced still further compared to SLEVE.
 
-\TODO{The other approach of improving accuracy of pressure gradient (Klemp 2011, Mahrer 1984, Zaengl 2012)}
+Another way of reducing error is to improve the accuracy of the horizontal pressure gradient discretisation.  \textcite{mahrer1984} proposed a discretisation where two pressure values at the same geometric height are interpolated from surrounding points.  From these values, a truly horizontal pressure gradient can be calculated without introducing metric terms.  Recent studies have found that variations of Mahrer's technique reduce spurious circulations \parencites{klemp2011}{zaengl2012}.  \TODOsidenote{I'll go into more detail on pressure gradients in a subsequent section.}
 
 Despite their associated numerical errors, TF coordinates are attractive because they simplify the lower boundary condition, their rectangular structure is simple to process by computer \autocite{schaer2002}, and cell sizes remain almost constant \autocite{jebens2011}.
 
@@ -44,7 +40,7 @@ Other representations of terrain have been developed using unstructured grids.  
 
 \TODO{talk about the advantages of adaptive grids.  Steppeler 2003 says a bit, Blaise 2012 says they can capture range of spatial scales while improving computational efficiency.  Can I find an example in literature of adaptive meshing to follow the flow? Almgren 1998 looks interesting, for example.} 
 
-\TODO{\textbf{objectives}}
+This project aims to compare the accuracy of TF and cut-cell style grids in a variety of two-dimensional test cases.  Simulations are performed using the OpenFOAM CFD library \autocite{openfoam} with a discretisation of the fully compressible Euler equations from \textcite{weller-shahrokhi2014}.  \TODO{more on this when I've written the rest!}
 
 \TODO{\textbf{outline of the remaining chapters}}
 
@@ -55,8 +51,8 @@ Other representations of terrain have been developed using unstructured grids.  
 
 \TODO{\textbf{CFL criterion}.  relevant to understand timestep constraints on small cells}
 
-\TODO{\textbf{coordinate transform theory}.  how relevant is this (since we're not transforming coords ourselves?)  Pielke 1984 has an excellent chapter on tensors, jacobian, Christoffel symbols...}
+\TODO{\textbf{coordinate transform theory}.  Pielke 1984 has an excellent chapter on tensors, jacobian, Christoffel symbols...}
 
-\TODO{\textbf{pressure gradient errors}.  explains the main problem with TF coords, motivates alternatives.  mesinger 1988 says this ISN'T a truncation error, others say it is (find citations).  review this.}
+\TODO{\textbf{pressure gradient errors}.  explains the main problem with TF coords, motivates alternatives.  this will build upon the previous section (talk about pressure gradient calculated with metric terms versus truly horizontal)  Mesinger 1988 says this ISN'T a truncation error, others say it is (Mahrer 1984).  review this, maybe?}
 
 \TODO{\textbf{grids in detail}.  BTF, SLEVE (are we going to this in all our test cases?), cut cell (as set out by rosatti 2005, klein 2009 etc)}
