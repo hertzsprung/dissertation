@@ -19,7 +19,9 @@ The hybrid terrain following (HTF) coordinates of \textcite{simmons-burridge1981
 
 The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.  \textcite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into small-scale and large-scale components, each having different exponential decay profiles.  \TODOsidenote{if I'm going to include results from SLEVE grid, I'll have to say more about how it works}  \textcite{klemp2011} took an alternative approach, using a multipass smoothing operator, and found that errors were reduced still further compared to SLEVE.
 
-Another way of reducing error is to improve the accuracy of the horizontal pressure gradient discretisation.  \textcite{mahrer1984} proposed a discretisation where two pressure values at the same geometric height are interpolated from surrounding points.  From these values, a truly horizontal pressure gradient can be calculated without introducing metric terms.  Recent studies have found that variations of Mahrer's technique reduce spurious circulations \parencites{klemp2011}{zaengl2012}.  \TODOsidenote{I'll go into more detail on pressure gradients in a subsequent section.}
+Another way of reducing error is to improve the accuracy of the horizontal pressure gradient discretisation.  \textcite{mahrer1984} proposed a discretisation where two pressure values at the same geometric height are interpolated from surrounding points.  From these values, a truly horizontal pressure gradient can be calculated without introducing metric terms.  Recent studies have found that variations of Mahrer's technique reduce spurious circulations \parencites{dempsey-davis1998}{klemp2011}{zaengl2012}.  \TODOsidenote{I'll go into more detail on pressure gradients in a subsequent section.}
+
+\TODOsidenote{mention use of perturbation pressure in NH models? (although problem is not eliminated, only less severe (Dempsey \& Davis 98))}
 
 Despite their associated numerical errors, TF coordinates are attractive because they simplify the lower boundary condition, their rectangular structure is simple to process by computer \autocite{schaer2002}, and cell sizes remain almost constant \autocite{jebens2011}.
 
@@ -51,8 +53,37 @@ This project aims to compare the accuracy of TF and cut-cell style grids in a va
 
 \TODO{\textbf{CFL criterion}.  relevant to understand timestep constraints on small cells}
 
-\TODO{\textbf{coordinate transform theory}.  Pielke 1984 has an excellent chapter on tensors, jacobian, Christoffel symbols...}
+\section{Coordinate transformations}
+\TODOsidenote{I could merge this with pressure gradient error section below because this will help explain the presence of the metric term (see Dempsey \& David 1998)}
+Consider the two-dimensional Cartesian coordinates $(x, z)$ and a transformed coordinate $Z$ which is a monotonic function of $z$.  That is, $Z = Z(x, z)$ and $z = Z^{-1}$.  A scalar field $\varphi$ can be expressed in Cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(Z))$.
+Hence the vertical derivative of $\varphi$ in transformed coordinates is
+\begin{align}
+\frac{\partial \varphi}{\partial Z} =
+  \frac{\partial \varphi}{\partial z}
+  \frac{\partial z}{\partial Z}
+  \label{eq:coord:vertical}
+\end{align}
+The horizontal derivative in transformed coordinates is
+\begin{align}
+\left. \frac{\partial \varphi}{\partial x} \right|_r =
+  \left. \frac{\partial \varphi}{\partial x} \right|_z +
+  \left. \frac{\partial \varphi}{\partial z} \right|_x
+  \left. \frac{\partial z}{\partial x} \right|_r
+  \label{eq:coord:horizontal}
+\end{align}
+where the subscript by the vertical bar denotes the variable that is held constant. \TODOsidenote{This came from \href{http://ocw.mit.edu/courses/earth-atmospheric-and-planetary-sciences/12-950-atmospheric-and-oceanic-modeling-spring-2004/lecture-notes/lec25.pdf}{MIT lecture notes} -- I'm not sure if I need to cite them or what.  See also \href{http://math.stackexchange.com/q/857435/89878}{my StackExchange question}}
+By substituting \ref{eq:coord:vertical} into \ref{eq:coord:horizontal} we obtain
+\begin{align}
+\left. \frac{\partial \varphi}{\partial x} \right|_r =
+  \left. \frac{\partial \varphi}{\partial x} \right|_z +
+  \frac{\partial \varphi}{\partial z} 
+  \frac{\partial z}{\partial Z}
+  \left. \frac{\partial z}{\partial x} \right|_r
+\end{align}
 
-\TODO{\textbf{pressure gradient errors}.  explains the main problem with TF coords, motivates alternatives.  this will build upon the previous section (talk about pressure gradient calculated with metric terms versus truly horizontal)  Mesinger 1988 says this ISN'T a truncation error, others say it is (Mahrer 1984).  review this, maybe?}
+\TODO{show what happens to hydrostatic balance equation in transformed coordinates}
+
+
+\TODO{\textbf{pressure gradient errors}.  explains the main problem with TF coords, motivates alternatives.  this will build upon the previous section (talk about pressure gradient calculated with metric terms versus truly horizontal)  Mesinger 1988 says this ISN'T a truncation error, others say it is (Mahrer 1984).  review this, maybe?  need to explain exner function at some point, too}
 
 \TODO{\textbf{grids in detail}.  BTF, SLEVE (are we going to this in all our test cases?), cut cell (as set out by rosatti 2005, klein 2009 etc)}

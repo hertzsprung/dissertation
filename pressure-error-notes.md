@@ -30,3 +30,17 @@ Zaengl 2012
 - extension of Mahrer technique
 
 Dempsey and Davis 1998
+- horizontal pressure gradient in sigma coords has two terms:
+  - pressure gradient along sigma-surface
+  - metric term to compensate for vertical variation in the first term
+- these terms are largest over steep orography where sigma surfaces slope steeply
+
+
+-----
+Exner
+Pielke 1984 has a little bit
+http://research.metoffice.gov.uk/research/nwp/publications/papers/unified_model/umdp15_v6.0.pdf
+
+Nondimensionalised pressure
+Relationship between temperature and potential temperature becomes \theta = T / \Pi
+horizontal pressure gradient written in terms of \theta instead of \rho
