@@ -55,13 +55,16 @@ This project aims to compare the accuracy of TF and cut-cell style grids in a va
 
 \section{Coordinate transformations}
 \TODOsidenote{I could merge this with pressure gradient error section below because this will help explain the presence of the metric term (see Dempsey \& David 1998)}
-Consider the two-dimensional Cartesian coordinates $(x, z)$ and a transformed coordinate $Z$ which is a monotonic function of $z$.  That is, $Z = Z(x, z)$ and $z = Z^{-1}$.  A scalar field $\varphi$ can be expressed in Cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(Z))$.
-Hence, using the chain rule, the vertical derivative of $\varphi$ in transformed coordinates is
+Consider the two-dimensional Cartesian coordinates $(x, z)$ and a transformed coordinate $Z$ which is a monotonic function of $z$.  That is, $Z = Z(x, z)$ and $z = Z^{-1}$.  A scalar field $\varphi$ can be expressed in Cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(x, Z))$. \TODOsidenote{z doesn't explicitly depend on x, only implicitly through Z.  but it makes the multivariable chain rule easier to construct}
+Hence the vertical derivative of $\varphi$ can be found by using the chain rule
 \begin{align}
 \frac{\partial \varphi}{\partial Z} =
   \frac{\partial \varphi}{\partial z}
   \frac{\partial z}{\partial Z}
-  \label{eq:coord:vertical}
+\intertext{and rearranging to give}
+\frac{\partial \varphi}{\partial z} =
+  \frac{\partial \varphi}{\partial Z}
+  \frac{\partial Z}{\partial z}
 \end{align}
 
 The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix
@@ -76,25 +79,30 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 \intertext{we can express the chain rule as}
 %
 \frac{\partial y_i}{\partial x_j} = \frac{\partial y_i}{\partial u_i} \frac{\partial u_i}{\partial x_j}
-\end{align}
-
-The horizontal derivative in transformed coordinates is
-\begin{align}
-\left. \frac{\partial \varphi}{\partial x} \right|_r =
+%
+\intertext{Applying this to $\varphi$ we find}
+%
+\begin{bmatrix}
+\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial Z}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial z}
+\end{bmatrix}
+\begin{bmatrix}
+\frac{\partial x}{\partial x} & 	\frac{\partial x}{\partial Z} \\
+\frac{\partial z}{\partial x} &	\frac{\partial z}{\partial Z}
+\end{bmatrix}
+%
+\intertext{therefore the horizontal...}
+%
+\left. \frac{\partial \varphi}{\partial x} \right|_Z =
   \left. \frac{\partial \varphi}{\partial x} \right|_z +
-  \left. \frac{\partial \varphi}{\partial z} \right|_x
-  \left. \frac{\partial z}{\partial x} \right|_r
+         \frac{\partial \varphi}{\partial z}
+  \left. \frac{\partial z}{\partial x} \right|_Z
   \label{eq:coord:horizontal}
 \end{align}
 where the subscript by the vertical bar denotes the variable that is held constant. \TODOsidenote{This came from \href{http://ocw.mit.edu/courses/earth-atmospheric-and-planetary-sciences/12-950-atmospheric-and-oceanic-modeling-spring-2004/lecture-notes/lec25.pdf}{MIT lecture notes} -- I'm not sure if I need to cite them or what.  See also \href{http://math.stackexchange.com/q/857435/89878}{my StackExchange question}}
-By substituting \ref{eq:coord:vertical} into \ref{eq:coord:horizontal} we obtain
-\begin{align}
-\left. \frac{\partial \varphi}{\partial x} \right|_r =
-  \left. \frac{\partial \varphi}{\partial x} \right|_z +
-  \frac{\partial \varphi}{\partial z} 
-  \frac{\partial z}{\partial Z}
-  \left. \frac{\partial z}{\partial x} \right|_r
-\end{align}
 
 \TODO{show what happens to hydrostatic balance equation in transformed coordinates}
 
