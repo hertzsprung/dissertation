@@ -56,13 +56,28 @@ This project aims to compare the accuracy of TF and cut-cell style grids in a va
 \section{Coordinate transformations}
 \TODOsidenote{I could merge this with pressure gradient error section below because this will help explain the presence of the metric term (see Dempsey \& David 1998)}
 Consider the two-dimensional Cartesian coordinates $(x, z)$ and a transformed coordinate $Z$ which is a monotonic function of $z$.  That is, $Z = Z(x, z)$ and $z = Z^{-1}$.  A scalar field $\varphi$ can be expressed in Cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(Z))$.
-Hence the vertical derivative of $\varphi$ in transformed coordinates is
+Hence, using the chain rule, the vertical derivative of $\varphi$ in transformed coordinates is
 \begin{align}
 \frac{\partial \varphi}{\partial Z} =
   \frac{\partial \varphi}{\partial z}
   \frac{\partial z}{\partial Z}
   \label{eq:coord:vertical}
 \end{align}
+
+The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix
+\begin{align}
+\frac{\partial y_i}{\partial x_j} = 
+\begin{bmatrix}
+  \dfrac{\partial y_1}{\partial x_1}	& \dfrac{\partial y_1}{\partial x_2} &	\cdots &	\dfrac{\partial y_1}{\partial x_n} \\
+  \vdots				& \vdots &				\ddots &	\vdots \\
+  \dfrac{\partial y_m}{\partial x_1}	& \dfrac{\partial y_m}{\partial x_2} &	\cdots &	\dfrac{\partial y_m}{\partial x_n}
+\end{bmatrix}
+%
+\intertext{we can express the chain rule as}
+%
+\frac{\partial y_i}{\partial x_j} = \frac{\partial y_i}{\partial u_i} \frac{\partial u_i}{\partial x_j}
+\end{align}
+
 The horizontal derivative in transformed coordinates is
 \begin{align}
 \left. \frac{\partial \varphi}{\partial x} \right|_r =
