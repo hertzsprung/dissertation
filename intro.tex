@@ -14,6 +14,16 @@ Isentropic coordinates have also been investigated.  Since adiabatic motion foll
 
 It is well-known that TF coordinates perform badly in the presence of steep orography.  As spatial resolution in NWP models increases, gradients in terrain become steeper.  This leads to greater errors in the horizontal pressure gradient which results in spurious winds \autocite{dempsey-davis1998}.  Much work has been done to reduce error associated with TF coordinates: firstly, by smoothing the effects of terrain with height and, secondly, by improving the accuracy of the horizontal pressure gradient itself.
 
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{Basic terrain following (BTF) \label{fig:intro:tf:btf}}[0.45\textwidth]{\input{btf-plot}}
+	\hfill
+	\subcaptionbox{Smooth level vertical (SLEVE) \TODO{include details of SLEVE parameters?} \label{fig:intro:tf:sleve}}[0.45\textwidth]{\input{sleve-plot}}
+	\caption{Vertical cross sections of terrain following coordinates.  \TODO{include details of mountain profile?}  \TODO{reference this figure in the introduction}}
+	\label{fig:intro:tf}
+\end{figure}
+
 \textcite{galchen-somerville1975} proposed a basic terrain following (BTF) coordinate system in which the terrain's influence decays linearly with height but disappears only at the top of the domain.
 
 The hybrid terrain following (HTF) coordinates of \textcite{simmons-burridge1981} improve upon BTF coordinates by allowing the vertical decay profile can be controlled.  By choosing a suitable profile, terrain influence decays more rapidly than BTF to produce surfaces of constant height aloft \autocite{klemp2011}.
@@ -51,7 +61,6 @@ This project aims to compare the accuracy of TF and cut-cell style grids in a va
 \TODO{feels to me like the sections that follow all belong in their own chapter}
 
 \section{Coordinate transformations}
-\TODOsidenote{I could merge this with pressure gradient error section below because this will help explain the presence of the metric term (see Dempsey \& David 1998)}
 Consider the two-dimensional Cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
 A scalar field $\varphi$ can be expressed in Cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(x, \trans{z}))$.
@@ -101,7 +110,6 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 	 \left. \frac{\partial z}{\partial x} \right|_\trans{z}
 %
 \intertext{and rearranging gives}
-%
 \left. \frac{\partial \varphi}{\partial x} \right|_z =
 \left. \frac{\partial \varphi}{\partial x} \right|_\trans{z} -
          \frac{\partial \varphi}{\partial z}
@@ -136,15 +144,22 @@ The basic terrain following (BTF) coordinates of \textcite{galchen-somerville197
 %
 \intertext{or}
 %
-	z &= \left( H - z_s \right) \frac{\trans{z}}{H} + \surface
+	z &= \left( H - \surface \right) \frac{\trans{z}}{H} + \surface
 \end{align}
-where, in two dimensions, $z(x, \trans{z})$ is the height of the coordinate surface at level $\trans{z}$, $H$ is the height of the domain, and $z_s(x)$ is the height of the terrain surface.
+where, in two dimensions, $z(x, \trans{z})$ is the height of the coordinate surface at level $\trans{z}$, $H$ is the height of the domain, and $\surface(x)$ is the height of the terrain surface.
 \TODOsidenote{is this the same as sigma coordinates except with height rather than pressure?  Gal-Chen seem to say it's not exactly the same, but Schaer 2002 says it is.  So confused!}
 
 \subsection{Smooth level vertical (SLEVE)}
-Unlike most TF coordinates in which the vertical transformation depends only on terrain height, \textcite{schaer2002} describes a coordinate system in which vertical decay is scale-dependent.  Terrain height is split into a large-scale component $\surface_1$ and a large-scale component $\surface_2$ such that $\surface = \surface_1 + \surface_2$.
+Unlike most TF coordinates in which the vertical transformation depends only on terrain height, \textcite{schaer2002} describes a coordinate system in which vertical decay is scale-dependent.  Terrain height is split into a large-scale component $\surface_1$ and a small-scale component $\surface_2$ such that $\surface = \surface_1 + \surface_2$.  The transformation is defined as
 \begin{align}
+	z &= \trans{z} + \surface_1 b_1 + \surface_2 b_2
+%
+\intertext{with the vertical decay functions are given by}
+%
+	b_i &= \frac{\sinh \left( \left( H - \trans{z} \right) / s_i \right)}{\sinh \left( H / s_i \right)}
 \end{align}
+where $s_1$ and $s_2$ are the scale heights of large-scale and small-scale terrain respectively.
+
 
 \subsection{Cut cell}
 \TODO{as set out by rosatti 2005, klein 2009 etc}

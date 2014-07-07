@@ -4,6 +4,7 @@ MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 
 include build/Makefile-executables
+include build/Makefile-gnuplot
 include build/Makefile-latex
 include build/Makefile-openfoam
 include build/Makefile-mesh

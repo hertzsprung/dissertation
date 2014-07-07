@@ -2,6 +2,7 @@ GREP_WARN := $(GREP) --color -i -f latex-warnings -C3 -H
 
 DOCUMENT := dissertation
 COMPONENTS := title.tex intro.tex methodology.tex meshes.tex results.tex advection.tex resting.tex gravityWaves.tex mathmacros.tex
+GNUPLOT_OUTPUTS := btf-plot.tex sleve-plot.tex
 BIBLIOGRAPHIES := dissertation.bib journals.bib
 
 .PHONY: all-latex wc draft clean-latex
@@ -14,11 +15,16 @@ clean-latex:
 wc:
 	$(TEXCOUNT) -merge -sub=chapter $(DOCUMENT).tex
 
-draft:
+draft: $(DOCUMENT).tex $(COMPONENTS) $(GNUPLOT_OUTPUTS)
 	@$(PDFLATEX) "\def\classopts{,draft}\def\geometryopts{,showframe}\input{$(DOCUMENT)}"
 
-$(DOCUMENT).pdf: $(DOCUMENT).tex $(COMPONENTS) $(BIBLIOGRAPHIES) biblatex.cfg
-	$(PDFLATEX) -draftmode $(DOCUMENT) # > /dev/null 2>&1
+$(DOCUMENT).pdf: \
+  $(DOCUMENT).tex \
+  $(COMPONENTS) \
+  $(GNUPLOT_OUTPUTS) \
+  $(BIBLIOGRAPHIES) \
+  biblatex.cfg
+	$(PDFLATEX) -draftmode $(DOCUMENT)
 	$(BIBER) $(DOCUMENT)
-#	$(BIBER) $(DOCUMENT) | tee $(DOCUMENT).biber.log | $(GREP_WARN) --label=biber
 	$(PDFLATEX) $(DOCUMENT) | tee $(DOCUMENT).pdflatex.log | $(GREP_WARN) --label=pdflatex
+

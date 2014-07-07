@@ -1,0 +1,17 @@
+clean:: clean-plots
+
+# $(1) -- filename (without suffix)
+define GNUPLOT_TEMPLATE
+
+clean-plots:: clean-$(1)
+
+clean-$(1):
+	$(RM) $(1)-plot.tex $(1).eps $(1)-eps-converted-to.pdf
+
+$(1)-plot.tex: $(1).plt
+	$(GNUPLOT) -e "set output '$$@'; load '$$<'" 
+
+endef
+
+$(eval $(call GNUPLOT_TEMPLATE,btf))
+$(eval $(call GNUPLOT_TEMPLATE,sleve))
