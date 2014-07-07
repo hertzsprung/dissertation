@@ -1,7 +1,7 @@
 GREP_WARN := $(GREP) --color -i -f latex-warnings -C3 -H
 
 DOCUMENT := dissertation
-COMPONENTS := title.tex intro.tex methodology.tex meshes.tex results.tex advection.tex resting.tex gravityWaves.tex mathmacros.tex
+COMPONENTS := title.tex intro.tex methodology.tex meshes.tex results.tex advection.tex resting.tex gravityWaves.tex mathmacros.tex dissertationmacros.tex
 GNUPLOT_OUTPUTS := btf-plot.tex sleve-plot.tex
 BIBLIOGRAPHIES := dissertation.bib journals.bib
 

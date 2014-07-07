@@ -1,4 +1,8 @@
+\chapter{Methodology}
 \TODO{explain that we're using cartesian coords for everything.  See how Matt Jones justified this.}
-\TODO{explain our SnapCol mesh (not-quite cut cell mesh with small cells}
 \TODO{introduce the equation set and Hilary's discretisation}
 
+\section{Grid construction}
+Two dimensional, orthogonal grids were created using the OpenFOAM utility, \shellcmd{blockMesh}.  A custom utility was used to modify these orthogonal grids by moving $z$ coordinates to create terrain following grids.
+
+At the time of writing, OpenFOAM does not support cartesian cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.
