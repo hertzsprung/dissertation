@@ -1,5 +1,10 @@
 \section{Advection}
-Following \textcite{schaer2002}, a scalar anomaly is transported above the orography by solving the advection equation for a prescribed horizontal wind.  The domain is \SI{300}{\kilo\meter} wide and \SI{25}{\kilo\meter} high.  The terrain is wave-shaped, specified by the surface height $\surface$ such that
+\TODOsidenote{check SLEVE grid isn't optimised -- exponent in add2dMountainDict should equal 1}
+Following \textcite{schaer2002}, a scalar anomaly is transported above the orography by solving the advection equation for a prescribed horizontal wind.
+The wind profile, terrain profile and initial scalar anomaly are shown in Figure~\ref{fig:advection:initial}.
+
+\subsection{Specification}
+The domain is \SI{300}{\kilo\meter} wide and \SI{25}{\kilo\meter} high.  The terrain is wave-shaped, specified by the surface height $\surface$ such that
 \begin{align}
 	\surface(x) &= \cos^2 \left( \frac{\pi x}{\lambda} \right) \surface^\star
 %
@@ -14,14 +19,56 @@ where $a = \SI{25}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{3}{\kilo
 \begin{align}
 	\surface_1(x) &= \frac{1}{2}\surface^\star(x)
 \end{align}
-\TODO{describe wind field, then tracer}
+For comparison, the same tests were performed with no orography, such that $\surface = \SI{0}{\kilo\meter}$ everywhere.
+
+The wind is entirely horizontal and is prescribed as
+\begin{align}
+	u(z) = u_0 \left\{ \begin{array}{l l}
+		1 & \quad \text{if $z \geq z_2$} \\
+		\sin^2 \left( \frac{\pi}{2} \frac{z - z_1}{z_2 - z_1} \right) & \quad \text{if $z_1 < z < z_2$} \\
+		0 & \quad \text{otherwise}
+	\end{array} \right.	
+\end{align}
+where $u_0 = \SI{10}{\meter\per\second}$, $z_1 = \SI{4}{\kilo\meter}$ and $z_2 = \SI{5}{\kilo\meter}$.
+This results in a constant wind aloft, and zero flow at \SI{4}{\kilo\meter} and below.
+A scalar anomaly $\varphi$ is positioned upstream above the height of the terrain.  It has the shape
+\begin{align}
+	\varphi(x, z) &= \varphi_0 \left\{ \begin{array}{l l}
+		\cos^2 \left( \frac{\pi r}{2} \right) & \quad \text{if $r \leq 1$} \\
+		0 & \quad \text{otherwise}
+	\end{array} \right.
+%
+\intertext{having radius $r$ given by}
+%
+	r &= \sqrt{
+		\left( \frac{x - x_0}{A_x} \right)^2 + 
+		\left( \frac{z - z_0}{A_z} \right)^2
+	}
+\end{align}
+where $A_x = \SI{25}{\kilo\meter}$, $A_z = \SI{3}{\kilo\meter}$ are the horizontal and vertical half-widths respectively, and $\varphi_0 = 1$ is the maximum magnitude of the anomaly.  At $t = \SI{0}{\second}$, the anomaly is centred at $(x_0, z_0) = (\SI{-50}{\kilo\meter}, \SI{9}{\kilo\meter})$ so that the anomaly is upwind of the mountain and well above the maximum terrain height of \SI{3}{\kilo\meter}.
+
+\begin{figure}
+	\centerfloat
+	\input{advection-initial-plot}
+	\caption{Vertical cross section of the two-dimensional advection test showing the horizontal wind profile, surface terrain profile and scalar anomaly field at $t = \SI{0}{\second}$ on a $\SI{300}{\kilo\meter} \times \SI{25}{\kilo\meter}$ domain.  Adapted from \textcite{schaer2002}.}
+	\label{fig:advection:initial}
+\end{figure}
+
+The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve the advection equation in flux form
+\begin{align}
+	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) = 0
+\end{align}
+where $\vect{u}$ is the vector wind field.
+
+The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.
+\TODO{boundary conditions -- zero gradient on T and U for all patches? -- unlike Schaer's periodic conditions on lateral boundary}
+Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.  \TODOsidenote{Schaer's timestep is 25s, should we try to match that?}  \TODO{horiz/vertical courant number?}
+
 
 
 \TODO{
 \begin{itemize}
-\item Advection of tracer blob above orography (advection equation, not real dynamics)
-\item No wind near ground, uniform zonal wind aloft
-\item Compared meshes, and vanLeer versus tvdLimitedCubicUpwindCPCFit.  Compared against noOrography as a baseline.
+\item Compared meshes, and vanLeer versus tvdLimitedCubicUpwindCPCFit
 \item Looked at l2 error norm at t=10000s by comparing with analytic tracer (created with setScalarOverOrography)
 \item Cut-cell style meshes, unsurprisingly, same l2 error as noOrography
 \item tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive

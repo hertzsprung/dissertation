@@ -15,3 +15,4 @@ endef
 
 $(eval $(call GNUPLOT_TEMPLATE,btf))
 $(eval $(call GNUPLOT_TEMPLATE,sleve))
+$(eval $(call GNUPLOT_TEMPLATE,advection-initial))

@@ -1,0 +1,112 @@
+\chapter{Theoretical basis}
+
+\section{Coordinate transformations}
+Consider the two-dimensional cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
+
+A scalar field $\varphi$ can be expressed in cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(x, \trans{z}))$.
+Hence the vertical derivative of $\varphi$ can be found by using the chain rule
+\begin{align}
+  \frac{\partial \varphi}{\partial \trans{z}} =
+  \frac{\partial \varphi}{\partial z}
+  \frac{\partial z}{\partial \trans{z}}
+\intertext{and rearranging to give}
+\frac{\partial \varphi}{\partial z} =
+  \frac{\partial \varphi}{\partial \trans{z}}
+  \frac{\partial \trans{z}}{\partial z}
+\end{align}
+
+The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix
+\begin{align}
+\frac{\partial y_i}{\partial x_j} = 
+\begin{bmatrix}
+  \dfrac{\partial y_1}{\partial x_1}	& \dfrac{\partial y_1}{\partial x_2} &	\cdots &	\dfrac{\partial y_1}{\partial x_n} \\
+  \vdots				& \vdots &				\ddots &	\vdots \\
+  \dfrac{\partial y_m}{\partial x_1}	& \dfrac{\partial y_m}{\partial x_2} &	\cdots &	\dfrac{\partial y_m}{\partial x_n}
+\end{bmatrix}
+%
+\intertext{we can express the chain rule as}
+%
+\frac{\partial y_i}{\partial x_j} = \frac{\partial y_i}{\partial u_i} \frac{\partial u_i}{\partial x_j}
+%
+\intertext{Applying this to $\varphi$ we find}
+%
+\begin{bmatrix}
+\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial \trans{z}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial z}
+\end{bmatrix}
+\begin{bmatrix}
+\frac{\partial x}{\partial x} & 	\frac{\partial x}{\partial \trans{z}} \\
+\frac{\partial z}{\partial x} &	\frac{\partial z}{\partial \trans{z}}
+\end{bmatrix}
+%
+\intertext{Taking the horizontal derivative in transformed coordinates we find}
+%
+\left. \frac{\partial \varphi}{\partial x} \right|_\trans{z} =
+  \left. \frac{\partial \varphi}{\partial x} \right|_z +
+         \frac{\partial \varphi}{\partial z}
+	 \left. \frac{\partial z}{\partial x} \right|_\trans{z}
+%
+\intertext{and rearranging gives}
+\left. \frac{\partial \varphi}{\partial x} \right|_z =
+\left. \frac{\partial \varphi}{\partial x} \right|_\trans{z} -
+         \frac{\partial \varphi}{\partial z}
+	 \left. \frac{\partial z}{\partial x} \right|_\trans{z}
+\end{align}
+where the subscript by the vertical bar denotes the variable that is held constant. \TODOsidenote{the end result isn't what is given in Mahrer 1984 or D\&D98!  I can't see how to arrive at their transform}  \TODOsidenote{This came from \href{http://ocw.mit.edu/courses/earth-atmospheric-and-planetary-sciences/12-950-atmospheric-and-oceanic-modeling-spring-2004/lecture-notes/lec25.pdf}{MIT lecture notes} -- I'm not sure if I need to cite them or what.  See also \href{http://math.stackexchange.com/q/857435/89878}{my StackExchange question}}
+
+\TODO{show what happens to hydrostatic balance equation in transformed coordinates, maybe}
+
+\TODO{talk about how to apply this in terrain-following, talk about boundary conditions imposed in order to make it rectangular (Schaer 2002 describes this well)}
+
+
+\section{Horizontal pressure gradient}
+In TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
+\begin{align}
+	\left. \frac{\partial p}{\partial x} \right|_z = 
+	\left. \frac{\partial p}{\partial x} \right|_\trans{z} + 
+	\left. \frac{\partial \trans{z}}{\partial x} \right|_z
+	\frac{\partial p}{\partial \trans{z}}
+\end{align}
+The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and care must be taken that the hydrostatic components cancel in the discretisation of the two terms \autocite{gary1973}. \TODOsidenote{I guess this is because we have two large number that, when subtracted, leave a small number.  This is hard with floating point.  Or have I misunderstood?}  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
+
+\TODOsidenote{not sure how much more I need to say.  Don't really want to get into detail about discretisation techniques of horiz pressure grad because they're not applicable in Hilary's discretisation}
+
+\TODO{this section ought to flow nicely from the previous section.  Need to explain exner function at some point, too.  why is it useful?}
+
+\section{Grids}
+\subsection{Basic terrain following (BTF)}
+The basic terrain following (BTF) coordinates of \textcite{galchen-somerville1975} are defined as
+\begin{align}
+	\trans{z} &= H \frac{z - \surface}{H - \surface}
+%
+\intertext{or}
+%
+	z &= \left( H - \surface \right) \frac{\trans{z}}{H} + \surface
+\end{align}
+where, in two dimensions, $z(x, \trans{z})$ is the height of the coordinate surface at level $\trans{z}$, $H$ is the height of the domain, and $\surface(x)$ is the height of the terrain surface.
+\TODOsidenote{is this the same as sigma coordinates except with height rather than pressure?  Gal-Chen seem to say it's not exactly the same, but Schaer 2002 says it is.  So confused!}
+
+\subsection{Smooth level vertical (SLEVE)}
+\label{sec:theory:sleve}
+Unlike most TF coordinates in which the vertical transformation depends only on terrain height, \textcite{schaer2002} describes a coordinate system in which vertical decay is scale-dependent.  Terrain height is split into a large-scale component $\surface_1$ and a small-scale component $\surface_2$ such that $\surface = \surface_1 + \surface_2$.  The transformation is defined as
+\begin{align}
+	z &= \trans{z} + \surface_1 b_1 + \surface_2 b_2
+%
+\intertext{with the vertical decay functions are given by}
+%
+	b_i &= \frac{\sinh \left( \left( H - \trans{z} \right) / s_i \right)}{\sinh \left( H / s_i \right)}
+\end{align}
+where $s_1$ and $s_2$ are the scale heights of large-scale and small-scale terrain respectively.
+
+\subsection{Cut cell}
+\TODO{as set out by rosatti 2005, klein 2009 etc}
+
+The cut cell method intersects the surface with a regular cartesian grid.  This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape\autocite{rosatti2005}.
+
+\TODO{\textbf{finite volume technique} (adcroft 1997 has some nice stuff)  relevant to cut cells and, more generally, because all our work is in cartesian coord sys and OpenFOAM is all FV}
+
+\TODO{\textbf{CFL criterion}.  relevant to understand timestep constraints on small cells}
+
