@@ -1,3 +1,5 @@
+MESH_DICT := $(GMT_DICTS)/mesh
+
 # $(1) -- snap mesh case path
 # $(2) -- subproject label (e.g. mesh-btf-schaerCos)
 # $(3) -- terrain following mesh case path
@@ -9,6 +11,13 @@ define SNAP_COL_MESH_TEMPLATE
 
   $(2).intermediate.blockMesh: $(addprefix $(4)/,$(MESH_FILES)) | $(1)/$(POLY_MESH_DIR)
 	$(CP) $(addprefix $(4)/,$(MESH_FILES)) $(1)/$(POLY_MESH_DIR) 
+
+  $(2).eps: $(addprefix $(1)/,$(MESH_FILES)) $(1)/$(MESH_DICT)
+	$(PLOT_PATCH_DATA) -case $(1) -constant mesh > $(2).plotPatchData.log
+	$(CP) $(1)/constant/mesh.eps $$@
+
+  $(1)/$(MESH_DICT): $(COMMON_CASE)/$(MESH_DICT) | $(1)/$(GMT_DICTS)
+	$(LN) -fs $$< $$@
 
 endef
 

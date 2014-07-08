@@ -1,4 +1,23 @@
 \section{Advection}
+Following \textcite{schaer2002}, a scalar anomaly is transported above the orography by solving the advection equation for a prescribed horizontal wind.  The domain is \SI{300}{\kilo\meter} wide and \SI{25}{\kilo\meter} high.  The terrain is wave-shaped, specified by the surface height $\surface$ such that
+\begin{align}
+	\surface(x) &= \cos^2 \left( \frac{\pi x}{\lambda} \right) \surface^\star
+%
+	\intertext{where}
+%
+	\surface^\star(x) &= \left\{ \begin{array}{l l}
+		h_0 \cos^2 \left( \frac{\pi x}{2a} \right) & \quad \text{if $| x | < a$} \\
+		0 & \quad \text{otherwise}
+	\end{array} \right.
+\end{align}
+where $a = \SI{25}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{3}{\kilo\meter}$ is the maximum mountain height, and $\lambda = \SI{8}{\kilo\meter}$ is the wavelength.  On the SLEVE grid, the large-scale component $\surface_1$, as described in section~\ref{sec:theory:sleve}, is given by
+\begin{align}
+	\surface_1(x) &= \frac{1}{2}\surface^\star(x)
+\end{align}
+\TODO{describe wind field, then tracer}
+
+
+\TODO{
 \begin{itemize}
 \item Advection of tracer blob above orography (advection equation, not real dynamics)
 \item No wind near ground, uniform zonal wind aloft
@@ -7,4 +26,4 @@
 \item Cut-cell style meshes, unsurprisingly, same l2 error as noOrography
 \item tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive
 \end{itemize}
-
+}

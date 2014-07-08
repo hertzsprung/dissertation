@@ -23,7 +23,7 @@ define SNAPPY_HEX_MESH_TEMPLATE
 
   .INTERMEDIATE: $(2).intermediate $(2).intermediate.blockMesh
 
-  $(addprefix $(1)/,$(MESH_FILES)): check-$(2)
+  $(addprefix $(1)/,$(MESH_FILES)):
   
   check-$(2): $(2).intermediate
 

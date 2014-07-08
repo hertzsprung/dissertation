@@ -5,7 +5,6 @@ W_CONTOURS := $(addsuffix /w.eps,$(GRAVITY_WAVES_TIMES))
 THETA_DIFF_FIELDS := $(addsuffix /thetaDiff,$(GRAVITY_WAVES_TIMES))
 THETA_DIFF_PLOTS := $(addsuffix /thetaDiff.eps,$(GRAVITY_WAVES_TIMES))
 THETA_DIFF_ZOOM_PLOTS := $(addsuffix /thetaDiffZoom.eps,$(GRAVITY_WAVES_TIMES))
-GMT_DICTS := constant/gmtDicts
 W_CONTOURS_DICT := $(GMT_DICTS)/w
 THETA_DIFF_DICT := $(GMT_DICTS)/thetaDiff
 THETA_DIFF_ZOOM_DICT := $(GMT_DICTS)/thetaDiffZoom
@@ -51,7 +50,5 @@ define GRAVITY_WAVES_DIAGNOSTICS_TEMPLATE
   $(1)/$(THETA_DIFF_DICT): $(COMMON_CASE)/$(THETA_DIFF_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $(COMMON_CASE)/$(THETA_DIFF_DICT) $$@
 
-  $(1)/$(GMT_DICTS):
-	$(MKDIR) -p $$@
 
 endef

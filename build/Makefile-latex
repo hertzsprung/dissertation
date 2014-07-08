@@ -3,6 +3,8 @@ GREP_WARN := $(GREP) --color -i -f latex-warnings -C3 -H
 DOCUMENT := dissertation
 COMPONENTS := title.tex intro.tex methodology.tex meshes.tex results.tex advection.tex resting.tex gravityWaves.tex mathmacros.tex dissertationmacros.tex
 GNUPLOT_OUTPUTS := btf-plot.tex sleve-plot.tex
+PLOT_PATCH_DATA_OUTPUTS := mesh-snapCol-schaerExp-resting.eps
+PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 BIBLIOGRAPHIES := dissertation.bib journals.bib
 
 .PHONY: all-latex wc draft clean-latex
@@ -15,13 +17,13 @@ clean-latex:
 wc:
 	$(TEXCOUNT) -merge -sub=chapter $(DOCUMENT).tex
 
-draft: $(DOCUMENT).tex $(COMPONENTS) $(GNUPLOT_OUTPUTS)
+draft: $(DOCUMENT).tex $(COMPONENTS) $(PLOTS)
 	@$(PDFLATEX) "\def\classopts{,draft}\def\geometryopts{,showframe}\input{$(DOCUMENT)}"
 
 $(DOCUMENT).pdf: \
   $(DOCUMENT).tex \
   $(COMPONENTS) \
-  $(GNUPLOT_OUTPUTS) \
+  $(PLOTS) \
   $(BIBLIOGRAPHIES) \
   biblatex.cfg
 	$(PDFLATEX) -draftmode $(DOCUMENT)

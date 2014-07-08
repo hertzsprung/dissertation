@@ -3,7 +3,7 @@
 Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{barry2008}.  Terrain also affects global circulation by exerting low-level drag \autocite{lott-miller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.
 
 To capture these effects, numerical weather prediction (NWP) models must solve the equations of motion on a grid that represents the orography.
-There are two main approaches: transform the coordinates so that the domain becomes rectangular, or use Cartesian coordinates and apply special treatment to the lower boundary \autocite{galchen-somerville1975}.
+There are two main approaches: transform the coordinates so that the domain becomes rectangular, or use cartesian coordinates and apply special treatment to the lower boundary \autocite{galchen-somerville1975}.
 
 Terrain following (TF) coordinates are in widespread use in operational models.  In this transformed coordinate system the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.
 
@@ -36,11 +36,11 @@ Another way of reducing error is to improve the accuracy of the horizontal press
 
 Despite their associated numerical errors, TF coordinates are attractive because they simplify the lower boundary condition, their rectangular structure is simple to process by computer \autocite{schaer2002}, and cell sizes remain almost constant \autocite{jebens2011}.
 
-In contrast, Cartesian coordinate grids have cells of varying sizes immediately above the ground.  The step-mountain coordinate proposed by \textcite{mesinger1988} removes cells that are intersected by the terrain so creating steps over the surface.  \TODOsidenote{is this really cartesian (Good et al 2013 suggest it is) or is it a coord transform (seems to be according to Mesinger1988)?}  \textcite{gallus-klemp2000} found that lee slope winds are too weak over smooth orography, but this study did not examine performance over steep terrain.  In contrast, \textcite{mesinger2004} compared results from three operational NCEP models that suggested the step-coordinate model was more skillful than the TF coordinate models in forecasting precipitation over the mountainous western United States.
+In contrast, cartesian coordinate grids have cells of varying sizes immediately above the ground.  The step-mountain coordinate proposed by \textcite{mesinger1988} removes cells that are intersected by the terrain so creating steps over the surface.  \TODOsidenote{is this really cartesian (Good et al 2013 suggest it is) or is it a coord transform (seems to be according to Mesinger1988)?}  \textcite{gallus-klemp2000} found that lee slope winds are too weak over smooth orography, but this study did not examine performance over steep terrain.  In contrast, \textcite{mesinger2004} compared results from three operational NCEP models that suggested the step-coordinate model was more skillful than the TF coordinate models in forecasting precipitation over the mountainous western United States.
 
 \TODO{worth mentioning partial step next?}
 
-The cut cell (or `shaved cell')  method is another alternative to terrain following coordinates.  Here, the surface terrain is intersected with a regular Cartesian grid such that cells are cut where they intersect with the ground.   The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{another disadvantage: boundary layer parameterisations (Zaengl 2012)}
+The cut cell (or `shaved cell')  method is another alternative to terrain following coordinates.  Here, the surface terrain is intersected with a regular cartesian grid such that cells are cut where they intersect with the ground.   The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{another disadvantage: boundary layer parameterisations (Zaengl 2012)}
 
 A variety of solutions to the `small cell problem' have been proposed.  In \textcite{yamazaki-satomura2010}, small cells are combined with horizontally or vertically adjacent cells.  \TODOsidenote{should I discuss result of each of these techniques?} \TODOsidenote{Good et al 2013 say that Y\&S2010 found you could increase the timestep tenfold.  But I see no mention of this in the paper}  \textcite{steppeler2002} use a `thin-wall' approximation to increase the computational volume of small cells without altering the terrain.  Conceptually, each cell partially or completely below the mountain is filled with air and surrounded by a thin wall.  Where a cell is cut by the terrain, the computational volume is equal to that of an uncut cell.  \textcite{jebens2011} avoid the timestep restriction associated with explicit schemes by using an implicit method for cut cells and a semi-explicit method elsewhere.
 
@@ -61,9 +61,9 @@ This project aims to compare the accuracy of TF and cut-cell style grids in a va
 \TODO{feels to me like the sections that follow all belong in their own chapter}
 
 \section{Coordinate transformations}
-Consider the two-dimensional Cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
+Consider the two-dimensional cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
-A scalar field $\varphi$ can be expressed in Cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(x, \trans{z}))$.
+A scalar field $\varphi$ can be expressed in cartesian coordinates as $\varphi(x, z)$ or in transformed coordinates as $\varphi(x, z(x, \trans{z}))$.
 Hence the vertical derivative of $\varphi$ can be found by using the chain rule
 \begin{align}
   \frac{\partial \varphi}{\partial \trans{z}} =
@@ -150,6 +150,7 @@ where, in two dimensions, $z(x, \trans{z})$ is the height of the coordinate surf
 \TODOsidenote{is this the same as sigma coordinates except with height rather than pressure?  Gal-Chen seem to say it's not exactly the same, but Schaer 2002 says it is.  So confused!}
 
 \subsection{Smooth level vertical (SLEVE)}
+\label{sec:theory:sleve}
 Unlike most TF coordinates in which the vertical transformation depends only on terrain height, \textcite{schaer2002} describes a coordinate system in which vertical decay is scale-dependent.  Terrain height is split into a large-scale component $\surface_1$ and a small-scale component $\surface_2$ such that $\surface = \surface_1 + \surface_2$.  The transformation is defined as
 \begin{align}
 	z &= \trans{z} + \surface_1 b_1 + \surface_2 b_2
@@ -163,6 +164,8 @@ where $s_1$ and $s_2$ are the scale heights of large-scale and small-scale terra
 
 \subsection{Cut cell}
 \TODO{as set out by rosatti 2005, klein 2009 etc}
+
+The cut cell method intersects the surface with a regular cartesian grid.  This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape\autocite{rosatti2005}.
 
 \TODO{\textbf{finite volume technique} (adcroft 1997 has some nice stuff)  relevant to cut cells and, more generally, because all our work is in cartesian coord sys and OpenFOAM is all FV}
 

@@ -5,6 +5,7 @@ ifndef PROCESSORS
 endif
 export GMTU := $(abspath openfoam/gmt)
 
+GMT_DICTS := constant/gmtDicts
 CONTROL_DICT := system/controlDict
 FV_SCHEMES := system/fvSchemes
 FV_SOLUTION := system/fvSolution
@@ -31,6 +32,9 @@ clean-decomposeParDict:
 define CASE_TEMPLATE
 
   $(1)/system:
+	$(MKDIR) -p $$@
+
+  $(1)/$(GMT_DICTS):
 	$(MKDIR) -p $$@
 
   $(addprefix $(1)/,$(SYSTEM_FILES)): | $(1)/system

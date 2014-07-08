@@ -7,7 +7,6 @@ FoamFile {
 
 convertToMeters 1000; // effective units are km
 
-// effectively 2D in x-z plane, 300x25km
 vertices (
     (-10 0 0)  // 0
     (10  0 0)  // 1

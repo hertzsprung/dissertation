@@ -1,0 +1,23 @@
+FoamFile
+{
+    version         1.4;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "constant";
+    local           "";
+
+    class           dictionary;
+    object          gmtDict;
+}
+
+projection "X9c/9c";
+projection2D XZ;
+
+FieldsToPlot (
+    [none mesh "black"]
+);
+
+region "-10e3/10e3/0/2e3";
+boundaryMarks "5000/1000";
