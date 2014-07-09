@@ -9,10 +9,11 @@ clean-$(1):
 	$(RM) $(1)-plot.tex $(1).eps $(1)-eps-converted-to.pdf
 
 $(1)-plot.tex: $(1).plt
-	$(GNUPLOT) -e "set output '$$@'; load '$$<'" 
+	$(GNUPLOT) -p -e "set output '$$@'; load '$$<'" 
 
 endef
 
 $(eval $(call GNUPLOT_TEMPLATE,btf))
 $(eval $(call GNUPLOT_TEMPLATE,sleve))
 $(eval $(call GNUPLOT_TEMPLATE,advection-initial))
+$(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-vanLeer-contour))

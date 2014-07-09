@@ -1,8 +1,7 @@
+load "advection-terrain.plt"
+
 set term epslatex color size 5,2.5
 
-a = 25e3
-hm = 3e3
-lambda = 8e3
 z1 = 4e3
 z2 = 5e3
 x0 = -50e3
@@ -11,8 +10,6 @@ Ax = 25e3
 Az = 3e3
 
 u(z) = z >= z2 ? 1 : (z < z1 ? 0 : sin((pi/2) * (z - z1)/(z2 - z1))**2)
-schaerCos(x) = abs(x) < a ? hm*cos(pi*x/(2*a))**2 * cos(pi*x/lambda)**2 : 0
-
 r(x, z) = sqrt(((x - x0)/Ax)**2 + ((z - z0)/Az)**2)
 phi(x, z) = r(x, z) <= 1 ? cos(pi * r(x, z)/2) ** 2 : 0
 

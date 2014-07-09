@@ -15,6 +15,7 @@ BIBER := biber
 TEXCOUNT := texcount
 GNUPLOT := gnuplot
 
+PS_CONTOUR := pscontour
 MPI_RUN := mpirun
 BLOCK_MESH := blockMesh
 CHECK_MESH := checkMesh

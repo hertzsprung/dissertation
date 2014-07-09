@@ -12,9 +12,7 @@ define 2DMOUNTAIN_TEMPLATE
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
-  $(2).intermediate: check-$(2)
-  
-  check-$(2): $(2).add2dMountain
+  $(2).intermediate: $(2).add2dMountain
 
   $(2).add2dMountain: \
     $(4) \
