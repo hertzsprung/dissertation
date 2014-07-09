@@ -57,10 +57,13 @@
 \chapterstyle{mysouthall}
 \blindmathtrue
 
+\setlrmarginsandblock{\spinemargin}{1in}{*}
+\setmarginnotes{0in}{0in}{0in}
+\checkandfixthelayout
 
 \begin{document}
 \newcommand{\TODO}[1]{\textcolor{purple}{TODO: \emph{#1}}}
-\newcommand{\TODOsidenote}[1]{\marginpar{\footnotesize{\TODO{#1}}\vspace{0.3em}}}
+\newcommand{\TODOsidenote}[1]{\footnote{\TODO{#1}}}
 \input{dissertationmacros}
 \input{mathmacros}
 \input{title}

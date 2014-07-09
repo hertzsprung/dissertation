@@ -1,7 +1,11 @@
 load "advection-terrain.plt"
 
+set term epslatex color size 3,2
+
 set style data lines
 
+set xlabel "$x$ (\\si{\\kilo\\meter})"
+set ylabel "$z$ (\\si{\\kilo\\meter})" offset 2
 set xrange [-75:75]
 set yrange [0:15]
 set xtics 25
