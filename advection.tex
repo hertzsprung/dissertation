@@ -96,6 +96,7 @@ Results on the SLEVE grid are much closer to the analytic solution on a regular 
 Since the cut cell grid is entirely regular away from the surface, it is unsurprising that the results are the same as advection on a regular grid (not shown).
 
 \TODO{now discuss tvdLimitedCubicUpwindCPCFit}
+\TODO{tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive}
 
 Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
 \begin{align}
@@ -118,11 +119,3 @@ Regular grid	& 0			& 0 \\ \bottomrule
 \label{tab:advection:errors}
 \end{table}
 
-\TODO{
-\begin{itemize}
-\item Compared meshes, and vanLeer versus tvdLimitedCubicUpwindCPCFit
-\item Looked at l2 error norm at t=10000s by comparing with analytic tracer (created with setScalarOverOrography)
-\item Cut-cell style meshes, unsurprisingly, same l2 error as noOrography
-\item tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive
-\end{itemize}
-}
