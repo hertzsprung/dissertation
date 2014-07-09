@@ -1,5 +1,4 @@
 \section{Advection}
-\TODOsidenote{check SLEVE grid isn't optimised -- exponent in add2dMountainDict should equal 1}
 Following \textcite{schaer2002}, a scalar tracer is transported above the orography by solving the advection equation for a prescribed horizontal wind.
 The wind profile, terrain profile and initial tracer field are shown in Figure~\ref{fig:advection:initial}.
 
@@ -45,7 +44,7 @@ A tracer $\varphi$ is positioned upstream above the height of the terrain.  It h
 		\left( \frac{z - z_0}{A_z} \right)^2
 	}
 \end{align}
-where $A_x = \SI{25}{\kilo\meter}$, $A_z = \SI{3}{\kilo\meter}$ are the horizontal and vertical half-widths respectively, and $\varphi_0 = 1$ is the maximum magnitude of the anomaly.  At $t = \SI{0}{\second}$, the anomaly is centred at $(x_0, z_0) = (\SI{-50}{\kilo\meter}, \SI{9}{\kilo\meter})$ so that the anomaly is upwind of the mountain and well above the maximum terrain height of \SI{3}{\kilo\meter}.
+where $A_x = \SI{25}{\kilo\meter}$, $A_z = \SI{3}{\kilo\meter}$ are the horizontal and vertical half-widths respectively, and $\varphi_0 = 1$ is the maximum magnitude of the anomaly.  At $t = \SI{0}{\second}$, the anomaly is centred at $(x_0, z_0) = (\SI{-50}{\kilo\meter}, \SI{9}{\kilo\meter})$ so that the anomaly is upwind of the mountain and well above the maximum terrain height of \SI{3}{\kilo\meter}.  Analytic solutions can be found by adjusting the anomaly centre such that $x_0 = ut$.
 
 \begin{figure}
 	\centerfloat
@@ -74,28 +73,35 @@ The second is an upwind-biased cubic interpolation from \cite{weller2009}.  \TOD
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF \label{fig:advection:vanLeer:btf}}[0.45\textwidth]{\input{advection-btf-schaerCos-vanLeer-contour-plot}}
+	\subcaptionbox{BTF \label{fig:advection:vanLeer:btf}}[0.48\textwidth]{\input{advection-btf-schaerCos-vanLeer-contour-plot}}
 	\hfill
-	\subcaptionbox{BTF \label{fig:advection:schaer:btf}}[0.45\textwidth]{\includegraphics[height=1.2in]{img/schaer-btf-centred.png}}
+	\subcaptionbox{BTF \label{fig:advection:schaer:btf}}[0.48\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-btf-centred.png}}
 \\
-	\subcaptionbox{SLEVE \label{fig:advection:vanLeer:sleve}}[0.45\textwidth]{\TODO{}}
+	\subcaptionbox{SLEVE \label{fig:advection:vanLeer:sleve}}[0.48\textwidth]{\input{advection-sleve-schaerCos-vanLeer-contour-plot}}
 	\hfill
-	\subcaptionbox{SLEVE \label{fig:advection:schaer:sleve}}[0.45\textwidth]{\includegraphics[height=1.2in]{img/schaer-sleve-centred.png}}
+	\subcaptionbox{SLEVE \label{fig:advection:schaer:sleve}}[0.48\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-sleve-centred.png}}
 \\
-	\subcaptionbox{Cut cell \label{fig:advection:vanLeer:cutCell}}[0.45\textwidth]{\input{advection-snapCol-schaerCos-vanLeer-contour-plot}}
+	\subcaptionbox{Cut cell \label{fig:advection:vanLeer:cutCell}}[0.48\textwidth]{\input{advection-snapCol-schaerCos-vanLeer-contour-plot}}
 	\hfill
-	\subcaptionbox{???}[0.45\textwidth]{\TODO{}}
+	\subcaptionbox{Analytic solution on a regular grid}[0.48\textwidth]{\TODO{}}
 %
 	\caption{\TODO{van Leer advection compared with schaer.  Contour intervals every 0.1}}
 	\label{fig:advection:vanLeer}
 \end{figure}
 
-Results of advection using the van Leer scheme are presented in Figure~\ref{fig:advection:vanLeer}.  On the BTF grid, the tracer suffers from distortion over the mountain and has diffused significantly by the end of the simulation as evidenced by the missing contours in the centre of the tracer.
+Results of advection using the van Leer scheme are presented in Figure~\ref{fig:advection:vanLeer}.  On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Compared with the results from \textcite{schaer2002}, the tracer retains more of its shape but is far more diffusive by the end of the simulation, as evidenced by the missing contours in the tracer centre.
 
-% cut cell same as noOrography.  both better than SLEVE, better than BTF
-% tvdLimitedCubicUpwindCPCFit better than vanLeer
-% compare with results from Schaer
-% error norms at t=10000s
+Results on the SLEVE grid are much closer to the analytic solution on a regular grid.  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  However, the widening contours indicate some diffusion is still present which, again, was not found in the results of \textcite{schaer2002}.
+
+Since the cut cell grid is entirely regular away from the surface, it is unsurprising that the results are the same as advection on a regular grid (not shown).
+
+\TODO{now discuss tvdLimitedCubicUpwindCPCFit}
+
+Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
+\begin{align}
+\ell^2 = \sqrt{\frac{\sum \left( \varphi - \varphi_T \right)^2 \cdot A}{\sum A}}
+\end{align}
+where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical value and $A$ is the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  \TODO{what do they tell us?}
 
 \begin{table}
 \centering
@@ -108,7 +114,7 @@ Cut cell	& 0			& 0 \\
 Regular grid	& 0			& 0 \\ \bottomrule
 \end{tabular}
 
-\caption{$\ell_2$ error norms for the advection test at $t = \SI{10000}{\second}$}
+\caption{$\ell^2$ error norms for the advection test at $t = \SI{10000}{\second}$}
 \label{tab:advection:errors}
 \end{table}
 

@@ -1,4 +1,5 @@
 ADVECTION_END_TIME := 10000
+ADVECTION_INITIAL_TRACER_FIELD = 0/T
 ADVECTION_FINAL_TRACER_FIELD := $(ADVECTION_END_TIME)/T
 
 CONTOUR_TIMES = 0 5000 10000
@@ -31,3 +32,5 @@ define ADVECTION_DIAGNOSTICS_TEMPLATE
 	$(LN) -fs $$< $$@
 
 endef
+
+advection-initial.plt: openfoam/cases/advection/noOrography/vanLeer/0/contour.dat
