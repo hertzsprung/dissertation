@@ -1,5 +1,5 @@
 \section{Advection}
-Following \textcite{schaer2002}, a scalar tracer is transported above the orography by solving the advection equation for a prescribed horizontal wind.
+Following \textcite{schaer2002}, a scalar tracer is transported above the orography by solving the advection equation for a prescribed horizontal wind.  \TODO{what does the test demonstrate?  that the effect of the grid dominates the numerical error}
 The wind profile, terrain profile and initial tracer field are shown in Figure~\ref{fig:advection:initial}.
 
 \subsection{Specification}
@@ -18,6 +18,8 @@ where $a = \SI{25}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{3}{\kilo
 \begin{align}
 	\surface_1(x) &= \frac{1}{2}\surface^\star(x)
 \end{align}
+and $s_1 = \SI{15}{\kilo\meter}$ is the large scale height, and $s_2 = \SI{2.5}{\kilo\meter}$ is the small scale height.  The optimisation of SLEVE by \textcite{leuenberger2010} is not used, so the exponent $n = 1$.
+
 For comparison, the same tests were performed with no orography, such that $\surface = \SI{0}{\kilo\meter}$ everywhere.
 
 The wind is entirely horizontal and is prescribed as

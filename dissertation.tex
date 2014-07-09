@@ -24,7 +24,8 @@
   uniquename=init,
   uniquelist=minyear,
   labeldate=true,
-  maxnames=2,
+  maxcitenames=2,
+  maxbibnames=5,
   hyperref=true]{biblatex}
 \usepackage{minted}
 \usepackage{booktabs}
@@ -35,6 +36,10 @@
 
 \addbibresource{journals.bib}
 \addbibresource{dissertation.bib}
+
+\setlrmarginsandblock{\spinemargin}{1in}{*}
+\setmarginnotes{0in}{0in}{0in}
+\checkandfixthelayout
 
 \makeatletter
 \def\hrulefill{\leavevmode\leaders \hrule height \rulethickness \hfill\kern\z@}
@@ -56,10 +61,6 @@
 \input{mysouthall}
 \chapterstyle{mysouthall}
 \blindmathtrue
-
-\setlrmarginsandblock{\spinemargin}{1in}{*}
-\setmarginnotes{0in}{0in}{0in}
-\checkandfixthelayout
 
 \begin{document}
 \newcommand{\TODO}[1]{\textcolor{purple}{TODO: \emph{#1}}}
