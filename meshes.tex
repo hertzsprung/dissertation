@@ -2,10 +2,6 @@
 
 Test cases run on the following meshes:
 \begin{description}
-\item[No orography]
-\item[Basic terrain following (BTF)]
-\item[Smooth level vertical (SLEVE)]
-\item[snapCol]{add2dMountain used to snap points underground to the surface, then use snappyHexMesh to remove cells underground by intersecting with surface patch}
 \item[snap]{snappyHexMesh applied to unmodified blockMesh}
 \item[snapOrtho]{snappyHexMesh applied to blockMesh modified with add2dMountain.  Points nearest the surface were moved vertically to meet the surface.  See comparison in Figure~\ref{fig:snap-mesh-compare}.  I haven't run any tests against this mesh (yet) though.}
 \end{description}
