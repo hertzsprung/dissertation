@@ -120,6 +120,7 @@ polyMesh
 **/mesh/snapCol-2dMountain
 **/resting
 **/gravityWaves
+**/advection/**/gmtDicts
 decomposeParDict
 
 # PyFoam
@@ -138,3 +139,4 @@ tags
 # gmt
 .gmtcommands4
 gmt.history
+*.cpt

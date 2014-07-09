@@ -6,18 +6,18 @@ FoamFile {
     object      add2dMountainDict;
 }
 
-mountainType ScharExp;
+mountainType ScharCos;
 coordSys SLEVE;
 
 // top of coordinate system (at or below domain height)
-zt 20e3;
+zt 25e3;
 // horizontal scale of large scale mountains
-a 5e3;
+a 25e3;
 // mountain height
-hm 1000;
+hm 3000;
 // horizontal scale for fine scale mountains (for Schar test case)
-lambda 4e3;
+lambda 8e3;
 
-SLEVE_scaleCoarse 4e3;
-SLEVE_scaleFine 1e3;
-SLEVE_exponent 1.35;
+SLEVE_scaleCoarse 15e3;
+SLEVE_scaleFine 2.5e3;
+SLEVE_exponent 1;

@@ -12,9 +12,7 @@ define 2DMOUNTAIN_TEMPLATE
 
   $(addprefix $(1)/,$(MESH_FILES)): $(2).intermediate
 
-  $(2).intermediate: check-$(2)
-  
-  check-$(2): $(2).add2dMountain
+  $(2).intermediate: $(2).add2dMountain
 
   $(2).add2dMountain: \
     $(4) \
@@ -30,6 +28,7 @@ endef
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerCos/advection,mesh-btf-schaerCos-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/2dMountain/btf-schaerCos-advection.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/resting,mesh-btf-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/btf-schaerExp-resting.add2dMountainDict))
 
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerCos/advection,mesh-sleve-schaerCos-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/2dMountain/sleve-schaerCos-advection.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/resting,mesh-sleve-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerExp-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/gravityWaves,mesh-sleve-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/sleve-schaerExp-gravityWaves.add2dMountainDict))
 

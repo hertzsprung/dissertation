@@ -5,9 +5,9 @@ set yrange [0:20]
 a = 5e3
 zt = 20e3
 hm = 1e3
-htf_scaleHeight = 6e3
-sleve_coarse = 5e3
-sleve_fine = 2e3
+htf_scaleHeight = 8e3
+sleve_coarse = 15e3
+sleve_fine = 2.5e3
 sleve_lambda = 4e3
 
 smooth(x) = cos(pi*x/a)**2

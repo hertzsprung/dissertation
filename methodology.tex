@@ -6,12 +6,12 @@
 Two dimensional, regular cartesian grids were created using the OpenFOAM utility, \shellcmd{blockMesh}.  A custom utility was used to modify these orthogonal grids by adjusting the height of points to create terrain following grids.
 
 \TODOsidenote{careful, you're changing tense a lot, James!}
-At the time of writing, OpenFOAM does not directly support cartesian cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  \TODO{describe how add2dMountain moves points up to the surface so that we retain small cells}.  A description of the surface is taken from any of the terrain following grids and the tool is used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  The resulting grid is not strictly a cut cell mesh because \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, which causes some points to move horizontally.  It has not been possible to correct this issue for this project.
+At the time of writing, OpenFOAM does not directly support cartesian cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  \TODO{describe how add2dMountain moves points up to the surface so that we retain small cells}.  A description of the surface is taken from any of the terrain following grids and the tool is used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  The resulting grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.
 \TODOsidenote{Should I use codenames for the meshes, such as snapCol?  If not, what to say?  "Cut-cell style"?}
 
 \begin{figure}
 	\centerfloat
-	\includegraphics[width=0.6\textwidth,angle=270]{mesh-snapCol-schaerExp-resting.eps}
+	\includegraphics[height=3in,angle=270]{mesh-snapCol-schaerExp-resting.eps}
 	\caption{\TODO{cut cell grid}}
 	\label{fig:method:cut-cell}
 \end{figure}

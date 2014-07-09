@@ -2,8 +2,7 @@ ADVECTION_END_TIME := 10000
 INITIAL_CONDITIONS := constant/initialConditions
 TRANSPORT_PROPERTIES := constant/transportProperties
 
-ADVECTION_FINAL_TRACER_FIELD := $(ADVECTION_END_TIME)/T
-ADVECTION_INITIAL_FIELDS := 0/U 0/T
+ADVECTION_INITIAL_FIELDS := 0/U $(ADVECTION_INITIAL_TRACER_FIELD)
 ADVECTION_FINAL_TRACER_DIFF := $(ADVECTION_END_TIME)/T_diff
 ADVECTION_ANALYTIC_TRACER_FIELD := 0/T_analytic # TODO: should really be in $(ADVECTION_END_TIME) directory but don't know how to make OpenFOAM do this
 ADVECTION_TRACER_ERROR := globalSumT_diff.dat
@@ -14,6 +13,7 @@ ADVECTION_TRACER_ERROR := globalSumT_diff.dat
 define ADVECTION_TEMPLATE
 
   $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
+  $(eval $(call ADVECTION_DIAGNOSTICS_TEMPLATE,$(1),$(2)))
 
   .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
@@ -65,4 +65,5 @@ $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/tvdLimited
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,advection-btf-schaerCos-vanLeer,openfoam/cases/mesh/btf/schaerCos/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snapCol/schaerCos/vanLeer,advection-snapCol-schaerCos-vanLeer,openfoam/cases/mesh/snapCol/schaerCos/advection))
-
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snapCol/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-snapCol-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/snapCol/schaerCos/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/sleve/schaerCos/vanLeer,advection-sleve-schaerCos-vanLeer,openfoam/cases/mesh/sleve/schaerCos/advection))

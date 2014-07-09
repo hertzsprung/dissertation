@@ -70,7 +70,7 @@ In TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer19
 	\left. \frac{\partial \trans{z}}{\partial x} \right|_z
 	\frac{\partial p}{\partial \trans{z}}
 \end{align}
-The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and care must be taken that the hydrostatic components cancel in the discretisation of the two terms \autocite{gary1973}. \TODOsidenote{I guess this is because we have two large number that, when subtracted, leave a small number.  This is hard with floating point.  Or have I misunderstood?}  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
+The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and care must be taken that the hydrostatic components cancel in the discretisation of the two terms \autocite{gary1973}.  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
 
 \TODOsidenote{not sure how much more I need to say.  Don't really want to get into detail about discretisation techniques of horiz pressure grad because they're not applicable in Hilary's discretisation}
 
@@ -100,6 +100,8 @@ Unlike most TF coordinates in which the vertical transformation depends only on 
 	b_i &= \frac{\sinh \left( \left( H - \trans{z} \right) / s_i \right)}{\sinh \left( H / s_i \right)}
 \end{align}
 where $s_1$ and $s_2$ are the scale heights of large-scale and small-scale terrain respectively.
+
+\TODO{talk about the exponent introduced by leuenberger (used in the resting atmosphere test, need to check gravity wave test}
 
 \subsection{Cut cell}
 \TODO{as set out by rosatti 2005, klein 2009 etc}

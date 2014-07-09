@@ -20,4 +20,4 @@ lambda 4e3;
 
 SLEVE_scaleCoarse 5e3;
 SLEVE_scaleFine 2e3;
-SLEVE_exponent 1.35;
+SLEVE_exponent 1;

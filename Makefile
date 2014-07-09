@@ -14,6 +14,7 @@ include build/Makefile-mesh-snap
 include build/Makefile-mesh-snapCol
 include build/Makefile-testcase
 include build/Makefile-physical-testcase
+include build/Makefile-advection-diagnostics
 include build/Makefile-advection
 include build/Makefile-resting
 include build/Makefile-gravityWaves-diagnostics
