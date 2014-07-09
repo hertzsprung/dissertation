@@ -1,7 +1,9 @@
 ADVECTION_END_TIME := 10000
 ADVECTION_FINAL_TRACER_FIELD := $(ADVECTION_END_TIME)/T
 
-CONTOUR_DATA := 0/0.1.dat 5000/0.1.dat 10000/0.1.dat
+CONTOUR_TIMES = 0 5000 10000
+
+CONTOUR_DATA := $(addsuffix /contour.dat,$(CONTOUR_TIMES))
 TRACER_CONTOUR_DICT := $(GMT_DICTS)/tracer-contour
 
 # $(1) -- simulation case path
@@ -18,16 +20,12 @@ define ADVECTION_DIAGNOSTICS_TEMPLATE
     $(1)/$(ADVECTION_FINAL_TRACER_FIELD) \
     $(1)/$(TRACER_CONTOUR_DICT)
 	$(PLOT_PATCH_DATA) -case $(1) -time 0 tracer-contour > $(2).plotPatchData.tracer-contour.0.log
-	$(PS_CONTOUR) $(1)/0/T.dat -D$(1)/0/%.1f.dat -Ccontours.cpt
-	$(SED) -i -re 's/^>.*$$$$//' $(1)/0/*.dat
-
+	$(PS_CONTOUR) $(1)/0/T.dat -D -Ccontours.cpt > $(1)/0/contour.dat
 	$(PLOT_PATCH_DATA) -case $(1) -time 5000 tracer-contour > $(2).plotPatchData.tracer-contour.5000.log
-	$(PS_CONTOUR) $(1)/5000/T.dat -D$(1)/5000/%.1f.dat -Ccontours.cpt
-	$(SED) -i -re 's/^>.*$$$$//' $(1)/5000/*.dat
-
+	$(PS_CONTOUR) $(1)/5000/T.dat -D -Ccontours.cpt > $(1)/5000/contour.dat
 	$(PLOT_PATCH_DATA) -case $(1) -time 10000 tracer-contour > $(2).plotPatchData.tracer-contour.10000.log
-	$(PS_CONTOUR) $(1)/10000/T.dat -D$(1)/10000/%.1f.dat -Ccontours.cpt
-	$(SED) -i -re 's/^>.*$$$$//' $(1)/10000/*.dat
+	$(PS_CONTOUR) $(1)/10000/T.dat -D -Ccontours.cpt > $(1)/10000/contour.dat
+	$(SED) -i -re 's/^>.*$$$$//' $(addprefix $(1)/,$(CONTOUR_DATA))
 
   $(1)/$(TRACER_CONTOUR_DICT): $(COMMON_CASE)/$(TRACER_CONTOUR_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $$< $$@
