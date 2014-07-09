@@ -1,0 +1,23 @@
+FoamFile {
+    version         2.2;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "constant";
+    local           "";
+
+    class           dictionary;
+    object          gmtDict;
+}
+
+projection "X10c/8c";
+projection2D XZ;
+boundaryPatch ground;
+
+FieldsToPlot (
+    [T contours 0.1 1 0.1 "black"]
+);
+
+region "-75e3/75e3/0/15e3";
+boundaryMarks "25e3/5e3";
