@@ -72,9 +72,9 @@ Equation~\ref{eq:advection:continuous} is discretised by taking the volume integ
 %
 \intertext{where $S_c$ is the cell surface area and $\nunit$ is the unit vector that is outward normal to the surface.  Dividing by the cell volume and, for a cell with a finite number of surfaces this becomes}
 %
-	\frac{\partial \varphi_c}{\partial t} + \frac{1}{V_c} \sum_{f \in \: c} \varphi \vect{u} \cdot \nunit S_f &= 0
+	\frac{\partial \varphi_c}{\partial t} + \frac{1}{V_c} \sum_{f \in \: c} \varphi_F \vect{u} \cdot \nunit S_f &= 0
 \end{align}
-where $S_f$ is the surface area of face $f$.
+where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.
 
 The time derivative ($\partial \varphi / \partial t$) is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}
 \begin{align}
@@ -85,12 +85,22 @@ The time derivative ($\partial \varphi / \partial t$) is solved implicitly using
 	}{2 \Delta t}
 \end{align}
 
+Two spatial interpolations were tested.  First, the van Leer scheme which blends two schemes to maximise boundedness and accuracy.  It combines a centred difference scheme that is second-order accurate and unbounded with an upwind scheme that is first-order accurate and bounded.  The interpolated value $\varphi_F$ is calculated as a weighted average of the interpolated values from the two schemes, $\varphi_{F,\mathrm{upwind}}$ and $\varphi_{F,\mathrm{centred}}$, such that
+\begin{align}
+	\varphi_F &= \left( 1 - \gamma \right) \varphi_{F,\mathrm{upwind}} + \gamma \varphi_{F,\mathrm{centred}}
+\end{align}
+The van Leer scheme defines the blending coefficient $\gamma$ as a function of the ratio $r$ between the upwind and local gradient of $\varphi$.  The blending coefficient is specified as \autocite{leveque2002}
+\begin{align}
+\gamma(r) &= \frac{r + |r|}{1 + |r|}
+\end{align}
+\TODO{I haven't explained how the gradient ratio $r$ is defined on 2d unstructured grids}
+
+Second, a TVD limited version of upwind-biased cubic scheme
+
 The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} which used periodic lateral boundaries, we use zero gradient boundary conditions for all boundaries.
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.  \TODOsidenote{we never looked at courant numbers, but Schaer talks about horiz/vertical Co numbers}
 
 \TODO{describe vanLeer and tvdLimitedCubicUpwindCPCFit}
-
-Two advection schemes were tested.
 
 The second is an upwind-biased cubic interpolation from \cite{weller2009}.  \TODO{more explanation...}
 
