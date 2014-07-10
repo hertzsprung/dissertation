@@ -58,14 +58,37 @@ where $A_x = \SI{25}{\kilo\meter}$, $A_z = \SI{3}{\kilo\meter}$ are the horizont
 \subsection{Discretisation}
 The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve the advection-diffusion equation in flux form
 \begin{align}
-	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) - \laplace \left( \kappa \varphi \right) = 0
+	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) - \laplace \left( \kappa \varphi \right) = 0 \label{eq:advection:continuous}
 \end{align}
 where $\vect{u}$ is the vector wind field.  Diffusion was turned off by setting the diffusion coefficient $\kappa$ to be zero.
+
+Equation~\ref{eq:advection:continuous} is discretised by taking the volume integral over a cell $c$ with volume $V_c$
+\begin{align}
+	\int_{V_c} \frac{\partial \varphi}{\partial t} \diff V + \int_{V_c} \del \cdot \left( \vect{u} \varphi \right) \diff V &= 0
+%
+\intertext{Integrating the first term gives the volume average $\varphi_c$ and applying the divergence theorem to the second term gives a surface integral, hence}
+%
+	V_c \frac{\partial \varphi_c}{\partial t} + \int_{S_c} \varphi \vect{u} \cdot \nunit \diff S &= 0
+%
+\intertext{where $S_c$ is the cell surface area and $\nunit$ is the unit vector that is outward normal to the surface.  Dividing by the cell volume and, for a cell with a finite number of surfaces this becomes}
+%
+	\frac{\partial \varphi_c}{\partial t} + \frac{1}{V_c} \sum_{f \in \: c} \varphi \vect{u} \cdot \nunit S_f &= 0
+\end{align}
+where $S_f$ is the surface area of face $f$.
+
+The time derivative ($\partial \varphi / \partial t$) is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}
+\begin{align}
+	\frac{\partial}{\partial t} \int_V \varphi \diff V = \frac{
+		3 \left( \varphi V \right)^{(n)} - 
+		4 \left( \varphi V \right)^{(n-1)} + 
+		\left( \varphi V \right)^{(n-2)}
+	}{2 \Delta t}
+\end{align}
 
 The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} which used periodic lateral boundaries, we use zero gradient boundary conditions for all boundaries.
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.  \TODOsidenote{we never looked at courant numbers, but Schaer talks about horiz/vertical Co numbers}
 
-\TODO{describe gauss, vanLeer and tvdLimitedCubicUpwindCPCFit}
+\TODO{describe vanLeer and tvdLimitedCubicUpwindCPCFit}
 
 Two advection schemes were tested.
 
@@ -91,20 +114,20 @@ The second is an upwind-biased cubic interpolation from \cite{weller2009}.  \TOD
 	\label{fig:advection:vanLeer}
 \end{figure}
 
-Results of advection using the van Leer scheme are presented in Figure~\ref{fig:advection:vanLeer}.  On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Compared with the results from \textcite{schaer2002}, the tracer retains more of its shape but is far more diffusive by the end of the simulation, as evidenced by the missing contours in the tracer centre.
+Results of advection using the van Leer scheme are presented in Figure~\ref{fig:advection:vanLeer}.  On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Compared with the results from \textcite{schaer2002}, the tracer retains more of its shape but suffers from far more numerical diffusion by the end of the simulation, as evidenced by the missing contours in the tracer centre.  \TODO{would it be worth looking at variance at t=10000s to quantify the diffusion?}
 
-Results on the SLEVE grid are much closer to the analytic solution on a regular grid.  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  However, the widening contours indicate some diffusion is still present which, again, was not found in the results of \textcite{schaer2002}.
+Results on the SLEVE grid are much closer to the analytic solution on a regular grid.  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  However, the widening contours indicate some numerical diffusion is still present which, again, was not found in the results of \textcite{schaer2002}.
 
-Since the cut cell grid is entirely regular away from the surface, it is unsurprising that the results are the same as advection on a regular grid (not shown).
+Since the cut cell grid is entirely regular away from the surface, it is unsurprising that the results are the same as advection on a regular grid (not shown).  This result agrees with that found by \textcite{good2013}.
 
 \TODO{now discuss tvdLimitedCubicUpwindCPCFit}
 \TODO{tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive}
 
 Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
 \begin{align}
-\ell^2 = \sqrt{\frac{\sum \left( \varphi - \varphi_T \right)^2 \cdot A}{\sum A}}
+\ell^2 = \sqrt{\frac{\sum \left( \varphi - \varphi_T \right)^2 \cdot V}{\sum V}}
 \end{align}
-where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical value and $A$ is the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  \TODO{what do they tell us?}
+where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  \TODO{what do they tell us?}
 
 \begin{table}
 \centering
