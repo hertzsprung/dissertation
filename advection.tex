@@ -124,7 +124,7 @@ The second is an upwind-biased cubic interpolation from \cite{weller2009}.  \TOD
 	\hfill
 	\subcaptionbox{Analytic solution on a regular grid}[0.49\textwidth]{\input{advection-noOrography-analytic-contour-plot}}
 %
-	\caption{\TODO{van Leer advection compared with schaer.  Contour intervals every 0.1}}
+	\caption{\TODO{van Leer advection compared with schaer -- centred scheme.  Contour intervals every 0.1}}
 	\label{fig:advection:vanLeer}
 \end{figure}
 
@@ -133,6 +133,8 @@ Results of advection using the van Leer scheme are presented in Figure~\ref{fig:
 Results on the SLEVE grid are much closer to the analytic solution on a regular grid.  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  However, the widening contours indicate some numerical diffusion is still present which, again, was not found in the results of \textcite{schaer2002}.
 
 Since the cut cell grid is entirely regular away from the surface, it is unsurprising that the results are the same as advection on a regular grid (not shown).  This result agrees with that found by \textcite{good2013}.
+
+\TODO{we could try plotting diffs as done by schaer2002, too}
 
 \TODO{now discuss tvdLimitedCubicUpwindCPCFit}
 \TODO{tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive}
@@ -148,9 +150,9 @@ where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical val
 \begin{tabular}{ r @{\hspace{2em}} l l}
 \toprule
 		&	van Leer	& Cubic upwind \\ \midrule
-BTF		& \input{openfoam/cases/advection/btf/schaerCos/vanLeer/l2error.txt}		& 0 \\
-SLEVE		& \input{openfoam/cases/advection/sleve/schaerCos/vanLeer/l2error.txt}		& 0 \\
-Cut cell	& \input{openfoam/cases/advection/snapCol/schaerCos/vanLeer/l2error.txt}	& 0 \\
+BTF		& \input{openfoam/cases/advection/btf/schaerCos/vanLeer/l2error.txt}		& \TODO{0} \\
+SLEVE		& \input{openfoam/cases/advection/sleve/schaerCos/vanLeer/l2error.txt}		& \TODO{0} \\
+Cut cell	& \input{openfoam/cases/advection/snapCol/schaerCos/vanLeer/l2error.txt}	& \TODO{0} \\
 \end{tabular}
 
 \caption{$\ell^2$ error norms for the advection test at $t = \SI{10000}{\second}$}

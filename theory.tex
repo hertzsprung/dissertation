@@ -24,7 +24,7 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 %
 \frac{\partial y_i}{\partial x_j} = \frac{\partial y_i}{\partial u_i} \frac{\partial u_i}{\partial x_j}
 %
-\intertext{Applying this to $\varphi$ we find}
+\intertext{\TODO{explain that these are matrices.  would be better to use vectors where possible}  Applying this to $\varphi$ we find}
 %
 \begin{bmatrix}
 	\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial z}
@@ -38,7 +38,7 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 	\frac{\partial \trans{z}}{\partial x} &	\frac{\partial \trans{z}}{\partial z}
 \end{bmatrix}
 %
-\intertext{Taking the horizontal derivative in transformed coordinates we find}
+\intertext{\TODO{the horizontal component of the previous equation is...}}
 %
 \left. \frac{\partial \varphi}{\partial x} \right|_z =
 \left. \frac{\partial \varphi}{\partial x} \right|_\trans{z} +
@@ -61,7 +61,7 @@ It follows from equation~\ref{eq:theory:coord-trans} that, in TF coordinates, th
 	\left. \frac{\partial \trans{z}}{\partial x} \right|_z
 	\frac{\partial p}{\partial \trans{z}}
 \end{align}
-The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and care must be taken that the hydrostatic components cancel in the discretisation of the two terms \autocite{gary1973}.  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
+The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and care must be taken \TODO{lame.  say that ideally you want complete cancellation, but not possible numerically.  at least, metric terms must be consistent (i.e. at least first order accurate)}  that the hydrostatic components cancel in the discretisation of the two terms \autocite{gary1973}.  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
 
 \section{Grids}
 \subsection{Basic terrain following (BTF)}
@@ -74,7 +74,7 @@ The basic terrain following (BTF) coordinates of \textcite{galchen-somerville197
 	z &= \left( H - \surface \right) \frac{\trans{z}}{H} + \surface
 \end{align}
 where, in two dimensions, $z(x, \trans{z})$ is the height of the coordinate surface at level $\trans{z}$, $H$ is the height of the domain, and $\surface(x)$ is the height of the terrain surface.
-\TODOsidenote{is this the same as sigma coordinates except with height rather than pressure?  Gal-Chen seem to say it's not exactly the same, but Schaer 2002 says it is.  So confused!}
+\TODOsidenote{BTF and sigma are equivalent in their transform.  BTF is height, sigma is pressure.  however, pressure varies horizontally}
 
 \subsection{Smooth level vertical (SLEVE)}
 \label{sec:theory:sleve}
