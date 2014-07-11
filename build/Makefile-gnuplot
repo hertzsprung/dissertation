@@ -21,7 +21,7 @@ $(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-sleve-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-snapCol-schaerCos-vanLeer-contour))
-$(eval $(call GNUPLOT_TEMPLATE,gravityWaves-btf-schaerExp-h-exnerTheta))
+$(eval $(call GNUPLOT_TEMPLATE,gravityWaves-schaerExp-h-exnerTheta))
 
 btf.plt: tf.plt
 sleve.plt: tf.plt
