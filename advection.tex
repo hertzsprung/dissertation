@@ -145,13 +145,12 @@ where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical val
 
 \begin{table}
 \centering
-\begin{tabular}{ c @{\hspace{2em}} c c}
+\begin{tabular}{ r @{\hspace{2em}} l l}
 \toprule
 		&	van Leer	& Cubic upwind \\ \midrule
-BTF		& \input{openfoam/cases/advection/btf/schaerCos/vanLeer/l2error.txt}	& 0 \\
-SLEVE		& 0			& 0 \\
-Cut cell	& 0			& 0 \\
-Regular grid	& 0			& 0 \\ \bottomrule
+BTF		& \input{openfoam/cases/advection/btf/schaerCos/vanLeer/l2error.txt}		& 0 \\
+SLEVE		& \input{openfoam/cases/advection/sleve/schaerCos/vanLeer/l2error.txt}		& 0 \\
+Cut cell	& \input{openfoam/cases/advection/snapCol/schaerCos/vanLeer/l2error.txt}	& 0 \\
 \end{tabular}
 
 \caption{$\ell^2$ error norms for the advection test at $t = \SI{10000}{\second}$}

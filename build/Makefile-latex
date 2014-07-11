@@ -25,7 +25,9 @@ GNUPLOT_OUTPUTS := \
 PLOT_PATCH_DATA_OUTPUTS := mesh-snapCol-schaerExp-resting.eps
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 STATISTICS_FILES := \
-  advection/btf/schaerCos/vanLeer/$(L2_ERROR_STAT)
+  advection/btf/schaerCos/vanLeer/$(L2_ERROR_STAT) \
+  advection/sleve/schaerCos/vanLeer/$(L2_ERROR_STAT) \
+  advection/snapCol/schaerCos/vanLeer/$(L2_ERROR_STAT)
 STATISTICS := $(addprefix openfoam/cases/,$(STATISTICS_FILES))
 BIBLIOGRAPHIES := dissertation.bib journals.bib
 
