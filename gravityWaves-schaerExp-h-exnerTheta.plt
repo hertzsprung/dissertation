@@ -1,5 +1,5 @@
 set termoption dashed
-set style data lines
+set style data linespoints
 
 set xrange [288:292]
 set x2range [0.96:1.0]
