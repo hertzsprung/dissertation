@@ -4,8 +4,6 @@ MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 
 include build/Makefile-executables
-include build/Makefile-gnuplot
-include build/Makefile-latex
 include build/Makefile-openfoam
 include build/Makefile-mesh
 include build/Makefile-mesh-noOrography
@@ -19,6 +17,8 @@ include build/Makefile-advection
 include build/Makefile-resting
 include build/Makefile-gravityWaves-diagnostics
 include build/Makefile-gravityWaves
+include build/Makefile-gnuplot
+include build/Makefile-latex
 
 .PHONY: all clean
 

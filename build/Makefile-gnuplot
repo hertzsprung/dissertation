@@ -16,7 +16,11 @@ endef
 $(eval $(call GNUPLOT_TEMPLATE,btf))
 $(eval $(call GNUPLOT_TEMPLATE,sleve))
 $(eval $(call GNUPLOT_TEMPLATE,advection-initial))
+$(eval $(call GNUPLOT_TEMPLATE,advection-noOrography-analytic-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-sleve-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-snapCol-schaerCos-vanLeer-contour))
+
+btf.plt: tf.plt
+sleve.plt: tf.plt

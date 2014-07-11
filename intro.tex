@@ -28,7 +28,10 @@ It is well-known that TF coordinates perform badly in the presence of steep orog
 
 The hybrid terrain following (HTF) coordinates of \textcite{simmons-burridge1981} improve upon BTF coordinates by allowing the vertical decay profile can be controlled.  By choosing a suitable profile, terrain influence decays more rapidly than BTF to produce surfaces of constant height aloft \autocite{klemp2011}.
 
-The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.  \textcite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into small-scale and large-scale components, each having different exponential decay profiles.  \textcite{klemp2011} took an alternative approach, using a multipass smoothing operator, and found that errors were reduced still further compared to SLEVE.
+The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.  \textcite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into small-scale and large-scale components, each having different exponential decay profiles.
+\textcite{leuenberger2010} generalised the SLEVE decay functions to make cells thicker near the ground.  This allows longer timesteps and permits more accurate calculation of parameterised low-level heat and momentum fluxes.
+\textcite{klemp2011} took an alternative approach, using a multipass smoothing operator, and found that errors were reduced still further compared to SLEVE.
+
 
 Another way of reducing error is to improve the accuracy of the horizontal pressure gradient discretisation.  \textcite{mahrer1984} proposed a discretisation where two pressure values at the same geometric height are interpolated from surrounding points.  From these values, a truly horizontal pressure gradient can be calculated without introducing metric terms.  Recent studies have found that variations of Mahrer's technique reduce spurious circulations \parencites{dempsey-davis1998}{klemp2011}{zaengl2012}.
 
