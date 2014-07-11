@@ -55,10 +55,11 @@ define GRAVITY_WAVES_DIAGNOSTICS_TEMPLATE
   $(1)/$(THETA_DIFF_DICT): $(COMMON_CASE)/$(THETA_DIFF_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $(COMMON_CASE)/$(THETA_DIFF_DICT) $$@
 
-  $(1)/$(EXNER_THETA_SAMPLE): \
+  data/$(2)-exnerTheta.dat: \
     $(addprefix $(1)/$(GRAVITY_WAVES_END_TIME)/,$(FINAL_PHYSICAL_FIELDS)) \
     $(1)/$(SAMPLE_DICT)
 	$(SAMPLE) -case $(1) -time $(GRAVITY_WAVES_END_TIME)
+	$(CP) $(1)/$(EXNER_THETA_SAMPLE) $$@
 
   $(1)/$(SAMPLE_DICT): $(COMMON_CASE)/$(SAMPLE_DICT) | $(1)/system
 	$(LN) -fs $$< $$@
