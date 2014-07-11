@@ -10,6 +10,7 @@ CONTROL_DICT := system/controlDict
 FV_SCHEMES := system/fvSchemes
 FV_SOLUTION := system/fvSolution
 DECOMPOSE_PAR_DICT := system/decomposeParDict
+SAMPLE_DICT := system/sampleDict
 
 ENVIRONMENTAL_PROPERTIES := constant/environmentalProperties
 

@@ -22,6 +22,7 @@ CHECK_MESH := checkMesh
 DECOMPOSE_PAR := decomposePar
 RECONSTRUCT_PAR := reconstructPar
 SNAPPY_HEX_MESH := snappyHexMesh
+SAMPLE := sample
 WRITE_MESH_OBJ := writeMeshObj
 ADD_2D_MOUNTAIN := add2dMountain
 CREATE_SPONGE_LAYER := createSpongeLayer
