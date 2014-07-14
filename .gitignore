@@ -115,6 +115,7 @@ patchFaces*.obj
 polyMesh
 **/mesh/noOrography
 **/mesh/btf
+**/mesh/sleve
 **/mesh/snap
 **/mesh/snapCol
 **/mesh/snapCol-2dMountain
