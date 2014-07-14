@@ -66,7 +66,7 @@ define ABSTRACT_PHYSICAL_TEST_CASE_TEMPLATE
 
   .INTERMEDIATE: $(2).theta.intermediate $(2).exnerFoam.intermediate
 
-  $(addprefix $(1)/$(4)/,$(FINAL_PHYSICAL_FIELDS)): $(2).exnerFoam.intermediate
+  $(addprefix $(1)/$(4)/,$(FINAL_PHYSICAL_FIELDS)) $(addprefix $(1)/,$(DIAGNOSTICS)): $(2).exnerFoam.intermediate
 
   $(2).exnerFoam.intermediate: \
     $(addprefix $(1)/,$(SYSTEM_FILES)) \

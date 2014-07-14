@@ -71,7 +71,7 @@ $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/noOrography/h,resting
 $(eval $(call RESTING_DPDX_TEMPLATE,openfoam/cases/resting/noOrography/dpdx,resting-noOrography-dpdx,openfoam/cases/mesh/noOrography/resting))
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/btf/schaerExp/h,resting-btf-schaerExp-h,openfoam/cases/mesh/btf/schaerExp/resting))
 $(eval $(call RESTING_DPDX_TEMPLATE,openfoam/cases/resting/btf/schaerExp/dpdx,resting-btf-schaerExp-dpdx,openfoam/cases/mesh/btf/schaerExp/resting))
-$(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/sleve/schaerExp,resting-sleve-schaerExp,openfoam/cases/mesh/sleve/schaerExp/resting))
+$(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/sleve/schaerExp/h,resting-sleve-schaerExp-h,openfoam/cases/mesh/sleve/schaerExp/resting))
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/snap/schaerExp/h,resting-snap-schaerExp-h,openfoam/cases/mesh/snap/schaerExp/resting))
 $(eval $(call RESTING_DPDX_TEMPLATE,openfoam/cases/resting/snap/schaerExp/dpdx,resting-snap-schaerExp-dpdx,openfoam/cases/mesh/snap/schaerExp/resting))
 $(eval $(call RESTING_H_OP_TEMPLATE,openfoam/cases/resting/snapCol/schaerExp/h,resting-snapCol-schaerExp-h,openfoam/cases/mesh/snapCol/schaerExp/resting))

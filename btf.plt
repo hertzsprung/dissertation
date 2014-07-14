@@ -1,6 +1,6 @@
 load 'tf.plt'
 
-set term epslatex color size 2.5,2.5
+set term epslatex color size 2.7,2.5
 
 set ylabel "$z$ (\\si{\\kilo\\meter})" offset 2
 
