@@ -16,6 +16,9 @@ COMPONENTS := \
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \
+  full-step-plot.tex \
+  partial-step-plot.tex \
+  cut-cell-plot.tex \
   advection-initial-plot.tex \
   advection-noOrography-analytic-contour-plot.tex \
   advection-btf-schaerCos-vanLeer-contour-plot.tex \

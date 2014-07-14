@@ -15,6 +15,9 @@ endef
 
 $(eval $(call GNUPLOT_TEMPLATE,btf))
 $(eval $(call GNUPLOT_TEMPLATE,sleve))
+$(eval $(call GNUPLOT_TEMPLATE,full-step))
+$(eval $(call GNUPLOT_TEMPLATE,partial-step))
+$(eval $(call GNUPLOT_TEMPLATE,cut-cell))
 $(eval $(call GNUPLOT_TEMPLATE,advection-initial))
 $(eval $(call GNUPLOT_TEMPLATE,advection-noOrography-analytic-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-vanLeer-contour))
@@ -23,5 +26,4 @@ $(eval $(call GNUPLOT_TEMPLATE,advection-sleve-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-snapCol-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,gravityWaves-schaerExp-h-exnerTheta))
 
-btf.plt: tf.plt
-sleve.plt: tf.plt
+btf.plt sleve.plt: tf.plt
