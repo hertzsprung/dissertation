@@ -2,6 +2,7 @@ set xlabel "$x$ (\\si{\\kilo\\meter})"
 set xrange [-10:10]
 set yrange [0:20]
 set ytics nomirror out
+set xtics nomirror
 
 a = 5e3
 zt = 20e3

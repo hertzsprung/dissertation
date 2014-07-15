@@ -26,6 +26,9 @@ GNUPLOT_OUTPUTS := \
   advection-snapCol-schaerCos-vanLeer-contour-plot.tex \
   resting-w-plot.tex \
   resting-energy-total-plot.tex \
+  resting-energy-btf-plot.tex \
+  resting-energy-sleve-plot.tex \
+  resting-energy-snapCol-plot.tex \
   gravityWaves-schaerExp-h-exnerTheta-plot.tex
 PLOT_PATCH_DATA_OUTPUTS := mesh-snapCol-schaerExp-resting.eps
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)

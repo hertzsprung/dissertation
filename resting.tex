@@ -26,8 +26,8 @@ Second, normalised energy change $\Delta E$ is measured for each timestep by com
 	\intertext{where energy is kinetic $E_K$, potential $E_P$, or internal $E_I$, given by \TODOsidenote{check these with Hilary}}
 %
 	E_K &= \frac{0.25 \sum_{surface} \frac{UV}{\rho}}{\sum V} / \sum_{cells} V \\
-	E_P &= - \rho g / \sum_{cells} V \\
-	E_I &= \rho \theta \Pi c_v / \sum_{cells} V
+	E_P &= - \int_V \rho \vect{g} \cdot \vect{x_c} \\
+	E_I &= \int_V \rho \theta \Pi c_v
 \end{align}
 An analytic solution would conserve energy such that $\Delta E(t) = 0\;\forall\;t$.  \TODO{why would we expect our model to lose energy?}
 
@@ -55,11 +55,11 @@ The SnapCol grid results in a significantly smaller maximum vertical velocity of
 	\centering
 	\subcaptionbox{Total normalised energy changes}[0.48\textwidth]{\input{resting-energy-total-plot}}
 	\hfill
-	\subcaptionbox{BTF}[0.48\textwidth]{\TODO{}}
+	\subcaptionbox{BTF}[0.48\textwidth]{\input{resting-energy-btf-plot}}
 	\\
-	\subcaptionbox{Optimised SLEVE}[0.48\textwidth]{\TODO{}}
+	\subcaptionbox{Optimised SLEVE}[0.48\textwidth]{\input{resting-energy-sleve-plot}}
 	\hfill
-	\subcaptionbox{SnapCol}[0.48\textwidth]{\TODO{}}
+	\subcaptionbox{SnapCol (note different vertical scale from other plots)}[0.48\textwidth]{\input{resting-energy-snapCol-plot}}
 	\caption{\TODO{Normalised energy changes}}
 	\label{fig:resting:energy}
 \end{figure}

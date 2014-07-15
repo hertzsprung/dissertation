@@ -1,11 +1,5 @@
-set term epslatex color size 3.0,2.4
-set termoption dash
+load 'resting-energy.plt'
 
-set style data lines
-
-set xlabel "$t$ (hours)"
-set ylabel "$\\Delta E$ (\\si{\\joule})" offset 2
-set xrange [0:5]
 set ytics 1e-7
 set yrange [-3e-7:2e-7]
 
