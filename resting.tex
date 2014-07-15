@@ -6,9 +6,9 @@ This two-dimensional test simulates a stably stratified atmosphere in hydrostati
 \subsection{Specification}
 Following \textcite{weller-shahrokhi2014}, the domain is \SI{20}{\kilo\meter} wide and \SI{20}{\kilo\meter} high, which is narrower than \textcite{klemp2011} in order to reduce simulation time.  The wave-shaped mountain profile is taken from \textcite{schaer2002} where the surface height $h$ is given by
 \begin{align}
-\surface(x) = \surface_0 \exp \left( - \left( \frac{x}{a} \right)^2 \right) \cos^2 \left( \frac{\pi x}{\lambda} \right)
+	\surface(x) = \surface_0 \exp \left( - \left( \frac{x}{a} \right)^2 \right) \cos^2 \left( \frac{\pi x}{\lambda} \right) \label{eqn:resting:mountain}
 \end{align}
-where $a = \SI{5}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{1}{\kilo\meter}$ is the maximum mountain height and $\lambda = \SI{4}{\kilo\meter}$ is the wavelength.  For the SLEVE grid, the large-scale component $\surface_1$, described in section~\ref{sec:theory:sleve}, is specified as
+where $a = \SI{5}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{1}{\kilo\meter}$ is the maximum mountain height and $\lambda = \SI{4}{\kilo\meter}$ is the wavelength.  For the optimised SLEVE grid, the large-scale component $\surface_1$, described in section~\ref{sec:theory:sleve}, is specified as
 \begin{align}
 \surface_1(x) = \frac{1}{2} \surface_0 \exp \left( - \left( \frac{x}{a} \right)^2 \right)
 \end{align}
@@ -20,11 +20,10 @@ The initial thermodynamic conditions have a surface temperature of $\theta_0 = \
 Two metrics were used to measure the model error.  First, maximum vertical velocity is measured at each timestep.  An analytic solution has no vertical velocity $w$ since the atmosphere is at rest.  However, numerical error in calculating the horizontal pressure gradient give rise to spurious vertical velocities which become more severe over steep terrain \autocite{klemp2011}.
 
 Second, normalised energy change $\Delta E$ is measured for each timestep as described in section~\ref{sec:method:energy}.  The total normalised energy change is the sum of normalised kinetic, potential, and internal energy changes.
-An analytic solution would conserve total energy such that $\Delta E(t) = 0\;\forall\;t$.   \TODO{why would we expect our model to lose energy?}
+An analytic solution would conserve total energy such that $\Delta E(t) = 0\;\forall\;t$.  As discussed in \textcite{weller-shahrokhi2014}, energy is not exactly conserved in the model presented.
 
 \subsection{Discretisation}
 The simulation uses the discretisation of the fully-compressible Euler equations described in section~\ref{sec:method:discretisation}.  The domain is discretised on a grid having $40 \times 40$ cells such that $\Delta x = \Delta z = \SI{0.5}{\kilo\meter}$.  All boundary conditions are no slip.  The simulation is integrated forward by 5 hours with a timestep $\Delta t = \SI{100}{\second}$.  Unlike \textcite{klemp2011}, there is no eddy diffusion in our equation set.
-
 
 \subsection{Results}
 \begin{figure}
@@ -50,42 +49,24 @@ The SnapCol grid results in a significantly smaller maximum vertical velocity of
 	\hfill
 	\subcaptionbox{As (\subcaptionref{fig:resting:energy:total-tf}), but on a regular grid with no orography \label{fig:resting:energy:total-noOrography}}[0.32\textwidth]{\input{resting-energy-total-noOrography-plot}}
 	\\
-	\subcaptionbox{BTF}[0.32\textwidth]{\input{resting-energy-btf-plot}}
+	\subcaptionbox{Kinetic ($E_K$), potential ($E_P$) and internal ($E_I$) normalised energy changes on BTF grid \label{fig:resting:energy:btf}}[0.32\textwidth]{\input{resting-energy-btf-plot}}
 	\hfill
-	\subcaptionbox{Optimised SLEVE}[0.32\textwidth]{\input{resting-energy-sleve-plot}}
+	\subcaptionbox{As (\subcaptionref{fig:resting:energy:btf}), but on the optimised SLEVE grid \label{fig:resting:energy:sleve}}[0.32\textwidth]{\input{resting-energy-sleve-plot}}
 	\hfill
-	\subcaptionbox{SnapCol (note different vertical scale from other plots)}[0.32\textwidth]{\input{resting-energy-snapCol-plot}}
-	\caption{\TODO{Normalised energy changes}}
+	\subcaptionbox{As (\subcaptionref{fig:resting:energy:btf}), but on the SnapCol grid.  Note the different vertical scale from figures~(\subcaptionref{fig:resting:energy:btf}) and (\subcaptionref{fig:resting:energy:sleve}). \label{fig:resting:energy:snapCol}}[0.32\textwidth]{\input{resting-energy-snapCol-plot}}
+	\caption{Comparison of normalised energy changes on BTF, optimised SLEVE and SnapCol grids for the resting atmosphere test.}
 	\label{fig:resting:energy}
 \end{figure}
 
-Examining normalised energy change, shown in figure~\ref{fig:resting:energy:total}, we find that energy is lost on BTF and optimised SLEVE grids.  Energy is better conserved on the SnapCol grid, the energy loss being more than two orders of magnitude smaller than the terrain following grids.  Energy
+Examining normalised energy change, shown in figure~\ref{fig:resting:energy:total-tf}, we find that energy is lost on BTF and optimised SLEVE grids.  Energy is better conserved on the SnapCol grid, the energy loss being more than two orders of magnitude smaller than the terrain following grids (figure~\ref{fig:resting:energy:total-snapCol}).  This compares favourably with the best possible energy conservation for this model as found on a regular grid (figure~\ref{fig:resting:energy:total-noOrography}).
 
-\TODO{compare total energy changes between grids}
-
-\TODO{discuss individual energy changes (KE/PE/IE) between grids}
+The spurious motion generated by horizontal pressure gradient errors leads to a positive change in kinetic energy, evident in figures~\ref{fig:resting:energy:btf} and~\ref{fig:resting:energy:sleve}.  Compared to both terrain following grids, internal and potential energy conservation is three orders of magnitude better on the SnapCol grid (\ref{fig:resting:energy:snapCol}).  As noted by \textcite{weller-shahrokhi2014}, the model converts between potential and internal energy on timescales of less than an hour.  This can be seen by the mirroring between $E_P$ and $E_I$ plots, and we confirm that this local energy conservation property is present in all three grids (figures~\ref{fig:resting:energy:btf}, \subcaptionref{fig:resting:energy:sleve} and \subcaptionref{fig:resting:energy:snapCol}).
 
 \TODO{if I want to compare to Zaengl (and also Good), I would need to try the same experiment with 4km high mountain, too}
 
 \TODO{Although I did experiment with Hop vs dp/dx, I'm not sure how valuable it is to discuss here.  I don't currently have results of SnapCol Hop vs dp/dx.}
 
+\TODO{I wonder if there's spurious horizontal motion, too... D\&D 1998 plotted this}
+
 \TODO{I could compare theta field (as done by Klemp)}
 
-
-\hrule
-
-\begin{figure}
-BTF H
-\includegraphics[width=\textwidth]{interim-results/restingBtfHEnergy.png}
-SLEVE
-\includegraphics[width=\textwidth]{interim-results/restingSleveEnergy.png}
-\caption{Energy changes (TF)}
-\label{fig:rest:energy-tf}
-\end{figure}
-
-\begin{figure}
-SnapCol
-\includegraphics[width=\textwidth]{interim-results/restingSnapColEnergy.png}
-\caption{Energy changes (cut-cell style)}
-\label{fig:rest:energy-cut-cell}
-\end{figure}

@@ -6,7 +6,7 @@ set xrange [0:5]
 set logscale y
 set key at 1.6,1e-5 left box samplen 1
 set xlabel "$t$ (hours)" offset 0,0.5
-set ylabel "$w$ (\\si{\\meter\\per\\second})" offset 3
+set ylabel "$\\mathrm{max}(w)$ (\\si{\\meter\\per\\second})" offset 3
 
 set bmargin 2.5
 set rmargin 1
