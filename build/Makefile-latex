@@ -25,7 +25,9 @@ GNUPLOT_OUTPUTS := \
   advection-sleve-schaerCos-vanLeer-contour-plot.tex \
   advection-snapCol-schaerCos-vanLeer-contour-plot.tex \
   resting-w-plot.tex \
-  resting-energy-total-plot.tex \
+  resting-energy-total-tf-plot.tex \
+  resting-energy-total-snapCol-plot.tex \
+  resting-energy-total-noOrography-plot.tex \
   resting-energy-btf-plot.tex \
   resting-energy-sleve-plot.tex \
   resting-energy-snapCol-plot.tex \

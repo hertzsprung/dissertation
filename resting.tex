@@ -19,8 +19,8 @@ The initial thermodynamic conditions have a surface temperature of $\theta_0 = \
 \subsection{Diagnostics}
 Two metrics were used to measure the model error.  First, maximum vertical velocity is measured at each timestep.  An analytic solution has no vertical velocity $w$ since the atmosphere is at rest.  However, numerical error in calculating the horizontal pressure gradient give rise to spurious vertical velocities which become more severe over steep terrain \autocite{klemp2011}.
 
-Second, normalised energy change $\Delta E$ is measured for each timestep as described in section~\ref{sec:method:energy}.
-An analytic solution would conserve energy such that $\Delta E(t) = 0\;\forall\;t$.  \TODO{why would we expect our model to lose energy?}
+Second, normalised energy change $\Delta E$ is measured for each timestep as described in section~\ref{sec:method:energy}.  The total normalised energy change is the sum of normalised kinetic, potential, and internal energy changes.
+An analytic solution would conserve total energy such that $\Delta E(t) = 0\;\forall\;t$.   \TODO{why would we expect our model to lose energy?}
 
 \subsection{Discretisation}
 The simulation uses the discretisation of the fully-compressible Euler equations described in section~\ref{sec:method:discretisation}.  The domain is discretised on a grid having $40 \times 40$ cells such that $\Delta x = \Delta z = \SI{0.5}{\kilo\meter}$.  All boundary conditions are no slip.  The simulation is integrated forward by 5 hours with a timestep $\Delta t = \SI{100}{\second}$.  Unlike \textcite{klemp2011}, there is no eddy diffusion in our equation set.
@@ -44,16 +44,22 @@ The SnapCol grid results in a significantly smaller maximum vertical velocity of
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{Total normalised energy changes}[0.48\textwidth]{\input{resting-energy-total-plot}}
+	\subcaptionbox{Total normalised energy changes on terrain following grids \label{fig:resting:energy:total-tf}}[0.32\textwidth]{\input{resting-energy-total-tf-plot}}
 	\hfill
-	\subcaptionbox{BTF}[0.48\textwidth]{\input{resting-energy-btf-plot}}
+	\subcaptionbox{As (\subcaptionref{fig:resting:energy:total-tf}), but on the SnapCol grid \label{fig:resting:energy:total-snapCol}}[0.32\textwidth]{\input{resting-energy-total-snapCol-plot}}
+	\hfill
+	\subcaptionbox{As (\subcaptionref{fig:resting:energy:total-tf}), but on a regular grid with no orography \label{fig:resting:energy:total-noOrography}}[0.32\textwidth]{\input{resting-energy-total-noOrography-plot}}
 	\\
-	\subcaptionbox{Optimised SLEVE}[0.48\textwidth]{\input{resting-energy-sleve-plot}}
+	\subcaptionbox{BTF}[0.32\textwidth]{\input{resting-energy-btf-plot}}
 	\hfill
-	\subcaptionbox{SnapCol (note different vertical scale from other plots)}[0.48\textwidth]{\input{resting-energy-snapCol-plot}}
+	\subcaptionbox{Optimised SLEVE}[0.32\textwidth]{\input{resting-energy-sleve-plot}}
+	\hfill
+	\subcaptionbox{SnapCol (note different vertical scale from other plots)}[0.32\textwidth]{\input{resting-energy-snapCol-plot}}
 	\caption{\TODO{Normalised energy changes}}
 	\label{fig:resting:energy}
 \end{figure}
+
+Examining normalised energy change, shown in figure~\ref{fig:resting:energy:total}, we find that energy is lost on BTF and optimised SLEVE grids.  Energy is better conserved on the SnapCol grid, the energy loss being more than two orders of magnitude smaller than the terrain following grids.  Energy
 
 \TODO{compare total energy changes between grids}
 
