@@ -25,11 +25,12 @@ $(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCF
 $(eval $(call GNUPLOT_TEMPLATE,advection-sleve-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-snapCol-schaerCos-vanLeer-contour))
 $(eval $(call GNUPLOT_TEMPLATE,resting-w))
+$(eval $(call GNUPLOT_TEMPLATE,resting-energy-total))
 $(eval $(call GNUPLOT_TEMPLATE,gravityWaves-schaerExp-h-exnerTheta))
 
 btf.plt sleve.plt: tf.plt
 
-resting-w.plt: \
+resting-w.plt resting-energy-total.plt: \
   openfoam/cases/resting/btf/schaerExp/h/energy.dat \
   openfoam/cases/resting/sleve/schaerExp/h/energy.dat \
   openfoam/cases/resting/snapCol/schaerExp/h/energy.dat \

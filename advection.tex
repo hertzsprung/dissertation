@@ -93,13 +93,13 @@ The van Leer scheme defines the blending coefficient $\gamma$ as a function of t
 \begin{align}
 \gamma(r) &= \frac{r + |r|}{1 + |r|}
 %
-\intertext{and the gradient ratio is specified in \textcite{weller2012} as}
+\intertext{and the gradient ratio is specified by \textcite{weller2012} as}
 %
 	r &= \frac{2 \left( \vect{x_d} - \vect{x_u} \right) \cdot \del_u \phi}{\varphi_d - \varphi_u} - 1
 \end{align}
 where $\vect{x}$ is the position vector of the cell centre and subscripts $u$ and $d$ denote upwind and downwind cells respectively.
 
-\TODO{Second, a TVD limited version of upwind-biased cubic scheme...}
+\TODO{Second, a TVD limited version of upwind-biased cubic scheme...  I might not have time to discuss this, but it does offer a modest improvement at the expense of increased computation}
 
 The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} which used periodic lateral boundaries, we use zero gradient boundary conditions for all boundaries.
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.  \TODOsidenote{we never looked at courant numbers, but Schaer talks about horiz/vertical Co numbers}
