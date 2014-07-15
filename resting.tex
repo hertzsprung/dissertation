@@ -19,16 +19,7 @@ The initial thermodynamic conditions have a surface temperature of $\theta_0 = \
 \subsection{Diagnostics}
 Two metrics were used to measure the model error.  First, maximum vertical velocity is measured at each timestep.  An analytic solution has no vertical velocity $w$ since the atmosphere is at rest.  However, numerical error in calculating the horizontal pressure gradient give rise to spurious vertical velocities which become more severe over steep terrain \autocite{klemp2011}.
 
-Second, normalised energy change $\Delta E$ is measured for each timestep by comparing with the energy in the initial conditions, that is
-\begin{align}
-	\Delta E(t) &= \frac{E(t) - E(t = \SI{0}{\second})}{E(t = \SI{0}{\second})}
-%
-	\intertext{where energy is kinetic $E_K$, potential $E_P$, or internal $E_I$, given by \TODOsidenote{check these with Hilary}}
-%
-	E_K &= \frac{0.25 \sum_{surface} \frac{UV}{\rho}}{\sum V} / \sum_{cells} V \\
-	E_P &= - \int_V \rho \vect{g} \cdot \vect{x_c} \\
-	E_I &= \int_V \rho \theta \Pi c_v
-\end{align}
+Second, normalised energy change $\Delta E$ is measured for each timestep as described in section~\ref{sec:method:energy}.
 An analytic solution would conserve energy such that $\Delta E(t) = 0\;\forall\;t$.  \TODO{why would we expect our model to lose energy?}
 
 \subsection{Discretisation}

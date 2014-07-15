@@ -6,17 +6,46 @@
 \section{Grid construction}
 Two dimensional, regular cartesian grids were created using the OpenFOAM utility, \shellcmd{blockMesh}.  A custom utility was used to modify these orthogonal grids by adjusting the height of points to create terrain following grids.
 
-\TODOsidenote{careful, you're changing tense a lot, James!}
-At the time of writing, OpenFOAM does not directly support cartesian cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  \TODO{describe how add2dMountain moves points up to the surface so that we retain small cells}.  A description of the surface is taken from any of the terrain following grids and the tool is used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  The resulting grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.
-\TODOsidenote{Should I use codenames for the meshes, such as snapCol?  If not, what to say?  "Cut-cell style"?}
+At the time of writing, OpenFOAM does not directly support cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  \TODO{describe how add2dMountain moves points up to the surface so that we retain small cells}.  A description of the surface is taken from any of the terrain following grids and the tool is used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.  The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.  This grid is referred to as the `SnapCol' grid throughout this project.
 
 \begin{figure}
 	\centerfloat
-	\includegraphics[height=3in,angle=270]{mesh-snapCol-schaerExp-resting.eps}
+	\includegraphics[height=2.8in,angle=270]{mesh-snapCol-schaerExp-resting.eps}
 	\caption{\TODO{cut cell grid}}
 	\label{fig:method:cut-cell}
 \end{figure}
 
 \section{Discretisation of Euler equations}
 \label{sec:method:discretisation}
-The fully-compressible Euler equations used in the resting atmosphere test (section~\ref{sec:resting}) and gravity waves test (section~\ref{sec:gw}) are discretised following \textcite{weller-shahrokhi2014}.  \TODO{describe the important bits!}
+The fully-compressible Euler equations used in the resting atmosphere test (section~\ref{sec:resting}) and gravity waves test (section~\ref{sec:gw}) are specified as
+\begin{align}
+TODO
+\end{align}
+where \TODO{define variables}.
+
+The equation set is discretised following \textcite{weller-shahrokhi2014}.  \TODO{describe the important bits!}
+
+\section{Energy measures}
+\label{sec:method:energy}
+
+Energy conservation is desirable in the discretisation of the Euler equations.  In the resting atmosphere test detailed in section~\ref{sec:resting}, energy is conserved in the analytic solution, but not in all numerical approximations.  The normalised energy change $\Delta E$ at time $t$ is found by comparing with the initial energy measure, hence
+\begin{align}
+	\Delta E(t) &= \frac{E(t) - E(t = \SI{0}{\second})}{E(t = \SI{0}{\second})}
+\end{align}
+Three energy measures are considered, where the volume integral of some field $\varphi$ is the volume-weighted sum given by
+\begin{align}
+	\int_V \varphi \diff{V} &= \frac{\sum_c \varphi_c V_c}{\sum_c V_c}
+\end{align}
+First, kinetic energy $E_K$ is calculated as \TODOcite
+\begin{align}
+	E_K(t) &= \int_V \frac{1}{4} \sum_{f \in \: c} \frac{\vect{u} \cdot \vect{S}_f \: \vect{u} \cdot \vect{d}_f}{V_c} \diff{V}
+%
+	\intertext{where \TODO{define variables if needed}  Second, potential energy $E_P$ is}
+%
+	E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x_c} \diff{V}
+%
+	\intertext{where $g$ is the gravitational acceleration, and $\vect{x}_c$ is the position vector of the centre of cell $c$.  Third, the internal energy $E_I$ is \TODOcite}
+%
+	E_I(t) &= \int_V \rho \theta \Pi c_v \diff{V}
+\end{align}
+where \TODO{define variables if needed}
