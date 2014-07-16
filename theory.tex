@@ -1,6 +1,8 @@
 \chapter{Theoretical basis}
 
 \section{Coordinate transformations}
+\label{sec:theory:coord-transform}
+
 Consider the two-dimensional cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
 A scalar field $\varphi$ can be expressed in transformedcoordinates as $\varphi(x, \trans{z})$ or in cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
@@ -66,7 +68,7 @@ It follows from equation~\ref{eq:theory:coord-trans} that, in TF coordinates, th
 	\left. \frac{\partial \trans{z}}{\partial x} \right|_z
 	\frac{\partial p}{\partial \trans{z}}
 \end{align}
-The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and care must be taken \TODO{lame.  say that ideally you want complete cancellation, but not possible numerically.  at least, metric terms must be consistent (i.e. at least first order accurate)}  that the hydrostatic components cancel in the discretisation of the two terms \autocite{gary1973}.  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
+The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and a discretisation must be at least first order accurate so that the difference between the hydrostatic components of the two terms converges to zero \autocite{gary1973}.  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
 
 \section{Grids}
 \subsection{Basic terrain following (BTF)}
@@ -81,7 +83,8 @@ The basic terrain following (BTF) coordinates of \textcite{galchen-somerville197
 	z &= \left( H - \surface \right) \frac{\trans{z}}{H} + \surface
 \end{align}
 where, in two dimensions, $z(x, \trans{z})$ is the height of the coordinate surface at level $\trans{z}$, $H$ is the height of the domain, and $\surface(x)$ is the height of the terrain surface.
-\TODOsidenote{BTF and sigma are equivalent in their transform.  BTF is height, sigma is pressure.  however, pressure varies horizontally}
+
+The sigma coordinate transform is equivalent to the BTF coordinate transform since they both decay linearly.  However, since they decay with pressure rather than height, sigma coordinates also vary with horizontal variations in pressure.
 
 \subsection{Smooth level vertical (SLEVE)}
 \label{sec:theory:sleve}
@@ -111,7 +114,7 @@ The cut cell method intersects the surface with a regular cartesian grid.  This 
 
 The finite volume method is a discretisation technique that represents the spatial domain as a grid of cells.  A volumetric scalar field $\varphi$ is then discretised by modelling the average value in each cell located at its centre.  At each timestep, cell averages are updated by considering the flux $\vect{F}$ across the faces of the cell surface.  In atmospheric modelling, $\vect{F}$ is typically the advective flux $\vect{u} \varphi$ where $\vect{u}$ is the velocity field.
 
-The notation used in this project for the representation discrete variables follows \textcite{weller-shahrokhi2014}.  A cell average of $\varphi$ is written as $\varphi_c$, where $c$ denotes a cell.  A volumetric vector field $\psi$ located at a face is written as $\psi_f$, where $f$ denotes a cell face.  An interpolation of cell centre averages of $\varphi$ onto a face $f$ is written as $\varphi_F$.  $f \in \: c$ represents the faces of a cell.
+The notation used in this project for the representation discrete variables follows \textcite{weller-shahrokhi2014}.  A cell average of $\varphi$ is written as $\varphi_c$, where $c$ denotes a cell.  A volumetric vector field $\psi$ located at a face is written as $\psi_f$, where $f$ denotes a cell face.  An interpolation of cell centre averages of $\varphi$ onto a face $f$ is written as $\varphi_F$.  $f \in \: c$ represents the faces of a cell.  $c \in \: f$ represents the cells $c$ that share a face $f$.
 
 To develop the finite volume method, we start by considering the conservation of $\varphi$
 \begin{align}
@@ -125,7 +128,7 @@ To develop the finite volume method, we start by considering the conservation of
 %
 	V_c \frac{\partial \varphi_c}{\partial t} + \int_{S_c} \varphi \vect{u} \cdot \nunit \diff S &= 0
 %
-\intertext{where $S_c$ is the cell surface area and $\nunit$ is the unit vector that is outward normal to the surface.  Dividing by the cell volume and, for a cell with a finite number of surfaces this becomes}
+\intertext{where $S_c$ is the cell surface area and $\nunit$ is the unit vector that is outward normal to the surface.  Dividing by the cell volume and, for a cell with a finite number of surfaces, this becomes}
 %
 	\frac{\partial \varphi_c}{\partial t} + \frac{1}{V_c} \sum_{f \in \: c} \varphi_F \vect{u}_f \cdot \nunit S_f &= 0 \label{eqn:theory:discrete-continuity}
 \end{align}
