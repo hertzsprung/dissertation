@@ -15,7 +15,7 @@ The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} 
 \begin{figure}
 	\centerfloat
 	\includegraphics[height=2.8in,angle=270]{mesh-snapCol-schaerExp-resting.eps}
-	\caption{A `SnapCol' grid created by intersecting the terrain surface with a regular grid as described in section~\ref{sec:method:grid}.  Note that, unlike a true cut cell grid, some small cells have faces at $z = \SI{500}{\meter}$ that are not entirely horizontal.}
+	\caption{A `SnapCol' grid, \SI{20}{\kilo\meter} wide and \SI{2}{\kilo\meter} high, created by intersecting the terrain surface with a regular grid as described in section~\ref{sec:method:grid}.  Note that, unlike a true cut cell grid, some small cells have faces at $z = \SI{500}{\meter}$ that are not entirely horizontal.}
 	\label{fig:method:cut-cell}
 \end{figure}
 
@@ -25,7 +25,7 @@ The fully-compressible Euler equations used in the resting atmosphere test (sect
 \begin{align}
 & \text{Momentum} & \frac{\partial \rho \vect{u}}{\partial t} + \del \cdot \rho \vect{u} \vect{u} &= \rho \vect{g} - c_p \rho \theta \del \exner \\
 %
-& \text{Continuity} & \frac{\partial \rho}{\partial t} + \del \cdot \rho \vect{u} &= 0 \\
+& \text{Continuity} & \frac{\partial \rho}{\partial t} + \del \cdot \rho \vect{u} &= 0 \label{eqn:method:continuity} \\
 %
 & \text{Potential temperature (flux form)} & \frac{\partial \rho \theta}{\partial t} + \del \cdot \rho \vect{u} \theta &= 0 \\
 %
@@ -47,7 +47,28 @@ Here, we outline the placement of prognostic variables, pressure gradient discre
 	\label{fig:method:placement}
 \end{figure}
 
-\TODO{pressure gradient}
+To solve the continuity equation (equation~\ref{eqn:method:continuity}), in section~\ref{sec:theory:fv} we found that we must calculate the flux across all cell faces (see equation~\ref{eqn:theory:discrete-continuity}).  To do this, we first find the mass flux component $V_f$ in the direction between cell centres such that
+\begin{align}
+	V_f &= \rho \vect{u} \cdot \vect{d}_f
+%
+\intertext{where $\vect{d}_f$ is the vector between the centres of the two cells who share the face $f$.  Second, we use the H operator given in \textcite{weller-shahrokhi2014} to find the mass flux normal to the surface, $U_f$, that is}
+%
+	U &= HV
+\end{align}
+where $U_f = \rho \vect{u} \cdot \vect{S}_f$, and $\vect{S}_f$ is normal to the face $f$ having a magnitude equal to the face area.  \textcite{thuburn-cotter2012} recommend the use of $V$ instead of $U$ as the prognostic variable to obtain mimetic properties including a curl-free pressure gradient.  The geometry just described is summarised in figure~\ref{fig:method:placement}.
+
+The Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
+\begin{align}
+	\del_d \exner = \frac{1}{| \vect{d}_f |} \sum_{c \in\: f} - n_f \exner_c
+%
+\intertext{where $n_f$ corrects for the face orientation so that}
+%
+	n_f =
+	\begin{cases}
+		1  & \text{if $\vect{S}_f$ points away from the cell} \\
+		-1 & \text{if $\vect{S}_f$ points toward the cell}
+	\end{cases}
+\end{align}
 
 \TODO{cubic upwind advection scheme}
 
@@ -68,7 +89,7 @@ First, kinetic energy $E_K$ is calculated as \TODOcite
 %
 	\intertext{where \TODO{define variables if needed}  Second, potential energy $E_P$ is}
 %
-	E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x_c} \diff{V}
+	E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x}_c \diff{V}
 %
 	\intertext{where $\vect{x}_c$ is the position vector of the centre of cell $c$.  Third, the internal energy $E_I$ is \TODOcite}
 %

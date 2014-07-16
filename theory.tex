@@ -127,7 +127,7 @@ To develop the finite volume method, we start by considering the conservation of
 %
 \intertext{where $S_c$ is the cell surface area and $\nunit$ is the unit vector that is outward normal to the surface.  Dividing by the cell volume and, for a cell with a finite number of surfaces this becomes}
 %
-	\frac{\partial \varphi_c}{\partial t} + \frac{1}{V_c} \sum_{f \in \: c} \varphi_F \vect{u}_f \cdot \nunit S_f &= 0
+	\frac{\partial \varphi_c}{\partial t} + \frac{1}{V_c} \sum_{f \in \: c} \varphi_F \vect{u}_f \cdot \nunit S_f &= 0 \label{eqn:theory:discrete-continuity}
 \end{align}
 where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.  This interpolation of cell averages onto faces is a significant source of truncation error in finite volume systems \autocite{adcroft1997}.
 
