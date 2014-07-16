@@ -13,7 +13,8 @@ COMPONENTS := \
   mathmacros.tex \
   dissertationmacros.tex \
   geometry.tex \
-  variable-placement.tex
+  variable-placement.tex \
+  pressure-grad.tex
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \

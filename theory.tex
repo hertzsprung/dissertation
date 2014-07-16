@@ -6,14 +6,14 @@
 Consider the two-dimensional cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
 A scalar field $\varphi$ can be expressed in transformedcoordinates as $\varphi(x, \trans{z})$ or in cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
-Hence the vertical derivative of $\varphi$ can be found by using the chain rule
+Hence the vertical derivative of $\varphi$ can be found by using the chain rule \autocite{mit2004}
 \begin{align}
   \frac{\partial \varphi}{\partial z} =
   \frac{\partial \varphi}{\partial \trans{z}}
   \frac{\partial \trans{z}}{\partial z}
 \end{align}
 
-The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix
+The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix \textcite{kaplan?}
 \begin{align}
 \frac{\partial y_i}{\partial x_j} = 
 \begin{bmatrix}
@@ -22,11 +22,11 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
   \dfrac{\partial y_m}{\partial x_1}	& \dfrac{\partial y_m}{\partial x_2} &	\cdots &	\dfrac{\partial y_m}{\partial x_n}
 \end{bmatrix}
 %
-\intertext{we can express the chain rule as}
+\intertext{and similarly for $\partial y_i / \partial u_i$ and $\partial u_i / \partial x_j$, \TODO{check these subscripts in Kaplan!} then we can express the chain rule as}
 %
 \frac{\partial y_i}{\partial x_j} = \frac{\partial y_i}{\partial u_i} \frac{\partial u_i}{\partial x_j}
 %
-\intertext{\TODO{explain that these are matrices.  would be better to use vectors where possible}  Applying this to $\varphi$ we find}
+\intertext{Applying this to $\varphi$ we find}
 %
 \begin{bmatrix}
 	\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial z}
@@ -38,9 +38,9 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 \begin{bmatrix}
 	\frac{\partial x}{\partial x} & 	\frac{\partial x}{\partial z} \\
 	\frac{\partial \trans{z}}{\partial x} &	\frac{\partial \trans{z}}{\partial z}
-\end{bmatrix}
+\end{bmatrix} \label{eqn:theory:transform-matrix}
 %
-\intertext{\TODO{the horizontal component of the previous equation is...}}
+\intertext{and the horizontal component of equation~\ref{eqn:theory:transform-matrix} is then}
 %
 \left. \frac{\partial \varphi}{\partial x} \right|_z =
 \left. \frac{\partial \varphi}{\partial x} \right|_\trans{z} +
@@ -57,7 +57,9 @@ where $H$ is the height of the domain and $h(x)$ is the height of the terrain su
 
 \section{Horizontal pressure gradient}
 \begin{figure}
-	\caption{\TODO{pressure gradient error (adapt from Mahrer)}}
+	\centering
+	\input{pressure-grad}
+	\caption{Geometry of a first-order horizontal pressure gradient discretisation in a transformed coordinate.  Adapted from \textcite{mahrer1984}.}
 	\label{fig:theory:pressure-error}
 \end{figure}
 

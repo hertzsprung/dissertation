@@ -1,0 +1,25 @@
+\documentclass[tikz]{standalone}
+\usepackage{bm}
+\input{mathmacros}
+\input{dissertationmacros}
+\begin{document}
+\begin{tikzpicture}[
+  scale=0.5,
+  cpnt/.style={fill=gray},
+  arr/.style={thick, ->},
+]
+%\draw[gray, help lines] (0,0) grid (10,20);
+\draw (0,0) -- (8,8) node[at end, anchor=south west] {$\trans{z}_{k-1}$};
+\draw (0,8) -- (8,16) node[at end, anchor=south west] {$\trans{z}_k$};
+\draw [dashed] (1,1) -- (1,9);
+\draw [dashed] (7,7) -- (7,15);
+\draw [dashed] (1,9) -- (7,9);
+\path [cpnt] (1,1)  circle [radius=0.2] node[left] {$p_{i,k-1}$};
+\path [cpnt] (1,9)  circle [radius=0.2] node[left] {$p_{i,k}$};
+\path [cpnt] (7,7)  circle [radius=0.2] node[anchor=north west] {$p_{i+1,k-1}$};
+\path [cpnt] (7,15) circle [radius=0.2] node[anchor=south east] {$p_{i+1,k}$};
+\path [cpnt] (7,9) circle [radius=0.2] node[anchor=south east] {$p_{i+1,k-\Delta z}$};
+\draw [<->] (1,8.6) -- (7,8.6) node[midway,below] {$\Delta x$};
+\draw [<->] (7.4,9) -- (7.4,15) node[midway,right] {$\Delta z$};
+\end{tikzpicture}
+\end{document}
