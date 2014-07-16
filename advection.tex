@@ -60,7 +60,7 @@ The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve 
 \begin{align}
 	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) - \laplace \left( \diffusioncoeff \varphi \right) = 0 \label{eq:advection:continuous}
 \end{align}
-where $\vect{u}$ is the vector wind field.  Diffusion was turned off by setting the diffusion coefficient $\diffusioncoeff$ to be zero.
+Diffusion was turned off by setting the diffusion coefficient $\diffusioncoeff$ to be zero.
 
 The time derivative ($\partial \varphi / \partial t$) is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}
 \begin{align}

@@ -109,7 +109,7 @@ The cut cell method intersects the surface with a regular cartesian grid.  This 
 \section{Finite volume method}
 \label{sec:theory:fv}
 
-The finite volume method is a discretisation technique that represents the spatial domain as a grid of cells.  A volumetric scalar field $\varphi$ is then discretised by modelling the average value in each cell located at its centre.  At each timestep, cell averages are updated by considering the flux $\vect{F}$ across the faces of the cell surface.  In atmospheric modelling, $\vect{F}$ is typically the advective flux $\vect{u} \varphi$ where $\vect{u}$ is the wind field.
+The finite volume method is a discretisation technique that represents the spatial domain as a grid of cells.  A volumetric scalar field $\varphi$ is then discretised by modelling the average value in each cell located at its centre.  At each timestep, cell averages are updated by considering the flux $\vect{F}$ across the faces of the cell surface.  In atmospheric modelling, $\vect{F}$ is typically the advective flux $\vect{u} \varphi$ where $\vect{u}$ is the velocity field.
 
 The notation used in this project for the representation discrete variables follows \textcite{weller-shahrokhi2014}.  A cell average of $\varphi$ is written as $\varphi_c$, where $c$ denotes a cell.  A volumetric vector field $\psi$ located at a face is written as $\psi_f$, where $f$ denotes a cell face.  An interpolation of cell centre averages of $\varphi$ onto a face $f$ is written as $\varphi_F$.  $f \in \: c$ represents the faces of a cell.
 
@@ -130,6 +130,8 @@ To develop the finite volume method, we start by considering the conservation of
 	\frac{\partial \varphi_c}{\partial t} + \frac{1}{V_c} \sum_{f \in \: c} \varphi_F \vect{u}_f \cdot \nunit S_f &= 0
 \end{align}
 where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.  This interpolation of cell averages onto faces is a significant source of truncation error in finite volume systems \autocite{adcroft1997}.
+
+The finite volume method leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
 
 \TODO{\textbf{CFL criterion}.  relevant to understand timestep constraints on small cells}
 

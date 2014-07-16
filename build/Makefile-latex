@@ -11,7 +11,9 @@ COMPONENTS := \
   resting.tex \
   gravityWaves.tex \
   mathmacros.tex \
-  dissertationmacros.tex
+  dissertationmacros.tex \
+  geometry.tex \
+  variable-placement.tex
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \

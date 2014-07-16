@@ -1,6 +1,7 @@
 \providecommand\classopts{}
 \providecommand\geometryopts{}
 \documentclass[a4paper,twoside\classopts]{memoir}
+\usepackage{standalone}
 \usepackage[utf8]{inputenc}
 \usepackage[pass\geometryopts]{geometry}
 \usepackage[british]{babel}
@@ -30,9 +31,10 @@
 \usepackage{minted}
 \usepackage{booktabs}
 \usepackage[hidelinks,pdfpagelayout=TwoPageRight]{hyperref}
-\usepackage[final]{graphicx}
 \usepackage{blindtext}
 \usepackage{xcolor}
+\PassOptionsToPackage{final}{graphicx}
+\usepackage{tikz}
 
 \addbibresource{journals.bib}
 \addbibresource{dissertation.bib}

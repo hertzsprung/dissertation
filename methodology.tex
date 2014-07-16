@@ -4,14 +4,18 @@
 \TODO{say something about how OpenFOAM always operates in 3D}
 
 \section{Grid construction}
+\label{sec:method:grid}
+
 Two dimensional, regular cartesian grids were created using the OpenFOAM utility, \shellcmd{blockMesh}.  A custom utility was used to modify these orthogonal grids by adjusting the height of points to create terrain following grids.
 
-At the time of writing, OpenFOAM does not directly support cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  \TODO{describe how add2dMountain moves points up to the surface so that we retain small cells}.  A description of the surface is taken from any of the terrain following grids and the tool is used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.  The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.  This grid is referred to as the `SnapCol' grid throughout this project.
+At the time of writing, OpenFOAM does not directly support cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  First, a custom utility was used to move points beneath the surface up to the surface creating small cells near mountain peaks.  Second, a description of the surface was taken from any of the terrain following grids and \shellcmd{snappyHexMesh} was used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.
+
+The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.  This grid is referred to as the `SnapCol' grid throughout this project.
 
 \begin{figure}
 	\centerfloat
 	\includegraphics[height=2.8in,angle=270]{mesh-snapCol-schaerExp-resting.eps}
-	\caption{\TODO{cut cell grid}}
+	\caption{A `SnapCol' grid created by intersecting the terrain surface with a regular grid as described in section~\ref{sec:method:grid}.  Note that, unlike a true cut cell grid, some small cells have faces at $z = \SI{500}{\meter}$ that are not entirely horizontal.}
 	\label{fig:method:cut-cell}
 \end{figure}
 
@@ -19,11 +23,33 @@ At the time of writing, OpenFOAM does not directly support cut cell grids\footno
 \label{sec:method:discretisation}
 The fully-compressible Euler equations used in the resting atmosphere test (section~\ref{sec:resting}) and gravity waves test (section~\ref{sec:gw}) are specified as
 \begin{align}
-TODO
+& \text{Momentum} & \frac{\partial \rho \vect{u}}{\partial t} + \del \cdot \rho \vect{u} \vect{u} &= \rho \vect{g} - c_p \rho \theta \del \exner \\
+%
+& \text{Continuity} & \frac{\partial \rho}{\partial t} + \del \cdot \rho \vect{u} &= 0 \\
+%
+& \text{Potential temperature (flux form)} & \frac{\partial \rho \theta}{\partial t} + \del \cdot \rho \vect{u} \theta &= 0 \\
+%
+& \text{Potential temperature (advective form)} & \frac{\partial \theta}{\partial t} + \vect{u} \cdot \del \theta &= 0 \\
+%
+& \text{Equation of state} & \exner^{(1 - \kappa / \kappa)} &= \frac{R \rho \theta}{p_0}
 \end{align}
-where \TODO{define variables}.
+where $\rho$ is the density, $\vect{u}$ is the velocity field, $\vect{g}$ is gravitational acceleration, $c_p$ is the heat capacity of dry air at constant pressure, $\theta$ is the potential temperature, $\exner = \left( p / p_0 \right)^\kappa$ is the Exner function of pressure, $p$ is the pressure, $p_0$ is a reference pressure, $\kappa = R/c_p$, and $R$ is the specific gas constant of dry air.
 
-The equation set is discretised following \textcite{weller-shahrokhi2014}.  \TODO{describe the important bits!}
+Here, we outline the placement of prognostic variables, pressure gradient discretisation, and the advection scheme.  Further details of the discretisation are given by \textcite{weller-shahrokhi2014}.
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{Vertical cross section of geometry}[0.48\textwidth]{\input{geometry}}
+	\hfill
+	\subcaptionbox{Placement of prognostic variables}[0.48\textwidth]{\input{variable-placement}}
+	\caption{Geometric placement of prognostic variables in two dimensions.  Adapted from \textcite{weller-shahrokhi2014}.}
+	\label{fig:method:placement}
+\end{figure}
+
+\TODO{pressure gradient}
+
+\TODO{cubic upwind advection scheme}
 
 \section{Energy measures}
 \label{sec:method:energy}
@@ -44,7 +70,7 @@ First, kinetic energy $E_K$ is calculated as \TODOcite
 %
 	E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x_c} \diff{V}
 %
-	\intertext{where $g$ is the gravitational acceleration, and $\vect{x}_c$ is the position vector of the centre of cell $c$.  Third, the internal energy $E_I$ is \TODOcite}
+	\intertext{where $\vect{x}_c$ is the position vector of the centre of cell $c$.  Third, the internal energy $E_I$ is \TODOcite}
 %
 	E_I(t) &= \int_V \rho \theta \Pi c_v \diff{V}
 \end{align}
