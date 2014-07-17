@@ -7,7 +7,7 @@ Over flat ground the grid is entirely regular, but in the presence of sloping te
 
 \section{Terrain following layers}
 
-Terrain following (TF) layers are in widespread use in operational models and are usually implemented on a rectangular computational grid, using terrain following vertical coordinates instead of height.  In this system, the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.
+Terrain following (TF) layers are in widespread use in operational models and are usually implemented on a rectangular computational grid, using terrain following vertical coordinates instead of cartesian coordinates.  In this system, the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.
 
 A variety of vertical coordinates can be used in TF models.  The equations of motion with the hydrostatic approximation are simplified by using pressure coordinates \autocite{eliassen1949}.  However, because pressure varies in the horizontal, the lower boundary condition becomes complicated because surfaces of constant pressure intersect the terrain.  This motivated \textcite{phillips1957} to create the sigma coordinate in which pressure is normalised such that $\sigma$ ranges between zero at the top of the domain, and one at the surface.
 Most hydrostatic models use normalised pressure coordinates.  With some exceptions, such as \textcite{xue-thorpe1991}, nonhydrostatic models use height-based coordinates \autocite{steppeler2003}.
