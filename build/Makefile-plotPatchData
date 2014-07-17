@@ -1,0 +1,22 @@
+# $(1) -- case
+# $(2) -- tag
+# $(3) -- gmtDict
+# $(4) -- time
+define PLOT_PATCH_DATA_TEMPLATE
+
+  $(eval $(call CASE_TEMPLATE,$(1)))
+  $(eval $(call DUMMY_SYSTEM_FILES_TEMPLATE,$(1)))
+
+  $(1)/$(4)/$(3).eps: \
+    $(addprefix $(1)/,$(SYSTEM_FILES)) \
+    $(1)/$(GMT_DICTS)/$(3)
+	$(PLOT_PATCH_DATA) -case $(1) -time $(4) $(3) > $(2).plotPatchData.$(3).log
+
+  $(1)/$(GMT_DICTS)/$(3): $(COMMON_CASE)/$(GMT_DICTS)/$(3) | $(1)/$(GMT_DICTS)
+	$(LN) -fs $$< $$@
+
+endef
+
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-btf-schaerExp-h,data-gravityWaves-btf-schaerExp-h,w,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-sleve-schaerExp-h,data-gravityWaves-sleve-schaerExp-h,w,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,data-gravityWaves-snapCol-schaerExp-h,w,18000))

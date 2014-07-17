@@ -122,8 +122,10 @@ polyMesh
 **/resting
 **/gravityWaves
 **/advection/**/gmtDicts
+data/**
 decomposeParDict
 l2error.txt
+muSponge
 
 # PyFoam
 PyFoamHistory
