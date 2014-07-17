@@ -17,6 +17,7 @@ include build/Makefile-advection
 include build/Makefile-resting
 include build/Makefile-gravityWaves-diagnostics
 include build/Makefile-gravityWaves
+include build/Makefile-plotPatchData
 include build/Makefile-gnuplot
 include build/Makefile-latex
 

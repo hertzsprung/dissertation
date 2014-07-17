@@ -43,6 +43,20 @@ define CASE_TEMPLATE
 endef
 
 # $(1) -- case path
+define DUMMY_SYSTEM_FILES_TEMPLATE
+
+  $(1)/$(CONTROL_DICT):
+	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $$@
+
+  $(1)/$(FV_SCHEMES):
+	$(LN) -fs $(COMMON_CASE)/system/fvSchemesDummy $$@
+
+  $(1)/$(FV_SOLUTION):
+	$(LN) -fs $(COMMON_CASE)/system/fvSolutionDummy $$@
+
+endef
+
+# $(1) -- case path
 # $(2) -- label (e.g. gravityWaves)
 # $(3) -- endTime
 # $(4) -- timestep

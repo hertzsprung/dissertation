@@ -21,6 +21,7 @@ endif
 define MESH_TEMPLATE
 
   $(eval $(call CASE_TEMPLATE,$(1)))
+  $(eval $(call DUMMY_SYSTEM_FILES_TEMPLATE,$(1)))
 
   .PHONY: $(2) clean-$(2) check-$(2)
 
@@ -41,14 +42,5 @@ define MESH_TEMPLATE
 
   $(1)/$(POLY_MESH_DIR):
 	$(MKDIR) -p $$@
-
-  $(1)/$(CONTROL_DICT):
-	$(LN) -fs $(COMMON_CASE)/system/controlDictDummy $$@
-
-  $(1)/$(FV_SCHEMES):
-	$(LN) -fs $(COMMON_CASE)/system/fvSchemesDummy $$@
-
-  $(1)/$(FV_SOLUTION):
-	$(LN) -fs $(COMMON_CASE)/system/fvSolutionDummy $$@
 
 endef
