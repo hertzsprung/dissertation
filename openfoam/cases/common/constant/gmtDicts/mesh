@@ -20,4 +20,4 @@ FieldsToPlot (
 );
 
 region "-10e3/10e3/0/2e3";
-boundaryMarks "5000/1000";
+boundaryMarks "5000/1000WS";
