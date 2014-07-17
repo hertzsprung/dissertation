@@ -1,11 +1,16 @@
 # $(1) -- case
+define PLOT_PATCH_DATA_CASE_TEMPLATE
+
+  $(eval $(call CASE_TEMPLATE,$(1)))
+  $(eval $(call DUMMY_SYSTEM_FILES_TEMPLATE,$(1)))
+
+endef
+
+# $(1) -- case
 # $(2) -- tag
 # $(3) -- gmtDict
 # $(4) -- time
 define PLOT_PATCH_DATA_TEMPLATE
-
-  $(eval $(call CASE_TEMPLATE,$(1)))
-  $(eval $(call DUMMY_SYSTEM_FILES_TEMPLATE,$(1)))
 
   $(1)/$(4)/$(3).eps: \
     $(addprefix $(1)/,$(SYSTEM_FILES)) \
@@ -17,6 +22,32 @@ define PLOT_PATCH_DATA_TEMPLATE
 
 endef
 
+# $(1) -- case
+# $(2) -- tag
+# $(3) -- gmtDict
+# $(4) -- time
+# $(5) -- original field (e.g. theta)
+# $(6) -- diffed field (e.g. thetaDiff)
+define PLOT_DIFF_TEMPLATE
+
+  $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),$(3),$(4)))
+
+  $(1)/$(4)/$(3).eps: $(1)/$(4)/$(6)
+
+  $(1)/$(4)/$(6):
+	$(SUM_FIELDS) -case $(1) $(4) $(6) $(4) $(5) 0 $(5) -scale0 1 -scale1 -1 > $(2).sumFields.$(6).log
+
+endef
+
+$(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-btf-schaerExp-h))
+$(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-sleve-schaerExp-h))
+$(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h))
+
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-btf-schaerExp-h,data-gravityWaves-btf-schaerExp-h,w,18000))
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-sleve-schaerExp-h,data-gravityWaves-sleve-schaerExp-h,w,18000))
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,data-gravityWaves-snapCol-schaerExp-h,w,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-btf-schaerExp-h,data-gravityWaves-btf-schaerExp-h,UfZoom,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-sleve-schaerExp-h,data-gravityWaves-sleve-schaerExp-h,UfZoom,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,data-gravityWaves-snapCol-schaerExp-h,UfZoom,18000))
+$(eval $(call PLOT_DIFF_TEMPLATE,data/gravityWaves-sleve-schaerExp-h,data-gravityWaves-sleve-schaerExp-h,thetaDiff,18000,theta,thetaDiff))
+$(eval $(call PLOT_DIFF_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,data-gravityWaves-snapCol-schaerExp-h,thetaDiff,18000,theta,thetaDiff))
