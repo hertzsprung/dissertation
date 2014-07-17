@@ -15,16 +15,16 @@ Hence the vertical derivative of $\varphi$ can be found by using the chain rule 
 
 The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix \textcite{kaplan?}
 \begin{align}
-\frac{\partial y_i}{\partial x_j} = 
+\frac{\partial y_i}{\partial x_k} = 
 \begin{bmatrix}
   \dfrac{\partial y_1}{\partial x_1}	& \dfrac{\partial y_1}{\partial x_2} &	\cdots &	\dfrac{\partial y_1}{\partial x_n} \\
   \vdots				& \vdots &				\ddots &	\vdots \\
   \dfrac{\partial y_m}{\partial x_1}	& \dfrac{\partial y_m}{\partial x_2} &	\cdots &	\dfrac{\partial y_m}{\partial x_n}
 \end{bmatrix}
 %
-\intertext{and similarly for $\partial y_i / \partial u_i$ and $\partial u_i / \partial x_j$, \TODO{check these subscripts in Kaplan!} then we can express the chain rule as}
+\intertext{and similarly for $\partial y_i / \partial u_j$ and $\partial u_j / \partial x_k$ then we can express the chain rule as}
 %
-\frac{\partial y_i}{\partial x_j} = \frac{\partial y_i}{\partial u_i} \frac{\partial u_i}{\partial x_j}
+\frac{\partial y_i}{\partial x_k} = \frac{\partial y_i}{\partial u_j} \frac{\partial u_j}{\partial x_k}
 %
 \intertext{Applying this to $\varphi$ we find}
 %
