@@ -18,8 +18,8 @@ projection2D XZ;
 FieldsToPlot (
     [T filledContours 0 1 0.1 "$GMTU/colours/red_white_blue.cpt"]
     [none mesh ",100"]
-    [U vectors 500 2 "white"]
+    [U vectors 100 1 "white"]
 );
 
-region "-75e3/75e3/0/15e3";
+region "-25e3/25e3/0/15e3";
 boundaryMarks "25e3/5e3SWne";
