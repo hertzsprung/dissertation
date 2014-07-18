@@ -28,20 +28,32 @@ No slip conditions are imposed on the top and bottom boundaries and the outlet i
 
 \subsection{Results}
 
+Comparing vertical velocity contours between BTF and SLEVE show few visible differences (figures~\ref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve}).  Since the same model was used, these results match those from \textcite{weller-shahrokhi2014}.  Vertical velocities on the SnapCol grid are similar to the terrain following results (figure~\ref{fig:gw:w:snapCol}).  All three results are in agreement with a semi-implicit, semi-Lagrangian simulation from \textcite{melvin2010} (see figure~\ref{fig:gw:w:melvin}).
+
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/w.eps}}
+	\subcaptionbox{BTF \label{fig:gw:w:btf}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/w.eps}}
 	\hfill
-	\subcaptionbox{Mass-conserving semi-implicit semi-Lagrangian solution from \textcite{melvin2010}.}[0.48\textwidth]{\includegraphics[height=2in]{img/melvin-7a.png}} \\
-	\subcaptionbox{SLEVE}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}}
+	\subcaptionbox{Mass-conserving semi-implicit semi-Lagrangian solution from \textcite{melvin2010} \label{fig:gw:w:melvin}}[0.48\textwidth]{\includegraphics[height=2in]{img/melvin-7a.png}} \\
+	\subcaptionbox{SLEVE \label{fig:gw:w:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}}
 	\hfill
 	\subcaptionbox{SLEVE}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}} \\
-	\subcaptionbox{SnapCol}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/w.eps}}
+	\subcaptionbox{SnapCol \label{fig:gw:w:snapCol}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/w.eps}}
 	\hfill
-	\subcaptionbox{SnapCol}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps}}
+	\subcaptionbox{SnapCol}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \TODO{include legend}}
 	\caption{\TODO{w contours, every \SI{5e-2}{\meter\per\second}.  Compared with fig 7a from \textcite{melvin2010}.}}
 	\label{fig:gw:w}
+\end{figure}
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{SLEVE}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
+	\subcaptionbox{SLEVE}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SnapCol}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}}
+	\caption{\TODO{SLEVE and SnapCol flows}}
+	\label{fig:gw:flow}
 \end{figure}
 
 \TODO{compare with Melvin 2010?}
@@ -62,18 +74,6 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 	\item halving $\Delta z$ also causes BTF mixing but less severe, also three rows of mixing in SnapCol (not shown)
 	\item the results for dp/dx show mixing in BTF, and increased mixing in SnapCol (not shown)
 \end{itemize}
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFSnapColVelocityVectors.png}
-	\caption{UfDiff after t=18000s, BTF and SnapCol meshes}
-	\label{fig:gw:ufdiff}
-\end{figure}
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFSnapColTheta.png}
-	\caption{$\theta$ after t=18000s, BTF and SnapCol meshes}
-	\label{fig:gw:theta}
-\end{figure}
 
 \begin{figure}
 	BTF

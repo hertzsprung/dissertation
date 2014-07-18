@@ -12,19 +12,15 @@ FoamFile
     object          gmtDict;
 }
 
-// How to plot
-// Compulsory inputs
-projection "X40c/9c";
+projection "X20c/6c";
 projection2D XZ;
+separateLegend true;
 
 FieldsToPlot (
-//    [ExnerDiff rawValues -0.0003 0.00001 0.00005 "$GMTU/colours/red_white_blue.cpt"]
-    [thetaDiff rawValues -0.1 0.1 0.01 "$GMTU/colours/red_white_blue.cpt"]
-    [Uf vectors 50 1 "green"]
-    [nonlinearMomentum vectors 8000 1 "red"]
-    [none mesh "gray"]
+    [thetaDiff rawValues -0.5 0.5 0.01 "$GMTU/colours/red_white_blue.cpt"]
+    [none mesh ",100"]
+    [nonlinearMomentum vectors 8000 1 "black"]
 );
-annotate "minMax 0.01 -0.005";
 
-region "-10e3/40e3/0/1e3";
-boundaryMarks "20000/100";
+region "-5e3/20e3/0/1.2e3";
+boundaryMarks "5e3/300SWne";

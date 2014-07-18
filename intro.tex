@@ -47,7 +47,7 @@ Despite their associated numerical errors, TF coordinates are attractive because
 	\centering
 	\subcaptionbox{Full-step \label{fig:intro:shaved:full}}[0.32\textwidth]{\input{full-step-plot}}
 	\subcaptionbox{Partial-step \label{fig:intro:shaved:partial}}[0.32\textwidth]{\input{partial-step-plot}}
-	\subcaptionbox{Piecewise linear \label{fig:intro:shaved:piecewise-linear}}[0.32\textwidth]{\input{cut-cell-plot}}
+	\subcaptionbox{Piecewise linear.  Grid boxes marked with asterisk ($\ast$) denote small cells. \label{fig:intro:shaved:piecewise-linear}}[0.32\textwidth]{\input{cut-cell-plot}}
 	\caption{Vertical cross sections illustrating different methods of shaving cells intersecting with a hypothetical surface (heavy line).  Adapted from \textcite{adcroft1997}.}
 	\label{fig:intro:shaved}
 \end{figure}
@@ -56,13 +56,16 @@ Despite their associated numerical errors, TF coordinates are attractive because
 
 \textcite{adcroft1997} proposed a partial-step system for modelling the ocean surface in which the cell height is adjusted so that cell volume is accurately represented (figure~\ref{fig:intro:shaved:partial}).  Compared to the full-step approach of \textcite{mesinger1988}, spurious oscillations were significantly reduced advecting a tracer over topography.
 
-The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{also, vertical resolution varies at mountain top, leads to only 1st order accuracy for 2nd order schemes... need to find citation}
+The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  
+This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape \autocite{rosatti2005}.  Figure~\ref{fig:intro:shaved:piecewise-linear} shows an example of this method.  In some grid boxes, small cells, marked with an asterisk ($\ast$), are created by intersection with the surface.
+The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{also, vertical resolution varies at mountain top, leads to only 1st order accuracy for 2nd order schemes... need to find citation}
 
 A variety of solutions to the `small cell problem' have been proposed.  In \textcite{yamazaki-satomura2010}, small cells are combined with horizontally or vertically adjacent cells.  \textcite{steppeler2002} use a `thin-wall' approximation to increase the computational volume of small cells without altering the terrain.  Conceptually, each cell partially or completely below the mountain is filled with air and surrounded by a thin wall.  Where a cell is cut by the terrain, the computational volume is equal to that of an uncut cell.  \textcite{jebens2011} avoid the timestep restriction associated with explicit schemes by using an implicit method for cut cells and a semi-explicit method elsewhere.
 
-Several studies found that cut cells produce more accurate results when compared to TF coordinates.  Spurious winds seen in TF coordinates are not present and errors do not increase with steeper terrain \autocite{good2013}.  Cut cells have been found to be more accurate with steep terrain in several experiments \parencites{good2013}{yamazaki-satomura2010}.  A comparison of TF and cut-cells using real initial data by \textcite{steppeler2006} found that precipitation patterns, temperature and wind fields were forecast more accurately in the cut-cell model, and the weak lee slope winds found by \textcite{gallus-klemp2000} in the step-mountain coordinate model were not present.  
+Several studies found that cut cells produce more accurate results when compared to TF coordinates.  Spurious winds seen in TF coordinates are not present and errors do not increase with steeper terrain \autocite{good2013}.  A comparison of TF and cut-cells using real initial data by \textcite{steppeler2006} found that precipitation patterns, temperature and wind fields were forecast more accurately in the cut-cell model, and the weak lee slope winds found by \textcite{gallus-klemp2000} in the step-mountain coordinate model were not present.  
 \TODOsidenote{look at Fast 2003 and refs therein for more cut-cell goodness}
 
+\TODO{this para doesn't belong under the heading of cut cells}
 Other representations of terrain have been developed using unstructured grids \parencites{ss2011}{others}.  They are able to represent the boundary accurately but, because they require a more complex data representation compared to structured grids, they can be difficult to partition for parallel computation \autocite{steppeler2003}.  More complex discretisations are required to maintain accuracy because the mesh is not aligned with the dominant vertical force of gravity \autocite{rosatti2005}, just as horizontal pressure gradients are difficult to calculate in TF coordinates.
 
 \TODO{Worth talking about nested grids?  e.g. Almgren 1998}

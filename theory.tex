@@ -5,7 +5,7 @@
 
 Consider the two-dimensional cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
-A scalar field $\varphi$ can be expressed in transformedcoordinates as $\varphi(x, \trans{z})$ or in cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
+A scalar field, $\varphi$, can be expressed in transformed coordinates as $\varphi(x, \trans{z})$ or in cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
 Hence the vertical derivative of $\varphi$ can be found by using the chain rule \autocite{mit2004}
 \begin{align}
   \frac{\partial \varphi}{\partial z} =
@@ -106,10 +106,6 @@ where $s_1$ and $s_2$ are the scale heights of large-scale and small-scale terra
 \end{align}
 where the optimal exponent value was found to be $n = 1.35$.
 
-\subsection{Cut cell}
-\TODO{as set out by rosatti 2005, klein 2009 etc}
-
-The cut cell method intersects the surface with a regular cartesian grid.  This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape \autocite{rosatti2005}.
 
 \section{Finite volume method}
 \label{sec:theory:fv}

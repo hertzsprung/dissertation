@@ -1,7 +1,11 @@
 load "step.plt"
 
 set parametric
-plot '-' using 1:2 with filledcurves fs pattern 2 notitle lt -1, \
+set label "$\\ast$" at 1.5,0.5 center front
+set label "$\\ast$" at 2.5,0.5 center front
+set label "$\\ast$" at 3.5,1.5 center front
+
+plot '-' using 1:2 with filledcurves fillcolor rgbcolor '#999999' notitle, \
      'shave-curve.dat' using 1:2 smooth csplines notitle lt -1 lw 2
 0 0.2
 0.88 1
@@ -63,5 +67,5 @@ plot '-' using 1:2 with filledcurves fs pattern 2 notitle lt -1, \
 3 1
 3 0
 
-
 e
+

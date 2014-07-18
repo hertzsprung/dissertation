@@ -41,7 +41,10 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-sleve-schaerExp-h/18000/w.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/w.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps \
-  data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps
+  data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps \
+  data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps \
+  data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps \
+  data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 STATISTICS_FILES := \
   advection/btf/schaerCos/vanLeer/$(L2_ERROR_STAT) \
