@@ -1,0 +1,17 @@
+FoamFile {
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+endTime         10000; // nearly 3 hours
+deltaT          25;
+writeControl    runTime;
+writeInterval   1000; // about 15 minutes
+libs            ("libfiniteVolumeUser.so");
+
