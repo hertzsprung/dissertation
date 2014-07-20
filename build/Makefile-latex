@@ -23,10 +23,9 @@ GNUPLOT_OUTPUTS := \
   cut-cell-plot.tex \
   advection-initial-plot.tex \
   advection-noOrography-analytic-contour-plot.tex \
-  advection-btf-schaerCos-vanLeer-contour-plot.tex \
-  advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit-contour-plot.tex \
-  advection-sleve-schaerCos-vanLeer-contour-plot.tex \
-  advection-snapCol-schaerCos-vanLeer-contour-plot.tex \
+  advection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
+  advection-sleve-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
+  advection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
   resting-w-plot.tex \
   resting-energy-total-tf-plot.tex \
   resting-energy-total-snapCol-plot.tex \
@@ -47,9 +46,10 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 STATISTICS_FILES := \
-  advection/btf/schaerCos/vanLeer/$(L2_ERROR_STAT) \
-  advection/sleve/schaerCos/vanLeer/$(L2_ERROR_STAT) \
-  advection/snapCol/schaerCos/vanLeer/$(L2_ERROR_STAT)
+  advection/noOrography/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  advection/btf/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  advection/sleve/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  advection/snapCol/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT)
 STATISTICS := $(addprefix openfoam/cases/,$(STATISTICS_FILES))
 BIBLIOGRAPHIES := dissertation.bib journals.bib
 
