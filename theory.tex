@@ -10,7 +10,7 @@ Hence the vertical derivative of $\varphi$ can be found by using the chain rule 
 \begin{align}
   \frac{\partial \varphi}{\partial z} =
   \frac{\partial \varphi}{\partial \trans{z}}
-  \frac{\partial \trans{z}}{\partial z}
+  \frac{\partial \trans{z}}{\partial z} \label{eqn:theory:grad-transform}
 \end{align}
 
 The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix \textcite{kaplan?}
@@ -47,7 +47,7 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 	\frac{\partial \varphi}{\partial \trans{z}}
 	\left. \frac{\partial \trans{z}}{\partial x} \right|_z \label{eq:theory:coord-trans}
 \end{align}
-where the subscript by the vertical bar denotes the variable that is held constant.  \TODOsidenote{This came from \href{http://ocw.mit.edu/courses/earth-atmospheric-and-planetary-sciences/12-950-atmospheric-and-oceanic-modeling-spring-2004/lecture-notes/lec25.pdf}{MIT lecture notes} -- I'm not sure if I need to cite them or what.}
+where the subscript by the vertical bar denotes the variable that is held constant.
 
 In a two-dimensional terrain-following coordinate transform, there is the added requirement that the transformed domain be rectangular.  This can be satisfied by imposing boundary conditions \autocite{schaer2002}
 \begin{align}
@@ -56,6 +56,16 @@ In a two-dimensional terrain-following coordinate transform, there is the added 
 where $H$ is the height of the domain and $h(x)$ is the height of the terrain surface.
 
 \section{Horizontal pressure gradient}
+
+It follows from equation~\ref{eq:theory:coord-trans} that, in TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
+\begin{align}
+	\left. \frac{\partial p}{\partial x} \right|_z = 
+	\left. \frac{\partial p}{\partial x} \right|_\trans{z} + 
+	\left. \frac{\partial \trans{z}}{\partial x} \right|_z
+	\frac{\partial p}{\partial \trans{z}} \label{eqn:theory:pressure-transform}
+\end{align}
+The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and a discretisation must be at least first order accurate so that the difference between the hydrostatic components of the two terms converges to zero \autocite{gary1973}.
+
 \begin{figure}
 	\centering
 	\input{pressure-grad}
@@ -63,14 +73,29 @@ where $H$ is the height of the domain and $h(x)$ is the height of the terrain su
 	\label{fig:theory:pressure-error}
 \end{figure}
 
-It follows from equation~\ref{eq:theory:coord-trans} that, in TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
+A first-order forward difference approximation of a horizontal pressure gradient is shown in figure~\ref{fig:theory:pressure-error} where
 \begin{align}
-	\left. \frac{\partial p}{\partial x} \right|_z = 
-	\left. \frac{\partial p}{\partial x} \right|_\trans{z} + 
-	\left. \frac{\partial \trans{z}}{\partial x} \right|_z
-	\frac{\partial p}{\partial \trans{z}}
+	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,k-\Delta z} - p_{i,k}}{\Delta x} + \mathcal{O}(\Delta x^2) \label{eqn:theory:p-grad}
+%
+	\intertext{where, in terrain following coordinates, the first term $p_{i+1,k-\Delta z}$ can be approximated by}
+%
+	p_{i+1,k-\Delta z} &= p_{i+1,j} - \left. \frac{\partial p}{\partial z} \right|_{i+1,j} \Delta z \label{eqn:theory:p-point} + \mathcal{O}(\Delta x^2)
+%
+	\intertext{Substituting equation~\ref{eqn:theory:p-point} into equation~\ref{eqn:theory:p-grad} we find}
+%
+	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,j} - p_{i,j}}{\Delta x} - \left. \frac{\Delta z}{\Delta x} \frac{\partial p}{\partial z} \right|_{i+1,j} \\
+	&= \frac{p_{i+1,j} - p_{i,j}}{\Delta x} + \frac{\Delta z}{\Delta x} \frac{p_{i+1,j} - p_{i+1,j-1}}{z_j - z_{j-1}}
+%
+	\intertext{which, using equation~\ref{eqn:theory:grad-transform} to substitute $\trans{z}$ for $z$ becomes \textcite{mahrer1984}}
+%
+	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,j} - p_{i,j}}{\Delta x} + \frac{\partial \trans{z}}{\partial x} \frac{p_{i+1,j} - p_{i+1,j-1}}{\Delta \trans{z}}
 \end{align}
-The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and a discretisation must be at least first order accurate so that the difference between the hydrostatic components of the two terms converges to zero \autocite{gary1973}.  Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
+which has the same form as equation~\ref{eqn:theory:pressure-transform}.
+\TODOsidenote{TODO: how did the - become a +?}
+
+Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
+
+\TODO{discuss how to calculate discretise pressure gradient calc with metric terms, refer to figure}
 
 \section{Grids}
 \subsection{Basic terrain following (BTF)}
@@ -135,6 +160,4 @@ where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated
 The finite volume method leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
 
 \TODO{\textbf{CFL criterion}.  relevant to understand timestep constraints on small cells}
-
-\TODO{\textbf{TVD}}
 
