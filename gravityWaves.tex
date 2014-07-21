@@ -2,6 +2,7 @@
 \label{sec:gw}
 
 \TODO{introduce the test, justify its purpose}
+\TODO{it might be nice to have some theory on gravity waves (e.g. how theta/w anomalies are created and their positions in space), then compare model results with theory}
 
 \subsection{Specification}
 Following \textcite{melvin2010}, the domain is \SI{300}{\kilo\meter} wide and \SI{30}{\kilo\meter} high.  The mountain profile has the same form as equation~\ref{eqn:resting:mountain} but with a lower maximum height of $\surface_0 = \SI{250}{\meter}$.  As in the resting atmosphere test, $a = \SI{5}{\kilo\meter}$ is the mountain half-width and $\lambda = \SI{4}{\kilo\meter}$ is the wavelength.  On the optimised SLEVE grid, $s_1 = \SI{5}{\kilo\meter}$ is the large scale height, $s_2 = \SI{2}{\kilo\meter}$ is the small scale height and the optimal exponent value $n = 1.35$ as in the previous test\TODOsidenote{where did these SLEVE parameters come from?}.
@@ -28,7 +29,6 @@ No slip conditions are imposed on the top and bottom boundaries and the outlet i
 
 \subsection{Results}
 
-Comparing vertical velocity contours between BTF and SLEVE show few visible differences (figures~\ref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve}).  Since the same model was used, these results match those from \textcite{weller-shahrokhi2014}.  Vertical velocities on the SnapCol grid are similar to the terrain following results (figure~\ref{fig:gw:w:snapCol}).  All three results are in agreement with a semi-implicit, semi-Lagrangian simulation from \textcite{melvin2010} (see figure~\ref{fig:gw:w:melvin}).
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -38,35 +38,43 @@ Comparing vertical velocity contours between BTF and SLEVE show few visible diff
 	\subcaptionbox{Mass-conserving semi-implicit semi-Lagrangian solution from \textcite{melvin2010} \label{fig:gw:w:melvin}}[0.48\textwidth]{\includegraphics[height=2in]{img/melvin-7a.png}} \\
 	\subcaptionbox{SLEVE \label{fig:gw:w:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}}
 	\hfill
-	\subcaptionbox{SLEVE}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}} \\
+	\subcaptionbox{SLEVE \label{fig:gw:thetaDiff:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}} \\
 	\subcaptionbox{SnapCol \label{fig:gw:w:snapCol}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/w.eps}}
 	\hfill
-	\subcaptionbox{SnapCol}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \TODO{include legend}}
-	\caption{\TODO{w contours, every \SI{5e-2}{\meter\per\second}.  Compared with fig 7a from \textcite{melvin2010}.}}
+	\subcaptionbox{SnapCol \label{fig:gw:thetaDiff:snapCol}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \TODO{include legend}}
+	\caption{\TODO{w contours, every \SI{5e-2}{\meter\per\second}.  $t = \SI{18000}{\second}$ Compared with fig 7a from \textcite{melvin2010}.}}
 	\label{fig:gw:w}
 \end{figure}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
+	\subcaptionbox{SLEVE \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SnapCol \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}}
+	\caption{\TODO{Theta anomalies (zoomed in).  I've superimposed nonlinear momentum vectors but I'm not sure how/if I can discuss them.}}
+	\label{fig:gw:thetaDiffZoom}
+\end{figure}
+
+Comparing vertical velocity contours between BTF and SLEVE show few visible differences (figures~\ref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve}).  Since the same model was used, these results match those from \textcite{weller-shahrokhi2014}.  Vertical velocities on the SnapCol grid are similar to the terrain following results (figure~\ref{fig:gw:w:snapCol}).  All three results are in agreement with a semi-implicit, semi-Lagrangian simulation from \textcite{melvin2010} (see figure~\ref{fig:gw:w:melvin}).
+
+Theta anomalies are similar on all grids, having a similar shape to vertical velocity contours, but phase shifted by \ang{180} (SLEVE grid figure~\ref{fig:gw:thetaDiff:sleve}, SnapCol grid figure~\ref{fig:gw:thetaDiff:snapCol}, BTF grid not shown). 
+Examining more closely the potential temperature anomaly on the SnapCol grid, in the lee of the mountain the bottommost layer is anomalously warm and the layer above it is anomalously cold (figure~\ref{fig:gw:thetaDiffZoom:snapCol}).  Potential temperature increases with height because the simulated atmosphere is stable, so these anomalies serve to reduce the stability near the ground.  The anomalies are not sufficiently large to destabilise the atmosphere, however.   Therefore, vertical motion is not expected, and was not observed, near the ground on the lee side.   Whilst turbulent motion does cause such thermal mixing in the real atmosphere, there is no viscosity in the model equations, so the thermal anomalies should not be present.  The feature is not present on the SLEVE grid (figure~\ref{fig:gw:thetaDiffZoom:sleve}) or BTF grid (not shown).
+
+\begin{figure}
 	\subcaptionbox{SLEVE}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
-	\subcaptionbox{SLEVE}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
-	\subcaptionbox{SnapCol}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}}
+	\subcaptionbox{SnapCol}[\textwidth]{\TODO{}} \\
 	\caption{\TODO{SLEVE and SnapCol flows}}
 	\label{fig:gw:flow}
 \end{figure}
 
-\TODO{compare with Melvin 2010?}
-
 \hrule
 
 \begin{itemize}
-\item Reproduced result for BTF from W\&S
 \item Vertical mixing at ground in lee of orography seen in results for snapCol and snap meshes.  This occurs in the lowest two rows of the mesh: lower layer $\theta$ is warmer, next layer above is cooler.  Feature is visible after t=3600s (Figure~\ref{fig:gw:mixing-3600s}), becomes more pronounced by t=18000s (Figure~\ref{fig:gw:mixing-18000s}).
 \end{itemize}
 
 \subsection{Investigation of vertical mixing}
-Initially suspected mixing was due to computation mode of Lorenz vertical staggering but now it seems not:
+Initially suspected mixing was due to computation mode of Lorenz vertical staggering but now it seems not (or maybe it does! we're not quite sure!)
 \begin{itemize}
 	\item plot UfDiff as a vector field doesn't seem to show any velocity anomalies in BTF or snalCol (Figure~\ref{fig:gw:ufdiff})
 	\item plot of $\theta$ field shows that mixing is not strong enough to overcome stratification (Figure~\ref{fig:gw:theta})
@@ -75,40 +83,12 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 	\item the results for dp/dx show mixing in BTF, and increased mixing in SnapCol (not shown)
 \end{itemize}
 
-\begin{figure}
-	BTF
-	\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFDoubleHeightThetaDiffZoom.png}
-	SnapCol
-	\includegraphics[width=\textwidth]{interim-results/gravityWavesSnapColDoubleHeightThetaDiffZoom.png}
-
-	\caption{double height mountain, thetaDiff after t=18000s}
-	\label{fig:gw:double-height}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFsnapMidZoom3600.png}
-\caption{Vertical mixing after t=3600s, snap mesh left, BTF right}
-\label{fig:gw:mixing-3600s}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=\textwidth]{interim-results/gravityWavesBTFsnapMidZoom18000.png}
-\caption{Vertical mixing after t=18000s.  Confusingly, snap mesh right, BTF left!}
-\label{fig:gw:mixing-18000s}
-\end{figure}
 
 This suggests irreversible thermodynamic mixing (caused by numerical errors).  In reality, viscous effects would cause such mixing, but our equation set has no viscosity so there should be no mixing.
 
 By isolating the nonlinear advection term in the momentum equations ($\del \rho \vect{u} \vect{u}$) we can see the different in flows between BTF and SnapCol meshes (Figure~\ref{fig:gw:nonlinear-advection}).  Looking at $U_f$ we can see larger velocities in small cells near mountain peaks, but otherwise flow fields are qualitatively in good agreement.
 
-Noticing that $U_f$ follows the BTF mesh but does not follow the SnapCol mesh, we suspect that the thermal mixing may be caused by numerical diffusion (as we same with horizontal tracer advection).  This time, however, the flow is not horizontal, so it is SnapCol that has more diffusion.  To quantify this diffusion, we're going to measure entropy change.  We expect higher entropies where more mixing has occurred.  From Lauritzen and Thuburn 2012:
-
-\begin{align}
-	S &= - k_B \sum \theta \ln \theta \rho V
-	\intertext{and, as a normalised change}
-	\ell_s &= \frac{S - S^\mathrm{(initial)}}{S^\mathrm{(initial)}}
-\end{align}
-We could also compare with high resolution solution (coarse-grained), but Hilary hasn't got this working yet.  Adding an outlet sponge layer might help.
+Noticing that $U_f$ follows the BTF mesh but does not follow the SnapCol mesh, we suspect that the thermal mixing may be caused by numerical diffusion (as we same with horizontal tracer advection).  This time, however, the flow is not horizontal, so it is SnapCol that has more diffusion.
 
 \subsection{Courant number}
 

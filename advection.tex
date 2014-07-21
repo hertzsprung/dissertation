@@ -1,5 +1,5 @@
 \section{Advection}
-Following \textcite{schaer2002}, a scalar tracer is transported above the orography by solving the advection equation for a prescribed horizontal wind.  \TODO{what does the test demonstrate?  that the effect of the grid dominates the numerical error}
+Following \textcite{schaer2002}, a scalar tracer is transported above the orography by solving the advection equation for a prescribed horizontal wind.  This challenges the accuracy of the advection scheme in the presence of grid distortions.
 The wind profile, terrain profile and initial tracer field are shown in Figure~\ref{fig:advection:initial}.
 
 \subsection{Specification}
@@ -14,7 +14,7 @@ The domain is \SI{300}{\kilo\meter} wide and \SI{25}{\kilo\meter} high.  The ter
 		0 & \quad \text{otherwise}
 	\end{array} \right.
 \end{align}
-where $a = \SI{25}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{3}{\kilo\meter}$ is the maximum mountain height, and $\lambda = \SI{8}{\kilo\meter}$ is the wavelength.  On the SLEVE grid, the large-scale component $\surface_1$, as described in section~\ref{sec:theory:sleve}, is given by
+where $a = \SI{25}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{3}{\kilo\meter}$ is the maximum mountain height, and $\lambda = \SI{8}{\kilo\meter}$ is the wavelength.  On the SLEVE grid, the large-scale component $\surface_1$, as described in section~\ref{sec:theory:tf}, is given by
 \begin{align}
 	\surface_1(x) &= \frac{1}{2}\surface^\star(x)
 \end{align}
@@ -71,9 +71,7 @@ The time derivative ($\partial \varphi / \partial t$) is solved implicitly using
 	}{2 \Delta t}
 \end{align}
 
-Spatial discretisation follows the finite volume method described in section~\ref{sec:theory:fv}.
-\TODO{upwind-biased cubic scheme...}
-
+Spatial discretisation follows the finite volume method described in section~\ref{sec:theory:fv}, using the upwind-biased advection scheme described in section~\ref{sec:method:discretisation}.
 The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} which used periodic lateral boundaries, we use zero gradient boundary conditions for all boundaries. \TODO{set inlet to be fixedValue, not zeroGradient.  this will need some perl fu.}
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.  \TODOsidenote{we never looked at courant numbers, but Schaer talks about horiz/vertical Co numbers}
 
@@ -81,33 +79,36 @@ Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\D
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF \label{fig:advection:cubicUpwindCPCFit:btf}}[0.49\textwidth]{\input{advection-btf-schaerCos-cubicUpwindCPCFit-contour-plot}}
+	\subcaptionbox{BTF \label{fig:advection:cubicUpwind:btf}}[0.49\textwidth]{\input{advection-btf-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
-	\subcaptionbox{BTF \label{fig:advection:schaer:btf}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-btf-centred.png}}
+	\subcaptionbox{BTF from \textcite{schaer2002} \label{fig:advection:schaer:btf}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-btf-centred.png}}
 \\
-	\subcaptionbox{SLEVE \label{fig:advection:cubicUpwindCPCFit:sleve}}[0.49\textwidth]{\input{advection-sleve-schaerCos-cubicUpwindCPCFit-contour-plot}}
+	\subcaptionbox{SLEVE \label{fig:advection:cubicUpwind:sleve}}[0.49\textwidth]{\input{advection-sleve-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
-	\subcaptionbox{SLEVE \label{fig:advection:schaer:sleve}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-sleve-centred.png}}
+	\subcaptionbox{SLEVE from \textcite{schaer2002} \label{fig:advection:schaer:sleve}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-sleve-centred.png}}
 \\
-	\subcaptionbox{Cut cell \label{fig:advection:cubicUpwindCPCFit:cutCell}}[0.49\textwidth]{\input{advection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot}}
+	\subcaptionbox{SnapCol grid \label{fig:advection:cubicUpwind:snapCol}}[0.49\textwidth]{\input{advection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
-	\subcaptionbox{Analytic solution on a regular grid}[0.49\textwidth]{\input{advection-noOrography-analytic-contour-plot}}
+	\subcaptionbox{Analytic solution on a regular grid \label{fig:advection:analytic}}[0.49\textwidth]{\input{advection-noOrography-analytic-contour-plot}}
 %
-	\caption{\TODO{cubic upwind advection compared with schaer -- centred scheme.  Contour intervals every 0.1}}
+	\caption{Horizontally advected tracer contours at $t = \SI{0}{\second}$, \SI{5000}{\second} and \SI{10000}{\second}.  Figures (\protect\subref{fig:advection:cubicUpwind:btf}), (\protect\subref{fig:advection:cubicUpwind:sleve}), and (\protect\subref{fig:advection:cubicUpwind:snapCol}) use the upwind-biased scheme described in section~\ref{sec:method:discretisation}.  Figures (\protect\subref{fig:advection:schaer:btf}) and (\protect\subref{fig:advection:schaer:sleve}) show the results of the second-order centred difference scheme from \textcite{schaer2002}.  Contour intervals are every 0.1.}
 	\label{fig:advection:cubicUpwind}
 \end{figure}
 
-\TODO{reanalyse the cubicUpwind results}
+Results of advection are present in figure~\ref{fig:advection:cubicUpwind}.
+On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Comparing figures~\ref{fig:advection:cubicUpwind:btf} and \ref{fig:advection:schaer:btf}, we see that the tracer retains its shape far better than the result from \textcite{schaer2002}.
+
+As seen in figure~\ref{fig:advection:cubicUpwind:sleve}, results on the SLEVE grid are much closer to the analytic solution on a regular grid (figure~\ref{fig:advection:analytic}).  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  The result agrees with that from \textcite{schaer2002}.
+
+Since the SnapCol grid is entirely regular away from the surface, it is unsurprising that the results (shown in figure~\ref{fig:advection:cubicUpwind:snapCol}) are the same as advection on a regular grid (not shown).  This result agrees with that found by \textcite{good2013}.
 
 \TODO{we could try plotting diffs as done by schaer2002, too}
-
-\TODO{now discuss tvdLimitedCubicUpwindCPCFit}
 
 Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
 \begin{align}
 \ell^2 = \sqrt{\frac{\sum \left( \varphi - \varphi_T \right)^2 \cdot V}{\sum V}}
 \end{align}
-where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  \TODO{what do they tell us?}
+where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
 
 \begin{table}
 \centering

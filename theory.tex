@@ -1,13 +1,14 @@
+\chapter{Theoretical basis}
+
 \section{Coordinate transformations}
 \label{sec:theory:coord-transform}
 
-A variety of vertical coordinates can be used in TF models.  The equations of motion with the hydrostatic approximation are simplified by using pressure coordinates \autocite{eliassen1949}.  However, because pressure varies in the horizontal, the lower boundary condition becomes complicated because surfaces of constant pressure intersect the terrain.  This motivated \textcite{phillips1957} to create the sigma coordinate in which pressure is normalised such that $\sigma$ ranges between zero at the top of the domain, and one at the surface.
+A model implementation that uses terrain following layers must first choose from a variety of vertical coordinates.  The equations of motion with the hydrostatic approximation are simplified by using pressure coordinates \autocite{eliassen1949}.  However, because pressure varies in the horizontal, the lower boundary condition becomes complicated because surfaces of constant pressure intersect the terrain.  This motivated \textcite{phillips1957} to create the sigma coordinate in which pressure is normalised such that $\sigma$ ranges between zero at the top of the domain, and one at the surface.
 Most hydrostatic models use normalised pressure coordinates.  With some exceptions, such as \textcite{xue-thorpe1991}, nonhydrostatic models use height-based coordinates \autocite{steppeler2003}.
 
 Isentropic coordinates have also been investigated.  Since adiabatic motion follows isentropic surfaces, errors in discretising vertical advection are negligible.  However, difficulties arise when isentropes intersect with the surface \autocite{konor-arakawa1997}.
 
-\TODO{segue into the theory in height-based vertical coords}
-
+Second, a model may choose to use transformed coordinates.  Typically, terrain following models use transformed height or pressure coordinates so that the computational domain becomes rectangular.
 Consider the two-dimensional cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
 A scalar field, $\varphi$, can be expressed in transformed coordinates as $\varphi(x, \trans{z})$ or in cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
@@ -61,7 +62,7 @@ In a two-dimensional terrain-following coordinate transform, there is the added 
 where $H$ is the height of the domain and $h(x)$ is the height of the terrain surface.
 
 \section{Horizontal pressure gradient}
-In models that use terrain following layers, the horizontal pressure gradient can be calculated in the transformed coordinate system.  It follows from equation~\ref{eq:theory:coord-trans} that, in TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
+In models that use TF coordinates, the horizontal pressure gradient can be calculated in the transformed coordinate system.  It follows from equation~\ref{eq:theory:coord-trans} that, in TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
 \begin{align}
 	\left. \frac{\partial p}{\partial x} \right|_z = 
 	\left. \frac{\partial p}{\partial x} \right|_\trans{z} + 
@@ -102,6 +103,7 @@ Errors in the horizontal pressure gradient are associated with horizontal accele
 Errors can be reduced by improving the accuracy of the horizontal pressure gradient discretisation.  \textcite{mahrer1984} proposed a discretisation where two pressure values at the same geometric height are interpolated from surrounding points.  From these values, a horizontal pressure gradient can be calculated without introducing metric terms.  Recent studies have found that variations of Mahrer's technique reduce spurious circulations \parencites{dempsey-davis1998}{klemp2011}{zaengl2012}.  \TODO{does this imply approach without metric terms is better than with?  can this be justified?}
 
 \section{Terrain following techniques}
+\label{sec:theory:tf}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -166,7 +168,6 @@ In the smoothed terrain following (STF) coordinate, \textcite{klemp2011} took an
 
 \textcite{adcroft1997} proposed a partial-step system for modelling the ocean surface in which the cell height is adjusted so that cell volume is accurately represented (figure~\ref{fig:intro:shaved:partial}).  Compared to the full-step approach of \textcite{mesinger1988}, spurious oscillations were significantly reduced advecting a tracer over topography.
 
-\subsection{Piecewise linear cut cells}
 The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  
 This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape \autocite{rosatti2005}.  Figure~\ref{fig:intro:shaved:piecewise-linear} shows an example of this method.  In some grid boxes, small cells, marked with an asterisk ($\ast$), are created by intersection with the surface.
 The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{also, vertical resolution varies at mountain top, leads to only 1st order accuracy for 2nd order schemes... need to find citation}
@@ -200,6 +201,9 @@ To develop the finite volume method, we start by considering the conservation of
 where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.  This interpolation of cell averages onto faces is a significant source of truncation error in finite volume systems \autocite{adcroft1997}.
 
 The finite volume method leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
+
+\section{Courant--Friedrichs--Lewy criterion}
+The Courant--Friedrichs--Lewy criterion is a necessary condition for numerical stability (though it is not always, by itself, a sufficient condition).
 
 \TODO{\textbf{CFL criterion}.  relevant to understand timestep constraints on small cells}
 
