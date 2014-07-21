@@ -1,0 +1,20 @@
+\section{Terrain following advection}
+
+Two tests, both tests run over BTF and SnapCol meshes
+\begin{itemize}
+\item Tracer advection (same as horizontal advection test), but flow follows terrain
+\item Theta advection.  Same theta profile as gravity waves test.  \TODO{do we want the same mountain profile as gravityWaves?  Or horizontal advection?}
+\end{itemize}
+
+The tracer advection test is a complement to the horizontal advection test.  In that test, SnapCol did better than TF grids.  However, in this new test, we expect TF to do better because the advection is following the grid.  If this is so, it supports our hypothesis that the gravity wave SnapCol errors are due to advection of theta.
+
+If advection of theta is indeed the problem, the second test should result in the same numerical diffusion on the SnapCol grid as the gravityWaves test.
+
+Define a non-divergent flow given by a streamfunction $\Psi$.  One of the following has a negative sign... but which one?
+\begin{align}
+u = \frac{\partial \Psi}{\partial z} \quad,\quad w = \frac{\partial \Psi}{\partial x}
+\end{align}
+
+\begin{align}
+\Psi = 
+\end{align}

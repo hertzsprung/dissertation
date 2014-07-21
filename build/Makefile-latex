@@ -10,6 +10,7 @@ COMPONENTS := \
   advection.tex \
   resting.tex \
   gravityWaves.tex \
+  wobblyAdvection.tex \
   mathmacros.tex \
   dissertationmacros.tex \
   geometry.tex \
