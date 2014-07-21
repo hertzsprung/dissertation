@@ -46,9 +46,7 @@ define ADVECTION_TEMPLATE
     $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS)) \
     $(1)/$(DECOMPOSE_PAR_DICT) \
     $(addprefix $(1)/,$(SYSTEM_FILES))
-#	$(DECOMPOSE_PAR) -case $(1) -force > $(2).decomposePar.log
 	$(SCALAR_TRANSPORT_FOAM) -case $(1) > $(2).scalarTransportFoam.log
-#	$(RECONSTRUCT_PAR) -case $(1) > $(2).reconstructPar.log
 
   $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS)): $(2).intermediate
 
@@ -63,8 +61,12 @@ endef
 
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/vanLeer,advection-noOrography-vanLeer,openfoam/cases/mesh/noOrography/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/tvdLimitedCubicUpwindCPCFit,advection-noOrography-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/noOrography/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/noOrography/cubicUpwindCPCFit,advection-noOrography-cubicUpwindCPCFit,openfoam/cases/mesh/noOrography/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/vanLeer,advection-btf-schaerCos-vanLeer,openfoam/cases/mesh/btf/schaerCos/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-btf-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit,advection-btf-schaerCos-cubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snapCol/schaerCos/vanLeer,advection-snapCol-schaerCos-vanLeer,openfoam/cases/mesh/snapCol/schaerCos/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snapCol/schaerCos/tvdLimitedCubicUpwindCPCFit,advection-snapCol-schaerCos-tvdLimitedCubicUpwindCPCFit,openfoam/cases/mesh/snapCol/schaerCos/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/snapCol/schaerCos/cubicUpwindCPCFit,advection-snapCol-schaerCos-cubicUpwindCPCFit,openfoam/cases/mesh/snapCol/schaerCos/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/sleve/schaerCos/vanLeer,advection-sleve-schaerCos-vanLeer,openfoam/cases/mesh/sleve/schaerCos/advection))
+$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit,advection-sleve-schaerCos-cubicUpwindCPCFit,openfoam/cases/mesh/sleve/schaerCos/advection))

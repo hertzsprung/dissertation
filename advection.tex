@@ -72,21 +72,7 @@ The time derivative ($\partial \varphi / \partial t$) is solved implicitly using
 \end{align}
 
 Spatial discretisation follows the finite volume method described in section~\ref{sec:theory:fv}.
-Two spatial interpolations were tested.  First, the van Leer scheme which blends two schemes to maximise boundedness and accuracy.  It combines a centred difference scheme that is second-order accurate and unbounded with an upwind scheme that is first-order accurate and bounded.  The interpolated value $\varphi_F$ is calculated as a weighted average of the interpolated values from the two schemes, $\varphi_{F,\mathrm{upwind}}$ and $\varphi_{F,\mathrm{centred}}$, such that
-\begin{align}
-	\varphi_F &= \left( 1 - \gamma \right) \varphi_{F,\mathrm{upwind}} + \gamma \varphi_{F,\mathrm{centred}}
-\end{align}
-The van Leer scheme defines the blending coefficient $\gamma$ as a function of the ratio $r$ between the upwind and local gradient of $\varphi$.  The blending coefficient is specified as \autocite{leveque2002}
-\begin{align}
-\gamma(r) &= \frac{r + |r|}{1 + |r|}
-%
-\intertext{and the gradient ratio is specified by \textcite{weller2012} as}
-%
-	r &= \frac{2 \left( \vect{x_d} - \vect{x_u} \right) \cdot \del_u \phi}{\varphi_d - \varphi_u} - 1
-\end{align}
-where $\vect{x}$ is the position vector of the cell centre and subscripts $u$ and $d$ denote upwind and downwind cells respectively.
-
-\TODO{Second, a TVD limited version of upwind-biased cubic scheme...  I might not have time to discuss this, but it does offer a modest improvement at the expense of increased computation}
+\TODO{upwind-biased cubic scheme...}
 
 The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} which used periodic lateral boundaries, we use zero gradient boundary conditions for all boundaries.
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.  \TODOsidenote{we never looked at courant numbers, but Schaer talks about horiz/vertical Co numbers}
@@ -95,32 +81,27 @@ Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\D
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF \label{fig:advection:vanLeer:btf}}[0.49\textwidth]{\input{advection-btf-schaerCos-vanLeer-contour-plot}}
+	\subcaptionbox{BTF \label{fig:advection:cubicUpwindCPCFit:btf}}[0.49\textwidth]{\input{advection-btf-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
 	\subcaptionbox{BTF \label{fig:advection:schaer:btf}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-btf-centred.png}}
 \\
-	\subcaptionbox{SLEVE \label{fig:advection:vanLeer:sleve}}[0.49\textwidth]{\input{advection-sleve-schaerCos-vanLeer-contour-plot}}
+	\subcaptionbox{SLEVE \label{fig:advection:cubicUpwindCPCFit:sleve}}[0.49\textwidth]{\input{advection-sleve-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
 	\subcaptionbox{SLEVE \label{fig:advection:schaer:sleve}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-sleve-centred.png}}
 \\
-	\subcaptionbox{Cut cell \label{fig:advection:vanLeer:cutCell}}[0.49\textwidth]{\input{advection-snapCol-schaerCos-vanLeer-contour-plot}}
+	\subcaptionbox{Cut cell \label{fig:advection:cubicUpwindCPCFit:cutCell}}[0.49\textwidth]{\input{advection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
 	\subcaptionbox{Analytic solution on a regular grid}[0.49\textwidth]{\input{advection-noOrography-analytic-contour-plot}}
 %
-	\caption{\TODO{van Leer advection compared with schaer -- centred scheme.  Contour intervals every 0.1}}
-	\label{fig:advection:vanLeer}
+	\caption{\TODO{cubic upwind advection compared with schaer -- centred scheme.  Contour intervals every 0.1}}
+	\label{fig:advection:cubicUpwind}
 \end{figure}
 
-Results of advection using the van Leer scheme are presented in Figure~\ref{fig:advection:vanLeer}.  On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Compared with the results from \textcite{schaer2002}, the tracer retains more of its shape but suffers from far more numerical diffusion by the end of the simulation, as evidenced by the missing contours in the tracer centre.  \TODO{would it be worth looking at variance at t=10000s to quantify the diffusion?}
-
-Results on the SLEVE grid are much closer to the analytic solution on a regular grid.  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  However, the widening contours indicate some numerical diffusion is still present which, again, was not found in the results of \textcite{schaer2002}.
-
-Since the cut cell grid is entirely regular away from the surface, it is unsurprising that the results are the same as advection on a regular grid (not shown).  This result agrees with that found by \textcite{good2013}.
+\TODO{reanalyse the cubicUpwind results}
 
 \TODO{we could try plotting diffs as done by schaer2002, too}
 
 \TODO{now discuss tvdLimitedCubicUpwindCPCFit}
-\TODO{tvdLimitedCubicUpwindCPCFit slightly better than vanLeer, but much more computationally expensive}
 
 Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
 \begin{align}
@@ -132,10 +113,11 @@ where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical val
 \centering
 \begin{tabular}{ r @{\hspace{2em}} l l}
 \toprule
-		&	van Leer	& Cubic upwind \\ \midrule
-BTF		& \input{openfoam/cases/advection/btf/schaerCos/vanLeer/l2error.txt}		& \TODO{0} \\
-SLEVE		& \input{openfoam/cases/advection/sleve/schaerCos/vanLeer/l2error.txt}		& \TODO{0} \\
-Cut cell	& \input{openfoam/cases/advection/snapCol/schaerCos/vanLeer/l2error.txt}	& \TODO{0} \\ \bottomrule
+		& Cubic upwind \\ \midrule
+BTF		& \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}		\\
+SLEVE		& \input{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/l2error.txt}	\\
+Cut cell	& \input{openfoam/cases/advection/snapCol/schaerCos/cubicUpwindCPCFit/l2error.txt}	\\
+Regular grid	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/l2error.txt}		\\ \bottomrule
 \end{tabular}
 
 \caption{$\ell^2$ error norms for the advection test at $t = \SI{10000}{\second}$}

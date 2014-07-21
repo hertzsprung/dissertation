@@ -7,41 +7,38 @@
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
-    version     2.0;
+    version     2.2;
     format      ascii;
     class       volScalarField;
     location    "constant";
-    object      thetaStat;
+    object      theta_init;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 315;
+internalField   uniform 288;
 
 boundaryField
 {
+    ground
+    {
+        type            fixedValue;
+        value           uniform 288;
+    }
     top
     {
-        type            fixedGradient;
-        gradient        uniform 0.0035555937;
+        type            fixedValue;
+        value           uniform 288;
     }
     inlet
     {
-        type            symmetryPlane;
+        type            fixedValue;
+        value           uniform 288;
     }
     outlet
     {
-        type            symmetryPlane;
-    }
-    ground
-    {
-        type            fixedGradient;
-        gradient        uniform -0.003211;
-    }
-    frontAndBack
-    {
-        type            empty;
+        type            zeroGradient;
     }
 }
 
