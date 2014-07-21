@@ -69,6 +69,9 @@ Examining more closely the potential temperature anomaly on the SnapCol grid, in
 
 \hrule
 
+\hrule
+\TODO{these are just notes...}
+
 \begin{itemize}
 \item Vertical mixing at ground in lee of orography seen in results for snapCol and snap meshes.  This occurs in the lowest two rows of the mesh: lower layer $\theta$ is warmer, next layer above is cooler.  Feature is visible after t=3600s (Figure~\ref{fig:gw:mixing-3600s}), becomes more pronounced by t=18000s (Figure~\ref{fig:gw:mixing-18000s}).
 \end{itemize}
@@ -83,8 +86,6 @@ Initially suspected mixing was due to computation mode of Lorenz vertical stagge
 	\item the results for dp/dx show mixing in BTF, and increased mixing in SnapCol (not shown)
 \end{itemize}
 
-
-This suggests irreversible thermodynamic mixing (caused by numerical errors).  In reality, viscous effects would cause such mixing, but our equation set has no viscosity so there should be no mixing.
 
 By isolating the nonlinear advection term in the momentum equations ($\del \rho \vect{u} \vect{u}$) we can see the different in flows between BTF and SnapCol meshes (Figure~\ref{fig:gw:nonlinear-advection}).  Looking at $U_f$ we can see larger velocities in small cells near mountain peaks, but otherwise flow fields are qualitatively in good agreement.
 
