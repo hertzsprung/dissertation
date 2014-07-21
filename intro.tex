@@ -5,67 +5,20 @@ Orography has significant effects on local weather, creating strong downslope wi
 To capture these effects, numerical weather prediction (NWP) models must solve the equations of motion on a grid that represents the orography.
 Over flat ground the grid is entirely regular, but in the presence of sloping terrain the grid must be modified.  There are two main approaches: either transform the grid so that its vertical layers follow the terrain, or remove all or part of grid cells that intersect with the orography.
 
-\section{Terrain following layers}
-
 Terrain following (TF) layers are in widespread use in operational models and are usually implemented on a rectangular computational grid, using terrain following vertical coordinates instead of cartesian coordinates.  In this system, the terrain's influence decays with height: the bottommost layers follow the underlying surface closely while the uppermost layers are flat.
 
-A variety of vertical coordinates can be used in TF models.  The equations of motion with the hydrostatic approximation are simplified by using pressure coordinates \autocite{eliassen1949}.  However, because pressure varies in the horizontal, the lower boundary condition becomes complicated because surfaces of constant pressure intersect the terrain.  This motivated \textcite{phillips1957} to create the sigma coordinate in which pressure is normalised such that $\sigma$ ranges between zero at the top of the domain, and one at the surface.
-Most hydrostatic models use normalised pressure coordinates.  With some exceptions, such as \textcite{xue-thorpe1991}, nonhydrostatic models use height-based coordinates \autocite{steppeler2003}.
-
-Isentropic coordinates have also been investigated.  Since adiabatic motion follows isentropic surfaces, errors in discretising vertical advection are negligible.  However, difficulties arise when isentropes intersect with the surface \autocite{konor-arakawa1997}.
-
-It is well-known that TF coordinates perform badly in the presence of steep orography \autocite{gary1973}.  As spatial resolution in NWP models increases, gradients in terrain tend to become steeper \autocite{steppeler2002}.  This leads to greater errors in the horizontal pressure gradient which results in spurious winds \autocite{dempsey-davis1998}.  Much work has been done to reduce error associated with TF coordinates: firstly, by smoothing the effects of terrain with height \parencites{simmons-burridge1981}{schaer2002}{klemp2011} and, secondly, by improving the accuracy of the horizontal pressure gradient itself \parencites{mahrer1984}{klemp2011}{zaengl2012}.
-
-\begin{figure}
-	\captionsetup[subfigure]{position=b}
-	\centering
-	\subcaptionbox{Basic terrain following (BTF) \label{fig:intro:tf:btf}}[0.45\textwidth]{\input{btf-plot}}
-	\hfill
-	\subcaptionbox{Smooth level vertical (SLEVE) \label{fig:intro:tf:sleve}}[0.45\textwidth]{\input{sleve-plot}}
-	\caption{Example vertical cross sections of terrain following layers illustrating the decay in terrain influence with height.   In BTF (described in section~\ref{sec:theory:btf}) the decay is linear; in SLEVE (section~\ref{sec:theory:sleve}) it is exponential.}
-	\label{fig:intro:tf}
-\end{figure}
-
-\textcite{galchen-somerville1975} proposed a basic terrain following (BTF) coordinate system in which the terrain's influence decays linearly with height but disappears only at the top of the domain (example shown in figure~\ref{fig:intro:tf:btf}).
-
-The hybrid terrain following (HTF) coordinates of \textcite{simmons-burridge1981} improve upon BTF coordinates by allowing the vertical decay profile can be controlled.  By choosing a suitable profile, terrain influence decays more rapidly than BTF to produce surfaces of constant height aloft \autocite{klemp2011}.
-
-The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.  \textcite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into small-scale and large-scale components, each having different exponential decay profiles (figure~\ref{fig:intro:tf:sleve}).
-\textcite{leuenberger2010} generalised the SLEVE decay functions to make cells thicker near the ground.  This allows longer timesteps and permits more accurate calculation of parameterised low-level heat and momentum fluxes.
-\textcite{klemp2011} took an alternative approach, using a multipass smoothing operator, and found that errors were reduced still further compared to SLEVE.
-
-Another way of reducing error is to improve the accuracy of the horizontal pressure gradient discretisation.  \textcite{mahrer1984} proposed a discretisation where two pressure values at the same geometric height are interpolated from surrounding points.  From these values, a horizontal pressure gradient can be calculated without introducing metric terms.  Recent studies have found that variations of Mahrer's technique reduce spurious circulations \parencites{dempsey-davis1998}{klemp2011}{zaengl2012}.  \TODO{does this imply approach without metric terms is better than with?  can this be justified?}
+It is well-known that TF coordinates perform badly in the presence of steep orography \autocite{gary1973}.  As spatial resolution in NWP models increases, gradients in terrain tend to become steeper \autocite{steppeler2002}.  This leads to greater errors in the horizontal pressure gradient which results in spurious winds \autocite{dempsey-davis1998}.  Much work has been done to reduce error associated with TF coordinates: firstly, by smoothing the effects of terrain with height \parencites{simmons-burridge1981}{schaer2002}{leuenberger2010}{klemp2011} and, secondly, by improving the accuracy of the horizontal pressure gradient itself \parencites{mahrer1984}{klemp2011}{zaengl2012}.  \TODO{we talk about these in a subsequent section}
 
 Despite their associated numerical errors, TF coordinates are attractive because their rectangular structure is simple to process by computer, boundary layer resolution can be increased with variable spacing of vertical layers \autocite{schaer2002}, and cell sizes remain almost constant \autocite{jebens2011}.
 
-\section{Cell shaving techniques}
-
-\TODO{if I have time, I'd like to reword some of what follows: adcroft1997 explains this next class of methods very well: they are all shaved cell, it's just a choice of /how/ to do the shaving}
-
-\begin{figure}
-	\captionsetup[subfigure]{position=b}
-	\centering
-	\subcaptionbox{Full-step \label{fig:intro:shaved:full}}[0.32\textwidth]{\input{full-step-plot}}
-	\subcaptionbox{Partial-step \label{fig:intro:shaved:partial}}[0.32\textwidth]{\input{partial-step-plot}}
-	\subcaptionbox{Piecewise linear.  Grid boxes marked with asterisk ($\ast$) denote small cells. \label{fig:intro:shaved:piecewise-linear}}[0.32\textwidth]{\input{cut-cell-plot}}
-	\caption{Vertical cross sections illustrating different methods of shaving cells intersecting with a hypothetical surface (heavy line).  Adapted from \textcite{adcroft1997}.}
-	\label{fig:intro:shaved}
-\end{figure}
-
-\textcite{mesinger1988} proposed an alternative grid that also retains almost-constant cell sizes but does not have terrain following layers: the step-mountain (or `full-step') coordinate removes cells that are intersected by the terrain so creating steps over the surface (see figure~\ref{fig:intro:shaved:full}).  \textcite{gallus-klemp2000} found that lee slope winds are too weak over smooth orography, but this study did not examine performance over steep terrain.  In contrast, \textcite{mesinger2004} compared results from three operational NCEP models that suggested the step-coordinate model was more skillful than the TF coordinate models in forecasting precipitation over the mountainous western United States.
-
-\textcite{adcroft1997} proposed a partial-step system for modelling the ocean surface in which the cell height is adjusted so that cell volume is accurately represented (figure~\ref{fig:intro:shaved:partial}).  Compared to the full-step approach of \textcite{mesinger1988}, spurious oscillations were significantly reduced advecting a tracer over topography.
-
-The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  
-This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape \autocite{rosatti2005}.  Figure~\ref{fig:intro:shaved:piecewise-linear} shows an example of this method.  In some grid boxes, small cells, marked with an asterisk ($\ast$), are created by intersection with the surface.
-The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{also, vertical resolution varies at mountain top, leads to only 1st order accuracy for 2nd order schemes... need to find citation}
-
-A variety of solutions to the `small cell problem' have been proposed.  In \textcite{yamazaki-satomura2010}, small cells are combined with horizontally or vertically adjacent cells.  \textcite{steppeler2002} use a `thin-wall' approximation to increase the computational volume of small cells without altering the terrain.  Conceptually, each cell partially or completely below the mountain is filled with air and surrounded by a thin wall.  Where a cell is cut by the terrain, the computational volume is equal to that of an uncut cell.  \textcite{jebens2011} avoid the timestep restriction associated with explicit schemes by using an implicit method for cut cells and a semi-explicit method elsewhere.
+An alternative to terrain following layers is to `shave', or `cut', cells where they intersect with the terrain surface.  Cells that lie entirely below the terrain are removed, and those that intersect the surface are modified in shape so that they more closely fit the terrain.  This modification means that some cells become very small, which can reduce computational efficiency \autocite{klein2009}, and several approaches have been tried to alleviate the problem \parencites{steppeler2002}{yamazaki-satomura2010}{jebens2010}.
 
 Several studies found that cut cells produce more accurate results when compared to TF coordinates.  Spurious winds seen in TF coordinates are not present and errors do not increase with steeper terrain \autocite{good2013}.  A comparison of TF and cut-cells using real initial data by \textcite{steppeler2006} found that precipitation patterns, temperature and wind fields were forecast more accurately in the cut-cell model, and the weak lee slope winds found by \textcite{gallus-klemp2000} in the step-mountain coordinate model were not present.  
+
+%\textcite{adcroft1997} evaluated three shaving techniques for modelling the ocean surface.  First, the `full-step` technique in which the surface is rounded to the nearest vertical level.  Second, a `partial-step' method which allows the cell height to vary so that cell volumes are more accurately represented.  Third, the piecewise linear method which creates cells of different shapes where they intersect with the ground.  Examples of these three methods are shown in figure~\ref{fig:intro:shaved}.  \textcite{adcroft1997} found that spurious oscillations in a tracer advection test were reduced by using a partial-step grid, and that numerical noise was almost entirely removed on the piecewise linear cut cell grid.
+
 \TODOsidenote{look at Fast 2003 and refs therein for more cut-cell goodness}
 
-\TODO{this para doesn't belong under the heading of cut cells}
 Other representations of terrain have been developed using unstructured grids \parencites{ss2011}{others}.  They are able to represent the boundary accurately but, because they require a more complex data representation compared to structured grids, they can be difficult to partition for parallel computation \autocite{steppeler2003}.  More complex discretisations are required to maintain accuracy because the mesh is not aligned with the dominant vertical force of gravity \autocite{rosatti2005}, just as horizontal pressure gradients are difficult to calculate in TF coordinates.
 
 \TODO{Worth talking about nested grids?  e.g. Almgren 1998}
