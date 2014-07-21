@@ -7,7 +7,7 @@ COMPONENTS := \
   theory.tex \
   methodology.tex \
   results.tex \
-  advection.tex \
+  horizAdvection.tex \
   resting.tex \
   gravityWaves.tex \
   wobblyAdvection.tex \
