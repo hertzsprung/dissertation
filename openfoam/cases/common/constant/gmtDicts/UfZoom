@@ -16,7 +16,7 @@ projection "X20c/6c";
 projection2D XZ;
 
 FieldsToPlot (
-    [none mesh ",100"]
+    [none mesh ",200"]
     [Uf vectors 50 1 "black"]
 );
 

@@ -12,13 +12,13 @@ FoamFile
     object          gmtDict;
 }
 
-projection "X20c/6c";
+projection "X18c/6c";
 projection2D XZ;
 
 FieldsToPlot (
-    [none mesh ",100"]
+    [none mesh ",200"]
     [U vectors 50 1 "black"]
 );
 
-region "-75e3/75e3/0/15e3";
-boundaryMarks "25e3/1e3SWne";
+region "-30e3/30e3/0/15e3";
+boundaryMarks "25e3/5e3SWne";

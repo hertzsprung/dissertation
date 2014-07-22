@@ -3,7 +3,7 @@
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1.8in,angle=270]{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps}
+	\includegraphics[width=2.0in,angle=270]{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps}
 	\caption{\TODO{terrain following velocity field}}
 	\label{fig:wobblyTracer:u}
 \end{figure}
@@ -36,10 +36,10 @@ u = \frac{\partial \Psi}{\partial z} \quad,\quad w = \frac{\partial \Psi}{\parti
 \end{align}
 
 \begin{align}
-\Psi &= H \frac{z - h(x)}{H - h(x)} \\
-u &= \frac{H}{H - h(x)} \\
-w &= H \frac{\partial h}{\partial x} \frac{z - H}{\left( H - h \right)^2} \\
-\frac{\partial h}{\partial x} &= h_0 \pi \left[ 
+\Psi &= H \frac{z - h}{H - h} \\
+u &= \frac{H}{H - h} \\
+w &= H \frac{\partial h}{\partial x} \frac{H - z}{\left( H - h \right)^2} \\
+\frac{\partial h}{\partial x} &= - h_0 \pi \left[ 
 	\frac{1}{\lambda} \cos^2 \left( \frac{\pi x}{2a} \right) \sin \left( \frac{2 \pi x}{\lambda} \right) +
 	\frac{1}{2a} \cos^2 \left( \frac{\pi x}{\lambda} \right) \sin \left( \frac{\pi x}{a} \right)
 \right]
