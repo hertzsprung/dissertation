@@ -126,6 +126,7 @@ data/**
 decomposeParDict
 l2error.txt
 muSponge
+theta_init
 
 # PyFoam
 PyFoamHistory

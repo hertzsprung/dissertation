@@ -75,4 +75,3 @@ $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/advection/sleve/schaerCos/cubicU
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit,wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerCos/advection))
 $(eval $(call ADVECTION_TEMPLATE,openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit,wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit,openfoam/cases/mesh/snapCol/schaerCos/advection))
 
-$(eval $(call ADVECTION_TEMPLATE,openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit,wobblyThetaAdvection-btf-schaerExp-cubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerExp/gravityWaves))
