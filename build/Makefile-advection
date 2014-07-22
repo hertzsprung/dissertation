@@ -56,6 +56,7 @@ define ADVECTION_TEMPLATE
     $(1)/$(INITIAL_CONDITIONS) \
     $(1)/$(TRANSPORT_PROPERTIES)
 	$(SET_SCALAR_OVER_OROGRAPHY) -case $(1) > $(2).setScalarOverOrography.initial.log
+	$(PERL) -0777 -i -pe 's/inlet.*?\}/inlet { type fixedValue; value uniform 0; }/smg' $(1)/0/T
 
 endef
 
