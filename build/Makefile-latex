@@ -45,7 +45,8 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps \
-  data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps
+  data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps \
+  openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 STATISTICS_FILES := \
   advection/noOrography/cubicUpwindCPCFit/$(L2_ERROR_STAT) \

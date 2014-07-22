@@ -39,6 +39,16 @@ define ADVECTION_DIAGNOSTICS_TEMPLATE
   $(1)/$(L2_ERROR_STAT): $(1)/$(ADVECTION_TRACER_ERROR)
 	tail -n1 $$< | cut -d' ' -f3 > $$@
 
+  $(1)/0/U.eps: \
+    $(1)/$(GMT_DICTS)/U \
+    $(1)/0/U
+	$(PLOT_PATCH_DATA) -case $(1) -time 0 U > $(2).plotPatchData.U.log
+
+  $(1)/$(GMT_DICTS)/U: \
+    $(COMMON_CASE)/$(GMT_DICTS)/U.wobblyTracerAdvection \
+  | $(1)/$(GMT_DICTS)
+	$(LN) -fs $$< $$@
+
 endef
 
 advection-initial.plt: $(ADVECTION_ANALYTIC_CASE)/0/contour.dat
