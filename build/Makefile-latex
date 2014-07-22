@@ -7,10 +7,13 @@ COMPONENTS := \
   theory.tex \
   methodology.tex \
   results.tex \
+  conclusions.tex \
+  furtherWork.tex \
   horizAdvection.tex \
   resting.tex \
   gravityWaves.tex \
-  wobblyAdvection.tex \
+  wobblyTracerAdvection.tex \
+  wobblyThetaAdvection.tex \
   mathmacros.tex \
   dissertationmacros.tex \
   geometry.tex \

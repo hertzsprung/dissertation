@@ -1,4 +1,5 @@
-\section{Terrain following advection}
+\section{Terrain following tracer advection}
+\TODO{where should this section go?  after horizontal advection or after gravity waves?  I feel the former is more appropriate}
 
 \begin{figure}
 	\centering
@@ -33,5 +34,11 @@ u = \frac{\partial \Psi}{\partial z} \quad,\quad w = \frac{\partial \Psi}{\parti
 \end{align}
 
 \begin{align}
-\Psi = 
+\Psi &= H \frac{z - h(x)}{H - h(x)} \\
+u &= \frac{H}{H - h(x)} \\
+w &= H \frac{\partial h}{\partial x} \frac{z - H}{\left( H - h \right)^2} \\
+\frac{\partial h}{\partial x} &= h_0 \pi \left[ 
+	\frac{1}{\lambda} \cos^2 \left( \frac{\pi x}{2a} \right) \sin \left( \frac{2 \pi x}{\lambda} \right) +
+	\frac{1}{2a} \cos^2 \left( \frac{\pi x}{\lambda} \right) \sin \left( \frac{\pi x}{a} \right)
+\right]
 \end{align}
