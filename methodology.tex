@@ -75,7 +75,14 @@ The Exner gradient at a face $f$ in the direction between cell centres, $\del_d 
 	\end{cases}
 \end{align}
 
-\TODO{cubic upwind advection scheme}
+\begin{figure}
+	\centering
+	\input{cubicUpwind-stencil}
+	\caption{Two-dimensional cubic upwind stencil used in advecting momentum and potential temperature.  A face value $\Psi_F$ is interpolated from cell values, $\Psi_c$, denoted by grey dots.  Adapted from \textcite{weller-shahrokhi2014}.}
+	\label{fig:method:cubicUpwind}
+\end{figure}
+
+Momentum and potential temperature are advected using an upwind-biased cubic interpolation.  A multi-dimensional cubic function is used whose coefficients are found using a least-squares fit with cell data in the stencil.  These coefficients are used to weight the cell values within the stencil, and the weighted sum is used to calculate $\Psi_F$.  A two-dimensional stencil is shown in figure~\ref{fig:method:cubicUpwind}.
 
 \section{Energy measures}
 \label{sec:method:energy}

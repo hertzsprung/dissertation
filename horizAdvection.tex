@@ -72,7 +72,7 @@ The time derivative ($\partial \varphi / \partial t$) is solved implicitly using
 \end{align}
 
 Spatial discretisation follows the finite volume method described in section~\ref{sec:theory:fv}, using the upwind-biased advection scheme described in section~\ref{sec:method:discretisation}.
-The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} which used periodic lateral boundaries, we use zero gradient boundary conditions for all boundaries. \TODO{set inlet to be fixedValue, not zeroGradient.  this will need some perl fu.}
+The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} which used periodic lateral boundaries, we use a fixed value of 0 at the inlet boundary and zero gradient boundaries elsewhere.
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.  \TODOsidenote{we never looked at courant numbers, but Schaer talks about horiz/vertical Co numbers}
 
 \subsection{Results}
