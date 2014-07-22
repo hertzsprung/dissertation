@@ -9,16 +9,15 @@ FoamFile {
 // which coordinate transform BTF = 0, HTF = 1, SLEVE = 2, STF = 3
 // TODO: coordSys for no coordinate transformation?
 coordSys 0;
-windFieldType "BTF";
-mountainType "SCHAER_COS";
-// top of coordinate system (at or below domain height)
-zt 25e3;
+windFieldType BTF;
+mountainType SCHAER_EXP;
+zt 200e3;
 // horizontal scale of large scale mountains
-a 25e3;
+a 5e3;
 // mountain height
-hm 3000;
+hm 250;
 // horizontal scale for fine scale mountains (for Schar test case)
-lambda 8e3;
+lambda 4e3;
 
 umax 10;
 yumax 500;
@@ -35,10 +34,6 @@ z1 4000; // level up until the wind is zero
 z2 5000; // above this level the wind is constant
 
 // constants for the coordinate transform
-zt 25000;
-a 25000;
-lam 8000;
-hm 3000;
 zh 10000;
 s 8000; // scale height for HTF
 // scale heights for SLEVE
