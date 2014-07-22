@@ -41,3 +41,4 @@ define WOBBLY_THETA_ADVECTION_TEMPLATE
 endef
 
 $(eval $(call WOBBLY_THETA_ADVECTION_TEMPLATE,openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit,wobblyThetaAdvection-btf-schaerExp-cubicUpwindCPCFit,openfoam/cases/mesh/btf/schaerExp/gravityWaves))
+$(eval $(call WOBBLY_THETA_ADVECTION_TEMPLATE,openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit,wobblyThetaAdvection-snapCol-schaerExp-cubicUpwindCPCFit,openfoam/cases/mesh/snapCol/schaerExp/gravityWaves))
