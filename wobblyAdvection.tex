@@ -10,7 +10,11 @@
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF \label{fig:wobblyTracerAdvection:btf}}[\textwidth]{\input{wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot}}
+	\subcaptionbox{BTF \label{fig:wobblyTracerAdvection:btf}}[0.49\textwidth]{\input{wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot}}
+	\hfill
+	\subcaptionbox{SnapCol \label{fig:wobblyTracerAdvection:snapCol}}[0.49\textwidth]{\input{wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot}}
+%
+	\caption{\TODO{Tracer contours at $t = \SI{0}{\second}$, \SI{5000}{\second} and \SI{10000}{\second}.  Contour intervals are every 0.1.}}
 \end{figure}
 
 Two tests, both tests run over BTF and SnapCol meshes.  The velocity field is such that flow follows a BTF grid.

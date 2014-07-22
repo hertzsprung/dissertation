@@ -36,7 +36,8 @@ GNUPLOT_OUTPUTS := \
   resting-energy-sleve-plot.tex \
   resting-energy-snapCol-plot.tex \
   gravityWaves-schaerExp-h-exnerTheta-plot.tex \
-  wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex
+  wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
+  wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex
 PLOT_PATCH_DATA_OUTPUTS := \
   mesh-snapCol-schaerExp-resting.eps \
   data/gravityWaves-btf-schaerExp-h/18000/w.eps \

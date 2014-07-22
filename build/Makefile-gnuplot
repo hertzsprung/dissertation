@@ -32,6 +32,7 @@ $(eval $(call GNUPLOT_TEMPLATE,resting-energy-sleve))
 $(eval $(call GNUPLOT_TEMPLATE,resting-energy-snapCol))
 $(eval $(call GNUPLOT_TEMPLATE,gravityWaves-schaerExp-h-exnerTheta))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour))
+$(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour))
 
 btf.plt sleve.plt: tf.plt
 
