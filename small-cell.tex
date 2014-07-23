@@ -1,0 +1,18 @@
+\documentclass[tikz]{standalone}
+\usepackage{bm}
+\usetikzlibrary{arrows}
+\input{mathmacros}
+\input{dissertationmacros}
+\begin{document}
+\begin{tikzpicture}[
+  cpnt/.style={fill=gray},
+  arr/.style={thick, ->},
+]
+\draw (5,1) rectangle (10,2);
+
+\draw [<->] (5,0.6) -- (10,0.6) node [midway, below] {$\Delta x$};
+\draw [<->] (10.4,1) -- (10.4,2) node [midway, right] {$\Delta z$};
+
+\draw [->, >=open triangle 90, ultra thick] (3,1.4) -- (4.5,1.6) node [midway, below] {$\vect{u}$};
+\end{tikzpicture}
+\end{document}

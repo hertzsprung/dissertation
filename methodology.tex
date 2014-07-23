@@ -12,10 +12,10 @@ Two dimensional, regular cartesian grids were created using the OpenFOAM utility
 Most implementations of terrain following layers use a coordinate system that makes the domain rectangular, but introduces metric terms into the equations of motion (more detail was presented in section~\ref{sec:theory:coord-transform}).  Instead, the model presented here uses cartesian coordinates and unstructured grids.  By doing so, results from the same model can be compared between terrain following and cut cell grids without modifying the equation set or discretisation.
 
 \begin{figure}
-	\centerfloat
-	\includegraphics[height=2.8in,angle=270]{mesh-snapCol-schaerExp-resting.eps}
-	\caption{A `SnapCol' grid, \SI{20}{\kilo\meter} wide and \SI{2}{\kilo\meter} high, created by intersecting the terrain surface with a regular grid as described in section~\ref{sec:method:grid}.  Note that, unlike a true cut cell grid, some small cells have faces at $z = \SI{500}{\meter}$ that are not entirely horizontal.}
-	\label{fig:method:cut-cell}
+\centerfloat
+\includegraphics[height=2.8in,angle=270]{mesh-snapCol-schaerExp-resting.eps}
+\caption{A `SnapCol' grid, \SI{20}{\kilo\meter} wide and \SI{2}{\kilo\meter} high, created by intersecting the terrain surface with a regular grid as described in section~\ref{sec:method:grid}.  Note that, unlike a true cut cell grid, some small cells have faces at $z = \SI{500}{\meter}$ that are not entirely horizontal.}
+\label{fig:method:cut-cell}
 \end{figure}
 
 At the time of writing, OpenFOAM does not directly support cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  First, a custom utility was used to move points beneath the surface up to the surface creating small cells near mountain peaks.  Second, a description of the surface was taken from any of the terrain following grids and \shellcmd{snappyHexMesh} was used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.
@@ -30,7 +30,7 @@ The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} 
 
 The fully-compressible Euler equations used in the resting atmosphere test (section~\ref{sec:resting}) and gravity waves test (section~\ref{sec:gw}) are specified as
 \begin{align}
-	& \text{Momentum} & \frac{\partial \rho \vect{u}}{\partial t} + \del \cdot \rho \vect{u} \vect{u} &= \rho \vect{g} - c_p \rho \theta \del \exner \label{eqn:method:momentum} \\
+& \text{Momentum} & \frac{\partial \rho \vect{u}}{\partial t} + \del \cdot \rho \vect{u} \vect{u} &= \rho \vect{g} - c_p \rho \theta \del \exner \label{eqn:method:momentum} \\
 %
 & \text{Continuity} & \frac{\partial \rho}{\partial t} + \del \cdot \rho \vect{u} &= 0 \label{eqn:method:continuity} \\
 %
@@ -45,43 +45,43 @@ where $\rho$ is the density, $\vect{u}$ is the velocity field, $\vect{g}$ is gra
 Here, we outline the placement of prognostic variables, pressure gradient discretisation, and the advection scheme.  Further details of the discretisation are given by \textcite{weller-shahrokhi2014}.
 
 \begin{figure}
-	\captionsetup[subfigure]{position=b}
-	\centering
-	\subcaptionbox{Vertical cross section of geometry}[0.48\textwidth]{\input{geometry}}
-	\hfill
-	\subcaptionbox{Placement of prognostic variables}[0.48\textwidth]{\input{variable-placement}}
-	\caption{Geometric placement of prognostic variables in two dimensions.  Adapted from \textcite{weller-shahrokhi2014}.}
-	\label{fig:method:placement}
+\captionsetup[subfigure]{position=b}
+\centering
+\subcaptionbox{Vertical cross section of geometry}[0.48\textwidth]{\input{geometry}}
+\hfill
+\subcaptionbox{Placement of prognostic variables}[0.48\textwidth]{\input{variable-placement}}
+\caption{Geometric placement of prognostic variables in two dimensions.  Adapted from \textcite{weller-shahrokhi2014}.}
+\label{fig:method:placement}
 \end{figure}
 
 To solve the continuity equation (equation~\ref{eqn:method:continuity}), in section~\ref{sec:theory:fv} we found that we must calculate the flux across all cell faces (see equation~\ref{eqn:theory:discrete-continuity}).  To do this, we first find the mass flux component $V_f$ in the direction between cell centres such that
 \begin{align}
-	V_f &= \rho \vect{u} \cdot \vect{d}_f
+V_f &= \rho \vect{u} \cdot \vect{d}_f
 %
 \intertext{where $\vect{d}_f$ is the vector between the centres of the two cells who share the face $f$.  Second, we use the H operator given in \textcite{weller-shahrokhi2014} to find the mass flux normal to the surface, $U_f$, that is}
 %
-	U &= HV
+U &= HV
 \end{align}
 where $U_f = \rho \vect{u} \cdot \vect{S}_f$, and $\vect{S}_f$ is normal to the face $f$ having a magnitude equal to the face area.  \textcite{thuburn-cotter2012} recommend the use of $V$ instead of $U$ as the prognostic variable to obtain mimetic properties including a curl-free pressure gradient.  The geometry just described is summarised in figure~\ref{fig:method:placement}.
 
 The Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
 \begin{align}
-	\del_d \exner = \frac{1}{| \vect{d}_f |} \sum_{c \in\: f} - n_f \exner_c
+\del_d \exner = \frac{1}{| \vect{d}_f |} \sum_{c \in\: f} - n_f \exner_c
 %
 \intertext{where $n_f$ corrects for the face orientation so that}
 %
-	n_f =
-	\begin{cases}
-		1  & \text{if $\vect{S}_f$ points away from the cell} \\
-		-1 & \text{if $\vect{S}_f$ points toward the cell}
-	\end{cases}
+n_f =
+\begin{cases}
+	1  & \text{if $\vect{S}_f$ points away from the cell} \\
+	-1 & \text{if $\vect{S}_f$ points toward the cell}
+\end{cases}
 \end{align}
 
 \begin{figure}
-	\centering
-	\input{cubicUpwind-stencil}
-	\caption{Two-dimensional cubic upwind stencil used in advecting momentum and potential temperature.  A face value $\Psi_F$ is interpolated from cell values, $\Psi_c$, denoted by grey dots.  Adapted from \textcite{weller-shahrokhi2014}.}
-	\label{fig:method:cubicUpwind}
+\centering
+\input{cubicUpwind-stencil}
+\caption{Two-dimensional cubic upwind stencil used in advecting momentum and potential temperature.  A face value $\Psi_F$ is interpolated from cell values, $\Psi_c$, denoted by grey dots.  Adapted from \textcite{weller-shahrokhi2014}.}
+\label{fig:method:cubicUpwind}
 \end{figure}
 
 Momentum and potential temperature are advected using an upwind-biased cubic interpolation.  A multi-dimensional cubic function is used whose coefficients are found using a least-squares fit with cell data in the stencil.  These coefficients are used to weight the cell values within the stencil, and the weighted sum is used to calculate $\Psi_F$.  A two-dimensional stencil is shown in figure~\ref{fig:method:cubicUpwind}.
@@ -91,23 +91,23 @@ Momentum and potential temperature are advected using an upwind-biased cubic int
 
 Energy conservation is desirable in the discretisation of the Euler equations.  In the resting atmosphere test detailed in section~\ref{sec:resting}, energy is conserved in the analytic solution, but not in all numerical approximations.  The normalised energy change $\Delta E$ at time $t$ is found by comparing with the initial energy measure, hence
 \begin{align}
-	\Delta E(t) &= \frac{E(t) - E(t = \SI{0}{\second})}{E(t = \SI{0}{\second})}
+\Delta E(t) &= \frac{E(t) - E(t = \SI{0}{\second})}{E(t = \SI{0}{\second})}
 \end{align}
 Three energy measures are considered, where the volume integral of some field $\varphi$ is the volume-weighted sum given by
 \begin{align}
-	\int_V \varphi \diff{V} &= \frac{\sum_c \varphi_c V_c}{\sum_c V_c}
+\int_V \varphi \diff{V} &= \frac{\sum_c \varphi_c V_c}{\sum_c V_c}
 \end{align}
 First, kinetic energy $E_K$ is calculated as \autocite{thuburn2014}
 \begin{align}
-	E_K(t) &= \int_V \frac{1}{4} \sum_{f \in \: c} \frac{\vect{u} \cdot \vect{S}_f \: \vect{u} \cdot \vect{d}_f}{V_c} \diff{V}
+E_K(t) &= \int_V \frac{1}{4} \sum_{f \in \: c} \frac{\vect{u} \cdot \vect{S}_f \: \vect{u} \cdot \vect{d}_f}{V_c} \diff{V}
 %
-	\intertext{Second, potential energy $E_P$ is}
+\intertext{Second, potential energy $E_P$ is}
 %
-	E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x}_c \diff{V}
+E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x}_c \diff{V}
 %
-	\intertext{where $\vect{x}_c$ is the position vector of the centre of cell $c$.  Third, the internal energy $E_I$ is \TODOcite}
+\intertext{where $\vect{x}_c$ is the position vector of the centre of cell $c$.  Third, the internal energy $E_I$ is \TODOcite}
 %
-	E_I(t) &= \int_V \rho \theta \Pi c_v \diff{V}
+E_I(t) &= \int_V \rho \theta \Pi c_v \diff{V}
 \end{align}
 where $c_v$ is the heat capacity of dry air at constant volume.
 
@@ -118,7 +118,7 @@ The CFL criterion states that the numerical domain of dependence must contain th
 
 On a two-dimensional unstructured grid, the Courant number for cell $c$ is \autocite{weller-shahrokhi2014}
 \begin{align}
-	\courant_c = \frac{\Delta t}{2 V_c} \sum_{f \in\: c} \vect{u} \cdot \vect{S}_f
+\courant_c = \frac{\Delta t}{2 V_c} \sum_{f \in\: c} \vect{u} \cdot \vect{S}_f \label{eqn:method:courant}
 \end{align}
-so that the CFL criterion is $\courant_c < 1 \forall c$.
+so that the CFL criterion is $\courant_c \leq 1\:\forall\:c$.
 

@@ -92,9 +92,26 @@ Examining more closely the potential temperature anomaly on the SnapCol grid, in
 	\label{fig:gw:courant}
 \end{figure}
 
-No evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving},  has been found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  The mean Courant number is similar across all grids throughout the simulation (figure~\ref{fig:gw:courant:mean}).
+No evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving},  has been found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  The mean Courant number is similar across all grids throughout the simulation (figure~\ref{fig:gw:courant:mean}).  \TODO{the mean and max do increase slowly over time.  this is more obvious in longer simulations.  this seems bad.  worth mentioning?}
 
-\TODO{discuss small cells and courant number and why we think the small cells haven't caused instability (counter to much of the literature)}
+\begin{figure}
+	\centering
+	\input{small-cell}
+	\caption{Nearly-horizontal flow through a thin, rectangular cell in the $x-z$ plane.  Because the vertical velocity component is small, the cell height $\Delta z$ has a negligible effect on the two-dimensional Courant number.}
+	\label{fig:gw:small-cell}
+\end{figure}
+
+This can be explained by considering flow through a two-dimensional, rectangular cell in the $x-z$ plane in which $\Delta x$ is several times larger than $\Delta z$ (figure~\ref{fig:gw:small-cell}).  Using equation~\ref{eqn:method:courant} and assuming a uniform flow $\vect{u} = ( u, 0, w )^\intercal$, the Courant number is
+\begin{align}
+	\courant &= \frac{\Delta t}{\Delta x \Delta z} \left( u \Delta z + w \Delta x \right)
+%
+	\intertext{When the flow is almost horizontal, $u \gg w$, so}
+%
+	\courant &\approx \frac{u \Delta t}{\Delta x}
+\end{align}
+That is, the two-dimensional Courant number reduces to the one-dimensional Courant number.  Hence, the cell height $\Delta z$ has little effect on the CFL criterion.
+
+In the gravity waves test, vertical motion is induced by the terrain and, for the shallow gradients used in this test, horizontal velocities dominate (see figure~\ref{fig:gw:flow}).
 
 \hrule
 
@@ -124,20 +141,7 @@ Noticing that $U_f$ follows the BTF mesh but does not follow the SnapCol mesh, w
 
 \begin{itemize}
 	\item Mean Courant numbers for cut-cell meshes and SLEVE are lower than BTF.  This could be because cells are relatively smaller aloft.
-	\item Surprisingly, mean Courant number is slightly higher for snap mesh which has no small cells (Figure~\ref{fig:gw:courant}).
-	\item SLEVE and BTF have the lowest max Co numbers, snap mesh significantly higher.  Since snap mesh does not have small cells, does this imply that snap mesh has higher winds?
 \end{itemize}
-
-Hilary mentioned that the reason that small cells aren't too much of a problem is that the small face is vertically oriented and has the majority of the flow fluxing through it.
-
-\begin{align}
-	\mathrm{Co} &= \frac{\Delta t}{2 V \rho} \sum{U}
-	\intertext{where $U = \rho \vect{u} \cdot \vect{S}$ (ish.  see Eqn 6 in W\&S2014).  Given large near-horizontal surface $S_1$ and adjoining small vertical surface $S_2$}
-	&= \frac{\Delta t}{2 S_1 S_2} \left( \vect{u} \cdot S_1 + \vect{u} \cdot S_2 \right)
-	\intertext{which, when $S_2$ is sufficiently small}
-	&\approx \frac{\Delta t}{2 S_1} \left( \vect{u} \cdot S_1 \right)
-\end{align}
-Hence, the Courant number is less affected by small cells with near-horizontal flow.
 
 \subsection{Energy}
 \begin{itemize}

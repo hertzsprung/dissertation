@@ -19,7 +19,8 @@ COMPONENTS := \
   geometry.tex \
   variable-placement.tex \
   pressure-grad.tex \
-  cubicUpwind-stencil.tex
+  cubicUpwind-stencil.tex \
+  small-cell.tex
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \
