@@ -1,8 +1,12 @@
+WOBBLY_THETA_WOBBLY_THETA_ADVECTION_FINAL_TRACER_FIELD := $(GRAVITY_WAVES_END_TIME)/T
+
 # $(1) -- simulation case path
 # $(2) -- subproject label
 # $(3) -- mesh case path
 define WOBBLY_THETA_ADVECTION_TEMPLATE
+
   $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
+  $(eval $(call PLOT_DIFF_TEMPLATE,$(1),$(2),thetaDiff,$(GRAVITY_WAVES_END_TIME),T,thetaDiff))
 
   .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
@@ -11,14 +15,14 @@ define WOBBLY_THETA_ADVECTION_TEMPLATE
 
   clean:: clean-$(2)
 
-  $(2): $(1)/$(ADVECTION_FINAL_TRACER_FIELD)
+  $(2): $(1)/$(WOBBLY_THETA_ADVECTION_FINAL_TRACER_FIELD)
 
   clean-$(2):
 	$(PY_FOAM_CLEAR_CASE) --processors-remove --additional=0 $(1)
 	$(RM) $(2)*.log
 	-$(UNLINK) $(1)/$(POLY_MESH_DIR)
 
-  $(1)/$(ADVECTION_FINAL_TRACER_FIELD): \
+  $(1)/$(WOBBLY_THETA_ADVECTION_FINAL_TRACER_FIELD): \
     $(addprefix $(1)/,$(ADVECTION_INITIAL_FIELDS)) \
     $(addprefix $(1)/,$(SYSTEM_FILES))
 	$(SCALAR_TRANSPORT_FOAM) -case $(1) > $(2).scalarTransportFoam.log
@@ -37,6 +41,8 @@ define WOBBLY_THETA_ADVECTION_TEMPLATE
 
   $(1)/$(THETA_INIT): $(COMMON_CASE)/$(THETA_INIT).gravityWaves
 	$(CP) $$< $$@
+
+  $(1)/$(GRAVITY_WAVES_END_TIME)/thetaDiff: $(1)/$(WOBBLY_THETA_ADVECTION_FINAL_TRACER_FIELD)
 
 endef
 

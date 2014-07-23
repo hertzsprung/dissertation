@@ -39,6 +39,8 @@ GNUPLOT_OUTPUTS := \
   resting-energy-sleve-plot.tex \
   resting-energy-snapCol-plot.tex \
   gravityWaves-schaerExp-h-exnerTheta-plot.tex \
+  gravityWaves-courant-max-plot.tex \
+  gravityWaves-courant-mean-plot.tex \
   wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
   wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex
 PLOT_PATCH_DATA_OUTPUTS := \
@@ -51,7 +53,9 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps \
-  openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps
+  openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps \
+  openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps \
+  openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 STATISTICS_FILES := \
   advection/noOrography/cubicUpwindCPCFit/$(L2_ERROR_STAT) \

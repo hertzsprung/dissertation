@@ -152,7 +152,7 @@ In the smoothed terrain following (STF) coordinate, \textcite{klemp2011} took an
 
 
 \section{Cell shaving techniques}
-\TODO{if I introduce FVM and CFL first, I can use them to describe the small cell timestep constraints}
+\label{sec:theory:shaving}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -201,9 +201,4 @@ To develop the finite volume method, we start by considering the conservation of
 where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.  This interpolation of cell averages onto faces is a significant source of truncation error in finite volume systems \autocite{adcroft1997}.
 
 The finite volume method leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
-
-\section{Courant--Friedrichs--Lewy criterion}
-The Courant--Friedrichs--Lewy criterion is a necessary condition for numerical stability (though it is not always, by itself, a sufficient condition).
-
-\TODO{talk about courant number in 2D, give example of a long, thin rectangle with flux through it.  This will become relevant in gravityWaves results}
 

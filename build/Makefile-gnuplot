@@ -31,6 +31,8 @@ $(eval $(call GNUPLOT_TEMPLATE,resting-energy-btf))
 $(eval $(call GNUPLOT_TEMPLATE,resting-energy-sleve))
 $(eval $(call GNUPLOT_TEMPLATE,resting-energy-snapCol))
 $(eval $(call GNUPLOT_TEMPLATE,gravityWaves-schaerExp-h-exnerTheta))
+$(eval $(call GNUPLOT_TEMPLATE,gravityWaves-courant-max))
+$(eval $(call GNUPLOT_TEMPLATE,gravityWaves-courant-mean))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour))
 

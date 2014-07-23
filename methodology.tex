@@ -23,9 +23,11 @@ At the time of writing, OpenFOAM does not directly support cut cell grids\footno
 The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.  This grid is referred to as the `SnapCol' grid throughout this project.
 
 
-
 \section{Discretisation of Euler equations}
 \label{sec:method:discretisation}
+
+\TODO{need to explain Lorentz staggering because we'll talk about its computational mode in gravityWaves results}
+
 The fully-compressible Euler equations used in the resting atmosphere test (section~\ref{sec:resting}) and gravity waves test (section~\ref{sec:gw}) are specified as
 \begin{align}
 	& \text{Momentum} & \frac{\partial \rho \vect{u}}{\partial t} + \del \cdot \rho \vect{u} \vect{u} &= \rho \vect{g} - c_p \rho \theta \del \exner \label{eqn:method:momentum} \\
@@ -108,3 +110,15 @@ First, kinetic energy $E_K$ is calculated as \autocite{thuburn2014}
 	E_I(t) &= \int_V \rho \theta \Pi c_v \diff{V}
 \end{align}
 where $c_v$ is the heat capacity of dry air at constant volume.
+
+\section{Courant--Friedrichs--Lewy criterion}
+The Courant--Friedrichs--Lewy (CFL) criterion is a necessary condition for numerical stability (though it is not always, by itself, a sufficient condition).  For an explicit advection scheme, it constrains the timestep as a function of wind speed and cell volume.  This is especially relevant for the small cells produced by the piecewise linear shaving technique described in section~\ref{sec:theory:shaving}.
+
+The CFL criterion states that the numerical domain of dependence must contain the true domain of dependence for the scheme to be convergent \autocite{leveque2002}.  \TODO{present a small 1D example with diagram, arrive at 1D courant number}.
+
+On a two-dimensional unstructured grid, the Courant number for cell $c$ is \autocite{weller-shahrokhi2014}
+\begin{align}
+	\courant_c = \frac{\Delta t}{2 V_c} \sum_{f \in\: c} \vect{u} \cdot \vect{S}_f
+\end{align}
+so that the CFL criterion is $\courant_c < 1 \forall c$.
+

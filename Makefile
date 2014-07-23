@@ -10,15 +10,15 @@ include build/Makefile-mesh-noOrography
 include build/Makefile-mesh-2dMountain
 include build/Makefile-mesh-snap
 include build/Makefile-mesh-snapCol
+include build/Makefile-plotPatchData
 include build/Makefile-testcase
 include build/Makefile-physical-testcase
 include build/Makefile-advection-diagnostics
 include build/Makefile-advection
-include build/Makefile-wobblyThetaAdvection
 include build/Makefile-resting
 include build/Makefile-gravityWaves-diagnostics
 include build/Makefile-gravityWaves
-include build/Makefile-plotPatchData
+include build/Makefile-wobblyThetaAdvection
 include build/Makefile-gnuplot
 include build/Makefile-latex
 
