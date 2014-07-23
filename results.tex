@@ -1,8 +1,10 @@
 \chapter{Results}
-Three test cases were performed over idealised terrain in two dimensions.  First, we report on the numerical errors associated with the horizontal advection of a scalar tracer.  Second, spurious flow and energy conservation are examined for a stable atmosphere initially at rest.  Third, \TODO{gravity waves...}  For each test, results on BTF, SLEVE and the cut cell style `SnapCol' grid are compared.  \TODO{any more?}
+Three test cases were performed over idealised terrain in two dimensions.  First, we examine the accuracy of the upwind-biased advection scheme with the horizontal advection of a scalar tracer.  Second, the results of horizontal advection are compared with tracer advection in a velocity field that follows the terrain.  Third, spurious flow and energy conservation are examined for a stable atmosphere initially at rest.  Fourth, hydrostatic gravity waves in an isothermal atmosphere are forced by flow over terrain.  Results reveal errors in potential temperature near the ground.  Fifth, the same vertical potential temperature profile is advected using another terrain-following velocity field to isolate the cause of the errors seen in the gravity waves test.
+
+For each test, results on BTF, SLEVE and the cut cell style `SnapCol' grid are compared.  Tests that use terrain following velocity fields omit results for the SLEVE grid.
 
 \input{horizAdvection}
+\input{wobblyTracerAdvection}
 \input{resting}
 \input{gravityWaves}
-\input{wobblyTracerAdvection}
 \input{wobblyThetaAdvection}

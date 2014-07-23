@@ -62,7 +62,9 @@ STATISTICS_FILES := \
   advection/noOrography/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
   advection/btf/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
   advection/sleve/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
-  advection/snapCol/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT)
+  advection/snapCol/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT)
 STATISTICS := $(addprefix openfoam/cases/,$(STATISTICS_FILES))
 BIBLIOGRAPHIES := dissertation.bib journals.bib
 

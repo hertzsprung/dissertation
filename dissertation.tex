@@ -71,7 +71,7 @@
 \newcommand{\TODOcite}{\textcolor{purple}{\textsuperscript{[citation needed]}}}
 \input{dissertationmacros}
 \input{mathmacros}
-\input{title}
+\include{title}
 
 \frontmatter
 \thispagestyle{plain}
@@ -85,12 +85,12 @@
 \tableofcontents*
 
 \mainmatter
-\input{intro}
-\input{theory}
-\input{methodology}
-\input{results}
-\input{conclusions}
-\input{furtherWork}
+\include{intro}
+\include{theory}
+\include{methodology}
+\include{results}
+\include{conclusions}
+\include{furtherWork}
 
 \backmatter
 \printbibliography

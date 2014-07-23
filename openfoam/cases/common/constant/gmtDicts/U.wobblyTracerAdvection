@@ -21,4 +21,4 @@ FieldsToPlot (
 );
 
 region "-30e3/30e3/0/15e3";
-boundaryMarks "25e3/5e3SWne";
+boundaryMarks "10e3/5e3SWne";

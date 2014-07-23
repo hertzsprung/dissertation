@@ -1,9 +1,13 @@
-\section{Horizontal advection}
+\section{Horizontal tracer advection}
+\label{sec:advection}
+
 Following \textcite{schaer2002}, a scalar tracer is transported above the orography by solving the advection equation for a prescribed horizontal wind.  This challenges the accuracy of the advection scheme in the presence of grid distortions.
 The wind profile, terrain profile and initial tracer field are shown in Figure~\ref{fig:advection:initial}.
 
 \subsection{Specification}
 The domain is \SI{300}{\kilo\meter} wide and \SI{25}{\kilo\meter} high.  The terrain is wave-shaped, specified by the surface height $\surface$ such that
+\begin{subequations}
+\label{eqn:advection:schaerCos}
 \begin{align}
 	\surface(x) &= \cos^2 \left( \frac{\pi x}{\lambda} \right) \surface^\star
 %
@@ -14,6 +18,7 @@ The domain is \SI{300}{\kilo\meter} wide and \SI{25}{\kilo\meter} high.  The ter
 		0 & \quad \text{otherwise}
 	\end{array} \right.
 \end{align}
+\end{subequations}
 where $a = \SI{25}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{3}{\kilo\meter}$ is the maximum mountain height, and $\lambda = \SI{8}{\kilo\meter}$ is the wavelength.  On the SLEVE grid, the large-scale component $\surface_1$, as described in section~\ref{sec:theory:tf}, is given by
 \begin{align}
 	\surface_1(x) &= \frac{1}{2}\surface^\star(x)
@@ -56,11 +61,10 @@ where $A_x = \SI{25}{\kilo\meter}$, $A_z = \SI{3}{\kilo\meter}$ are the horizont
 \end{figure}
 
 \subsection{Discretisation}
-The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve the advection-diffusion equation in flux form
+The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve the advection equation in flux form
 \begin{align}
-	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) - \laplace \left( \diffusioncoeff \varphi \right) = 0 \label{eq:advection:continuous}
+	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) = 0 \label{eq:advection:continuous}
 \end{align}
-Diffusion was turned off by setting the diffusion coefficient $\diffusioncoeff$ to be zero.
 
 The time derivative ($\partial \varphi / \partial t$) is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}
 \begin{align}
@@ -110,18 +114,4 @@ Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the a
 \end{align}
 where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytical value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
 
-\begin{table}
-\centering
-\begin{tabular}{ r @{\hspace{2em}} l l}
-\toprule
-		& Cubic upwind \\ \midrule
-BTF		& \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}		\\
-SLEVE		& \input{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/l2error.txt}	\\
-Cut cell	& \input{openfoam/cases/advection/snapCol/schaerCos/cubicUpwindCPCFit/l2error.txt}	\\
-Regular grid	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/l2error.txt}		\\ \bottomrule
-\end{tabular}
-
-\caption{$\ell^2$ error norms for the advection test at $t = \SI{10000}{\second}$}
-\label{tab:advection:errors}
-\end{table}
 
