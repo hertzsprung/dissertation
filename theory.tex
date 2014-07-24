@@ -218,11 +218,13 @@ In both grids, horizontal velocities $u$ and $v$, and density $\rho$, are stored
 
 The Charney--Philips grid was originally developed for a quasigeostrophic model using sigma coordinates.  \textcite{arakawa-moorthi1988} found that advection of quasi-geostrophic potential vorticity is conserved by this grid staggering, and it requires less interpolation of variables than the Lorenz grid \autocite{holdaway2013}. \TODO{anything else of significant interest to say about it?}
 
-The Lorenz grid has a number of mimetic properties: it conserves total energy, the mean potential temperature, and variance of potential temperature assuming no diabatic processes or friction \textcite{arakawa-konor1996}.  However, it is known that a computational mode exists on the Lorenz grid which can create a zig-zag in the vertical distribution of potential temperature \parencites{arakawa-moorthi1988}{arakawa-konor1996}{holdaway2013b}.  This can be explained by considering the vertical momentum equation \autocite{holdaway2013}
+The Lorenz grid has a number of mimetic properties: it conserves total energy, the mean potential temperature, and variance of potential temperature assuming no diabatic processes or friction \autocite{arakawa-konor1996}.  However, it is known that a computational mode exists on the Lorenz grid which can create a zig-zag in the vertical distribution of potential temperature \parencites{arakawa-moorthi1988}{arakawa-konor1996}{holdaway2013b}.  This can be explained by considering the vertical momentum equation \autocite{holdaway2013}
 \begin{align}
 	\frac{\partial w}{\partial t} + \vect{u} \cdot \del w = -g - c_p \theta \frac{\partial \exner}{\partial z}
 \end{align}
 In a discretisation of this equation, to calculate $w_{k+\frac{1}{2}}$, $\theta_{k+\frac{1}{2}}$ may be interpolated using an arithmetic mean of the adjacent values $\theta_k$ and $\theta_{k+1}$.  As shown in figure~\ref{fig:theory:theta-oscillation}, a grid-scale vertical wave in potential temperature would not be visible by the model \autocite{holdaway2013}.  \TODO{I hope I've got this right.  I can't find very detailed information so I've plugged the gaps myself.}
+
+The computational mode can affect the physical mode, causing spurious interactions with condensation processes \autocite{arakawa-konor1996} and the spurious generation of baroclinic instability and increased gravity wave activity \parencites{arakawa-moorthi1988}{cullen1997}.
 
 \begin{figure}
 	\centering
