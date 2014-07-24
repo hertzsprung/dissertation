@@ -21,7 +21,8 @@ COMPONENTS := \
   pressure-grad.tex \
   cubicUpwind-stencil.tex \
   small-cell.tex \
-  vertical-staggering.tex
+  vertical-staggering.tex \
+  theta-oscillation.tex
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \

@@ -26,8 +26,6 @@ The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} 
 \section{Discretisation of Euler equations}
 \label{sec:method:discretisation}
 
-\TODO{need to explain Lorentz staggering because we'll talk about its computational mode in gravityWaves results}
-
 The fully-compressible Euler equations used in the resting atmosphere test (section~\ref{sec:resting}) and gravity waves test (section~\ref{sec:gw}) are specified as
 \begin{align}
 & \text{Momentum} & \frac{\partial \rho \vect{u}}{\partial t} + \del \cdot \rho \vect{u} \vect{u} &= \rho \vect{g} - c_p \rho \theta \del \exner \label{eqn:method:momentum} \\
@@ -49,7 +47,7 @@ Here, we outline the placement of prognostic variables, pressure gradient discre
 \centering
 \subcaptionbox{Vertical cross section of geometry}[0.48\textwidth]{\input{geometry}}
 \hfill
-\subcaptionbox{Placement of prognostic variables}[0.48\textwidth]{\input{variable-placement}}
+\subcaptionbox{Placement of prognostic variables \label{fig:method:placement:variables}}[0.48\textwidth]{\input{variable-placement}}
 \caption{Geometric placement of prognostic variables in two dimensions.  Adapted from \textcite{weller-shahrokhi2014}.}
 \label{fig:method:placement}
 \end{figure}
@@ -63,6 +61,8 @@ V_f &= \rho \vect{u} \cdot \vect{d}_f
 U &= HV
 \end{align}
 where $U_f = \rho \vect{u} \cdot \vect{S}_f$, and $\vect{S}_f$ is normal to the face $f$ having a magnitude equal to the face area.  \textcite{thuburn-cotter2012} recommend the use of $V$ instead of $U$ as the prognostic variable to obtain mimetic properties including a curl-free pressure gradient.  The geometry just described is summarised in figure~\ref{fig:method:placement}.
+
+As shown in figure~\ref{fig:method:placement:variables}, the discretisation uses a Lorenz vertical staggering, as described in section~\ref{sec:theory:staggering}, with $\theta$ stored at the cell centre.
 
 The Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
 \begin{align}

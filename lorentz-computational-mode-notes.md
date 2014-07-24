@@ -13,16 +13,18 @@ Weather Rev., 124, 511–528
 explain lorentz/charney-phillips staggering
 CP
 - originally based in sigma coords, QG approximation
-- conserves advection of QGPV 
-- theta at levels carrying vertical mass flux, horizontal velocities in between
-- vertical advection of theta depends solely on vertical mass flux
+- conserves advection of QGPV
+- requires less interpolation of variables (Holdaway 2013)
+- what else?
 
 Lorenz
-- vertically discrete balanced model
 - conserves total energy, mean theta and variance of theta in adiabatic+frictionless processes
-- horizontal velocity and potential temperature at same level, vertical mass flux in between
+- however, conversion between PE and KE not necessarily correct
 - computational mode in vertical distribution of theta (Tokioka 1978, Arakawa 1988, Cullen & James 1994, Hollingsworth 1995)
 - with centred differencing, thickness between two adjacent layers depends on an average of the theta of the two layers
+- Arakawa & Moorthi 1988 found computational mode near the ground and upper lid, causing spurious amplification of short waves
+- reduction in effective static stability (Arakaway&Moorthi 1988)
 
-
-gravity waves theory -- how does flow over a mountain give rise to velocity and theta patterns?
+"The computational mode is a spurious solution resulting from having one too many
+degrees of freedom; it can interact with other modes and
+reduce overall accuracy." -- Holdaway 2013
