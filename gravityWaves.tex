@@ -53,11 +53,11 @@ Comparing vertical velocity contours between BTF and SLEVE show few visible diff
 	\centering
 	\subcaptionbox{SLEVE \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
 	\subcaptionbox{SnapCol \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}}
-	\caption{\TODO{Theta anomalies (zoomed in)}}
+	\caption{\TODO{Theta anomalies (zoomed in)} \TODO{colour legend}}
 	\label{fig:gw:thetaDiffZoom}
 \end{figure}
 
-Theta anomalies are similar on all grids, having a similar shape to vertical velocity contours, but phase shifted by \ang{180} (SLEVE grid figure~\ref{fig:gw:thetaDiff:sleve}, SnapCol grid figure~\ref{fig:gw:thetaDiff:snapCol}, BTF grid not shown). 
+Potential temperature anomalies are similar on all grids, having a similar shape to vertical velocity contours, but phase shifted by \ang{180} (SLEVE grid figure~\ref{fig:gw:thetaDiff:sleve}, SnapCol grid figure~\ref{fig:gw:thetaDiff:snapCol}, BTF grid not shown). 
 Examining more closely the potential temperature anomaly on the SnapCol grid, in the lee of the mountain the bottommost layer is anomalously warm and the layer above it is anomalously cold (figure~\ref{fig:gw:thetaDiffZoom:snapCol}).  Potential temperature increases with height because the simulated atmosphere is stable, so these anomalies serve to reduce the stability near the ground.  The anomalies are not sufficiently large to destabilise the atmosphere, however.   Therefore, vertical motion is not expected, and was not observed, near the ground on the lee side.   Whilst turbulent motion does cause thermal mixing in the real atmosphere, there is no viscosity in the model equations, so the thermal anomalies should not be present.  The feature is not present on the SLEVE grid (figure~\ref{fig:gw:thetaDiffZoom:sleve}) or BTF grid (not shown).
 
 \TODO{Train of thought leading to hypothesis that computational mode in Lorentz staggering is excited by advection errors.}
@@ -92,6 +92,8 @@ Examining more closely the potential temperature anomaly on the SnapCol grid, in
 	\label{fig:gw:courant}
 \end{figure}
 
+\TODO{are energy changes significant?  we saw that internal energy loss was slightly more on SnapCol (i.e. the atmosphere is getting colder quicker)}
+
 No evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving},  has been found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  The mean Courant number is similar across all grids throughout the simulation (figure~\ref{fig:gw:courant:mean}).  \TODO{the mean and max do increase slowly over time.  this is more obvious in longer simulations.  this seems bad.  worth mentioning?}
 
 \begin{figure}
@@ -112,46 +114,3 @@ This can be explained by considering flow through a two-dimensional, rectangular
 That is, the two-dimensional Courant number reduces to the one-dimensional Courant number.  Hence, the cell height $\Delta z$ has little effect on the CFL criterion.
 
 In the gravity waves test, vertical motion is induced by the terrain and, for the shallow gradients used in this test, horizontal velocities dominate (see figure~\ref{fig:gw:flow}).
-
-\hrule
-
-\hrule
-\TODO{these are just notes...}
-
-\begin{itemize}
-\item Vertical mixing at ground in lee of orography seen in results for snapCol and snap meshes.  This occurs in the lowest two rows of the mesh: lower layer $\theta$ is warmer, next layer above is cooler.  Feature is visible after t=3600s (Figure~\ref{fig:gw:mixing-3600s}), becomes more pronounced by t=18000s (Figure~\ref{fig:gw:mixing-18000s}).
-\end{itemize}
-
-\subsection{Investigation of vertical mixing}
-Initially suspected mixing was due to computation mode of Lorenz vertical staggering but now it seems not (or maybe it does! we're not quite sure!)
-\begin{itemize}
-	\item plot UfDiff as a vector field doesn't seem to show any velocity anomalies in BTF or snalCol (Figure~\ref{fig:gw:ufdiff})
-	\item plot of $\theta$ field shows that mixing is not strong enough to overcome stratification (Figure~\ref{fig:gw:theta})
-	\item doubling mountain height causes mixing to appear in BTF case, and increases to three rows of mixing in SnapCol (Figure~\ref{fig:gw:double-height})
-	\item halving $\Delta z$ also causes BTF mixing but less severe, also three rows of mixing in SnapCol (not shown)
-	\item the results for dp/dx show mixing in BTF, and increased mixing in SnapCol (not shown)
-\end{itemize}
-
-
-By isolating the nonlinear advection term in the momentum equations ($\del \rho \vect{u} \vect{u}$) we can see the different in flows between BTF and SnapCol meshes (Figure~\ref{fig:gw:nonlinear-advection}).  Looking at $U_f$ we can see larger velocities in small cells near mountain peaks, but otherwise flow fields are qualitatively in good agreement.
-
-Noticing that $U_f$ follows the BTF mesh but does not follow the SnapCol mesh, we suspect that the thermal mixing may be caused by numerical diffusion (as we same with horizontal tracer advection).  This time, however, the flow is not horizontal, so it is SnapCol that has more diffusion.
-
-\subsection{Courant number}
-
-\begin{itemize}
-	\item Mean Courant numbers for cut-cell meshes and SLEVE are lower than BTF.  This could be because cells are relatively smaller aloft.
-\end{itemize}
-
-\subsection{Energy}
-\begin{itemize}
-	\item Cut cell meshes are worse than TF meshes.  Snap loses internal energy much quicker than other meshes; i.e. it gets colder. (Figure~\ref{fig:gw:energy})
-\end{itemize}
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{interim-results/gravityWavesEnergy.png}
-	\caption{Energy changes}
-	\label{fig:gw:energy}
-\end{figure}
-
-Looking at max Courant number for SLEVE, and energy loss graphs for all meshes, we see a change of behaviour at t=10000s (about 2.8 hours).  This might be related to gravity waves reflecting off the inlet or outlet boundary.  Changing the wind speed would let us investigate further.

@@ -202,3 +202,14 @@ where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated
 
 The finite volume method leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
 
+\section{Vertical staggering of variables}
+
+\begin{figure}
+	\centering
+	\input{vertical-staggering}
+	\caption{Lorenz (left) and Charney-Phillips (right) vertical staggering of variables.  Adapted from \textcite{holdaway2013}.}
+	\label{fig:theory:staggering}
+\end{figure}
+
+When discretising the equations of motion, computational properties including stability and convergence are necessary.  Additionally, it is desirable to obtain a discretisation that represents the dynamics of the real system.  There are two commonly-used vertical staggerings, the Lorenz grid \autocite{lorenz1960} and the Charney-Phillips grid \autocite{charney-phillips1953}, which offer different sets of computational and physical mimetic properties.
+

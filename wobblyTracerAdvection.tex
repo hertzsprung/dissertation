@@ -14,7 +14,7 @@ The spatial domain, mountain profile, initial tracer profile and discretisation 
 %
 	\intertext{Hence, for the mountain profile given in equation~\ref{eqn:advection:schaerCos} we find}
 %
-	u &= \frac{H}{H - h} \quad,\quad w = H \frac{\partial h}{\partial x} \frac{H - z}{\left( H - h \right)^2} \\
+	u &= \frac{H}{H - h} \quad,\quad w = H \frac{\partial h}{\partial x} \frac{H - z}{\left( H - h \right)^2} \label{eqn:wobblyTracerAdvection:velocity} \\
 	\frac{\partial h}{\partial x} &= - h_0 \pi \left[ 
 		\frac{1}{\lambda} \cos^2 \left( \frac{\pi x}{2a} \right) \sin \left( \frac{2 \pi x}{\lambda} \right) +
 		\frac{1}{2a} \cos^2 \left( \frac{\pi x}{\lambda} \right) \sin \left( \frac{\pi x}{a} \right)
