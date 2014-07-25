@@ -1,4 +1,6 @@
 \chapter{Methodology}
+\label{sec:method}
+
 Here, we describe the construction of BTF and SLEVE terrain following grids and a cut cell style grid.  A finite volume model of the fully-compressible Euler equations from \textcite{weller-shahrokhi2014} is discussed.  In the following chapter, five tests are presented in which the model is run on the terrain following and cut cell grids.  Finally, we give details of energy measures and the Courant--Friedrich--Lewy criterion, which constraints the model timestep.  These metrics are used to evaluate model performance in the following chapter.
 
 \section{Grid construction}
@@ -18,7 +20,7 @@ Most implementations of terrain following layers use a coordinate system that ma
 \label{fig:method:cut-cell}
 \end{figure}
 
-At the time of writing, OpenFOAM does not directly support cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the \shellcmd{snappyHexMesh} OpenFOAM utility was used to create a grid that approximates the cut cell method.  First, a custom utility was used to move points beneath the surface up to the surface creating small cells near mountain peaks.  Second, a description of the surface was taken from any of the terrain following grids and \shellcmd{snappyHexMesh} was used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.
+At the time of writing, OpenFOAM does not directly support cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the OpenFOAM utility \shellcmd{snappyHexMesh} was used to create a grid that approximates the cut cell method.  First, a custom utility was used to move points beneath the surface up to the surface creating small cells near mountain peaks.  Second, a description of the surface was taken from any of the terrain following grids and \shellcmd{snappyHexMesh} was used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.
 
 The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.  This grid is referred to as the `SnapCol' grid throughout this project.
 
