@@ -11,14 +11,24 @@ height due to nonhydrostatic effects."
 compare SLEVE with schaer?  is there much point when n = 1.35?
 - for gravity waves, s1=5km, s2=2km in schaer2002
 Klemp 2003
-Melvin 2010
 - contours every 5e-2 ms^-1
 Not directly comparable with Zaengl 2012
 
 w contours
-- results of w contours are similar
 - Hilary says small-scale gravity waves are evanescent
 
-u vectors
+theory
+======
+in a stable atmosphere, an air parcel that is displaced vertically experiences a buoyancy force that accelerates the parcel back toward its original position
 
-theta diff
+This is the restoring force of internal gravity waves.
+
+waves can be propogating or standing
+
+propogating waves transport energy but not matter
+
+waves have
+- a wavenumber, related to wavelength
+- phase speed, which is a function of wavenumber
+- waves of different lengths, therefore, propogate at different speeds: dispersion relation
+- group velocity
