@@ -22,7 +22,8 @@ COMPONENTS := \
   cubicUpwind-stencil.tex \
   small-cell.tex \
   vertical-staggering.tex \
-  theta-oscillation.tex
+  theta-oscillation.tex \
+  gw-phases.tex
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \

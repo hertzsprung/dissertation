@@ -32,3 +32,10 @@ waves have
 - phase speed, which is a function of wavenumber
 - waves of different lengths, therefore, propogate at different speeds: dispersion relation
 - group velocity
+
+with background flow \overline{u}, dispersion relation: \nu = \overline{u}k \pm Nk / | \vect{k} | where \nu=frequency, k=horizontal wavenumber,k=wavenumber vector
+
+assume rossby number is large, coriolis can be neglected
+
+- flow over isolated ridge can be treated as sum of flows over infinite sinusoidal surfaces with different wavelengths
+

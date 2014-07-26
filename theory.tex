@@ -235,3 +235,39 @@ The computational mode can affect the physical mode, causing spurious interactio
 	\caption{Interpolation of potential temperature on a Lorenz grid.  Solid circles denote values of $\theta$ stored at full levels and the solid line shows the potential temperature profile.  Open circles denote $\theta$ values interpolated onto half levels and the dotted line represents the interpolated profile.  Magnitude of $\theta$ increases to the right.}
 	\label{fig:theory:theta-oscillation}
 \end{figure}
+
+\section{Gravity waves}
+When an air parcel is vertically displaced in a stable atmosphere, it experiences a restoring buoyancy force that causes it to oscillate with the Brunt-V\"ais\"al\"a frequency $N$.  Two dimensional waves in the $x-z$ plane are characterised by their horizontal and vertical wavenumbers, $k$ and $m$, their frequency, $\omega$, and amplitude $\amplitude$.  By starting with the Boussinesq approximation of the Navier-Stokes equations we can derive the dispersion relation \autocite{lynch-cassano2006}
+\begin{align}
+	\left( \frac{\partial}{\partial t} + \overline{u} \frac{\partial}{\partial x} \right)^2
+	\left( \frac{\partial^2 w'}{\partial x^2} + \frac{\partial^2 w'}{\partial z^2} \right) +
+	N^2 \frac{\partial^2 w'}{\partial x^2} = 0
+%
+	\intertext{where $\overline{u}$ is the mean horizontal wind and $w'$ is the vertical velocity anomaly.  This can be solved by assuming a wave-like solution}
+%
+	w' = \amplitude \cos \left( kx + mz - \omega t \right) \label{eqn:theory:gw:w-prime}
+	\intertext{thus giving the dispersion relation}
+	\left( \omega - \overline{u}k \right)^2 
+	\left( k^2 + m^2 \right) -
+	N^2 k^2 = 0
+\end{align}
+
+The potential temperature anomaly $\theta'$ is a function of background stability $\partial \overline{\theta}/\partial z$ and is \ang{90} out of phase with $w'$, given by \autocite{lynch-cassano2006} \TODO{it'd be nice to derive this from Boussinesq equations but I've struggled to do it myself}
+\begin{align}
+	\theta' &= \frac{\amplitude}{\omega} \frac{\diff{\overline{\theta}}}{\diff{z}} \sin \phase \label{eqn:theory:gw:theta-prime}
+%
+	\intertext{where the phase $\phase$ is}
+%
+	\phase &= kx + mz - \omega t \label{eqn:theory:gw:phase}
+\end{align}
+
+\begin{figure}
+	\centering
+	\input{gw-phases}
+	\caption{Phase relationship between vertical velocity anomalies $w'$ and potential temperature anomalies $\theta'$.  Adapted from \textcite{lynch-cassano2006}.}
+	\label{fig:theory:gw:phases}
+\end{figure}
+
+Using equations~\ref{eqn:theory:gw:w-prime}, \ref{eqn:theory:gw:theta-prime} and \ref{eqn:theory:gw:phase} we can plot the phase relationships between $w'$ and $\theta'$, shown in figure~\ref{fig:theory:gw:phases}.
+
+\TODO{discuss infinite sinusoidal hill, then finite hill by sum of infinite sine waves, as in Lynch\&Cassano}
