@@ -237,7 +237,13 @@ The computational mode can affect the physical mode, causing spurious interactio
 \end{figure}
 
 \section{Gravity waves}
-When an air parcel is vertically displaced in a stable atmosphere, it experiences a restoring buoyancy force that causes it to oscillate with the Brunt-V\"ais\"al\"a frequency $N$.  Two dimensional waves in the $x-z$ plane are characterised by their horizontal and vertical wavenumbers, $k$ and $m$, their frequency, $\omega$, and amplitude $\amplitude$.  By starting with the Boussinesq approximation of the Navier-Stokes equations we can derive the dispersion relation \autocite{lynch-cassano2006}
+\label{sec:theory:gw}
+
+When an air parcel is forced to rise over a mountain, it experiences a restoring buoyancy force which can create waves that propagate away from the mountain.  These are known as gravity waves, mountain waves, or lee waves.
+
+\TODO{create lenticular clouds, clear air turbulence, strong downslope winds (Holton 2003)}
+
+Two dimensional waves in the $x-z$ plane are characterised by their horizontal and vertical wavenumbers, $k$ and $m$, their frequency, $\omega$, and amplitude $\amplitude$.  By starting with the Boussinesq approximation of the Navier-Stokes equations we can derive the dispersion relation \autocite{lynch-cassano2006}
 \begin{align}
 	\left( \frac{\partial}{\partial t} + \overline{u} \frac{\partial}{\partial x} \right)^2
 	\left( \frac{\partial^2 w'}{\partial x^2} + \frac{\partial^2 w'}{\partial z^2} \right) +
@@ -271,3 +277,4 @@ The potential temperature anomaly $\theta'$ is a function of background stabilit
 Using equations~\ref{eqn:theory:gw:w-prime}, \ref{eqn:theory:gw:theta-prime} and \ref{eqn:theory:gw:phase} we can plot the phase relationships between $w'$ and $\theta'$, shown in figure~\ref{fig:theory:gw:phases}.
 
 \TODO{discuss infinite sinusoidal hill, then finite hill by sum of infinite sine waves, as in Lynch\&Cassano}
+\TODO{discuss how terrain wavelength affects wave propagation}

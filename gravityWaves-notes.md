@@ -19,9 +19,15 @@ w contours
 
 theory
 ======
-in a stable atmosphere, an air parcel that is displaced vertically experiences a buoyancy force that accelerates the parcel back toward its original position
+When an air parcel is forced to rise over a mountain, it experiences a restoring buoyancy force which can create waves that propagate away from the mountain.  These are known as gravity waves, mountain waves, or lee waves.
 
-This is the restoring force of internal gravity waves.
+2ND FLOOR REFERENCE--551.503-ENC VOL. 1-6
+551.5-NAP
+
+- can cause lenticular clouds and rotor clouds
+- large-amplitude GW can create clear air turbulence, aviation hazard
+- large-amplitude GW can produce strong downslope winds
+
 
 waves can be propogating or standing
 
