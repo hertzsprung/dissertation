@@ -23,6 +23,8 @@ When an air parcel is forced to rise over a mountain, it experiences a restoring
 
 2ND FLOOR REFERENCE--551.503-ENC VOL. 1-6
 551.5-NAP
+551.5-MES
+532.51-BAI
 
 - can cause lenticular clouds and rotor clouds
 - large-amplitude GW can create clear air turbulence, aviation hazard
