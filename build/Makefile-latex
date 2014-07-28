@@ -30,6 +30,8 @@ GNUPLOT_OUTPUTS := \
   full-step-plot.tex \
   partial-step-plot.tex \
   cut-cell-plot.tex \
+  gravityWaves-propagating-plot.tex \
+  gravityWaves-evanescent-plot.tex \
   advection-initial-plot.tex \
   advection-noOrography-analytic-contour-plot.tex \
   advection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \

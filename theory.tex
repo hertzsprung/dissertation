@@ -241,13 +241,13 @@ The computational mode can affect the physical mode, causing spurious interactio
 \section{Gravity waves}
 \label{sec:theory:gw}
 
-When an air parcel is forced to rise over a mountain, it experiences a restoring buoyancy force which can create waves that propagate away from the mountain.  These are known as gravity waves, mountain waves, or lee waves.
+When an air parcel is forced to rise over a mountain, it experiences a restoring buoyancy force which can create waves that propagate away from the mountain.  These are known as gravity waves, mountain waves, or lee waves.  
 
-Gravity waves play an important role in mesoscale weather.  The waves can trigger convection by propagating through areas of weak stability, they cause clear-air turbulence that affects aircraft \textcite{ray1986}, and can produce very strong downslope winds \textcite{lynch-cassano2006}.
+Gravity waves play an important role in mesoscale weather.  The waves can trigger convection by propagating through areas of weak stability, they cause clear-air turbulence that affects aircraft \autocite{ray1986}, and can produce very strong downslope winds on the lee slope of the mountain \autocite{holton2003}.
 
 In this section, we briefly present the theory of linear waves and demonstrate their effect on wind and temperature.  In section~\ref{sec:gw}, we relate this theory to the results of a two dimensional experiment in which gravity waves are induced by flow over a wave-shaped mountain range.
 
-Two dimensional waves in the $x-z$ plane are characterised by their horizontal and vertical wavenumbers, $k$ and $m$, their frequency, $\omega$, and amplitude $\amplitude$.  By starting with the Boussinesq approximation of the Navier-Stokes equations we can derive the dispersion relation \autocite{lynch-cassano2006}
+Two dimensional waves in the $x-z$ plane are characterised by their frequency, $\omega$, amplitude $\amplitude$, and their horizontal and vertical wavenumbers $k$ and $m$.  In flow over a mountain, the horizontal wavenumber is often related to the spacing between mountain ridges.  By starting with the Boussinesq approximation of the Navier-Stokes equations we can derive the dispersion relation \autocite{lynch-cassano2006}
 \begin{align}
 	\left( \frac{\partial}{\partial t} + \overline{u} \frac{\partial}{\partial x} \right)^2
 	\left( \frac{\partial^2 w'}{\partial x^2} + \frac{\partial^2 w'}{\partial z^2} \right) +
@@ -290,29 +290,27 @@ Next, we impose a lower boundary condition to simulate flow over an infinite, wa
 	  &= \overline{u} \frac{\partial h}{\partial x} \\
 	  &= - \overline{u} k h_0 \sin \left( kx \right) \label{eqn:theory:gw:boundary-cond}
 %
-	\intertext{Assuming a stationary wave in the form $w'(x, z) = - \overline{u} k h_0 \sin \left( kx + mz \right)$, and noting that $\partial / \partial t = 0$ and $\omega = 0$, we find that the dispersion relation given by equation~\ref{eqn:theory:gw:dispersion} has the solution \textcite{lynch-cassano2006}}
+	\intertext{Assuming a stationary wave in the form $w'(x, z) = - \overline{u} k h_0 \sin \left( kx + mz \right)$, and noting that $\partial / \partial t = 0$ and $\omega = 0$, we find that the dispersion relation given by equation~\ref{eqn:theory:gw:dispersion} has the solution \autocite{lynch-cassano2006}}
 %
 	m &= \sqrt{\frac{N^2}{\overline{u}^2} - k^2} \label{eqn:theory:gw:m-dispersion}
 \end{align}
-which also satisfies the boundary condition given by equation~\ref{eqn:theory:gw:boundary-cond}.  This solution is shown in figure~\ref{fig:theory:gw:propagating}.
+which also satisfies the boundary condition given by equation~\ref{eqn:theory:gw:boundary-cond}.  The solution is presented in figure~\ref{fig:theory:gw:propagating} which shows the vertically propagating wave.
 
-We see from equation~\ref{eqn:theory:gw:m-dispersion} that, for $m$ to have a real solution, $|\overline{u}k| < N$.  This constrain cannot be satisfied when the wind is too strong, stability is too weak, or the horizontal wavenumber is too large.  In this case, the dispersion relation is instead satisfied by the solution \textcite{lynch-cassano2006}
+We see from equation~\ref{eqn:theory:gw:m-dispersion} that, for $m$ to have a real solution, $|\overline{u}k| < N$.  This constraint cannot be satisfied when the wind is too strong, stability is too weak, or the spacing of mountain ridges is too narrow (that is, $k$ is too large).  In this case, the dispersion relation is instead satisfied by the solution \autocite{lynch-cassano2006}
 \begin{align}
 	w' &= - \overline{u} k h_0 e^{-mz} \sin \left( kx \right)
 \end{align}
-This solution is shown in figure~\ref{fig:theory:gw:evanescent}.
+As shown in figure~\ref{fig:theory:gw:evanescent}, in this solution, waves decay with height and there is no vertical propagation.  These are often called evanescent waves.
 
 \begin{figure}
 	\centering
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{\TODO{propagating} \label{fig:theory:gw:propagating}}{\TODO{}} \\
-	\subcaptionbox{\TODO{evanescent} \label{fig:theory:gw:evanescent}}{\TODO{}}
+	\subcaptionbox{\TODO{propagating} \label{fig:theory:gw:propagating}}[0.48\textwidth]{\input{gravityWaves-propagating-plot}}
+	\hfill
+	\subcaptionbox{\TODO{evanescent} \label{fig:theory:gw:evanescent}}[0.48\textwidth]{\input{gravityWaves-evanescent-plot}}
 %
-	\caption{\TODO{propagating and evanescent stationary waves}}
+	\caption{\TODO{propagating and evanescent stationary waves}.  Adapted from \textcite{lynch-cassano2006}.}
 	\label{fig:theory:gw:stationary-waves}
 \end{figure}
-
-
-\TODO{summarize what these two solutions mean physically, how ridge size relates to horizontal wavenumber, propagating/evanescent}
 
