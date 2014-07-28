@@ -1,7 +1,7 @@
 \section{Gravity waves}
 \label{sec:gw}
 
-\TODO{introduce the test, justify its purpose}
+Following \textcite{schaer2002}, uniform flow over an idealised two-dimensional mountain ridge induces gravity waves in a stable atmosphere.  As described in section~\ref{sec:theory:gw}, large-scale hydrostatic waves propagate away from the surface and small-scale, nonhydrostatic, evanescent waves decay rapidly above the terrain.
 
 \subsection{Specification}
 Following \textcite{melvin2010}, the domain is \SI{300}{\kilo\meter} wide and \SI{30}{\kilo\meter} high.  The mountain profile has the same form as equation~\ref{eqn:resting:mountain} but with a lower maximum height of $\surface_0 = \SI{250}{\meter}$.  As in the resting atmosphere test, $a = \SI{5}{\kilo\meter}$ is the mountain half-width and $\lambda = \SI{4}{\kilo\meter}$ is the wavelength.  On the optimised SLEVE grid, $s_1 = \SI{5}{\kilo\meter}$ is the large scale height, $s_2 = \SI{2}{\kilo\meter}$ is the small scale height and the optimal exponent value $n = 1.35$ as in the previous test\TODOsidenote{where did these SLEVE parameters come from?}.
@@ -28,7 +28,6 @@ No slip conditions are imposed on the top and bottom boundaries and the outlet i
 
 \subsection{Results}
 
-
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
@@ -40,13 +39,13 @@ No slip conditions are imposed on the top and bottom boundaries and the outlet i
 	\subcaptionbox{SLEVE \label{fig:gw:thetaDiff:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}} \\
 	\subcaptionbox{SnapCol \label{fig:gw:w:snapCol}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/w.eps}}
 	\hfill
-	\subcaptionbox{SnapCol \label{fig:gw:thetaDiff:snapCol}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \TODO{include legend}}
+	\subcaptionbox{SnapCol \label{fig:gw:thetaDiff:snapCol}}[0.48\textwidth]{\shortstack[c]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \\ \smallskip \hspace{1em} \includegraphics[height=2.4in,angle=270]{legends/thetaDiff.eps}}}
 %
 	\caption{Vertical cross section of vertical velocity contours (\subcaptionref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve} and \subcaptionref{fig:gw:w:snapCol}) and theta anomalies (\subcaptionref{fig:gw:thetaDiff:sleve} and \subcaptionref{fig:gw:thetaDiff:snapCol}) from the gravity waves test after 5 hours.  Vertical velocity contours are every \SI{5e-2}{\meter\per\second} with solid lines denoting ascent and dashed lines descent.}
 	\label{fig:gw:w}
 \end{figure}
 
-Comparing vertical velocity contours between BTF and SLEVE show few visible differences (figures~\ref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve}).  Since the same model was used, these results match those from \textcite{weller-shahrokhi2014}.  Vertical velocities on the SnapCol grid are similar to the terrain following results (figure~\ref{fig:gw:w:snapCol}).  All three results are in agreement with a semi-implicit, semi-Lagrangian simulation from \textcite{melvin2010} (see figure~\ref{fig:gw:w:melvin}).
+Comparing vertical velocity contours between BTF and SLEVE show few visible differences (figures~\ref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve}).  Evanescent waves are visible as dense contours immediately above the mountain ridges and the large-scale hydrostatic waves propagate vertically (as described by theory discussed in section~\ref{sec:theory:gw}).  Since the same model was used, these results match those from \textcite{weller-shahrokhi2014}.  Vertical velocities on the SnapCol grid are similar to the terrain following results (figure~\ref{fig:gw:w:snapCol}).  All three results are in agreement with a semi-implicit, semi-Lagrangian simulation from \textcite{melvin2010} (see figure~\ref{fig:gw:w:melvin}).
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}

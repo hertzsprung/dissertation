@@ -1,7 +1,7 @@
 \section{Resting atmosphere}
 \label{sec:resting}
 
-This two-dimensional test simulates a stably stratified atmosphere in hydrostatic balance.  Since there are no net forces, the analytical solution should remain at rest.  The test specification follows that from \textcite{klemp2011}.  \TODO{again, what is this designed to test?  Klemp says the horiz pressure gradient.  Good says the inversion layer introduces nonlinearity to tax the model even more}
+This two-dimensional test simulates a stably stratified atmosphere in hydrostatic balance.  Since there are no net forces, the analytical solution should remain at rest.  The test specification follows that from \textcite{klemp2011}, and challenges the accuracy of the calculation of the horizontal pressure gradient.  An inversion layer causes nonlinear processes that further tax the model \autocite{good2013}.
 
 \subsection{Specification}
 Following \textcite{weller-shahrokhi2014}, the domain is \SI{20}{\kilo\meter} wide and \SI{20}{\kilo\meter} high, which is narrower than \textcite{klemp2011} in order to reduce simulation time.  The wave-shaped mountain profile is taken from \textcite{schaer2002} where the surface height $h$ is given by

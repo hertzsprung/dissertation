@@ -1,7 +1,9 @@
 \chapter{Theoretical basis}
 \label{sec:theory}
 
-\TODO{motivation and overview of chapter}
+In this chapter, we present the theory of coordinate transformation and demonstrate how it can be applied to a centred-in-space discretisation of a horizontal pressure gradient.  We go on to review the origins of terrain following coordinates and more recent refinements to terrain following grids.  Next, the cut cell method is described.  We outline the `small cell' problem that is inherent with the cut cell method and explain some approaches that address it.
+
+After outlining the finite volume discretisation method that is used by the model for this project, we discuss the two most common vertical staggerings of variables: the Charney--Phillips grid and the Lorenz grid.  The chapter concludes with a review of linear wave theory, giving examples of the structure of stationary waves over infinite sinusoidal hills.
 
 \section{Coordinate transformations}
 \label{sec:theory:coord-transform}
@@ -306,11 +308,11 @@ As shown in figure~\ref{fig:theory:gw:evanescent}, in this solution, waves decay
 	\centering
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{\TODO{propagating} \label{fig:theory:gw:propagating}}[0.48\textwidth]{\input{gravityWaves-propagating-plot}}
+	\subcaptionbox{Vertically propagating gravity wave \label{fig:theory:gw:propagating}}[0.48\textwidth]{\input{gravityWaves-propagating-plot}}
 	\hfill
-	\subcaptionbox{\TODO{evanescent} \label{fig:theory:gw:evanescent}}[0.48\textwidth]{\input{gravityWaves-evanescent-plot}}
+	\subcaptionbox{Evanescent wave showing rapid decay decay in height and no vertical propagation \label{fig:theory:gw:evanescent}}[0.48\textwidth]{\input{gravityWaves-evanescent-plot}}
 %
-	\caption{\TODO{propagating and evanescent stationary waves}.  Adapted from \textcite{lynch-cassano2006}.}
+	\caption{Example vertical cross sections of streamlines for stationary gravity waves over infinite sinusoidal terrain.  Thick dashed lines denote lines of constant phase.  Adapted from \textcite{lynch-cassano2006}.}
 	\label{fig:theory:gw:stationary-waves}
 \end{figure}
 
