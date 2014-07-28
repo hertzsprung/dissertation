@@ -243,7 +243,9 @@ The computational mode can affect the physical mode, causing spurious interactio
 
 When an air parcel is forced to rise over a mountain, it experiences a restoring buoyancy force which can create waves that propagate away from the mountain.  These are known as gravity waves, mountain waves, or lee waves.
 
-\TODO{create lenticular clouds, clear air turbulence, strong downslope winds (Holton 2003)}
+Gravity waves play an important role in mesoscale weather.  The waves can trigger convection by propagating through areas of weak stability, they cause clear-air turbulence that affects aircraft \textcite{ray1986}, and can produce very strong downslope winds \textcite{lynch-cassano2006}.
+
+In this section, we briefly present the theory of linear waves and demonstrate their effect on wind and temperature.  In section~\ref{sec:gw}, we relate this theory to the results of a two dimensional experiment in which gravity waves are induced by flow over a wave-shaped mountain range.
 
 Two dimensional waves in the $x-z$ plane are characterised by their horizontal and vertical wavenumbers, $k$ and $m$, their frequency, $\omega$, and amplitude $\amplitude$.  By starting with the Boussinesq approximation of the Navier-Stokes equations we can derive the dispersion relation \autocite{lynch-cassano2006}
 \begin{align}
@@ -257,7 +259,7 @@ Two dimensional waves in the $x-z$ plane are characterised by their horizontal a
 	\intertext{thus giving the dispersion relation}
 	\left( \omega - \overline{u}k \right)^2 
 	\left( k^2 + m^2 \right) -
-	N^2 k^2 = 0
+	N^2 k^2 = 0 \label{eqn:theory:gw:dispersion}
 \end{align}
 
 The potential temperature anomaly $\theta'$ is a function of background stability $\partial \overline{\theta}/\partial z$ and is \ang{90} out of phase with $w'$, given by \autocite{lynch-cassano2006} \TODO{it'd be nice to derive this from Boussinesq equations but I've struggled to do it myself}
@@ -278,14 +280,39 @@ The potential temperature anomaly $\theta'$ is a function of background stabilit
 
 Using equations~\ref{eqn:theory:gw:w-prime}, \ref{eqn:theory:gw:theta-prime} and \ref{eqn:theory:gw:phase} we can plot the phase relationships between $w'$ and $\theta'$, shown in figure~\ref{fig:theory:gw:phases}.
 
-\TODO{discuss infinite sinusoidal hill, then finite hill by sum of infinite sine waves, as in Lynch\&Cassano}
-
-
+Next, we impose a lower boundary condition to simulate flow over an infinite, wave-shaped terrain and find that two types of stationary wave exist.  Consider a surface, the height of which is defined by $h(x)$, such that
 \begin{align}
-	h(x) &= h_0 \cos \left( kx \right) \\
-	w &= \frac{\diff{h}}{\diff{t}}
-	w &= \overline{u} \frac{\partial h}{\partial x} \\
-	w &= - \overline{u} k h_0 \sin \left( kx \right)
+	h(x) &= h_0 \cos \left( kx \right)
+%
+	\intertext{The flow at any point at the surface must be parallel to that surface (that is, a no normal flow boundary condition)}
+%
+	w(x,0) &= \frac{\diff{h}}{\diff{t}} \\
+	  &= \overline{u} \frac{\partial h}{\partial x} \\
+	  &= - \overline{u} k h_0 \sin \left( kx \right) \label{eqn:theory:gw:boundary-cond}
+%
+	\intertext{Assuming a stationary wave in the form $w'(x, z) = - \overline{u} k h_0 \sin \left( kx + mz \right)$, and noting that $\partial / \partial t = 0$ and $\omega = 0$, we find that the dispersion relation given by equation~\ref{eqn:theory:gw:dispersion} has the solution \textcite{lynch-cassano2006}}
+%
+	m &= \sqrt{\frac{N^2}{\overline{u}^2} - k^2} \label{eqn:theory:gw:m-dispersion}
 \end{align}
+which also satisfies the boundary condition given by equation~\ref{eqn:theory:gw:boundary-cond}.  This solution is shown in figure~\ref{fig:theory:gw:propagating}.
 
-\TODO{$|\overline{u}k| < N$ when widely spaced ridges have small wavenumber $k$, propagate vertically.  also, weak wind or strong stability satisfy the condition.  Conversely, evanescent wave created when ridge is narrow, large wavenumber $k$ (or large windspeed or weak stability).}
+We see from equation~\ref{eqn:theory:gw:m-dispersion} that, for $m$ to have a real solution, $|\overline{u}k| < N$.  This constrain cannot be satisfied when the wind is too strong, stability is too weak, or the horizontal wavenumber is too large.  In this case, the dispersion relation is instead satisfied by the solution \textcite{lynch-cassano2006}
+\begin{align}
+	w' &= - \overline{u} k h_0 e^{-mz} \sin \left( kx \right)
+\end{align}
+This solution is shown in figure~\ref{fig:theory:gw:evanescent}.
+
+\begin{figure}
+	\centering
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{\TODO{propagating} \label{fig:theory:gw:propagating}}{\TODO{}} \\
+	\subcaptionbox{\TODO{evanescent} \label{fig:theory:gw:evanescent}}{\TODO{}}
+%
+	\caption{\TODO{propagating and evanescent stationary waves}}
+	\label{fig:theory:gw:stationary-waves}
+\end{figure}
+
+
+\TODO{summarize what these two solutions mean physically, how ridge size relates to horizontal wavenumber, propagating/evanescent}
+

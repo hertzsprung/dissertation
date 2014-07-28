@@ -16,6 +16,7 @@ Not directly comparable with Zaengl 2012
 
 w contours
 - Hilary says small-scale gravity waves are evanescent
+- rapidly decay with height (due to nonhydrostatic effects)
 
 theory
 ======
@@ -25,6 +26,10 @@ When an air parcel is forced to rise over a mountain, it experiences a restoring
 551.5-NAP
 551.5-MES
 532.51-BAI
+
+
+Gravity waves are the primary cause of clear-air turbulence
+
 
 - can cause lenticular clouds and rotor clouds
 - large-amplitude GW can create clear air turbulence, aviation hazard
