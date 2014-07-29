@@ -1,5 +1,6 @@
 \chapter{Theoretical basis}
 \label{sec:theory}
+\TODO{repeat some of the intro to TF layers from previous chapter}
 
 In this chapter, we present the theory of coordinate transformation and demonstrate how it can be applied to a centred-in-space discretisation of a horizontal pressure gradient.  We go on to review the origins of terrain following coordinates and more recent refinements to terrain following grids.  Next, the cut cell method is described.  We outline the `small cell' problem that is inherent with the cut cell method and explain some approaches that address it.
 
@@ -14,9 +15,9 @@ Most hydrostatic models use normalised pressure coordinates.  With some exceptio
 Isentropic coordinates have also been investigated.  Since adiabatic motion follows isentropic surfaces, errors in discretising vertical advection are negligible.  However, difficulties arise when isentropes intersect with the surface \autocite{konor-arakawa1997}.
 
 Second, a model may choose to use transformed coordinates.  Typically, terrain following models use transformed height or pressure coordinates so that the computational domain becomes rectangular.
-Consider the two-dimensional cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
+Consider the two-dimensional Cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
-A scalar field, $\varphi$, can be expressed in transformed coordinates as $\varphi(x, \trans{z})$ or in cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
+A scalar field, $\varphi$, can be expressed in transformed coordinates as $\varphi(x, \trans{z})$ or in Cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
 Hence the vertical derivative of $\varphi$ can be found by using the chain rule \autocite{mit2004}
 \begin{align}
   \frac{\partial \varphi}{\partial z} =
@@ -137,7 +138,7 @@ The sigma coordinate transform of \textcite{phillips1957} is equivalent to the B
 The hybrid terrain following (HTF) coordinates of \textcite{simmons-burridge1981} improve upon BTF coordinates by allowing the vertical decay profile can be controlled.  By choosing a suitable profile, terrain influence decays more rapidly than BTF to produce surfaces of constant height aloft \autocite{klemp2011}.
 
 The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.
-\textcite{schaer2002} achieved with with smooth level vertical (SLEVE) coordinates in which terrain height is split into a large-scale component $\surface_1$ and a small-scale component $\surface_2$ such that $\surface = \surface_1 + \surface_2$.  Each component has a different exponential decay profile.  The transformation is defined as
+\textcite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into a large-scale component $\surface_1$ and a small-scale component $\surface_2$ such that $\surface = \surface_1 + \surface_2$.  Each component has a different exponential decay profile.  The transformation is defined as
 \begin{align}
 	z &= \trans{z} + \surface_1 b_1 + \surface_2 b_2
 %
@@ -173,7 +174,7 @@ In the smoothed terrain following (STF) coordinate, \textcite{klemp2011} took an
 
 \textcite{adcroft1997} proposed a partial-step system for modelling the ocean surface in which the cell height is adjusted so that cell volume is accurately represented (figure~\ref{fig:intro:shaved:partial}).  Compared to the full-step approach of \textcite{mesinger1988}, spurious oscillations were significantly reduced advecting a tracer over topography.
 
-The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  
+The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular Cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  
 This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape \autocite{rosatti2005}.  Figure~\ref{fig:intro:shaved:piecewise-linear} shows an example of this method.  In some grid boxes, small cells, marked with an asterisk ($\ast$), are created by intersection with the surface.
 The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{also, vertical resolution varies at mountain top, leads to only 1st order accuracy for 2nd order schemes... need to find citation}
 
@@ -183,11 +184,11 @@ A variety of solutions to the `small cell problem' have been proposed.  In \text
 \section{Finite volume method}
 \label{sec:theory:fv}
 
-The finite volume method is a discretisation technique that represents the spatial domain as a grid of cells.  A volumetric scalar field $\varphi$ is then discretised by modelling the average value in each cell located at its centre.  At each timestep, cell averages are updated by considering the flux $\vect{F}$ across the faces of the cell surface.  In atmospheric modelling, $\vect{F}$ is typically the advective flux $\vect{u} \varphi$ where $\vect{u}$ is the velocity field.
+The finite volume method is a discretisation technique that represents the spatial domain as a non-overlapping grid of cells with fields represented as piecewise constant in each cell.  At each timestep, cell averages are updated by considering the flux $\vect{F}$ across the faces of the cell surface.  In atmospheric modelling, $\vect{F}$ is typically the advective flux $\vect{u} \varphi$ where $\vect{u}$ is the velocity field.
 
-The notation used in this project for the representation discrete variables follows \textcite{weller-shahrokhi2014}.  A cell average of $\varphi$ is written as $\varphi_c$, where $c$ denotes a cell.  A volumetric vector field $\psi$ located at a face is written as $\psi_f$, where $f$ denotes a cell face.  An interpolation of cell centre averages of $\varphi$ onto a face $f$ is written as $\varphi_F$.  $f \in \: c$ represents the faces of a cell.  $c \in \: f$ represents the cells $c$ that share a face $f$.
+The notation used in this project for the representation of discrete variables follows \textcite{weller-shahrokhi2014}.  A cell average of $\varphi$ is written as $\varphi_c$, where $c$ denotes a cell.  A scalar field, $\psi$, located at a face is written as $\psi_f$, where $f$ denotes a cell face.  An interpolation of cell centre averages of $\varphi$ onto a face $f$ is written as $\varphi_F$.  $f \in \: c$ represents the faces of a cell.  $c \in \: f$ represents the cells $c$ that share a face $f$.
 
-To develop the finite volume method, we start by considering the conservation of $\varphi$
+To describe the finite volume method, we start by considering the conservation of $\varphi$
 \begin{align}
 	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) = 0
 %
@@ -205,7 +206,7 @@ To develop the finite volume method, we start by considering the conservation of
 \end{align}
 where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.  This interpolation of cell averages onto faces is a significant source of truncation error in finite volume systems \autocite{adcroft1997}.
 
-The finite volume method leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
+The finite volume method often leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
 
 \section{Vertical staggering of variables}
 \label{sec:theory:staggering}
@@ -219,17 +220,17 @@ The finite volume method leads to a staggering of variables with fluxes at cell 
 	\label{fig:theory:staggering}
 \end{figure}
 
-When discretising the equations of motion, computational properties including stability and convergence are necessary.  Additionally, it is desirable to obtain a discretisation that represents the dynamics of the real system.  There are two commonly-used vertical staggerings, the Lorenz grid \autocite{lorenz1960} and the Charney--Phillips grid \autocite{charney-phillips1953}, which offer different sets of computational and physical mimetic properties.
+When discretising the equations of motion, computational properties including stability and convergence are necessary.  Additionally, it is desirable to obtain a discretisation that represents the dynamics of the real system.  There are two commonly-used vertical staggerings, the Lorenz grid \autocite{lorenz1960} and the Charney--Phillips grid \autocite{charney-phillips1953}, which offer different sets of computational and physical properties.
 
-In both grids, horizontal velocities $u$ and $v$, and density $\rho$, are stored at full levels.  Mass flux is computed with the vertical velocity $w$ at half levels.  The two grids differ in their placement of potential temperature, $\theta$: on the Charney--Phillips grid it is stored at half levels, and at full levels on the Lorenz grid.  These arrangements of variables are summarised in figure~\ref{fig:theory:staggering}.
+In both grids, horizontal velocities $u$ and $v$, and density $\rho$, are stored at full levels, and the vertical velocity, $w$, is stored at half levels.  The two grids differ in their placement of potential temperature, $\theta$: on the Charney--Phillips grid it is stored at half levels, and at full levels on the Lorenz grid.  These arrangements of variables are summarised in figure~\ref{fig:theory:staggering}.
 
 The Charney--Philips grid was originally developed for a quasigeostrophic model using sigma coordinates.  \textcite{arakawa-moorthi1988} found that advection of quasi-geostrophic potential vorticity is conserved by this grid staggering, and it requires less interpolation of variables than the Lorenz grid \autocite{holdaway2013}. \TODO{anything else of significant interest to say about it?}
 
-The Lorenz grid has a number of mimetic properties: it conserves total energy, the mean potential temperature, and variance of potential temperature assuming no diabatic processes or friction \autocite{arakawa-konor1996}.  However, it is known that a computational mode exists on the Lorenz grid which can create a zig-zag in the vertical distribution of potential temperature \parencites{arakawa-moorthi1988}{arakawa-konor1996}{holdaway2013b}.  This can be explained by considering the vertical momentum equation \autocite{holdaway2013}
+The Lorenz grid has a number of diserable properties: it conserves total energy, the mean potential temperature, and variance of potential temperature assuming no diabatic processes or friction \autocite{arakawa-konor1996}.  However, it is known that a computational mode exists on the Lorenz grid which can create a zig-zag in the vertical distribution of potential temperature \parencites{arakawa-moorthi1988}{arakawa-konor1996}{holdaway2013b}.  This can be explained by considering the vertical momentum equation \autocite{holdaway2013}
 \begin{align}
 	\frac{\partial w}{\partial t} + \vect{u} \cdot \del w = -g - c_p \theta \frac{\partial \exner}{\partial z}
 \end{align}
-In a discretisation of this equation, to calculate $w_{k+\frac{1}{2}}$, $\theta_{k+\frac{1}{2}}$ may be interpolated using an arithmetic mean of the adjacent values $\theta_k$ and $\theta_{k+1}$.  As shown in figure~\ref{fig:theory:theta-oscillation}, a grid-scale vertical wave in potential temperature would not be visible by the model \autocite{holdaway2013}.  \TODO{I hope I've got this right.  I can't find very detailed information so I've plugged the gaps myself.}
+In a discretisation of this equation, to calculate $w_{k+\frac{1}{2}}$, $\theta_{k+\frac{1}{2}}$ may be interpolated using an arithmetic mean of the adjacent values $\theta_k$ and $\theta_{k+1}$.  As shown in figure~\ref{fig:theory:theta-oscillation}, a grid-scale vertical wave in potential temperature would not be visible by the model \autocite{holdaway2013}.
 
 The computational mode can affect the physical mode, causing spurious interactions with condensation processes \autocite{arakawa-konor1996} and the spurious generation of baroclinic instability and increased gravity wave activity \parencites{arakawa-moorthi1988}{cullen1997}.
 

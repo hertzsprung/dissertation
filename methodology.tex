@@ -7,11 +7,11 @@ Here, we describe the construction of BTF and SLEVE terrain following grids and 
 \label{sec:method:grid}
 
 A combination of standard and custom OpenFOAM utilities were used to create three grids: BTF, SLEVE, and a cut cell style grid.  OpenFOAM grids comprise a set of cells connected by shared faces.  A face is composed from a list of points that form the face vertices.
-OpenFOAM uses a three dimensional cartesian coordinate system.  Since all tests presented here are two dimensional $x-z$ plane, empty boundary conditions are used on the front and back faces to ensure that no solutions are required in the $y$ direction.
+OpenFOAM uses a three dimensional Cartesian coordinate system.  Since all tests presented here are two dimensional $x-z$ plane, empty boundary conditions are used on the front and back faces to ensure that no solutions are required in the $y$ direction.
 
-Two dimensional, regular cartesian grids were created using the OpenFOAM utility, \shellcmd{blockMesh}.  A custom utility was used to modify these orthogonal grids by adjusting the height of points to create terrain following grids.
+Two dimensional, regular Cartesian grids were created using the OpenFOAM utility, \shellcmd{blockMesh}.  A custom utility was used to modify these orthogonal grids by adjusting the height of points to create terrain following grids.
 
-Most implementations of terrain following layers use a coordinate system that makes the domain rectangular, but introduces metric terms into the equations of motion (more detail was presented in section~\ref{sec:theory:coord-transform}).  Instead, the model presented here uses cartesian coordinates and unstructured grids.  By doing so, results from the same model can be compared between terrain following and cut cell grids without modifying the equation set or discretisation.
+Most implementations of terrain following layers use a coordinate system that makes the domain rectangular, but introduces metric terms into the equations of motion (more detail was presented in section~\ref{sec:theory:coord-transform}).  Instead, the model presented here uses Cartesian coordinates and unstructured grids.  By doing so, results from the same model can be compared between terrain following and cut cell grids without modifying the equation set or discretisation.
 
 \begin{figure}
 \centerfloat
@@ -20,7 +20,7 @@ Most implementations of terrain following layers use a coordinate system that ma
 \label{fig:method:cut-cell}
 \end{figure}
 
-At the time of writing, OpenFOAM does not directly support cut cell grids\footnote{An enhancement request was filed in 2013 to add support for cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the OpenFOAM utility \shellcmd{snappyHexMesh} was used to create a grid that approximates the cut cell method.  First, a custom utility was used to move points beneath the surface up to the surface creating small cells near mountain peaks.  Second, a description of the surface was taken from any of the terrain following grids and \shellcmd{snappyHexMesh} was used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.
+At the time of writing, there is no OpenFOAM utility to generate cut cell grids\footnote{An enhancement request was filed in 2013 to add support for Cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the OpenFOAM utility \shellcmd{snappyHexMesh} was used to create a grid that approximates the cut cell method.  First, a custom utility was used to move points beneath the surface up to the surface creating small cells near mountain peaks.  Second, a description of the surface was taken from any of the terrain following grids and \shellcmd{snappyHexMesh} was used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.
 
 The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.  This grid is referred to as the `SnapCol' grid throughout this project.
 
@@ -29,17 +29,17 @@ The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} 
 \label{sec:method:discretisation}
 
 The fully-compressible Euler equations used in the resting atmosphere test (section~\ref{sec:resting}) and gravity waves test (section~\ref{sec:gw}) are specified as
+\begin{subequations}
 \begin{align}
 & \text{Momentum} & \frac{\partial \rho \vect{u}}{\partial t} + \del \cdot \rho \vect{u} \vect{u} &= \rho \vect{g} - c_p \rho \theta \del \exner \label{eqn:method:momentum} \\
 %
 & \text{Continuity} & \frac{\partial \rho}{\partial t} + \del \cdot \rho \vect{u} &= 0 \label{eqn:method:continuity} \\
 %
-& \text{Potential temperature (flux form)} & \frac{\partial \rho \theta}{\partial t} + \del \cdot \rho \vect{u} \theta &= 0 \\
-%
-& \text{Potential temperature (advective form)} & \frac{\partial \theta}{\partial t} + \vect{u} \cdot \del \theta &= 0 \\
+& \text{Potential temperature} & \frac{\partial \rho \theta}{\partial t} + \del \cdot \rho \vect{u} \theta &= 0 \\
 %
 & \text{Equation of state} & \exner^{(1 - \kappa / \kappa)} &= \frac{R \rho \theta}{p_0}
 \end{align}
+\end{subequations}
 where $\rho$ is the density, $\vect{u}$ is the velocity field, $\vect{g}$ is gravitational acceleration, $c_p$ is the heat capacity of dry air at constant pressure, $\theta$ is the potential temperature, $\exner = \left( p / p_0 \right)^\kappa$ is the Exner function of pressure, $p$ is the pressure, $p_0$ is a reference pressure, $\kappa = R/c_p$, and $R$ is the specific gas constant of dry air.
 
 Here, we outline the placement of prognostic variables, pressure gradient discretisation, and the advection scheme.  Further details of the discretisation are given by \textcite{weller-shahrokhi2014}.
@@ -101,7 +101,7 @@ Three energy measures are considered, where the volume integral of some field $\
 \end{align}
 First, kinetic energy $E_K$ is calculated as \autocite{thuburn2014}
 \begin{align}
-E_K(t) &= \int_V \frac{1}{4} \sum_{f \in \: c} \frac{\vect{u} \cdot \vect{S}_f \: \vect{u} \cdot \vect{d}_f}{V_c} \diff{V}
+E_K(t) &= \int_V \frac{1}{4} \sum_{f \in \: c} \frac{\left( \vect{u} \cdot \vect{S}_f \right) \left( \vect{u} \cdot \vect{d}_f \right)}{V_c} \diff{V}
 %
 \intertext{Second, potential energy $E_P$ is}
 %
@@ -111,12 +111,12 @@ E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x}_c \diff{V}
 %
 E_I(t) &= \int_V \rho \theta \Pi c_v \diff{V}
 \end{align}
-where $c_v$ is the heat capacity of dry air at constant volume.
+where $c_v$ the heat capacity of dry air at constant volume, assuming an perfect gas with constant $c_v$.
 
 \section{Courant--Friedrichs--Lewy criterion}
 The Courant--Friedrichs--Lewy (CFL) criterion is a necessary condition for numerical stability (though it is not always, by itself, a sufficient condition).  For an explicit advection scheme, it constrains the timestep as a function of wind speed and cell volume.  This is especially relevant for the small cells produced by the piecewise linear shaving technique described in section~\ref{sec:theory:shaving}.
 
-The CFL criterion states that the numerical domain of dependence must contain the true domain of dependence for the scheme to be convergent \autocite{leveque2002}.  \TODO{present a small 1D example with diagram, arrive at 1D courant number}.
+The CFL criterion states that the numerical domain of dependence must contain the true domain of dependence for the scheme to be convergent \autocite{leveque2002}.
 
 On a two-dimensional unstructured grid, the Courant number for cell $c$ is \autocite{weller-shahrokhi2014}
 \begin{align}

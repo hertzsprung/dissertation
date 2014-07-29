@@ -13,7 +13,7 @@ set rmargin 1
 set tmargin 1
 
 plot 'openfoam/cases/resting/btf/schaerExp/h/energy.dat' using ($1/3600):6 title 'BTF' lc 0 lt 1, \
-     'openfoam/cases/resting/sleve/schaerExp/h/energy.dat' using ($1/3600):6 title 'SLEVE' lc 0 lt 4 , \
-     'openfoam/cases/resting/snapCol/schaerExp/h/energy.dat' using ($1/3600):6 title 'SnapCol' lc 0 lt 2, \
-     'openfoam/cases/resting/noOrography/h/energy.dat' using ($1/3600):6 title 'Regular grid' lc 0 lt 3
+     'openfoam/cases/resting/sleve/schaerExp/h/energy.dat' using ($1/3600):6 title 'SLEVE' lc rgbcolor '#75c050' lt 2, \
+     'openfoam/cases/resting/snapCol/schaerExp/h/energy.dat' using ($1/3600):6 title 'SnapCol' lc 0 lt 3, \
+     'openfoam/cases/resting/noOrography/h/energy.dat' using ($1/3600):6 title 'Regular grid' lc 0 lt 4
 
