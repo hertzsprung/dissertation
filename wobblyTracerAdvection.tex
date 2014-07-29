@@ -4,7 +4,7 @@
 In the horizontal advection test, distortions in the BTF grid led to increased error.  In this test, the velocity field is aligned with the terrain following layers and results are compared between BTF and SnapCol grids.
 
 \subsection{Specification}
-The spatial domain, mountain profile, initial tracer profile and discretisation are the same as those in the horizontal tracer advection test (section~\ref{sec:advection}).  The velocity field, however, is defined as the non-divergent streamfunction $\Psi$ and extends from the top of the domain to the ground.  It is defined so that flow is everywhere tangential to BTF coordinate surfaces given by equation~\ref{eqn:theory:btf} such that
+The spatial domain, mountain profile, initial tracer profile and discretisation are the same as those in the horizontal tracer advection test (section~\ref{sec:advection}).  The velocity field, however, is defined using a streamfunction $\Psi$ so that the velocity field is non-divergent.  Unlike the horizontal advection test, flow extends from the top of the domain all the way to the ground.  It is defined so that flow is everywhere tangential to BTF coordinate surfaces given by equation~\ref{eqn:theory:btf} such that
 \begin{align}
 	\Psi(x,z) &= H \frac{z - h}{H - h}
 %
@@ -41,7 +41,7 @@ The resulting velocity field is shown in figure~\ref{fig:wobblyTracer:u}.
 	\caption{Advected tracer contours in a terrain following velocity field at $t = \SI{0}{\second}$, \SI{5000}{\second} and \SI{10000}{\second}.  Contour intervals are every 0.1.}
 \end{figure}
 
-Errors on the BTF grid are reduced compared to those in the horizontal tracer advection test: artefacts above the mountain, as seen in figure~\ref{fig:advection:cubicUpwind:btf}, are no longer present in figure~\ref{fig:wobblyTracerAdvection:btf}, and the $\ell^2$ error norm is reduced from \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}\unskip to \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}\unskip.  Despite the large distortions due to the oscillating velocity field above the mountain, tracer shape is preserved having cleared the mountain at $t = \SI{10000}{\second}$.
+Errors on the BTF grid are reduced compared to those in the horizontal tracer advection test: artefacts above the mountain, as seen in figure~\ref{fig:advection:cubicUpwind:btf}, are no longer present in figure~\ref{fig:wobblyTracerAdvection:btf}, and the $\ell^2$ error norm is reduced from \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt} to \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}\unskip.  Despite the large distortions due to the oscillating velocity field above the mountain, tracer shape is preserved having cleared the mountain at $t = \SI{10000}{\second}$.
 
 In contrast, the tracer suffers from significant diffusion on the SnapCol grid as evidenced by the fewer, wider contours in figure~\ref{fig:wobblyTracerAdvection:snapCol}.  The error on the SnapCol grid is larger than that for any other tracer advection.  $\ell^2$ error norms are compared with those for horizontal advection in table~\ref{tab:advection:errors}.
 

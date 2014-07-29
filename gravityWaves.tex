@@ -22,9 +22,11 @@ The term $\mu \rho \vect{u}$ is subtracted from the momentum equation (equation~
 		0 & \text{otherwise}
 	\end{cases}
 \end{align}
-where $\overline{\mu} = 1.2$ is the damping coefficient, $z_B = \SI{20}{\kilo\meter}$ is the bottom of the sponge layer, $H = \SI{30}{\kilo\meter}$ is the top of the domain, $x_0 = \SI{-150}{\kilo\meter}$ is the leftmost limit of the domain and $x_I = \SI{-140}{\kilo\meter}$ is the rightmost extent of the inlet sponge layer.  Note that, while the domain itself is \SI{30}{\kilo\meter} in height, for the purposes of generating of BTF and SLEVE grids, the domain height is set to \SI{20}{\kilo\meter} because the sponge layer occupies the uppermost \SI{10}{\kilo\meter}.
+where $\overline{\mu} = 1.2$ is the damping coefficient, $z_B = \SI{20}{\kilo\meter}$ is the bottom of the sponge layer, $H = \SI{30}{\kilo\meter}$ is the top of the domain, $x_0 = \SI{-150}{\kilo\meter}$ is the leftmost limit of the domain and $x_I = \SI{-140}{\kilo\meter}$ is the rightmost extent of the inlet sponge layer.  The sponge layer is only active on faces whose normal is vertical so that it damps vertical momentum only.
 
-No slip conditions are imposed on the top and bottom boundaries and the outlet is zero gradient.  For Exner, hydrostatic balance is prescribed on all boundaries.  The simulation is integrated forward by 5 hours with a timestep $\Delta t = \SI{8}{\second}$.
+Note that, while the domain itself is \SI{30}{\kilo\meter} in height, for the purposes of generating of BTF and SLEVE grids, the domain height is set to \SI{20}{\kilo\meter} because the sponge layer occupies the uppermost \SI{10}{\kilo\meter}.
+
+No slip conditions are imposed on the top and bottom boundaries and the outlet is zero gradient.  For Exner, hydrostatic balance is prescribed on all boundaries.  Following \textcite{melvin2010}, the simulation is integrated forward by 5 hours with a timestep $\Delta t = \SI{8}{\second}$.
 
 \subsection{Results}
 
@@ -52,7 +54,7 @@ Comparing vertical velocity contours between BTF and SLEVE show few visible diff
 	\centering
 	\subcaptionbox{SLEVE \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
 	\subcaptionbox{SnapCol \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}}
-	\caption{\TODO{Theta anomalies (zoomed in)} \TODO{colour legend}}
+	\caption{Vertical cross section of potential temperature anomalies in the centermost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  This figure shows a close up of the potential temperature anomalies in figure~\ref{fig:gw:thetaDiff:sleve} and \ref{fig:gw:thetaDiff:snapCol}, having the same colour scale as those figures.}
 	\label{fig:gw:thetaDiffZoom}
 \end{figure}
 
@@ -68,10 +70,10 @@ In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest wh
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{SLEVE}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
-	\subcaptionbox{SnapCol}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}}
+	\subcaptionbox{SLEVE \label{fig:gw:flow:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
+	\subcaptionbox{SnapCol \label{fig:gw:flow:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}}
 %
-	\caption{\TODO{SLEVE and SnapCol flows.}}
+	\caption{Vertical cross section of velocity vectors in the centremost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  The velocity field follows the terrain and is qualitatively similar on (\subcaptionref{fig:gw:flow:sleve}) the SLEVE grid, (\subcaptionref{fig:gw:flow:snapCol}) the SnapCol grid, and the BTF grid (not shown).}
 	\label{fig:gw:flow}
 \end{figure}
 
@@ -83,6 +85,8 @@ In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest wh
 \end{figure}
 
 \TODO{you need to talk about the velocity field, how it is visually very similar and appears to be non-divergent (referring to the GW flow figure).  this motivates the fifth test.}
+
+\TODO{somewhere we should try and use the theory to calculate propagating/evanescent waves using $\overline{u}, N$ and $k$ from the mountain profile.}
 
 \TODO{we tried a bunch of other things: double height mountains, halving $\Delta z$, and managed to get mixing to appear in BTF, too}
 
@@ -97,9 +101,7 @@ In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest wh
 	\label{fig:gw:courant}
 \end{figure}
 
-%
-
-Little evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving}, was found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  The mean Courant number is similar across all grids throughout the simulation (figure~\ref{fig:gw:courant:mean}).  \TODO{the mean and max do increase slowly over time.  this is more obvious in longer simulations.  this seems bad.  worth mentioning?}
+Little evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving}, was found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  After 5 hours, the maximum Courant number gradually rises (not shown).  In figure~\ref{fig:gw:courant:mean}, we see that the mean Courant number is similar across all grids, but also increases slowly throughout the simulation.  It has not yet been possible to determine the cause of the rising Courant number and associated increase in wind speeds.
 
 \begin{figure}
 	\centering
