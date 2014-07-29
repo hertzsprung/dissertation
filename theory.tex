@@ -2,7 +2,7 @@
 \label{sec:theory}
 \TODO{repeat some of the intro to TF layers from previous chapter}
 
-In this chapter, we present the theory of coordinate transformation and demonstrate how it can be applied to a centred-in-space discretisation of a horizontal pressure gradient.  We go on to review the origins of terrain following coordinates and more recent refinements to terrain following grids.  Next, the cut cell method is described.  We outline the `small cell' problem that is inherent with the cut cell method and explain some approaches that address it.
+In this chapter, we present the theory of coordinate transformation and demonstrate how it can be applied to a forward-in-space discretisation of a horizontal pressure gradient.  We go on to review the origins of terrain following coordinates and more recent refinements to terrain following grids.  Next, the cut cell method is described.  We outline the `small cell' problem that is inherent with the cut cell method and explain some approaches that address it.
 
 After outlining the finite volume discretisation method that is used by the model for this project, we discuss the two most common vertical staggerings of variables: the Charney--Phillips grid and the Lorenz grid.  The chapter concludes with a review of linear wave theory, giving examples of the structure of stationary waves over infinite sinusoidal hills.
 
@@ -25,16 +25,29 @@ Hence the vertical derivative of $\varphi$ can be found by using the chain rule 
   \frac{\partial \trans{z}}{\partial z} \label{eqn:theory:grad-transform}
 \end{align}
 
-The multivariable chain rule is needed to find the horizontal derivative.  Given a $m \times n$ Jacobi rotation matrix
+The multivariable chain rule is needed to find the horizontal derivative.  Given two sets of functions
+\begin{align*}
+	y_1 &= y_1(u_1, \dots, u_j) \quad \\
+	    &\vdots \\
+	y_i &= y_i(u_1, \dots, u_j)
+%
+	\intertext{and}
+%
+	u_1 &= u_1(x_1, \dots, x_k) \\
+	    &\vdots \\
+	u_j &= u_j(x_1, \dots, x_k)
+%
+\end{align*}
+we can apply a $i \times k$ Jacobi rotation matrix
 \begin{align}
 \frac{\partial y_i}{\partial x_k} = 
 \begin{bmatrix}
-  \dfrac{\partial y_1}{\partial x_1}	& \dfrac{\partial y_1}{\partial x_2} &	\cdots &	\dfrac{\partial y_1}{\partial x_n} \\
+  \dfrac{\partial y_1}{\partial x_1}	& \dfrac{\partial y_1}{\partial x_2} &	\cdots &	\dfrac{\partial y_1}{\partial x_k} \\
   \vdots				& \vdots &				\ddots &	\vdots \\
-  \dfrac{\partial y_m}{\partial x_1}	& \dfrac{\partial y_m}{\partial x_2} &	\cdots &	\dfrac{\partial y_m}{\partial x_n}
+  \dfrac{\partial y_i}{\partial x_1}	& \dfrac{\partial y_i}{\partial x_2} &	\cdots &	\dfrac{\partial y_i}{\partial x_k}
 \end{bmatrix}
 %
-\intertext{and similarly for $\partial y_i / \partial u_j$ and $\partial u_j / \partial x_k$ then we can express the chain rule as}
+\intertext{where $y_i$ is a first-order tensor with $i$ covariant indices.  Similarly, defining the tensors $\partial y_i / \partial u_j$ and $\partial u_j / \partial x_k$ then we can express the chain rule as}
 %
 \frac{\partial y_i}{\partial x_k} = \frac{\partial y_i}{\partial u_j} \frac{\partial u_j}{\partial x_k}
 %
@@ -84,32 +97,10 @@ In models that use TF coordinates, the horizontal pressure gradient can be calcu
 \end{align}
 The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and a discretisation must be at least first order accurate so that the difference between the hydrostatic components of the two terms converges to zero \autocite{gary1973}.
 
-\begin{figure}
-	\centering
-	\input{pressure-grad}
-	\caption{Geometry of a first-order horizontal pressure gradient discretisation in a transformed coordinate.  Adapted from \textcite{mahrer1984}.}
-	\label{fig:theory:pressure-error}
-\end{figure}
-
-A first-order forward difference approximation of a horizontal pressure gradient is shown in figure~\ref{fig:theory:pressure-error} where
+A first-order forward difference approximation of the horizontal pressure gradient can be found from equation~\ref{eqn:theory:pressure-transform}, such that
 \begin{align}
-	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,k-\Delta z} - p_{i,k}}{\Delta x} + \mathcal{O}(\Delta x^2) \label{eqn:theory:p-grad}
-%
-	\intertext{where, in terrain following coordinates, the first term $p_{i+1,k-\Delta z}$ can be approximated by}
-%
-	p_{i+1,k-\Delta z} &= p_{i+1,j} - \left. \frac{\partial p}{\partial z} \right|_{i+1,j} \Delta z \label{eqn:theory:p-point} + \mathcal{O}(\Delta x^2)
-%
-	\intertext{Substituting equation~\ref{eqn:theory:p-point} into equation~\ref{eqn:theory:p-grad} we find}
-%
-	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,j} - p_{i,j}}{\Delta x} - \left. \frac{\Delta z}{\Delta x} \frac{\partial p}{\partial z} \right|_{i+1,j} \\
-	&= \frac{p_{i+1,j} - p_{i,j}}{\Delta x} + \frac{\Delta z}{\Delta x} \frac{p_{i+1,j} - p_{i+1,j-1}}{z_j - z_{j-1}}
-%
-	\intertext{which, using equation~\ref{eqn:theory:grad-transform} to substitute $\trans{z}$ for $z$ becomes \textcite{mahrer1984}}
-%
-	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,j} - p_{i,j}}{\Delta x} + \frac{\partial \trans{z}}{\partial x} \frac{p_{i+1,j} - p_{i+1,j-1}}{\Delta \trans{z}}
+	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,k} - p_{i,k}}{\Delta x} + \frac{\partial \trans{z}}{\partial x} \frac{p_{i+1,k} - p_{i+1,k-1}}{\Delta \trans{z}} + \mathcal{O}(\Delta x)
 \end{align}
-which has the same form as equation~\ref{eqn:theory:pressure-transform}.
-\TODO{how did the - become a +?}
 
 Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
 
