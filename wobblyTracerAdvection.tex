@@ -47,15 +47,40 @@ In contrast, the tracer suffers from significant diffusion on the SnapCol grid a
 
 \begin{table}
 \centering
-\begin{tabular}{ r @{\hspace{2em}} l l}
+\begin{tabular}{ r @{\hspace{2em}} l l l l l l}
 \toprule
-		& Horizontal advection & Terrain following advection \\ \midrule
-BTF		& \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}		& \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt} \\
-SLEVE		& \input{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/l2error.txt}	& --- \\
-SnapCol		& \input{openfoam/cases/advection/snapCol/schaerCos/cubicUpwindCPCFit/l2error.txt}	& \input{openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/l2error.txt} \\
-Regular grid	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/l2error.txt}		& --- \\ \bottomrule
+		& \multicolumn{2}{c}{$\ell^2$ error norm} & \multicolumn{2}{c}{Minimum} & \multicolumn{2}{c}{Maximum} \\
+		& Horizontal & TF & Horizontal & TF & Horizontal & TF \\ \midrule
+BTF
+	& \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}
+	& \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}
+	& \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/min.txt}
+	& \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/min.txt}
+	& \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/max.txt}
+	& \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/max.txt} \\
+SLEVE
+	& \input{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/l2error.txt}
+	& ---
+	& \input{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/min.txt}
+	& ---
+	& \input{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/max.txt}
+	& --- \\
+SnapCol
+	& \input{openfoam/cases/advection/snapCol/schaerCos/cubicUpwindCPCFit/l2error.txt}
+	& \input{openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/l2error.txt}
+	& \input{openfoam/cases/advection/snapCol/schaerCos/cubicUpwindCPCFit/min.txt}
+	& \input{openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/min.txt}
+	& \input{openfoam/cases/advection/snapCol/schaerCos/cubicUpwindCPCFit/max.txt}
+	& \input{openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/max.txt} \\
+Regular grid
+	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/l2error.txt}
+	& ---
+	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/min.txt}
+	& ---
+	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/max.txt}
+	& --- \\ \bottomrule
 \end{tabular}
 %
-\caption{$\ell^2$ error norms for the horizontal and terrain following tracer advection tests at $t = \SI{10000}{\second}$.  Horizontal tracer advection is discussed in section~\ref{sec:advection}, terrain following advection in section~\ref{sec:wobblyTracerAdvection}, and only tested on BTF and SnapCol grids.}
+\caption{$\ell^2$ error norms, \TODO{min and maxes} for the horizontal and terrain following tracer advection tests at $t = \SI{10000}{\second}$.  Horizontal tracer advection is discussed in section~\ref{sec:advection}, terrain following advection in section~\ref{sec:wobblyTracerAdvection}, and only tested on BTF and SnapCol grids.}
 \label{tab:advection:errors}
 \end{table}

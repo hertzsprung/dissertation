@@ -28,7 +28,10 @@ define ADVECTION_TEMPLATE
 	-$(UNLINK) $(1)/$(POLY_MESH_DIR)
 
   $(1)/$(ADVECTION_TRACER_ERROR): $(1)/$(ADVECTION_FINAL_TRACER_DIFF)
-	$(GLOBAL_SUM) -case $(1) -time $(ADVECTION_END_TIME) T_diff > $(2).globalSum.log
+	$(GLOBAL_SUM) -case $(1) -time $(ADVECTION_END_TIME) T_diff > $(2).globalSum.error.log
+
+  $(1)/$(ADVECTION_TRACER_MINMAX): $(1)/$(ADVECTION_FINAL_TRACER_FIELD)
+	$(GLOBAL_SUM) -case $(1) -time $(ADVECTION_END_TIME) T > $(2).globalSum.minmax.log
 
   $(1)/$(ADVECTION_FINAL_TRACER_DIFF): \
     $(1)/$(ADVECTION_FINAL_TRACER_FIELD) \

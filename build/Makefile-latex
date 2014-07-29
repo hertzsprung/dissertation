@@ -72,11 +72,23 @@ PLOT_PATCH_DATA_OUTPUTS := \
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 STATISTICS_FILES := \
   advection/noOrography/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  advection/noOrography/cubicUpwindCPCFit/$(MIN_STAT) \
+  advection/noOrography/cubicUpwindCPCFit/$(MAX_STAT) \
   advection/btf/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  advection/btf/schaerCos/cubicUpwindCPCFit/$(MIN_STAT) \
+  advection/btf/schaerCos/cubicUpwindCPCFit/$(MAX_STAT) \
   advection/sleve/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  advection/sleve/schaerCos/cubicUpwindCPCFit/$(MIN_STAT) \
+  advection/sleve/schaerCos/cubicUpwindCPCFit/$(MAX_STAT) \
   advection/snapCol/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  advection/snapCol/schaerCos/cubicUpwindCPCFit/$(MIN_STAT) \
+  advection/snapCol/schaerCos/cubicUpwindCPCFit/$(MAX_STAT) \
   wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
-  wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT)
+  wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/$(MIN_STAT) \
+  wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/$(MAX_STAT) \
+  wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/$(L2_ERROR_STAT) \
+  wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/$(MIN_STAT) \
+  wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/$(MAX_STAT)
 STATISTICS := $(addprefix openfoam/cases/,$(STATISTICS_FILES))
 BIBLIOGRAPHIES := dissertation.bib journals.bib
 

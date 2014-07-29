@@ -3,7 +3,10 @@ ADVECTION_INITIAL_TRACER_FIELD = 0/T
 ADVECTION_FINAL_TRACER_FIELD := $(ADVECTION_END_TIME)/T
 ADVECTION_ANALYTIC_TRACER_FIELD := 0/T_analytic # TODO: should really be in $(ADVECTION_END_TIME) directory but don't know how to make OpenFOAM do this
 ADVECTION_TRACER_ERROR := globalSumT_diff.dat
+ADVECTION_TRACER_MINMAX := globalSumT.dat
 L2_ERROR_STAT := l2error.txt
+MIN_STAT := min.txt
+MAX_STAT := max.txt
 
 CONTOUR_TIMES = 0 5000 10000
 
@@ -36,8 +39,16 @@ define ADVECTION_DIAGNOSTICS_TEMPLATE
   $(1)/$(TRACER_CONTOUR_DICT): $(COMMON_CASE)/$(TRACER_CONTOUR_DICT) | $(1)/$(GMT_DICTS)
 	$(LN) -fs $$< $$@
 
+  $(1)/$(MIN_STAT) $(1)/$(MAX_STAT): $(1)/$(ADVECTION_TRACER_MINMAX)
+
   $(1)/$(L2_ERROR_STAT): $(1)/$(ADVECTION_TRACER_ERROR)
 	tail -n1 $$< | cut -d' ' -f3 > $$@
+
+  $(1)/$(MIN_STAT):
+	tail -n1 $$< | cut -d' ' -f7 > $$@
+
+  $(1)/$(MAX_STAT):
+	tail -n1 $$< | cut -d' ' -f8 > $$@
 
   $(1)/0/U.eps: \
     $(1)/$(GMT_DICTS)/U \
