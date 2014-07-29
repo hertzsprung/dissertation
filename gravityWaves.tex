@@ -1,7 +1,7 @@
 \section{Gravity waves}
 \label{sec:gw}
 
-Following \textcite{schaer2002}, uniform flow over an idealised two-dimensional mountain ridge induces gravity waves in a stable atmosphere.  As described in section~\ref{sec:theory:gw}, large-scale hydrostatic waves propagate away from the surface and small-scale, nonhydrostatic, evanescent waves decay rapidly above the terrain.
+Following \textcite{schaer2002}, uniform flow over an idealised two-dimensional mountain ridge induces gravity waves in a stable atmosphere.  As described in section~\ref{sec:theory:gw}, large-scale waves propagate away from the surface and small-scale evanescent waves decay rapidly above the terrain.
 
 \subsection{Specification}
 Following \textcite{melvin2010}, the domain is \SI{300}{\kilo\meter} wide and \SI{30}{\kilo\meter} high.  The mountain profile has the same form as equation~\ref{eqn:resting:mountain} but with a lower maximum height of $\surface_0 = \SI{250}{\meter}$.  As in the resting atmosphere test, $a = \SI{5}{\kilo\meter}$ is the mountain half-width and $\lambda = \SI{4}{\kilo\meter}$ is the wavelength.  On the optimised SLEVE grid, $s_1 = \SI{5}{\kilo\meter}$ is the large scale height, $s_2 = \SI{2}{\kilo\meter}$ is the small scale height and the optimal exponent value $n = 1.35$ as in the previous test\TODOsidenote{where did these SLEVE parameters come from?}.
@@ -63,9 +63,17 @@ Examining more closely the potential temperature anomaly on the SnapCol grid, in
 Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  \TODO{how big are the anomalies?}
 This feature implies that the computational mode of the Lorenz vertical staggering has been excited, since the profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
 
-In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} in which this hypothesis is confirmed.
+In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} in which this hypothesis is confirmed. \TODO{unfortunately it isn't!}
 
-\TODO{Arakawa\&Moorthi1988 mention that Lorenz staggering can reduce effective static stability.  Can we relate this to what we've observed on SnapCol grid?}
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{SLEVE}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
+	\subcaptionbox{SnapCol}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}}
+%
+	\caption{\TODO{SLEVE and SnapCol flows.}}
+	\label{fig:gw:flow}
+\end{figure}
 
 \begin{figure}
 	\centering
@@ -74,7 +82,9 @@ In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest wh
 	\label{fig:gw:exner-theta}
 \end{figure}
 
-\TODO{we tried a bunch of other things: double height mountains, halving $\Delta z$, and managed to get mixing to appear in BTF, too.  we also looked at nonlinear momentum term although I'm not 100\% sure what that told us.  also looked at energy changes but, unlike resting atmosphere, we might expect energy loss here... due to the sponge layer?  nevertheless, energy loss is greater on snapCol grid compared to BTF/SLEVE grids}
+\TODO{you need to talk about the velocity field, how it is visually very similar and appears to be non-divergent (referring to the GW flow figure).  this motivates the fifth test.}
+
+\TODO{we tried a bunch of other things: double height mountains, halving $\Delta z$, and managed to get mixing to appear in BTF, too}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -87,11 +97,9 @@ In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest wh
 	\label{fig:gw:courant}
 \end{figure}
 
-\TODO{are energy changes significant?  we saw that internal energy loss was slightly more on SnapCol (i.e. the atmosphere is getting colder quicker)}
-
 %
 
-No evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving},  has been found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  The mean Courant number is similar across all grids throughout the simulation (figure~\ref{fig:gw:courant:mean}).  \TODO{the mean and max do increase slowly over time.  this is more obvious in longer simulations.  this seems bad.  worth mentioning?}
+Little evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving}, was found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  The mean Courant number is similar across all grids throughout the simulation (figure~\ref{fig:gw:courant:mean}).  \TODO{the mean and max do increase slowly over time.  this is more obvious in longer simulations.  this seems bad.  worth mentioning?}
 
 \begin{figure}
 	\centering
@@ -112,12 +120,3 @@ That is, the two-dimensional Courant number reduces to the one-dimensional Coura
 
 In the gravity waves test, vertical motion is induced by the terrain and, for the shallow gradients used in this test, horizontal velocities dominate.
 
-\begin{figure}
-	\captionsetup[subfigure]{position=b}
-	\centering
-	\subcaptionbox{SLEVE}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
-	\subcaptionbox{SnapCol}[\textwidth]{\TODO{}} \\
-%
-	\caption{\TODO{SLEVE and SnapCol flows.  Not sure that this figure is especially useful.  They might be in the terrain following theta profile advection test...}}
-	\label{fig:gw:flow}
-\end{figure}

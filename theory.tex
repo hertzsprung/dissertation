@@ -15,9 +15,9 @@ Most hydrostatic models use normalised pressure coordinates.  With some exceptio
 Isentropic coordinates have also been investigated.  Since adiabatic motion follows isentropic surfaces, errors in discretising vertical advection are negligible.  However, difficulties arise when isentropes intersect with the surface \autocite{konor-arakawa1997}.
 
 Second, a model may choose to use transformed coordinates.  Typically, terrain following models use transformed height or pressure coordinates so that the computational domain becomes rectangular.
-Consider the two-dimensional Cartesian coordinates $(x, z)$ and transformed coordinates $(x, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
+Consider the two-dimensional Cartesian coordinates $(x, z)$ and transformed coordinates $(\trans{x}, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
 
-A scalar field, $\varphi$, can be expressed in transformed coordinates as $\varphi(x, \trans{z})$ or in Cartesian coordinates as $\varphi(x, \trans{z}(x, z))$.
+A scalar field, $\varphi$, can be expressed in transformed coordinates as $\varphi(\trans{x}, \trans{z})$ or in Cartesian coordinates as $\varphi(\trans{x}(x), \trans{z}(x, z))$.
 Hence the vertical derivative of $\varphi$ can be found by using the chain rule \autocite{mit2004}
 \begin{align}
   \frac{\partial \varphi}{\partial z} =
@@ -45,21 +45,28 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 \end{bmatrix}
 =
 \begin{bmatrix}
-	\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial \trans{z}}
+	\frac{\partial \varphi}{\partial \trans{x}}  &  \frac{\partial \varphi}{\partial \trans{z}}
 \end{bmatrix}
 \begin{bmatrix}
-	\frac{\partial x}{\partial x} & 	\frac{\partial x}{\partial z} \\
+	\frac{\partial \trans{x}}{\partial x} & 	\frac{\partial \trans{x}}{\partial z} \\
 	\frac{\partial \trans{z}}{\partial x} &	\frac{\partial \trans{z}}{\partial z}
 \end{bmatrix} \label{eqn:theory:transform-matrix}
 %
 \intertext{and the horizontal component of equation~\ref{eqn:theory:transform-matrix} is then}
 %
 \left. \frac{\partial \varphi}{\partial x} \right|_z =
-\left. \frac{\partial \varphi}{\partial x} \right|_\trans{z} +
+\left. \frac{\partial \varphi}{\partial \trans{x}} 
+	\frac{\partial \trans{x}}{\partial x} \right|_\trans{z} +
 	\frac{\partial \varphi}{\partial \trans{z}}
-	\left. \frac{\partial \trans{z}}{\partial x} \right|_z \label{eq:theory:coord-trans}
+	\left. \frac{\partial \trans{z}}{\partial x} \right|_z \label{eqn:theory:coord-trans-hv}
+%
+	\intertext{where the subscript by the vertical bar denotes the variable that is held constant.  When there is no transformation of horizontal coordinates, $x = \trans{x}$, and equation~\ref{eqn:theory:coord-trans-hv} simplifies to}
+%
+\left. \frac{\partial \varphi}{\partial x} \right|_z =
+\left. \frac{\partial \varphi}{\partial \trans{x}} \right|_\trans{z} +
+	\frac{\partial \varphi}{\partial \trans{z}}
+	\left. \frac{\partial \trans{z}}{\partial x} \right|_z \label{eqn:theory:coord-trans}
 \end{align}
-where the subscript by the vertical bar denotes the variable that is held constant.
 
 In a two-dimensional terrain-following coordinate transform, there is the added requirement that the transformed domain be rectangular.  This can be satisfied by imposing boundary conditions \autocite{schaer2002}
 \begin{align}
@@ -68,7 +75,7 @@ In a two-dimensional terrain-following coordinate transform, there is the added 
 where $H$ is the height of the domain and $h(x)$ is the height of the terrain surface.
 
 \section{Horizontal pressure gradient}
-In models that use TF coordinates, the horizontal pressure gradient can be calculated in the transformed coordinate system.  It follows from equation~\ref{eq:theory:coord-trans} that, in TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
+In models that use TF coordinates, the horizontal pressure gradient can be calculated in the transformed coordinate system.  It follows from equation~\ref{eqn:theory:coord-trans} that, in TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
 \begin{align}
 	\left. \frac{\partial p}{\partial x} \right|_z = 
 	\left. \frac{\partial p}{\partial x} \right|_\trans{z} + 

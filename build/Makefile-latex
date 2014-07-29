@@ -57,6 +57,7 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps \
+  data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps \
   openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps \

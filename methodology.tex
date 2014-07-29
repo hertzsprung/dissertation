@@ -66,7 +66,7 @@ where $U_f = \rho \vect{u} \cdot \vect{S}_f$, and $\vect{S}_f$ is normal to the 
 
 As shown in figure~\ref{fig:method:placement:variables}, the discretisation uses a Lorenz vertical staggering, as described in section~\ref{sec:theory:staggering}, with $\theta$ stored at the cell centre.
 
-The Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
+The Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the Exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
 \begin{align}
 \del_d \exner = \frac{1}{| \vect{d}_f |} \sum_{c \in\: f} - n_f \exner_c
 %
