@@ -1,0 +1,81 @@
+\section{Coordinate transformations}
+\label{sec:theory:coord-transform}
+
+A model implementation that uses terrain following layers must first choose from a variety of vertical coordinates.  The equations of motion with the hydrostatic approximation are simplified by using pressure coordinates \autocite{eliassen1949}.  However, because pressure varies in the horizontal, the lower boundary condition becomes complicated because surfaces of constant pressure intersect the terrain.  This motivated \textcite{phillips1957} to create the sigma coordinate in which pressure is normalised such that $\sigma$ ranges between zero at the top of the domain, and one at the surface.
+Most hydrostatic models use normalised pressure coordinates.  With some exceptions, such as \textcite{xue-thorpe1991}, nonhydrostatic models use height-based coordinates \autocite{steppeler2003}.
+
+Isentropic coordinates have also been investigated.  Since adiabatic motion follows isentropic surfaces, errors in discretising vertical advection are negligible.  However, difficulties arise when isentropes intersect with the surface \autocite{konor-arakawa1997}.
+
+Second, a model may choose to use transformed coordinates.  Typically, terrain following models use transformed height or pressure coordinates so that the computational domain becomes rectangular.
+Consider the two-dimensional Cartesian coordinates $(x, z)$ and transformed coordinates $(\trans{x}, \trans{z})$ which must be a monotonic function of $z$ so that the transformation is invertible.
+
+A scalar field, $\varphi$, can be expressed in transformed coordinates as $\varphi(\trans{x}, \trans{z})$ or in Cartesian coordinates as $\varphi(\trans{x}(x), \trans{z}(x, z))$.
+Hence the vertical derivative of $\varphi$ can be found by using the chain rule \autocite{mit2004}
+\begin{align}
+  \frac{\partial \varphi}{\partial z} =
+  \frac{\partial \varphi}{\partial \trans{z}}
+  \frac{\partial \trans{z}}{\partial z} \label{eqn:theory:grad-transform}
+\end{align}
+
+The multivariable chain rule is needed to find the horizontal derivative.  Given two sets of functions
+\begin{align*}
+	y_1 &= y_1(u_1, \dots, u_j) \quad \\
+	    &\vdots \\
+	y_i &= y_i(u_1, \dots, u_j)
+%
+	\intertext{and}
+%
+	u_1 &= u_1(x_1, \dots, x_k) \\
+	    &\vdots \\
+	u_j &= u_j(x_1, \dots, x_k)
+%
+\end{align*}
+we can apply a $i \times k$ Jacobi rotation matrix
+\begin{align}
+\frac{\partial y_i}{\partial x_k} = 
+\begin{bmatrix}
+  \dfrac{\partial y_1}{\partial x_1}	& \dfrac{\partial y_1}{\partial x_2} &	\cdots &	\dfrac{\partial y_1}{\partial x_k} \\
+  \vdots				& \vdots &				\ddots &	\vdots \\
+  \dfrac{\partial y_i}{\partial x_1}	& \dfrac{\partial y_i}{\partial x_2} &	\cdots &	\dfrac{\partial y_i}{\partial x_k}
+\end{bmatrix}
+%
+\intertext{where $y_i$ is a first-order tensor with $i$ covariant indices.  Similarly, defining the tensors $\partial y_i / \partial u_j$ and $\partial u_j / \partial x_k$ then we can express the chain rule as}
+%
+\frac{\partial y_i}{\partial x_k} = \frac{\partial y_i}{\partial u_j} \frac{\partial u_j}{\partial x_k}
+%
+\intertext{Applying this to $\varphi$ we find}
+%
+\begin{bmatrix}
+	\frac{\partial \varphi}{\partial x}  &  \frac{\partial \varphi}{\partial z}
+\end{bmatrix}
+=
+\begin{bmatrix}
+	\frac{\partial \varphi}{\partial \trans{x}}  &  \frac{\partial \varphi}{\partial \trans{z}}
+\end{bmatrix}
+\begin{bmatrix}
+	\frac{\partial \trans{x}}{\partial x} & 	\frac{\partial \trans{x}}{\partial z} \\
+	\frac{\partial \trans{z}}{\partial x} &	\frac{\partial \trans{z}}{\partial z}
+\end{bmatrix} \label{eqn:theory:transform-matrix}
+%
+\intertext{and the horizontal component of equation~\ref{eqn:theory:transform-matrix} is then}
+%
+\left. \frac{\partial \varphi}{\partial x} \right|_z =
+\left. \frac{\partial \varphi}{\partial \trans{x}} 
+	\frac{\partial \trans{x}}{\partial x} \right|_\trans{z} +
+	\frac{\partial \varphi}{\partial \trans{z}}
+	\left. \frac{\partial \trans{z}}{\partial x} \right|_z \label{eqn:theory:coord-trans-hv}
+%
+	\intertext{where the subscript by the vertical bar denotes the variable that is held constant.  When there is no transformation of horizontal coordinates, $x = \trans{x}$, and equation~\ref{eqn:theory:coord-trans-hv} simplifies to}
+%
+\left. \frac{\partial \varphi}{\partial x} \right|_z =
+\left. \frac{\partial \varphi}{\partial \trans{x}} \right|_\trans{z} +
+	\frac{\partial \varphi}{\partial \trans{z}}
+	\left. \frac{\partial \trans{z}}{\partial x} \right|_z \label{eqn:theory:coord-trans}
+\end{align}
+
+In a two-dimensional terrain-following coordinate transform, there is the added requirement that the transformed domain be rectangular.  This can be satisfied by imposing boundary conditions \autocite{schaer2002}
+\begin{align}
+	\trans{z}(x, \surface(x)) = 0 \quad,\quad \trans{z}(x, H) = H
+\end{align}
+where $H$ is the height of the domain and $h(x)$ is the height of the terrain surface.
+

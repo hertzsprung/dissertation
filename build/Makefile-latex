@@ -5,6 +5,13 @@ COMPONENTS := \
   title.tex \
   intro.tex \
   theory.tex \
+  coordTransform.tex \
+  horizPressureGrad.tex \
+  tf.tex \
+  cellShaving.tex \
+  finiteVolume.tex \
+  verticalStaggering.tex \
+  gravityWavesTheory.tex \
   methodology.tex \
   results.tex \
   conclusions.tex \
@@ -18,7 +25,6 @@ COMPONENTS := \
   dissertationmacros.tex \
   geometry.tex \
   variable-placement.tex \
-  pressure-grad.tex \
   cubicUpwind-stencil.tex \
   small-cell.tex \
   vertical-staggering.tex \

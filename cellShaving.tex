@@ -1,0 +1,22 @@
+\section{Cell shaving techniques}
+\label{sec:theory:shaving}
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{Full-step \label{fig:intro:shaved:full}}[0.32\textwidth]{\input{full-step-plot}}
+	\subcaptionbox{Partial-step \label{fig:intro:shaved:partial}}[0.32\textwidth]{\input{partial-step-plot}}
+	\subcaptionbox{Piecewise linear.  Grid boxes marked with asterisk ($\ast$) denote small cells. \label{fig:intro:shaved:piecewise-linear}}[0.32\textwidth]{\input{cut-cell-plot}}
+	\caption{Vertical cross sections illustrating different methods of shaving cells intersecting with a hypothetical surface (heavy line).  Adapted from \textcite{adcroft1997}.}
+	\label{fig:intro:shaved}
+\end{figure}
+
+\textcite{mesinger1988} proposed a grid that, like terrain following grids, retains almost-constant cell sizes.  The step-mountain (or `full-step') coordinate removes cells that are intersected by the terrain so creating steps over the surface (see figure~\ref{fig:intro:shaved:full}).  \textcite{gallus-klemp2000} found that lee slope winds are too weak over smooth orography, but this study did not examine performance over steep terrain.  In contrast, \textcite{mesinger2004} compared results from three operational NCEP models that suggested the step-coordinate model was more skillful than the TF coordinate models in forecasting precipitation over the mountainous western United States.
+
+\textcite{adcroft1997} proposed a partial-step system for modelling the ocean surface in which the cell height is adjusted so that cell volume is accurately represented (figure~\ref{fig:intro:shaved:partial}).  Compared to the full-step approach of \textcite{mesinger1988}, spurious oscillations were significantly reduced advecting a tracer over topography.
+
+The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular Cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  
+This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape \autocite{rosatti2005}.  Figure~\ref{fig:intro:shaved:piecewise-linear} shows an example of this method.  In some grid boxes, small cells, marked with an asterisk ($\ast$), are created by intersection with the surface.
+The primary difficulty is with numerical stability and reduced model efficiency associated with small cells. \TODOsidenote{also, vertical resolution varies at mountain top, leads to only 1st order accuracy for 2nd order schemes... need to find citation}
+
+A variety of solutions to the `small cell problem' have been proposed.  In \textcite{yamazaki-satomura2010}, small cells are combined with horizontally or vertically adjacent cells.  \textcite{steppeler2002} use a `thin-wall' approximation to increase the computational volume of small cells without altering the terrain.  Conceptually, each cell partially or completely below the mountain is filled with air and surrounded by a thin wall.  Where a cell is cut by the terrain, the computational volume is equal to that of an uncut cell.  \textcite{jebens2011} avoid the timestep restriction associated with explicit schemes by using an implicit method for cut cells and a semi-explicit method elsewhere.

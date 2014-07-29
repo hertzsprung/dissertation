@@ -1,0 +1,47 @@
+\section{Terrain following techniques}
+\label{sec:theory:tf}
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{Basic terrain following (BTF) \label{fig:intro:tf:btf}}[0.45\textwidth]{\input{btf-plot}}
+	\hfill
+	\subcaptionbox{Smooth level vertical (SLEVE) \label{fig:intro:tf:sleve}}[0.45\textwidth]{\input{sleve-plot}}
+	\caption{Example vertical cross sections of terrain following layers illustrating the decay in terrain influence with height.   In BTF the decay is linear; in SLEVE it is exponential.}
+	\label{fig:intro:tf}
+\end{figure}
+
+As well as improving discretisation accuracy, errors due to coordinate transformation can also be reduced by smoothing the effect of the terrain so that the grid becomes more regular aloft. 
+
+\textcite{galchen-somerville1975} proposed a basic terrain following (BTF) coordinate system in which the terrain's influence decays linearly with height but disappears only at the top of the domain (example shown in figure~\ref{fig:intro:tf:btf}).  The transformation is defined as
+\begin{align}
+	\trans{z} &= H \frac{z - \surface}{H - \surface} \label{eqn:theory:btf}
+%
+\intertext{or}
+%
+	z &= \left( H - \surface \right) \frac{\trans{z}}{H} + \surface
+\end{align}
+where, in two dimensions, $z(x, \trans{z})$ is the height of the coordinate surface at level $\trans{z}$, $H$ is the height of the domain, and $\surface(x)$ is the height of the terrain surface.
+
+The sigma coordinate transform of \textcite{phillips1957} is equivalent to the BTF coordinate transform since they both decay linearly.  However, since they decay with pressure rather than height, sigma coordinates also change with horizontal variations in pressure.
+
+The hybrid terrain following (HTF) coordinates of \textcite{simmons-burridge1981} improve upon BTF coordinates by allowing the vertical decay profile can be controlled.  By choosing a suitable profile, terrain influence decays more rapidly than BTF to produce surfaces of constant height aloft \autocite{klemp2011}.
+
+The coordinate system can be further refined by decaying small-scale features more rapidly than large-scale features to produce smooth coordinate surfaces in the middle and top of the domain.
+\textcite{schaer2002} achieved this with smooth level vertical (SLEVE) coordinates in which terrain height is split into a large-scale component $\surface_1$ and a small-scale component $\surface_2$ such that $\surface = \surface_1 + \surface_2$.  Each component has a different exponential decay profile.  The transformation is defined as
+\begin{align}
+	z &= \trans{z} + \surface_1 b_1 + \surface_2 b_2
+%
+\intertext{with the vertical decay functions are given by}
+%
+	b_i &= \frac{\sinh \left( \left( H - \trans{z} \right) / s_i \right)}{\sinh \left( H / s_i \right)}
+\end{align}
+where $s_1$ and $s_2$ are the scale heights of large-scale and small-scale terrain respectively.  SLEVE produces smooth coordinate surfaces in the middle and top of the domain (see figure~\ref{fig:intro:tf:sleve}).
+
+\textcite{leuenberger2010} generalised the SLEVE transformation in order to increase cell thickness in the layers nearest the ground, allowing longer timesteps and permitting more accurate calculation of parameterised low-level heat and momentum fluxes.  An exponent $n$ is introduced so that the generalised decay functions become
+\begin{align}
+	b_i &= \frac{\sinh \left( \left( H / s_i \right)^n - \left( \trans{z} / s_i \right)^n \right)}{\sinh \left( H / s_i \right)^n}
+\end{align}
+where the optimal exponent value was found to be $n = 1.35$.
+
+In the smoothed terrain following (STF) coordinate, \textcite{klemp2011} took an alternative approach, using a multipass smoothing operator, and found that errors were reduced still further compared to SLEVE.

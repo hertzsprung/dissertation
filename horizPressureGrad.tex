@@ -1,0 +1,18 @@
+\section{Horizontal pressure gradient}
+In models that use TF coordinates, the horizontal pressure gradient can be calculated in the transformed coordinate system.  It follows from equation~\ref{eqn:theory:coord-trans} that, in TF coordinates, the horizontal gradient of pressure $p$ is \autocite{mahrer1984}
+\begin{align}
+	\left. \frac{\partial p}{\partial x} \right|_z = 
+	\left. \frac{\partial p}{\partial x} \right|_\trans{z} + 
+	\left. \frac{\partial \trans{z}}{\partial x} \right|_z
+	\frac{\partial p}{\partial \trans{z}} \label{eqn:theory:pressure-transform}
+\end{align}
+The first term on the right hand side is the change in pressure along the TF coordinate surface, and the second term corrects for the vertical variation in the first.  These terms tend to be large and of opposite sign over steep terrain, and a discretisation must be at least first order accurate so that the difference between the hydrostatic components of the two terms converges to zero \autocite{gary1973}.
+
+A first-order forward difference approximation of the horizontal pressure gradient can be found from equation~\ref{eqn:theory:pressure-transform}, such that
+\begin{align}
+	\left. \frac{\partial p}{\partial x} \right|_z &= \frac{p_{i+1,k} - p_{i,k}}{\Delta x} + \frac{\partial \trans{z}}{\partial x} \frac{p_{i+1,k} - p_{i+1,k-1}}{\Delta \trans{z}} + \mathcal{O}(\Delta x)
+\end{align}
+
+Errors in the horizontal pressure gradient are associated with horizontal acceleration by the momentum equation, and have been shown to generate spurious winds \parencites{klemp2003}{klemp2011}.
+
+Errors can be reduced by improving the accuracy of the horizontal pressure gradient discretisation.  \textcite{mahrer1984} proposed a discretisation where two pressure values at the same geometric height are interpolated from surrounding points.  From these values, a horizontal pressure gradient can be calculated without introducing metric terms.  Recent studies have found that variations of Mahrer's technique reduce spurious circulations \parencites{dempsey-davis1998}{klemp2011}{zaengl2012}.  \TODO{does this imply approach without metric terms is better than with?  can this be justified?}
