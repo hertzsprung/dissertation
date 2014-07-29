@@ -12,13 +12,13 @@ FoamFile
     object          gmtDict;
 }
 
-projection "X20c/6c";
+projection "X20c/4.5c";
 projection2D XZ;
 separateLegend true;
 
 FieldsToPlot (
-    [thetaDiff rawValues -0.5 0.5 0.01 "$GMTU/colours/red_white_blue.cpt"]
-    [none mesh ",100"]
+    [thetaDiff rawValues -0.5 0.5 0.05 "$GMTU/colours/red_white_blue.cpt"]
+    [none mesh "black"]
 );
 
 region "-5e3/20e3/0/1.2e3";
