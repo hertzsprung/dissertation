@@ -43,6 +43,7 @@ GNUPLOT_OUTPUTS := \
   advection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
   advection-sleve-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
   advection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
+  advection-tracer-range-plot.tex \
   resting-w-plot.tex \
   resting-energy-total-tf-plot.tex \
   resting-energy-total-snapCol-plot.tex \
@@ -54,7 +55,8 @@ GNUPLOT_OUTPUTS := \
   gravityWaves-courant-max-plot.tex \
   gravityWaves-courant-mean-plot.tex \
   wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
-  wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex
+  wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
+  wobblyTracerAdvection-tracer-range-plot.tex
 PLOT_PATCH_DATA_OUTPUTS := \
   mesh-snapCol-schaerExp-resting.eps \
   data/gravityWaves-btf-schaerExp-h/18000/w.eps \

@@ -25,6 +25,7 @@ $(eval $(call GNUPLOT_TEMPLATE,advection-noOrography-analytic-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-btf-schaerCos-cubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-sleve-schaerCos-cubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,advection-snapCol-schaerCos-cubicUpwindCPCFit-contour))
+$(eval $(call GNUPLOT_TEMPLATE,advection-tracer-range))
 $(eval $(call GNUPLOT_TEMPLATE,resting-w))
 $(eval $(call GNUPLOT_TEMPLATE,resting-energy-total-tf))
 $(eval $(call GNUPLOT_TEMPLATE,resting-energy-total-snapCol))
@@ -37,6 +38,7 @@ $(eval $(call GNUPLOT_TEMPLATE,gravityWaves-courant-max))
 $(eval $(call GNUPLOT_TEMPLATE,gravityWaves-courant-mean))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour))
+$(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-tracer-range))
 
 btf.plt sleve.plt: tf.plt
 

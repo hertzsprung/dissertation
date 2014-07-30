@@ -43,12 +43,15 @@ define ADVECTION_DIAGNOSTICS_TEMPLATE
 
   $(1)/$(L2_ERROR_STAT): $(1)/$(ADVECTION_TRACER_ERROR)
 	tail -n1 $$< | cut -d' ' -f3 > $$@
+	sed -i -re 's/(.*)/\\num[round-mode=figures, round-precision=3]{\1}/' $$@
 
   $(1)/$(MIN_STAT):
 	tail -n1 $$< | cut -d' ' -f7 > $$@
+	sed -i -re 's/(.*)/\\num[round-mode=figures, round-precision=3]{\1}/' $$@
 
   $(1)/$(MAX_STAT):
 	tail -n1 $$< | cut -d' ' -f8 > $$@
+	sed -i -re 's/(.*)/\\num[round-mode=figures, round-precision=3]{\1}/' $$@
 
   $(1)/0/U.eps: \
     $(1)/$(GMT_DICTS)/U \
