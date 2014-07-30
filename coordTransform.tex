@@ -30,7 +30,7 @@ The multivariable chain rule is needed to find the horizontal derivative.  Given
 	u_j &= u_j(x_1, \dots, x_k)
 %
 \end{align*}
-we can apply a $i \times k$ Jacobi rotation matrix
+we can apply a $i \times k$ Jacobi rotation matrix \autocite{apostol1969}
 \begin{align}
 \frac{\partial y_i}{\partial x_k} = 
 \begin{bmatrix}
@@ -39,7 +39,7 @@ we can apply a $i \times k$ Jacobi rotation matrix
   \dfrac{\partial y_i}{\partial x_1}	& \dfrac{\partial y_i}{\partial x_2} &	\cdots &	\dfrac{\partial y_i}{\partial x_k}
 \end{bmatrix}
 %
-\intertext{where $y_i$ is a first-order tensor with $i$ covariant indices.  Similarly, defining the tensors $\partial y_i / \partial u_j$ and $\partial u_j / \partial x_k$ then we can express the chain rule as}
+\intertext{where $y_i$ and $x_k$ are first-order tensors with $i$ and $k$ covariant indices respectively.  Similarly, defining the tensors $\partial y_i / \partial u_j$ and $\partial u_j / \partial x_k$ then we can express the chain rule as}
 %
 \frac{\partial y_i}{\partial x_k} = \frac{\partial y_i}{\partial u_j} \frac{\partial u_j}{\partial x_k}
 %
@@ -65,7 +65,7 @@ we can apply a $i \times k$ Jacobi rotation matrix
 	\frac{\partial \varphi}{\partial \trans{z}}
 	\left. \frac{\partial \trans{z}}{\partial x} \right|_z \label{eqn:theory:coord-trans-hv}
 %
-	\intertext{where the subscript by the vertical bar denotes the variable that is held constant.  When there is no transformation of horizontal coordinates, $x = \trans{x}$, and equation~\ref{eqn:theory:coord-trans-hv} simplifies to}
+	\intertext{where the subscript by the vertical bar denotes the variable that is held constant.  With terrain following methods, only the vertical coordinate is transformed.  Since there is no horizontal transformation, $x = \trans{x}$, and equation~\ref{eqn:theory:coord-trans-hv} simplifies to}
 %
 \left. \frac{\partial \varphi}{\partial x} \right|_z =
 \left. \frac{\partial \varphi}{\partial x} \right|_\trans{z} +
