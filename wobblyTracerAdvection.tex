@@ -61,6 +61,7 @@ In contrast, the tracer suffers from significant error on the SnapCol grid as ev
 \toprule
 		& \multicolumn{2}{c}{$\ell^2$ error norm} & \multicolumn{2}{c}{Minimum} & \multicolumn{2}{c}{Maximum} \\
 		& Horizontal & TF & Horizontal & TF & Horizontal & TF \\ \midrule
+Analytic & 0 & 0 & 0 & 0 & 1 & 1 \\
 BTF
 	& \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}
 	& \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}
@@ -88,8 +89,7 @@ Regular grid
 	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/min.txt}
 	& ---
 	& \input{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/max.txt}
-	& --- \\
-Analytic & 0 & 0 & 0 & 0 & 1 & 1 \\ \bottomrule
+	& --- \\ \bottomrule
 \end{tabular}
 %
 \caption{$\ell^2$ error norms, minimum and maximum tracer values for the horizontal and terrain following tracer advection tests at $t = \SI{10000}{\second}$.  Horizontal tracer advection is discussed in section~\ref{sec:advection}, terrain following advection in section~\ref{sec:wobblyTracerAdvection}, and only tested on BTF and SnapCol grids.}

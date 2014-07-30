@@ -38,7 +38,17 @@ The simulation uses the discretisation of the fully-compressible Euler equations
 
 Test results for BTF, optimised SLEVE, and SnapCol grids are compared with results on a regular grid with no orography.  On the BTF grid, spurious vertical velocity $w$ reaches $\sim \SI{0.35}{\meter\per\second}$, which is significantly less than the velocities of $\sim \SI{10}{\meter\per\second}$ found by \textcite{klemp2011} (see figure~\ref{fig:resting:w}, note different vertical scales).  An oscillation develops after 4 hours, the cause of which is not yet known.  Unlike the results from \textcite{klemp2011}, the optimised SLEVE grid does not significantly reduce $w$ compared to BTF.  Since the model and its initialisation are the same, results on the BTF and optimised SLEVE grids are also in agreement with \textcite{weller-shahrokhi2014}.
 
-The SnapCol grid results in a significantly smaller maximum vertical velocity of less than \SI{1e-3}{\meter\per\second}.  The smallest error of $\sim \SI{1e-10}{\meter\per\second}$ is found on the regular grid.  This error may be due to loss of precision when OpenFOAM loads the initial conditions, which are in discrete hydrostatic balance, but the source of the error is not certain.  Using a timestep of \SI{1.01}{\second}, \textcite{good2013} found the maximum vertical velocity in their cut cell model was \SI{1e-12}{\meter\per\second}, which is better than any result from our experiments. \TODO{but Hilary says that they had cell centres below the ground!}
+The SnapCol grid results in a significantly smaller maximum vertical velocity of less than \SI{1e-3}{\meter\per\second}.  The smallest error of $\sim \SI{1e-10}{\meter\per\second}$ is found on the regular grid.  This error may be due to loss of precision when OpenFOAM loads the initial conditions, which are in discrete hydrostatic balance, but the source of the error is not certain.
+
+\begin{figure}
+	\centering
+	\TODO{}
+%
+	\caption{\TODO{show how cell centres end up below the ground for Good's model}}
+	\label{fig:resting:good}
+\end{figure}
+
+Using a timestep of \SI{1.01}{\second}, \textcite{good2013} found the maximum vertical velocity in their cut cell model was \SI{1e-12}{\meter\per\second}, which is better than any result from the experiments in this project.  However, in that model, cell centres are in the centre of the uncut cell, resulting in the centre of some cut cells being below the ground, as shown in figure~\ref{fig:resting:good} (B. Good 2014, personal communication).  This means that the grid is effectively regular when calculating horizontal and vertical gradients.
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
