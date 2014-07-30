@@ -16,15 +16,16 @@ To further investigate the Lorenz computational mode found on the SnapCol grid i
 
 Little evidence of the small cell problem was found in the gravity waves test.  The Courant number was shown to be independent of horizontal velocity and, because flow is near-horizontal in the gravity waves test, this was why there was no small cell problem.  To confirm this hypothesis, another test might be constructed in which a cold thermal anomaly descends to the ground, similar to the rising bubble test used in several other studies \parencites{bonaventura2000}{jebens2011}{good2013}.  The vertical momentum that reaches the ground should, for a sufficiently large timestep, cause numerical instability on the SnapCol grid but a stable solution on terrain following grids.  This would motivate the merging of small cells following \textcite{yamazaki-satomura2010}.
 
-% 3D tests
+
+All tests presented in this project use one of two wave-shaped mountain profiles (given by equations~\ref{eqn:advection:schaerCos} and \ref{eqn:resting:mountain}).  Many experiments on cut cell grids perform simulations over bell-shaped mountain profiles known as `Witch of Agnessi' \parencites{steppeler2002}{rosatti2005}{jebens2011}{lock2012}.  Following \textcite{gallus-klemp2000}, a further test should be developed to simulate flow over a the bell-shaped mountain profile to allow comparison with existing results.
+
+\textcite{lock2012} extended the two-dimensional test from \textcite{gallus-klemp2000} to simulate flow over a three dimensional mountain, presenting results on a cut cell grid.  Though substantial work will be required to implement a three dimensional shaving technique, it would be valuable to compare model results for terrain following and cut cell grids in three dimensions.
 
 \begin{itemize}
 \item mathematically investigate effects of metric term, try to show they're equivalent
 \item interpolate velocity field from TF GW test and prescribe that flow for a wobbly advection test
-\item advection: develop monotonic advection scheme, motivated by results of min/max tracer values
 \item resting atmosphere: errors on regular grid should be lower
 \item resting atmosphere: energy oscillations and increases
 \item resting atmosphere: 4km high mountains for resting atmosphere test.
-\item three dimensions (what kind of tests?  \textcite{lock2012} did some 3D tests that we could compare against.  I read a bit about 3D gravity waves in Topographic effects in stratified flows, Baines 1995) 
-\item agnesi profile for comparison with cut cell test results
+\item three dimensions (I read a bit about 3D gravity waves in Topographic effects in stratified flows, Baines 1995) 
 \end{itemize}
