@@ -1,5 +1,5 @@
 load "tracer-range.plt"
-set term epslatex color size 6.0,2.0
+set term epslatex color size 6.0,1.9
 set yrange [0.5:5.5]
 set ytics ("Regular grid" 1, "SnapCol" 2, "SLEVE" 3, "BTF" 4, "Analytic" 5)
 

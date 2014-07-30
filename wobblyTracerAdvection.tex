@@ -41,13 +41,23 @@ The resulting velocity field is shown in figure~\ref{fig:wobblyTracer:u}.
 	\caption{Advected tracer contours in a terrain following velocity field at $t = \SI{0}{\second}$, \SI{5000}{\second} and \SI{10000}{\second}.  Contour intervals are every 0.1.}
 \end{figure}
 
-Errors on the BTF grid are reduced compared to those in the horizontal tracer advection test: artefacts above the mountain, as seen in figure~\ref{fig:advection:cubicUpwind:btf}, are no longer present in figure~\ref{fig:wobblyTracerAdvection:btf}, and the $\ell^2$ error norm is reduced from \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt} to \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}\unskip.  Despite the large distortions due to the oscillating velocity field above the mountain, tracer shape is preserved having cleared the mountain at $t = \SI{10000}{\second}$.
+Errors on the BTF grid are reduced compared to those in the horizontal tracer advection test: artefacts above the mountain, as seen in figure~\ref{fig:advection:cubicUpwind:btf}, are no longer present in figure~\ref{fig:wobblyTracerAdvection:btf}.  This is confirmed by the absence of the large magnitude negative tracer, as shown in figure~\ref{fig:wobblyTracerAdvection:ranges}.  The $\ell^2$ error norm is reduced from \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt} to \input{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/l2error.txt}\unskip.  Despite the large distortions due to the oscillating velocity field above the mountain, tracer shape is preserved having cleared the mountain at $t = \SI{10000}{\second}$.
 
-In contrast, the tracer suffers from significant diffusion on the SnapCol grid as evidenced by the fewer, wider contours in figure~\ref{fig:wobblyTracerAdvection:snapCol}.  The error on the SnapCol grid is larger than that for any other tracer advection.  $\ell^2$ error norms are compared with those for horizontal advection in table~\ref{tab:advection:errors}.
+In contrast, the tracer suffers from significant error on the SnapCol grid as evidenced by the fewer, wider contours in figure~\ref{fig:wobblyTracerAdvection:snapCol}.  The error on the SnapCol grid is larger than that for any other tracer advection.  Tracer amplitude is reduced to \input{openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/max.txt} (see figure~\ref{fig:wobblyTracerAdvection:ranges:tf}).  $\ell^2$ error norms are compared with those for horizontal advection in table~\ref{tab:advection:errors}.
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{Horizontal advection \label{fig:wobblyTracerAdvection:ranges:horizontal}}[\textwidth]{\input{advection-tracer-range-plot}} \\
+	\subcaptionbox{Terrain following advection \label{fig:wobblyTracerAdvection:ranges:tf}}[\textwidth]{\input{wobblyTracerAdvection-tracer-range-plot}}
+%
+	\caption{Comparison of minimum and maximum tracer values at $t = \SI{10000}{\second}$ for horizontal and terrain following tracer advection tests.  Initially, tracer magnitude ranges from zero to one.}
+	\label{fig:wobblyTracerAdvection:ranges}
+\end{figure}
 
 \begin{table}
 \centering
-\begin{tabular}{ r @{\hspace{0.5em}} l l l l l l}
+\begin{tabular}{ r @{\hspace{2em}} l l l l l l}
 \toprule
 		& \multicolumn{2}{c}{$\ell^2$ error norm} & \multicolumn{2}{c}{Minimum} & \multicolumn{2}{c}{Maximum} \\
 		& Horizontal & TF & Horizontal & TF & Horizontal & TF \\ \midrule
@@ -85,13 +95,3 @@ Analytic & 0 & 0 & 0 & 0 & 1 & 1 \\ \bottomrule
 \caption{$\ell^2$ error norms, minimum and maximum tracer values for the horizontal and terrain following tracer advection tests at $t = \SI{10000}{\second}$.  Horizontal tracer advection is discussed in section~\ref{sec:advection}, terrain following advection in section~\ref{sec:wobblyTracerAdvection}, and only tested on BTF and SnapCol grids.}
 \label{tab:advection:errors}
 \end{table}
-
-\begin{figure}
-	\captionsetup[subfigure]{position=b}
-	\centering
-	\subcaptionbox{Horizontal advection \label{fig:wobblyTracerAdvection:ranges:horizontal}}[\textwidth]{\input{advection-tracer-range-plot}} \\
-	\subcaptionbox{Terrain following advection \label{fig:wobblyTracerAdvection:ranges:tf}}[\textwidth]{\input{wobblyTracerAdvection-tracer-range-plot}}
-%
-	\caption{\TODO{tracer minimum and maximum values at t=10000s}}
-	\label{fig:wobblyTracerAdvection:ranges}
-\end{figure}

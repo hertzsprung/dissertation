@@ -85,7 +85,7 @@ Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\D
 	\centering
 	\subcaptionbox{BTF (negative contours at $t = \SI{10000}{\second}$ near mountain peak shown as dashed red lines) \label{fig:advection:cubicUpwind:btf}}[0.49\textwidth]{\input{advection-btf-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
-	\subcaptionbox{BTF from \textcite{schaer2002} \label{fig:advection:schaer:btf}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-btf-centred.png}}
+	\subcaptionbox{BTF from \textcite{schaer2002} (negative contours shown as dashed lines) \label{fig:advection:schaer:btf}}[0.49\textwidth]{\vspace{0.43in}\includegraphics[height=1.2in]{img/schaer-btf-centred.png}}
 \\
 	\subcaptionbox{SLEVE \label{fig:advection:cubicUpwind:sleve}}[0.49\textwidth]{\input{advection-sleve-schaerCos-cubicUpwindCPCFit-contour-plot}}
 	\hfill
@@ -100,13 +100,15 @@ Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\D
 \end{figure}
 
 Results of advection are present in figure~\ref{fig:advection:cubicUpwind}.
-On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Comparing figures~\ref{fig:advection:cubicUpwind:btf} and \ref{fig:advection:schaer:btf}, we see that the tracer retains its shape far better than the result from \textcite{schaer2002} that uses a second-order centred difference scheme.
+On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Comparing figures~\ref{fig:advection:cubicUpwind:btf} and \ref{fig:advection:schaer:btf}, we see that the tracer retains its shape far better than the result from \textcite{schaer2002} that uses a second-order centred difference scheme.  This is expected since the upwind-biased cubic scheme has a larger stencil.
 
 As seen in figure~\ref{fig:advection:cubicUpwind:sleve}, results on the SLEVE grid are much closer to the analytic solution on a regular grid (figure~\ref{fig:advection:analytic}).  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  The result agrees with that from \textcite{schaer2002}.
 
 Since the SnapCol grid is entirely regular away from the surface, it is unsurprising that the results (shown in figure~\ref{fig:advection:cubicUpwind:snapCol}) are the same as advection on a regular grid (not shown).  This result agrees with that found by \textcite{good2013}.
 
-\TODO{we could try plotting diffs as done by schaer2002, too.  also, look at min/max values of tracer and discuss lack of monotonicity in advection scheme.}
+At $t = \SI{0}{\second}$, the tracer ranges between zero and one.  Over time, new extrema are generated because the upwind-biased advection scheme is not monotonic.  This is most evident on the BTF grid where the stationary artefacts above the mountain peak reach a minimum of \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/min.txt} by the end of the simulation.  The results of the second-order centred difference scheme of \textcite{schaer2002} show more significant negative tracer values as evidenced by the dashed contours in figure~\ref{fig:advection:schaer:btf}.  Minimum values remain close to zero on the SLEVE, SnapCol and regular grids.  All grids show some decrease in maximum tracer magnitude and, once again, the decrease is most severe on the BTF grid.  Results of tracer extrema on all grids are compared to the analytic solution in figure~\ref{fig:wobblyTracerAdvection:ranges:horizontal} and the values are given in table~\ref{tab:advection:errors}.
+
+\TODO{we could try plotting diffs as done by schaer2002, too}
 
 Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
 \begin{align}
