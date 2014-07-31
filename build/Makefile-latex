@@ -3,6 +3,7 @@ GREP_WARN := $(GREP) --color -i -f latex-warnings -C3 -H
 DOCUMENT := dissertation
 COMPONENTS := \
   title.tex \
+  abstract.tex \
   intro.tex \
   theory.tex \
   coordTransform.tex \
@@ -51,6 +52,8 @@ GNUPLOT_OUTPUTS := \
   resting-energy-btf-plot.tex \
   resting-energy-sleve-plot.tex \
   resting-energy-snapCol-plot.tex \
+  resting-good-uncut-plot.tex \
+  resting-good-cut-plot.tex \
   gravityWaves-schaerExp-h-exnerTheta-plot.tex \
   gravityWaves-courant-max-plot.tex \
   gravityWaves-courant-mean-plot.tex \

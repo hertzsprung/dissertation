@@ -1,5 +1,3 @@
-set term epslatex color size 1.8,1.8
-
 set lmargin 0.1
 set rmargin 0.1
 

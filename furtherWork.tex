@@ -10,6 +10,7 @@ Second, all experiments were performed on in Cartesian coordinates and, unlike m
 Third, it is desirable to perform additional verification of the model of \textcite{weller-shahrokhi2014} using idealised simulations on regular grids without orography.  Following the set of test cases for nonhydrostatic models proposed by \textcite{skamarock2004}, two further tests might be developed.  First, following \textcite{skamarock-klemp1994}, a simulation of the evolution of gravity waves from a potential temperature anomaly in a stable atmosphere with a horizontal wind.  Second, following \textcite{straka1993}, a cold bubble sinks to the ground, creating a density current that travels horizontally.  Results of both tests should be compared with reference solutions from \textcite{skamarock-klemp1994} and the results of \textcite{jebens2011}.
 
 \section{Advection scheme}
+\label{sec:further-work:advection}
 
 For the three advection tests described in sections~\ref{sec:advection}, \ref{sec:wobblyTracerAdvection} and \ref{sec:wobblyThetaAdvection}, the standard OpenFOAM advection solver was used, which has two shortcomings.  First, whilst advection is treated explicitly in the fully-compressible model from \textcite{weller-shahrokhi2014}, the scalar transport model solves the advection equation (equation~\ref{eq:advection:continuous}) using an implicit scheme.  Second, the velocity fields for the three advection tests had velocities stored at cell centres.  The scalar transport model introduces additional error when velocities are linearly interpolated onto cell faces during model initialisation\footnote{For details, refer to \url{https://github.com/OpenFOAM/OpenFOAM-2.3.x/blob/9fd0db/src/finiteVolume/cfdTools/incompressible/createPhi.H}}.
 
@@ -19,6 +20,7 @@ The upwind-biased cubic advection scheme, described in section~\ref{sec:method:d
 In similar tracer advection experiments, \textcite{jones2013} found that the van Leer scheme gave most accurate results.  The scheme is designed to maximise boundedness and accuracy, blending a centred difference scheme that is second-order accurate and unbounded with an upwind scheme that is first-order accurate and bounded.  This motivates the development of a monotonicity preserving version of the upwind-biased cubic advection scheme.  Due to its larger stencil size, we would expect such a scheme to have greater accuracy compared to the current upwind-biased scheme, and the van Leer scheme used by \textcite{jones2013}.
 
 \section{Resting atmosphere errors}
+\label{sec:further-work:resting}
 
 Three findings from the resting atmosphere test (section~\ref{sec:resting}) have yet to be understood.  First, compared to the results of \textcite{good2013}, the maximum vertical velocity on a regular grid is larger than expected (figure~\ref{fig:resting:w:model}) which may be due to loss of precision when loading the initial conditions.
 Second, computational oscillations in vertical velocity were found on the BTF grid which eventually lead to numerical instability (not shown).  This error has not been seen on any other grid.

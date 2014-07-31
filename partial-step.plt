@@ -1,3 +1,4 @@
+set term epslatex color size 1.8,1.8
 load "step.plt"
 
 plot '-' using 1:2 with filledcurves fillcolor rgbcolor '#999999' notitle, \
