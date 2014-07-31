@@ -27,6 +27,7 @@ Third, whilst total energy gradually decreased on the SnapCol and regular grids,
 Further work is required using longer integration times to diagnose the errors in this test.  Additionally, a further test of a neutrally stable atmosphere at rest by \textcite{botta2004} found that errors were close to machine precision but that errors increased when stratification was included.  Comparisons with this test would be useful to further explore the sources of numerical error in idealised resting atmospheres.
 
 \section{Gravity waves and potential temperature errors}
+\label{sec:further-work:gw}
 
 The results of terrain following advection of a stable thermal profile (section~\ref{sec:wobblyThetaAdvection}) showed a different potential temperature error structure compared to those on the SnapCol grid in the gravity waves test (section~\ref{sec:gw}).  These results could be different because the velocity fields in the two tests are not the same.  Instead of a prescribing an idealised, non-divergent velocity field, a further advection test might be developed that uses the velocity field from the gravity waves simulation.  The custom transport model discussed earlier in this chapter would aid the development of such a test.  Using a more physical velocity field we hope that the new advection test would produce the same potential temperature error structure as the errors on the SnapCol grid in the gravity waves test.
 
