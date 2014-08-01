@@ -31,6 +31,7 @@ $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/btf/schaerExp/resting,mesh
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerCos/advection,mesh-sleve-schaerCos-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/2dMountain/sleve-schaerCos-advection.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/resting,mesh-sleve-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/sleve-schaerExp-resting.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/gravityWaves,mesh-sleve-schaerExp-gravityWaves,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/sleve-schaerExp-gravityWaves.add2dMountainDict))
+$(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/sleve/schaerExp/gravityWaves-doubleHigh,mesh-sleve-schaerExp-gravityWaves-doubleHigh,openfoam/cases/mesh/noOrography/gravityWaves,openfoam/cases/mesh/2dMountain/sleve-schaerExp-gravityWaves-doubleHigh.add2dMountainDict))
 
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerCos/advection,mesh-snapCol-2dMountain-schaerCos-advection,openfoam/cases/mesh/noOrography/advection,openfoam/cases/mesh/2dMountain/snapCol-schaerCos-advection.add2dMountainDict))
 $(eval $(call 2DMOUNTAIN_TEMPLATE,openfoam/cases/mesh/snapCol-2dMountain/schaerExp/resting,mesh-snapCol-2dMountain-schaerExp-resting,openfoam/cases/mesh/noOrography/resting,openfoam/cases/mesh/2dMountain/snapCol-schaerExp-resting.add2dMountainDict))
