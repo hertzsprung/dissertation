@@ -5,7 +5,10 @@ The model's upwind-biased cubic advection scheme, introduced in section~\ref{sec
 
 In the resting atmosphere test presented in section~\ref{sec:resting}, spurious vertical velocities on the SLEVE grid were comparable to the same result from \textcite{schaer2002}, but offered only a small improvement compared to the BTF grid.  Vertical velocity was reduced by almost three orders of magnitude on the SnapCol grid.  Spurious velocities on the regular grid were still higher than the result on a cut cell grid from \textcite{good2013}, and this is the subject of further work in section~\ref{sec:further-work:resting}.
 
-\begin{itemize}
-\item TF more accurate in TF tracer advection, gravityWaves
-\item Lorenz computational mode excited by advection scheme errors on the SnapCol grid
-\end{itemize}
+Energy was well-conserved on all grids with energy slowly decreasing on the SnapCol grid and a regular grid with flat terrain.  However, periods of energy gain were found on BTF and SLEVE grids which require further work to diagnose.
+
+In section~\ref{sec:gw}, orographically induced gravity waves were modelled.  Velocity fields were qualitatively very similar across all grids, and vertical velocity contours agreed with the mass-conserving semi-implicit semi-Lagrangian result from \textcite{melvin2010}.  Little evidence of the `small cell' problem was found and we argued that, because the flow was mainly horizontal, this had negligible effect on the Courant number in thin cells.
+
+Potential temperature anomalies in the gravity waves test were also visually similar, except near the ground in the lee of the mountain on the SnapCol grid.  Potential temperatures were anomalously high in the lowest layer, and anomalously low in the layer immediately above.  This is a typical manifestation of the Lorenz computational mode in which discrete hydrostatic balance is preserved despite a `zig-zag' in potential temperature.
+
+A final test was designed to investigate the cause of these potential temperature anomalies (section~\ref{sec:wobblyThetaAdvection}.  We hypothesised that errors in the advection scheme excited the Lorenz computational mode.  The same stable thermal profile was advected using a terrain following velocity field that imitated the velocity field in the gravity waves test.  Once again, potential temperature anomalies were found in the lowest two layers in the lee of the mountain.  However, in this advection test, the anomalies were reversed with the anomalously low potential temperatures in the lowest layer.  It is possible that the structure of errors differ because the velocity fields in the gravity waves test and the thermal advection test were not the same.  Further tests are required to be certain of the cause of the Lorenz computational mode, and this is discussed in section~\ref{sec:further-work:gw}.
