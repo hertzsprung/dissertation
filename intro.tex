@@ -1,6 +1,9 @@
 \chapter{Introduction}
 
-Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{barry2008}.  Terrain also affects global circulation by exerting low-level drag \autocite{lott-miller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.  \TODO{also planetary waves and "elevated heat sources", e.g. Tibetan plateau}
+Orography has significant effects on local weather, creating strong downslope winds and enhancing local precipitation \autocite{barry2008}.
+Large mountain ranges also affect global circulation.  A mountain acts as a barrier to air flow and, due to conservation of vorticity, meridional displacement balances vortex stretching, giving rise to planetary waves which affect the development of pressure systems \autocite{barry2008}.
+The Tibetan Plateau acts as an elevated heat source, raising temperatures and humidity in summer which help to maintain the Asian monsoon \parencites{ye1981}{luo-yanai1983}.
+Terrain also affects global circulation by exerting low-level drag \autocite{lott-miller1997} and transporting momentum via gravity waves \autocite{mcfarlane1987}.
 
 To capture these effects, numerical weather prediction (NWP) models must solve the equations of motion on a grid that represents the orography.
 Over flat ground the grid can be entirely regular, but in the presence of sloping terrain the grid must be modified.  There are two main approaches: either transform the grid so that its vertical layers follow the terrain, or remove all or part of grid cells that intersect with the orography.
@@ -15,13 +18,9 @@ An alternative to terrain following layers is to `shave', or `cut', cells where 
 
 Several studies found that cut cells produce more accurate results when compared to TF coordinates.  Spurious winds seen in TF coordinates are not present and errors do not increase with steeper terrain \autocite{good2013}.  A comparison of TF and cut cells using real initial data by \textcite{steppeler2006} found that precipitation patterns, temperature and wind fields were forecast more accurately in the cut cell model, and the weak lee slope winds found by \textcite{gallus-klemp2000} in the step-mountain coordinate model were not present.  
 
-%\textcite{adcroft1997} evaluated three shaving techniques for modelling the ocean surface.  First, the `full-step` technique in which the surface is rounded to the nearest vertical level.  Second, a `partial-step' method which allows the cell height to vary so that cell volumes are more accurately represented.  Third, the piecewise linear method which creates cells of different shapes where they intersect with the ground.  Examples of these three methods are shown in figure~\ref{fig:intro:shaved}.  \textcite{adcroft1997} found that spurious oscillations in a tracer advection test were reduced by using a partial-step grid, and that numerical noise was almost entirely removed on the piecewise linear cut cell grid.
+\TODO{look at Fast 2003 and refs therein for more cut-cell goodness}
 
-\TODOsidenote{look at Fast 2003 and refs therein for more cut-cell goodness}
-
-Other representations of terrain have been developed using unstructured grids \parencites{ss2011}{others?}.  \TODO{see Pain2005}  They are able to represent the boundary accurately but, because they require a more complex data representation compared to structured grids, they can be difficult to partition for parallel computation \autocite{steppeler2003}.  More complex discretisations are required to maintain accuracy because the mesh is not aligned with the dominant vertical force of gravity \autocite{rosatti2005}, just as horizontal pressure gradients are difficult to calculate in TF coordinates.
-
-\TODO{Worth talking about nested grids?  e.g. Almgren 1998}
+Other representations of terrain have been developed using unstructured grids \parencites{ss2011}{pain2005}.  They are able to represent the boundary accurately but, because they require a more complex data representation compared to structured grids, they can be difficult to partition for parallel computation \autocite{steppeler2003}.  More complex discretisations are required to maintain accuracy because the mesh is not aligned with the dominant vertical force of gravity \autocite{rosatti2005}, just as horizontal pressure gradients are difficult to calculate in TF coordinates.
 
 \TODO{talk about the advantages of adaptive grids.  Steppeler 2003 says a bit, Blaise 2012 says they can capture range of spatial scales while improving computational efficiency.  Can I find an example in literature of adaptive meshing to follow the flow? Almgren 1998 looks interesting, for example.} 
 
@@ -34,6 +33,4 @@ In chapter~\ref{sec:method}, we describe the method of grid construction using t
 
 The results of five experiments are discussed in chapter~\ref{sec:results}.  The first two tests challenge the upwind-biased advection scheme by transporting a tracer in horizontal and terrain following flows.  The third test examines spurious motion in a resting atmosphere.  The fourth test generates orographically induced gravity waves and errors in potential temperature found on the cut cell style grid are discussed.  A final test is developed to investigate the cause of this error by advecting a stable thermal profile.  The test results in a potential temperature error in the same position but having a different structure than in the fourth test.
 
-\TODO{conclusions chapter}
-
-Finally, areas of further work are discussed in chapter~\ref{sec:further-work}.  Additional tests are suggested to explore the source of numerical errors that are found in the experimental results.  In particular, we recommend the formulation of a new Charney--Phillips staggering on unstructured grids.  We hope that, by modifying the model to use this staggering, numerical error would be reduced.
+Concluding remarks on the experimental results are made in chapter~\ref{sec:conclusions}.  Finally, areas of further work are discussed in chapter~\ref{sec:further-work}.  Additional tests are suggested to explore the source of numerical errors that are found in the experimental results.  In particular, we recommend the formulation of a new Charney--Phillips staggering on unstructured grids.  We hope that, by modifying the model to use this staggering, numerical error would be reduced.

@@ -1,4 +1,6 @@
 \chapter{Conclusions}
+\label{sec:conclusions}
+
 This project has compared BTF and SLEVE terrain following grids with a cut cell style grid by analysing the numerical errors of results from a finite volume model of the fully-compressible Euler equations across five, two-dimensional test cases.
 
 The model's upwind-biased cubic advection scheme, introduced in section~\ref{sec:method:discretisation} was tested in the horizontal and terrain following advection of a tracer (sections~\ref{sec:advection} and \ref{sec:wobblyTracerAdvection} respectively).  Results of horizontal advection preserved tracer shape on all grids and tracer magnitude was well-preserved on all except the BTF grid.  Results on the SnapCol grid were comparable to those on a regular grid without orography.  Errors were largest on the BTF grid, with artefacts remaining above the mountain, and mild distortion as the tracer passed over the mountain, though accuracy was nevertheless better than BTF result from \textcite{schaer2002}.  Conversely, errors on the BTF grid were greatly reduced in the terrain following tracer advection, but the result on the SnapCol grid was the worst of all the tracer advection tests with tracer magnitude significantly reduced.  Improvements to the advection scheme are suggested in section~\ref{sec:further-work:advection}.
