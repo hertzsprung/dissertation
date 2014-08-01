@@ -1,0 +1,5 @@
+A variety of methods have been developed to represent mountains in atmospheric models.  The most common method in use today is that of terrain following layers.  However, as computing resources and model resolution increase, gradients in terrain tend to become steeper which can lead to greater numerical errors in models that use terrain following layers.  An alternative is the cut cell method which is better able to represent steep slopes, but can result in very small cells that limit the model timestep unless the grid or the discretisation is modified.
+
+This project develops a cut-cell grid and compares its accuracy with several terrain following grids for a variety of tests.  Simulations of a resting atmosphere and orographically induced gravity waves are performed using a finite volume, nonhydrostatic model.  A series of advection tests are performed to challenge the accuracy of the model's upwind-biased cubic advection scheme.  New, terrain following velocity fields are formulated for use in two of these tests.
+
+\TODO{what have we found?}

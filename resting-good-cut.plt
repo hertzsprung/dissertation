@@ -1,13 +1,14 @@
-set term epslatex color size 1.8,1.8
+set term epslatex color size 2.6,2.2
 load "step.plt"
 
+set style line 2 lc rgb 'black' pt 7 
+
 set parametric
-set label "$\\ast$" at 1.5,0.5 center front
-set label "$\\ast$" at 2.5,0.5 center front
-set label "$\\ast$" at 3.5,1.5 center front
+
+set arrow from 0.25,0.75 to 1.96,0.95 heads front
 
 plot '-' using 1:2 with filledcurves fillcolor rgbcolor '#999999' notitle, \
-     'shave-curve.dat' using 1:2 smooth csplines notitle lt -1 lw 2
+     '-' using 1:2 with points ls 2 notitle
 0 0.2
 0.88 1
 1 1
@@ -69,4 +70,15 @@ plot '-' using 1:2 with filledcurves fillcolor rgbcolor '#999999' notitle, \
 3 0
 
 e
-
+0.25 0.75
+1.96 0.95
+2.12 0.94
+0.48 1.52
+1.55 1.53
+2.35 1.5
+3.93 1.85
+0.5 2.5
+1.5 2.5
+2.5 2.5
+3.55 2.55
+e

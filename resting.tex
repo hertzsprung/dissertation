@@ -41,10 +41,13 @@ Test results for BTF, optimised SLEVE, and SnapCol grids are compared with resul
 The SnapCol grid results in a significantly smaller maximum vertical velocity of less than \SI{1e-3}{\meter\per\second}.  The smallest error of $\sim \SI{1e-10}{\meter\per\second}$ is found on the regular grid.  This error may be due to loss of precision when OpenFOAM loads the initial conditions, which are in discrete hydrostatic balance, but the source of the error is not certain.
 
 \begin{figure}
+	\captionsetup[subfigure]{position=b}
 	\centering
-	\TODO{}
+	\subcaptionbox{Cell centres at centre of uncut cells leading to some cell centres below the ground \label{fig:resting:good:uncut}}[0.49\textwidth]{\input{resting-good-uncut-plot}}
+	\hfill
+	\subcaptionbox{Cell centres at centre of cut cells \label{fig:resting:good:cut}}[0.49\textwidth]{\input{resting-good-cut-plot}}
 %
-	\caption{\TODO{show how cell centres end up below the ground for Good's model}}
+	\caption{Placement of cell centres on a cut cell grid.  The model from \textcite{good2013} has some cell centres below the ground (B. Good 2014, personal communication).  The arrows denote an estimated horizontal gradient between two adjacent cells of a scalar value stored at cell centres.}
 	\label{fig:resting:good}
 \end{figure}
 

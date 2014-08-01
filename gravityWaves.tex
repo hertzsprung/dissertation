@@ -52,6 +52,18 @@ Comparing vertical velocity contours between BTF and SLEVE show few visible diff
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
+	\subcaptionbox{SLEVE \label{fig:gw:flow:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
+	\subcaptionbox{SnapCol \label{fig:gw:flow:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}}
+%
+	\caption{Vertical cross section of velocity vectors in the centremost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  The velocity field follows the terrain and is qualitatively similar on (\subcaptionref{fig:gw:flow:sleve}) the SLEVE grid, (\subcaptionref{fig:gw:flow:snapCol}) the SnapCol grid, and the BTF grid (not shown).}
+	\label{fig:gw:flow}
+\end{figure}
+
+Examining the velocity vector field we find that the flow is qualitatively similar between the SLEVE grid (figure~\ref{fig:gw:flow:sleve}), SnapCol grid (figure~\ref{fig:gw:flow:snapCol}) and BTF grid (not shown).  Flow near the ground follows the terrain, accelerating as it passes over the mountain peaks, and velocities become more uniform aloft.  
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
 	\subcaptionbox{SLEVE \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
 	\subcaptionbox{SnapCol \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}}
 %
@@ -67,17 +79,7 @@ Examining more closely the potential temperature anomaly on the SnapCol grid, in
 Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  \TODO{how big are the anomalies?}
 This feature implies that the computational mode of the Lorenz vertical staggering has been excited, since the profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
 
-In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} in which this hypothesis is confirmed. \TODO{unfortunately it isn't!}
-
-\begin{figure}
-	\captionsetup[subfigure]{position=b}
-	\centering
-	\subcaptionbox{SLEVE \label{fig:gw:flow:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
-	\subcaptionbox{SnapCol \label{fig:gw:flow:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}}
-%
-	\caption{Vertical cross section of velocity vectors in the centremost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  The velocity field follows the terrain and is qualitatively similar on (\subcaptionref{fig:gw:flow:sleve}) the SLEVE grid, (\subcaptionref{fig:gw:flow:snapCol}) the SnapCol grid, and the BTF grid (not shown).}
-	\label{fig:gw:flow}
-\end{figure}
+In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} to test this hypothesis.
 
 \begin{figure}
 	\centering
