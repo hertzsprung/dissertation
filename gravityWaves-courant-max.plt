@@ -1,4 +1,4 @@
-set term epslatex size 2.8,2.4
+set term epslatex color size 2.8,2.4
 set style data lines
 set key inside bottom right
 
@@ -8,7 +8,7 @@ set xlabel "$t$ (hours)"
 set ylabel "$\\mathrm{max(Co)}$" offset 2
 set xtics 1
 
-plot	'data/gravityWaves-btf-schaerExp-h/courant.dat' using ($1/3600):3 title 'BTF' lt 4, \
-	'data/gravityWaves-sleve-schaerExp-h/courant.dat' using ($1/3600):3 title 'SLEVE' lt 1, \
-	'data/gravityWaves-snapCol-schaerExp-h/courant.dat' using ($1/3600):3 title 'SnapCol' lt 2
+plot	'data/gravityWaves-btf-schaerExp-h/courant.dat' using ($1/3600):3 title 'BTF' lt 1 lc 0, \
+	'data/gravityWaves-sleve-schaerExp-h/courant.dat' using ($1/3600):3 title 'SLEVE' lt 2 lc rgbcolor '#75c050', \
+	'data/gravityWaves-snapCol-schaerExp-h/courant.dat' using ($1/3600):3 title 'SnapCol' lt 3 lc rgbcolor '#e66101'
 

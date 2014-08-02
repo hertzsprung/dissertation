@@ -69,13 +69,13 @@ Examining the velocity vector field we find that the flow is qualitatively simil
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{SLEVE \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
-	\subcaptionbox{SnapCol \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
-	\subcaptionbox{SLEVE DH \label{fig:gw:thetaDiffZoom:sleve-dh}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps}} \\
-	\subcaptionbox{SnapCol DH \label{fig:gw:thetaDiffZoom:snapCol-dh}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SLEVE $\surface_0 = \SI{250}{\meter}$ \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SnapCol $\surface_0 = \SI{250}{\meter}$ \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SLEVE $\surface_0 = \SI{500}{\meter}$ \label{fig:gw:thetaDiffZoom:sleve-dh}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SnapCol $\surface_0 = \SI{500}{\meter}$ \label{fig:gw:thetaDiffZoom:snapCol-dh}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps}} \\
 %
 	\includegraphics[height=5in,angle=270]{legends/nonlinearMomentumZoom_thetaDiff.eps}
-	\caption{Vertical cross section of potential temperature anomalies (\si{\kelvin}) in the centermost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  This figure shows a close up of the potential temperature anomalies in figure~\ref{fig:gw:thetaDiff:sleve} and \ref{fig:gw:thetaDiff:snapCol}.  Note the different colour scale from figure~\ref{fig:gw:w}.}
+	\caption{Vertical cross section of potential temperature anomalies (\si{\kelvin}) in the centermost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  Subfigures (\subcaptionref{fig:gw:thetaDiffZoom:sleve}) and (\subcaptionref{fig:gw:thetaDiffZoom:snapCol}) show close up views of the potential temperature anomalies in figures~\ref{fig:gw:thetaDiff:sleve} and \ref{fig:gw:thetaDiff:snapCol} respectively.  Note the different colour scale from figure~\ref{fig:gw:w}.}
 	\label{fig:gw:thetaDiffZoom}
 \end{figure}
 
@@ -86,18 +86,16 @@ Examining more closely the potential temperature anomaly on the SnapCol grid, in
 Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  \TODO{how big are the anomalies?}
 This feature implies that the computational mode of the Lorenz vertical staggering has been excited, since the profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
 
+Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.
+
 In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} to test this hypothesis.
 
 \begin{figure}
 	\centering
 	\input{gravityWaves-schaerExp-h-exnerTheta-plot}
-	\caption{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$ after 5 hours.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.  Results on the BTF grid are qualitatively the same as those on the SLEVE grid (not shown).}
+	\caption{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$ after 5 hours.  Exner profile is visually identical on all grids for both $\surface_0 = \SI{250}{\meter}$ and $\surface_0 = \SI{500}{\meter}$; for clarity, Exner profile is only plotted for the SLEVE grid.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.  The double height mountain increases the severity of the computational mode, but has negligible effect on the SLEVE grid (not shown).  All results on the BTF grid are qualitatively the same as those on the SLEVE grid (not shown).}
 	\label{fig:gw:exner-theta}
 \end{figure}
-
-\TODO{somewhere we should try and use the theory to calculate propagating/evanescent waves using $\overline{u}, N$ and $k$ from the mountain profile.}
-
-\TODO{we tried a bunch of other things: double height mountains, halving $\Delta z$, and managed to get mixing to appear in BTF, too}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
