@@ -32,17 +32,43 @@ No slip conditions are imposed on the top and bottom boundaries and the outlet i
 
 
 \begin{figure}
-	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF \label{fig:gw:w:btf}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/w.eps}}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/w.eps}\vspace{2em}
+		\caption{BTF}
+		\label{fig:gw:w:btf}
+	\end{subfigure}
 	\hfill
-	\subcaptionbox{Mass-conserving semi-implicit semi-Lagrangian solution from \textcite{melvin2010} \label{fig:gw:w:melvin}}[0.48\textwidth]{\includegraphics[height=2in]{img/melvin-7a.png}} \\
-	\subcaptionbox{SLEVE \label{fig:gw:w:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2in]{img/melvin-7a.png}
+		\caption{Mass-conserving semi-implicit semi-Lagrangian solution from \textcite{melvin2010}}
+		\label{fig:gw:w:melvin}
+	\end{subfigure} \\
+%
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}
+		\caption{SLEVE}
+		\label{fig:gw:w:sleve}
+	\end{subfigure}
 	\hfill
-	\subcaptionbox{SLEVE \label{fig:gw:thetaDiff:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}} \\
-	\subcaptionbox{SnapCol \label{fig:gw:w:snapCol}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/w.eps}}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}
+		\caption{SLEVE}
+		\label{fig:gw:thetaDiff:sleve}
+	\end{subfigure} \\
+%
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}\vspace{3em}
+		\caption{SnapCol}
+		\label{fig:gw:w:snapCol}
+	\end{subfigure}
 	\hfill
-	\subcaptionbox{SnapCol \label{fig:gw:thetaDiff:snapCol}}[0.48\textwidth]{\shortstack[c]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \\ \smallskip \hspace{1em} \includegraphics[height=2.4in,angle=270]{legends/thetaDiff.eps}}}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\shortstack[c]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \\
+			\smallskip \hspace{1em} \includegraphics[height=2.4in,angle=270]{legends/thetaDiff.eps}}
+		\caption{SnapCol}
+		\label{fig:gw:thetaDiff:snapCol}
+	\end{subfigure}
 %
 	\caption{Vertical cross section of vertical velocity contours (\subcaptionref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve} and \subcaptionref{fig:gw:w:snapCol}) and potential temperature anomalies in Kelvin (\subcaptionref{fig:gw:thetaDiff:sleve} and \subcaptionref{fig:gw:thetaDiff:snapCol}) from the gravity waves test after 5 hours.  Vertical velocity contours are every \SI{5e-2}{\meter\per\second} with solid lines denoting ascent and dashed lines descent.}
 	\label{fig:gw:w}
