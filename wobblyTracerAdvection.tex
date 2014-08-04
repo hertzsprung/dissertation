@@ -1,7 +1,7 @@
 \section{Terrain following tracer advection}
 \label{sec:wobblyTracerAdvection}
 
-In the horizontal advection test, distortions in the BTF grid led to increased error.  In this test, the velocity field is aligned with the terrain following layers and results are compared between BTF and SnapCol grids.
+In the horizontal advection test, results were more accurate when the flow was aligned with grid layers: on the cut cell grid results were accurate, but distortions in the BTF grid led to increased error.  This terrain following advection test was designed so that the velocity field is aligned with the layers of the BTF grid.  Comparing results with the horizontal advection test we find that that accuracy on the BTF grid is increased, while tracer errors are large on the SnapCol grid.
 
 \subsection{Specification}
 The spatial domain, mountain profile, initial tracer profile and discretisation are the same as those in the horizontal tracer advection test (section~\ref{sec:advection}).  The velocity field, however, is defined using a streamfunction $\Psi$ so that the velocity field is non-divergent.  Unlike the horizontal advection test, flow extends from the top of the domain all the way to the ground.  It is defined so that flow is everywhere tangential to BTF coordinate surfaces given by equation~\ref{eqn:theory:btf} such that

@@ -30,24 +30,55 @@ No slip conditions are imposed on the top and bottom boundaries and the outlet i
 
 \subsection{Results}
 
+
 \begin{figure}
-	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF \label{fig:gw:w:btf}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/w.eps}}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/w.eps}\vspace{2em}
+		\caption{BTF}
+		\label{fig:gw:w:btf}
+	\end{subfigure}
 	\hfill
-	\subcaptionbox{Mass-conserving semi-implicit semi-Lagrangian solution from \textcite{melvin2010} \label{fig:gw:w:melvin}}[0.48\textwidth]{\includegraphics[height=2in]{img/melvin-7a.png}} \\
-	\subcaptionbox{SLEVE \label{fig:gw:w:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}}
-	\hfill
-	\subcaptionbox{SLEVE \label{fig:gw:thetaDiff:sleve}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}} \\
-	\subcaptionbox{SnapCol \label{fig:gw:w:snapCol}}[0.48\textwidth]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/w.eps}}
-	\hfill
-	\subcaptionbox{SnapCol \label{fig:gw:thetaDiff:snapCol}}[0.48\textwidth]{\shortstack[c]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \\ \smallskip \hspace{1em} \includegraphics[height=2.4in,angle=270]{legends/thetaDiff.eps}}}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2in]{img/melvin-7a.png}
+		\caption{Mass-conserving semi-implicit semi-Lagrangian solution from \textcite{melvin2010}}
+		\label{fig:gw:w:melvin}
+	\end{subfigure} \\
 %
-	\caption{Vertical cross section of vertical velocity contours (\subcaptionref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve} and \subcaptionref{fig:gw:w:snapCol}) and theta anomalies (\subcaptionref{fig:gw:thetaDiff:sleve} and \subcaptionref{fig:gw:thetaDiff:snapCol}) from the gravity waves test after 5 hours.  Vertical velocity contours are every \SI{5e-2}{\meter\per\second} with solid lines denoting ascent and dashed lines descent.}
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}
+		\caption{SLEVE}
+		\label{fig:gw:w:sleve}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/thetaDiff.eps}
+		\caption{SLEVE}
+		\label{fig:gw:thetaDiff:sleve}
+	\end{subfigure} \\
+%
+	\begin{subfigure}[b]{0.48\textwidth}
+		\includegraphics[height=2.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/w.eps}\vspace{3em}
+		\caption{SnapCol}
+		\label{fig:gw:w:snapCol}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+		\shortstack[c]{\includegraphics[height=2.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/thetaDiff.eps} \\
+			\smallskip \hspace{1em} \includegraphics[height=2.4in,angle=270]{legends/thetaDiff.eps}}
+		\caption{SnapCol}
+		\label{fig:gw:thetaDiff:snapCol}
+	\end{subfigure}
+%
+	\caption{Vertical cross section of vertical velocity contours (\subcaptionref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve} and \subcaptionref{fig:gw:w:snapCol}) and potential temperature anomalies in Kelvin (\subcaptionref{fig:gw:thetaDiff:sleve} and \subcaptionref{fig:gw:thetaDiff:snapCol}) from the gravity waves test after 5 hours.  Vertical velocity contours are every \SI{5e-2}{\meter\per\second} with solid lines denoting ascent and dashed lines descent.}
 	\label{fig:gw:w}
 \end{figure}
 
-Comparing vertical velocity contours between BTF and SLEVE show few visible differences (figures~\ref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve}).  Evanescent waves are visible as dense contours immediately above the mountain ridges and the large-scale hydrostatic waves propagate vertically (as described by theory discussed in section~\ref{sec:theory:gw}).  Since the same model was used, these results match those from \textcite{weller-shahrokhi2014}.  Vertical velocities on the SnapCol grid are similar to the terrain following results (figure~\ref{fig:gw:w:snapCol}).  All three results are in agreement with a semi-implicit, semi-Lagrangian simulation from \textcite{melvin2010} (see figure~\ref{fig:gw:w:melvin}).
+Comparing vertical velocity contours between BTF and SLEVE show few visible differences (figures~\ref{fig:gw:w:btf}, \subcaptionref{fig:gw:w:sleve}).  Evanescent waves are visible as dense contours immediately above the mountain ridges and the large-scale hydrostatic waves propagate vertically.  We verify the two wave types using the linear theory discussed in section~\ref{sec:theory:gw}.  The horizontal wavelength between each mountain peak is specified as $\lambda = \SI{4e3}{\meter}$, so $k = 2 \pi / \lambda \approx \SI{1.57e-3}{\per\meter}$.  The condition for evanescent waves is that $| \overline{u}k | \geq N$.  Since this test specifies $N = \SI{0.01}{\per\second}$ and $\overline{u} = \SI{10}{\meter\per\second}$, we find that the condition is satisfied.
+
+The mountain half-width is specified to be $a = \SI{5e3}{\meter}$, so the large-scale wavelength is \SI{1e4}{\meter} and the horizontal wavenumber $k \approx \SI{6.28e-4}{\per\meter}$.  In this case, $| \overline{u}k | < N$, so waves propagate vertically.  Hence, we have shown that both propagating and evanescent waves are generated by this particular configuration of stability, wind speed, and mountain profile.
+
+Since the same model was used, vertical velocities match those from \textcite{weller-shahrokhi2014}.  Vertical velocities on the SnapCol grid are similar to the terrain following results (figure~\ref{fig:gw:w:snapCol}).  All three results are in agreement with a semi-implicit, semi-Lagrangian simulation from \textcite{melvin2010} (see figure~\ref{fig:gw:w:melvin}).
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -59,16 +90,18 @@ Comparing vertical velocity contours between BTF and SLEVE show few visible diff
 	\label{fig:gw:flow}
 \end{figure}
 
-Examining the velocity vector field we find that the flow is qualitatively similar between the SLEVE grid (figure~\ref{fig:gw:flow:sleve}), SnapCol grid (figure~\ref{fig:gw:flow:snapCol}) and BTF grid (not shown).  Flow near the ground follows the terrain, accelerating as it passes over the mountain peaks, and velocities become more uniform aloft.  
+Examining the velocity vector field we find that the flow is qualitatively similar between the SLEVE grid (figure~\ref{fig:gw:flow:sleve}), SnapCol grid (figure~\ref{fig:gw:flow:snapCol}), and BTF grid (not shown).  Flow near the ground follows the terrain, accelerating as it passes over the mountain peaks, with velocities becoming more horizontal aloft.  
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{SLEVE \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
-	\subcaptionbox{SnapCol \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}}
+	\subcaptionbox{SLEVE $\surface_0 = \SI{250}{\meter}$ \label{fig:gw:thetaDiffZoom:sleve}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SnapCol $\surface_0 = \SI{250}{\meter}$ \label{fig:gw:thetaDiffZoom:snapCol}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SLEVE $\surface_0 = \SI{500}{\meter}$ \label{fig:gw:thetaDiffZoom:sleve-dh}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps}} \\
+	\subcaptionbox{SnapCol $\surface_0 = \SI{500}{\meter}$ \label{fig:gw:thetaDiffZoom:snapCol-dh}}[\textwidth]{\includegraphics[width=1.4in,angle=270]{data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps}} \\
 %
 	\includegraphics[height=5in,angle=270]{legends/nonlinearMomentumZoom_thetaDiff.eps}
-	\caption{Vertical cross section of potential temperature anomalies in the centermost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  This figure shows a close up of the potential temperature anomalies in figure~\ref{fig:gw:thetaDiff:sleve} and \ref{fig:gw:thetaDiff:snapCol}.  Note the different colour scale from figure~\ref{fig:gw:w}.}
+	\caption{Vertical cross section of potential temperature anomalies (\si{\kelvin}) in the centermost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  Subfigures (\subcaptionref{fig:gw:thetaDiffZoom:sleve}) and (\subcaptionref{fig:gw:thetaDiffZoom:snapCol}) show close up views of the potential temperature anomalies in figures~\ref{fig:gw:thetaDiff:sleve} and \ref{fig:gw:thetaDiff:snapCol} respectively.  Note the different colour scale from figure~\ref{fig:gw:w}.}
 	\label{fig:gw:thetaDiffZoom}
 \end{figure}
 
@@ -76,21 +109,23 @@ Potential temperature anomalies are similar on all grids, having a similar shape
 
 Examining more closely the potential temperature anomaly on the SnapCol grid, in the lee of the mountain the bottommost layer is anomalously warm and the layer above it is anomalously cold (figure~\ref{fig:gw:thetaDiffZoom:snapCol}).  Potential temperature increases with height because the simulated atmosphere is stable, so these anomalies serve to reduce the stability near the ground.  The anomalies are not sufficiently large to destabilise the atmosphere, however.   Therefore, vertical motion is not expected, and was not observed, near the ground on the lee side.   Whilst turbulent motion does cause thermal mixing in the real atmosphere, there is no viscosity in the model equations, so the thermal anomalies should not be present.  The feature is not present on the SLEVE grid (figure~\ref{fig:gw:thetaDiffZoom:sleve}) or BTF grid (not shown).
 
-Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  \TODO{how big are the anomalies?}
+Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  \TODO{how big are the anomalies?  tabulate results}
 This feature implies that the computational mode of the Lorenz vertical staggering has been excited, since the profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
+
+Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.
 
 In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} to test this hypothesis.
 
 \begin{figure}
+	\captionsetup[subfigure]{position=b}
 	\centering
-	\input{gravityWaves-schaerExp-h-exnerTheta-plot}
-	\caption{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$ after 5 hours.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.}
-	\label{fig:gw:exner-theta}
+	\subcaptionbox{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the gravity waves experiment.  Exner profile is visually identical on all grids for both $\surface_0 = \SI{250}{\meter}$ and $\surface_0 = \SI{500}{\meter}$; for clarity, Exner profile is only plotted for the SLEVE grid.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.  The double height mountain increases the severity of the computational mode, but has negligible effect on the SLEVE grid (not shown).  All results on the BTF grid are qualitatively the same as those on the SLEVE grid (not shown). \label{fig:gw:exner-theta}}[\textwidth]{\input{gravityWaves-schaerExp-h-exnerTheta-plot}} \\
+%
+	\subcaptionbox{Vertical potential temperature profile from the test of terrain following advection of a stable thermal profile, described in section~\ref{sec:wobblyThetaAdvection}.  Results on the BTF grid are visually identical to the initial potential temperature profile (not shown).  \label{fig:wobblyThetaAdvection:theta}}[\textwidth]{\input{wobblyThetaAdvection-schaerExp-theta-plot}}
+%
+	\caption{Vertical profiles in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$ after 5 hours.}
+	\label{fig:exner-theta}
 \end{figure}
-
-\TODO{somewhere we should try and use the theory to calculate propagating/evanescent waves using $\overline{u}, N$ and $k$ from the mountain profile.}
-
-\TODO{we tried a bunch of other things: double height mountains, halving $\Delta z$, and managed to get mixing to appear in BTF, too}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}

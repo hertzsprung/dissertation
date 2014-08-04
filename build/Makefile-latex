@@ -59,7 +59,8 @@ GNUPLOT_OUTPUTS := \
   gravityWaves-courant-mean-plot.tex \
   wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
   wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
-  wobblyTracerAdvection-tracer-range-plot.tex
+  wobblyTracerAdvection-tracer-range-plot.tex \
+  wobblyThetaAdvection-schaerExp-theta-plot.tex
 PLOT_PATCH_DATA_OUTPUTS := \
   mesh-snapCol-schaerExp-resting.eps \
   data/gravityWaves-btf-schaerExp-h/18000/w.eps \
@@ -71,6 +72,8 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/nonlinearMomentumZoom.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps \
+  data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps \
+  data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps \
   openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps \
   openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps \
   openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps

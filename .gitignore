@@ -130,6 +130,7 @@ theta_init
 thetaDiff
 min.txt
 max.txt
+sampleDict
 
 # PyFoam
 PyFoamHistory

@@ -2,7 +2,7 @@ A variety of methods have been developed to represent mountains in atmospheric m
 
 This project develops a cut-cell grid and compares its accuracy with several terrain following grids for a variety of tests.  Two simulations are performed using a finite volume, nonhydrostatic model that has an upwind-biased cubic advection scheme, a curl-free pressure gradient formulation, and Lorenz vertical staggering of thermodynamic variables.  First, spurious flow is analysed for an atmosphere at rest in the presence of an idealised mountain profile.  Second, gravity waves are forced by horizontal flow over idealised orography.  In addition, a series of advection tests are performed to challenge the accuracy of the model's upwind-biased cubic advection scheme.  New terrain following velocity fields are formulated for use in two of these tests.
 
-We find that the advection scheme accuracy decreases when flow does not follow grid layers.  Advection is accurate in horizontal flows on cut cell grids, with only modest errors found on terrain following grids.  However, when the flow follows the terrain, errors are significant on cut cell grids.
+We find that the advection scheme accuracy is greatest when advection follows grid layers.  Advection is accurate in horizontal flows on cut cell grids since the grid is uniform aloft, but there are modest errors on terrain following grids.  Results are accurate for terrain following flows on terrain following grids, but errors are significant on cut cell grids.
 
 While spurious velocities are reduced in a resting atmosphere on a cut cell grid, we find errors in potential temperature on the cut cell grid in the gravity waves test that are the result of the Lorenz computational mode.
 
