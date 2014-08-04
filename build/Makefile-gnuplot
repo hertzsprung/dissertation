@@ -67,6 +67,6 @@ resting-energy-snapCol.plt: openfoam/cases/resting/snapCol/schaerExp/h/energy.da
 
 resting-energy-btf.plt resting-energy-sleve.plt resting-energy-snapCol.plt resting-energy-total-tf.plt resting-energy-total-snapCol.plt resting-energy-total-noOrography.plt: resting-energy.plt
 
-wobblyThetaAdvection-schaerExp-theta: \
+wobblyThetaAdvection-schaerExp-theta.plt: \
   openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/theta.dat \
   openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/theta.dat
