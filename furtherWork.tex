@@ -19,6 +19,8 @@ To avoid these two issues, a custom scalar transport model should be implemented
 The upwind-biased cubic advection scheme, described in section~\ref{sec:method:discretisation}, is not monotonic.  Results from horizontal and terrain following tracer advection tests showed that tracer magnitude decreased over time (see sections~\ref{sec:advection} and \ref{sec:wobblyTracerAdvection}).
 In similar tracer advection experiments, \textcite{jones2013} found that the van Leer scheme gave most accurate results.  The scheme is designed to maximise boundedness and accuracy, blending a centred difference scheme that is second-order accurate and unbounded with an upwind scheme that is first-order accurate and bounded.  This motivates the development of a monotonicity preserving version of the upwind-biased cubic advection scheme.  Due to its larger stencil size, we would expect such a scheme to have greater accuracy compared to the current upwind-biased scheme, and the van Leer scheme used by \textcite{jones2013}.
 
+Results from horizontal and terrain following tracer advection tests also showed that accuracy was greatest when the velocity field was aligned with the grid.  This motivates further tests using an adaptive mesh that is dependent upon the flow.  An adaptive mesh redistribution technique might be employed such as the three dimensional formulation by \textcite{browne2014}.
+
 \section{Resting atmosphere errors}
 \label{sec:further-work:resting}
 
@@ -40,8 +42,6 @@ Little evidence of the small cell problem was found in the gravity waves test.  
 All tests presented in this project use one of two wave-shaped mountain profiles (given by equations~\ref{eqn:advection:schaerCos} and \ref{eqn:resting:mountain}).  Many experiments on cut cell grids perform simulations over bell-shaped mountain profiles known as `Witch of Agnessi' \parencites{steppeler2002}{rosatti2005}{klein2009}{jebens2011}.  Following \textcite{gallus-klemp2000}, a further test should be developed to simulate flow over a the bell-shaped mountain profile to allow comparison with existing results.
 
 \textcite{lock2012} extended the two-dimensional test from \textcite{gallus-klemp2000} to simulate flow over a three dimensional mountain, presenting results on a cut cell grid.  Though substantial work will be required to implement a three dimensional shaving technique, it would be valuable to compare model results for terrain following and cut cell grids in three dimensions.
-
-\TODO{advection results motivate grid that adapts to the flow}
 
 \TODO{resting atmosphere: 4km high mountains for resting atmosphere test. (or I might just do this myself if I have time)}
 
