@@ -5,7 +5,7 @@ set style line 2 lc rgb 'black' pt 7
 
 set parametric
 
-set arrow from 0.5,0.5 to 1.5,0.5 heads front
+set arrow from 2.5,0.5 to 1.5,0.5 heads front
 
 plot '-' using 1:2 with filledcurves fillcolor rgbcolor '#999999' notitle, \
      '-' using 1:2 with points ls 2 notitle

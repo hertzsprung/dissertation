@@ -109,10 +109,10 @@ Potential temperature anomalies are similar on all grids, having a similar shape
 
 Examining more closely the potential temperature anomaly on the SnapCol grid, in the lee of the mountain the bottommost layer is anomalously warm and the layer above it is anomalously cold (figure~\ref{fig:gw:thetaDiffZoom:snapCol}).  Potential temperature increases with height because the simulated atmosphere is stable, so these anomalies serve to reduce the stability near the ground.  The anomalies are not sufficiently large to destabilise the atmosphere, however.   Therefore, vertical motion is not expected, and was not observed, near the ground on the lee side.   Whilst turbulent motion does cause thermal mixing in the real atmosphere, there is no viscosity in the model equations, so the thermal anomalies should not be present.  The feature is not present on the SLEVE grid (figure~\ref{fig:gw:thetaDiffZoom:sleve}) or BTF grid (not shown).
 
-Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  \TODO{how big are the anomalies?  tabulate results}
+Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.
 This feature implies that the computational mode of the Lorenz vertical staggering has been excited, since the profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
 
-Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.
+Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.  Differences in potential temperature from the initial profile are summarized in table~\ref{tab:theta-sample}.
 
 In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} to test this hypothesis.
 
@@ -126,6 +126,23 @@ In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest wh
 	\caption{Vertical profiles in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$ after 5 hours.}
 	\label{fig:exner-theta}
 \end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{ r @{\hspace{2em}} S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=1.3] S[table-format=1.3]}
+\toprule
+			& \multicolumn{3}{c}{Gravity waves, $h_0 = \SI{250}{\meter}$}	& \multicolumn{3}{c}{Gravity waves, $h_0 = \SI{500}{\meter}$}	& \multicolumn{2}{c}{Thermal advection} \\
+Height (\si{\meter})	& {BTF}	& {SLEVE}	&	{SnapCol}	& {BTF}	& {SLEVE}	& {SnapCol} & {BTF} & {SnapCol} \\ \midrule
+150 & -0.003 & -0.001 & 0.046 & -0.003 & 0.031 & 0.254 & -0.001 & -0.643 \\
+450 & 0.006  & 0.013 & -0.05 & 0.006 & 0.012 & -0.169 & 0.002 & 0.652 \\
+750 & 0.032  & 0.03 & 0.023 & 0.032 & 0.055 & -0.169 & -0.003 & -0.033 \\
+1050 & 0.046 & 0.04 & 0.041 & 0.046 & 0.106 & 0.069 & 0.004 & -0.031 \\
+\bottomrule
+\end{tabular}
+%
+\caption{Difference in potential temperature (\si{\kelvin}) from the initial profile in the lowest \SI{1200}{\meter} at $x = \SI{50}{\kilo\meter}$ for the gravity waves test (section~\ref{sec:gw}) and thermal advection test (section~\ref{sec:wobblyThetaAdvection}).}
+\label{tab:theta-sample}
+\end{table}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
