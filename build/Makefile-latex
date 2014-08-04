@@ -59,7 +59,8 @@ GNUPLOT_OUTPUTS := \
   gravityWaves-courant-mean-plot.tex \
   wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
   wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour-plot.tex \
-  wobblyTracerAdvection-tracer-range-plot.tex
+  wobblyTracerAdvection-tracer-range-plot.tex \
+  wobblyThetaAdvection-schaerExp-theta-plot.tex
 PLOT_PATCH_DATA_OUTPUTS := \
   mesh-snapCol-schaerExp-resting.eps \
   data/gravityWaves-btf-schaerExp-h/18000/w.eps \

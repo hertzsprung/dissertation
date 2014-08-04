@@ -1,8 +1,8 @@
-set term epslatex color size 5,3.2
+set term epslatex color size 5.5,3.2
 set termoption dashed
 set style data linespoints
 
-set xrange [288:292]
+set xrange [287.5:292]
 set x2range [0.96:1.0]
 set yrange [0:1200]
 set xlabel "$\\theta$ (\\si{\\kelvin})"

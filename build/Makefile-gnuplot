@@ -41,6 +41,7 @@ $(eval $(call GNUPLOT_TEMPLATE,gravityWaves-courant-mean))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-btf-schaerCos-cubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-snapCol-schaerCos-cubicUpwindCPCFit-contour))
 $(eval $(call GNUPLOT_TEMPLATE,wobblyTracerAdvection-tracer-range))
+$(eval $(call GNUPLOT_TEMPLATE,wobblyThetaAdvection-schaerExp-theta))
 
 btf.plt sleve.plt: tf.plt
 
@@ -65,3 +66,7 @@ resting-energy-sleve.plt: openfoam/cases/resting/sleve/schaerExp/h/energy.dat
 resting-energy-snapCol.plt: openfoam/cases/resting/snapCol/schaerExp/h/energy.dat
 
 resting-energy-btf.plt resting-energy-sleve.plt resting-energy-snapCol.plt resting-energy-total-tf.plt resting-energy-total-snapCol.plt resting-energy-total-noOrography.plt: resting-energy.plt
+
+wobblyThetaAdvection-schaerExp-theta: \
+  openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/theta.dat \
+  openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/theta.dat

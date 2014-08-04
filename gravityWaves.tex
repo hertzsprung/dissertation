@@ -117,10 +117,14 @@ Another test was performed in which the mountain height was doubled such that $\
 In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} to test this hypothesis.
 
 \begin{figure}
+	\captionsetup[subfigure]{position=b}
 	\centering
-	\input{gravityWaves-schaerExp-h-exnerTheta-plot}
-	\caption{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$ after 5 hours.  Exner profile is visually identical on all grids for both $\surface_0 = \SI{250}{\meter}$ and $\surface_0 = \SI{500}{\meter}$; for clarity, Exner profile is only plotted for the SLEVE grid.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.  The double height mountain increases the severity of the computational mode, but has negligible effect on the SLEVE grid (not shown).  All results on the BTF grid are qualitatively the same as those on the SLEVE grid (not shown).}
-	\label{fig:gw:exner-theta}
+	\subcaptionbox{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the gravity waves experiment.  Exner profile is visually identical on all grids for both $\surface_0 = \SI{250}{\meter}$ and $\surface_0 = \SI{500}{\meter}$; for clarity, Exner profile is only plotted for the SLEVE grid.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.  The double height mountain increases the severity of the computational mode, but has negligible effect on the SLEVE grid (not shown).  All results on the BTF grid are qualitatively the same as those on the SLEVE grid (not shown). \label{fig:gw:exner-theta}}[\textwidth]{\input{gravityWaves-schaerExp-h-exnerTheta-plot}} \\
+%
+	\subcaptionbox{Vertical potential temperature profile from the test of terrain following advection of a stable thermal profile, described in section~\ref{sec:wobblyThetaAdvection}.  Results on the BTF grid are visually identical to the initial potential temperature profile (not shown).  \label{fig:wobblyThetaAdvection:theta}}[\textwidth]{\input{wobblyThetaAdvection-schaerExp-theta-plot}}
+%
+	\caption{Vertical profiles in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$ after 5 hours.}
+	\label{fig:exner-theta}
 \end{figure}
 
 \begin{figure}
