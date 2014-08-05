@@ -3,7 +3,6 @@ INITIAL_CONDITIONS := constant/initialConditions
 TRANSPORT_PROPERTIES := constant/transportProperties
 
 ADVECTION_INITIAL_FIELDS := 0/U $(ADVECTION_INITIAL_TRACER_FIELD)
-ADVECTION_FINAL_TRACER_DIFF := $(ADVECTION_END_TIME)/T_diff
 
 # $(1) -- simulation case path
 # $(2) -- subproject label

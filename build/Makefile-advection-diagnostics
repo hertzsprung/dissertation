@@ -2,6 +2,7 @@ ADVECTION_END_TIME := 10000
 ADVECTION_INITIAL_TRACER_FIELD = 0/T
 ADVECTION_FINAL_TRACER_FIELD := $(ADVECTION_END_TIME)/T
 ADVECTION_ANALYTIC_TRACER_FIELD := 0/T_analytic # TODO: should really be in $(ADVECTION_END_TIME) directory but don't know how to make OpenFOAM do this
+ADVECTION_FINAL_TRACER_DIFF := $(ADVECTION_END_TIME)/T_diff
 ADVECTION_TRACER_ERROR := globalSumT_diff.dat
 ADVECTION_TRACER_MINMAX := globalSumT.dat
 L2_ERROR_STAT := l2error.txt
@@ -12,12 +13,15 @@ CONTOUR_TIMES = 0 5000 10000
 
 CONTOUR_DATA := $(addsuffix /contour.dat,$(CONTOUR_TIMES))
 TRACER_CONTOUR_DICT := $(GMT_DICTS)/tracer-contour
+TRACER_CONTOUR_ERROR_DICT := $(GMT_DICTS)/tracer-contour-error
 
 ADVECTION_ANALYTIC_CASE := openfoam/cases/advection/noOrography/vanLeer
 
 # $(1) -- simulation case path
 # $(2) -- subproject label
 define ADVECTION_DIAGNOSTICS_TEMPLATE
+
+  $(eval $(call PLOT_MULTIDIFF_TEMPLATE,$(1),$(2),tracer-contour-error,$(ADVECTION_END_TIME),T,T_analytic,Tdiff))
 
   .INTERMEDIATE: $(2).contour.intermediate
 

@@ -63,6 +63,9 @@ GNUPLOT_OUTPUTS := \
   wobblyThetaAdvection-schaerExp-theta-plot.tex
 PLOT_PATCH_DATA_OUTPUTS := \
   mesh-snapCol-schaerExp-resting.eps \
+  openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/10000/tracer-contour-error.eps \
+  openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/10000/tracer-contour-error.eps \
+  openfoam/cases/advection/noOrography/cubicUpwindCPCFit/10000/tracer-contour-error.eps \
   data/gravityWaves-btf-schaerExp-h/18000/w.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/w.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/w.eps \

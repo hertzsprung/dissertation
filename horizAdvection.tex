@@ -99,6 +99,25 @@ Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\D
 	\label{fig:advection:cubicUpwind}
 \end{figure}
 
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{BTF \label{fig:advection:error:btf:cubicUpwind}}[0.49\textwidth]{\includegraphics[width=1.3in,angle=270]{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/10000/tracer-contour-error.eps}}
+	\hfill
+	\subcaptionbox{BTF from \textcite{schaer2002} \label{fig:advection:error:schaer:btf}}[0.49\textwidth]{\vspace{0.1in}\includegraphics[height=1.2in]{img/schaer-btf-centred-error.png}} \\
+%
+	\subcaptionbox{SLEVE \label{fig:advection:error:sleve:cubicUpwind}}[0.49\textwidth]{\includegraphics[width=1.3in,angle=270]{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/10000/tracer-contour-error.eps}}
+	\hfill
+	\subcaptionbox{SLEVE from \textcite{schaer2002} \label{fig:advection:error:schaer:sleve}}[0.49\textwidth]{\vspace{0.1in}\includegraphics[height=1.2in]{img/schaer-sleve-centred-error.png}} \\
+%
+	\subcaptionbox{Regular grid \label{fig:advection:error:noOrography:cubicUpwind}}[0.49\textwidth]{\includegraphics[width=1.3in,angle=270]{openfoam/cases/advection/noOrography/cubicUpwindCPCFit/10000/tracer-contour-error.eps}}
+	\hfill
+	\subcaptionbox{Regular grid from \textcite{schaer2002} \label{fig:advection:error:schaer:noOrography}}[0.49\textwidth]{\vspace{0.1in}\includegraphics[height=1.2in]{img/schaer-noOrography-centred-error.png}} \\
+%
+	\caption{Errors in horizontal tracer advection at $t = \SI{10000}{\second}$.  Figures (\protect\subref{fig:advection:error:btf:cubicUpwind}), (\protect\subref{fig:advection:error:sleve:cubicUpwind}) and (\protect\subref{fig:advection:error:noOrography:cubicUpwind}) use the upwind-biased scheme.  Figures (\protect\subref{fig:advection:error:schaer:btf}), (\protect\subref{fig:advection:error:schaer:sleve}) and (\protect\subref{fig:advection:error:schaer:noOrography}) show the error of the second-order centred difference scheme from \textcite{schaer2002}.  Contour intervals are every 0.01, with negative contours denoted by dashed lines.}
+	\label{fig:advection:error}
+\end{figure}
+
 Results of advection are present in figure~\ref{fig:advection:cubicUpwind}.
 On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Comparing figures~\ref{fig:advection:cubicUpwind:btf} and \ref{fig:advection:schaer:btf}, we see that the tracer retains its shape far better than the result from \textcite{schaer2002} that uses a second-order centred difference scheme.  This is expected since the upwind-biased cubic scheme has a larger stencil.
 
