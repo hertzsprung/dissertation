@@ -1,6 +1,4 @@
-\chapter{Further work}
-\label{sec:further-work}
-
+\chapter{Further work} \label{sec:further-work}
 The results of the five experiments from chapter~\ref{sec:results} motivate several routes of further work.  Before discussing these, however, we identify three other items worthy of study.
 
 First, in order to compare results with those from other experiments, such as \textcite{good2013}, the SnapCol grid should be improved so that all cut cells are aligned in columns.  As discussed in section~\ref{sec:method:grid}, some cells that intersect the surface are slightly distorted during the construction of the SnapCol grid.
@@ -28,7 +26,7 @@ Three findings from the resting atmosphere test (section~\ref{sec:resting}) have
 Second, computational oscillations in vertical velocity were found on the BTF grid which eventually lead to numerical instability (not shown).  This error has not been seen on any other grid.
 Third, whilst total energy gradually decreased on the SnapCol and regular grids, some energy gain was seen on the BTF and optimised SLEVE grids.  Given that energy continued to increase on the BTF grid, we would expect this to contribute to the numerical instability.
 
-Further work is required using longer integration times to diagnose the errors in this test.  Additionally, a further test of a neutrally stable atmosphere at rest by \textcite{botta2004} found that errors were close to machine precision but that errors increased when stratification was included.  Comparisons with this test would be useful to further explore the sources of numerical error in idealised resting atmospheres.
+Further work is required using longer integration times to diagnose the errors in this test.  Additionally, two more resting atmosphere tests should be carried out.  First, the mountain height should be increased from \SI{1}{\kilo\meter} to \SI{4}{\kilo\meter} for comparison with results from \textcite{zaengl2012} and \textcite{good2013}.  Second, a test of a neutrally stable atmosphere at rest by \textcite{botta2004} found that errors were close to machine precision but that errors increased when stratification was included.  Comparisons with this test would be useful to further explore the sources of numerical error in idealised resting atmospheres.
 
 \section{Gravity waves and potential temperature errors}
 \label{sec:further-work:gw}
@@ -42,6 +40,4 @@ Little evidence of the small cell problem was found in the gravity waves test.  
 All tests presented in this project use one of two wave-shaped mountain profiles (given by equations~\ref{eqn:advection:schaerCos} and \ref{eqn:resting:mountain}).  Many experiments on cut cell grids perform simulations over bell-shaped mountain profiles known as `Witch of Agnessi' \parencites{steppeler2002}{rosatti2005}{klein2009}{jebens2011}.  Following \textcite{gallus-klemp2000}, a further test should be developed to simulate flow over a the bell-shaped mountain profile to allow comparison with existing results.
 
 \textcite{lock2012} extended the two-dimensional test from \textcite{gallus-klemp2000} to simulate flow over a three dimensional mountain, presenting results on a cut cell grid.  Though substantial work will be required to implement a three dimensional shaving technique, it would be valuable to compare model results for terrain following and cut cell grids in three dimensions.
-
-\TODO{resting atmosphere: 4km high mountains for resting atmosphere test. (or I might just do this myself if I have time)}
 
