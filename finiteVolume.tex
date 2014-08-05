@@ -1,7 +1,7 @@
 \section{Finite volume method}
 \label{sec:theory:fv}
 
-The finite volume method is a discretisation technique that represents the spatial domain as a non-overlapping grid of cells with fields represented as piecewise constant in each cell.  At each timestep, cell averages are updated by considering the flux $\vect{F}$ across the faces of the cell surface.  In atmospheric modelling, $\vect{F}$ is typically the advective flux $\vect{u} \varphi$ where $\vect{u}$ is the velocity field.
+The finite volume method is a discretisation technique that represents the spatial domain as a non-overlapping grid of cells with fields represented as piecewise constant in each cell.  At each timestep, cell averages are updated by considering the flux $\vect{F}$ across the faces of the cell surface.  In atmospheric modelling, $\vect{F}$ is typically the advective flux, $\vect{u} \varphi$, where $\vect{u}$ is the velocity field.
 
 The notation used in this project for the representation of discrete variables follows \textcite{weller-shahrokhi2014}.  A cell average of $\varphi$ is written as $\varphi_c$, where $c$ denotes a cell.  A scalar field, $\psi$, located at a face is written as $\psi_f$, where $f$ denotes a cell face.  An interpolation of cell centre averages of $\varphi$ onto a face $f$ is written as $\varphi_F$.  $f \in \: c$ represents the faces of a cell.  $c \in \: f$ represents the cells $c$ that share a face $f$.
 
@@ -23,4 +23,4 @@ To describe the finite volume method, we start by considering the conservation o
 \end{align}
 where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.  This interpolation of cell averages onto faces is a significant source of truncation error in finite volume systems \autocite{adcroft1997}.
 
-The finite volume method often leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ the fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
+The finite volume method often leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ that fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.

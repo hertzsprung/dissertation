@@ -1,7 +1,7 @@
 \section{Terrain following advection of a stable thermal profile}
 \label{sec:wobblyThetaAdvection}
 
-This test is designed to confirm that the potential temperature errors found in the gravity waves test are due to advection.  The same potential temperature profile from the gravity waves test is advected over BTF and SnapCol grids using a terrain following velocity field that imitates a physical flow over orography.
+This test is designed to investigate the cause of the potential temperature errors found in the gravity waves test.  The same potential temperature profile from the gravity waves test is advected over BTF and SnapCol grids using a terrain following velocity field that imitates a physical flow over orography.
 
 \subsection{Specification}
 The spatial domain, mountain profile and potential temperature profile are the same as those from the gravity waves test.  The potential temperature profile is fixed at the inlet and zero gradient at the outlet boundary so that it is advected consistently.  The upwind-biased advection scheme is used, as described in section~\ref{sec:method:discretisation}.  Following the gravity waves test, the model is integrated forward by 5 hours with a timestep $\Delta t = \SI{8}{\second}$. 
