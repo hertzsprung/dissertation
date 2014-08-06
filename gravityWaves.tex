@@ -83,8 +83,10 @@ Since the same model was used, vertical velocities match those from \textcite{we
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
+	\TODO{should I plot BTF velocity vectors, too?}
 	\subcaptionbox{SLEVE \label{fig:gw:flow:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
 	\subcaptionbox{SnapCol \label{fig:gw:flow:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}}
+	\TODO{are these flows divergence free?  how would I find out?}
 %
 	\caption{Vertical cross section of velocity vectors in the centremost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  The velocity field follows the terrain and is qualitatively similar on (\subcaptionref{fig:gw:flow:sleve}) the SLEVE grid, (\subcaptionref{fig:gw:flow:snapCol}) the SnapCol grid, and the BTF grid (not shown).}
 	\label{fig:gw:flow}
@@ -109,8 +111,8 @@ Potential temperature anomalies are similar on all grids, having a similar shape
 
 Examining more closely the potential temperature anomaly on the SnapCol grid, in the lee of the mountain the bottommost layer is anomalously warm and the layer above it is anomalously cold (figure~\ref{fig:gw:thetaDiffZoom:snapCol}).  Potential temperature increases with height because the simulated atmosphere is stable, so these anomalies serve to reduce the stability near the ground.  The anomalies are not sufficiently large to destabilise the atmosphere, however.   Therefore, vertical motion is not expected, and was not observed, near the ground on the lee side.   Whilst turbulent motion does cause thermal mixing in the real atmosphere, there is no viscosity in the model equations, so the thermal anomalies should not be present.  The feature is not present on the SLEVE grid (figure~\ref{fig:gw:thetaDiffZoom:sleve}) or BTF grid (not shown).
 
-Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.
-This feature implies that the computational mode of the Lorenz vertical staggering has been excited, since the profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
+Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  This profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
+This implies that the computational mode of the Lorenz vertical staggering has been excited, because the zig-zag is present in the potential temperature profile, but not in the Exner profile.
 
 Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.  Differences in potential temperature from the initial profile are summarised in table~\ref{tab:theta-sample}.
 
@@ -155,7 +157,7 @@ Height (\si{\meter})	& {BTF}	& {SLEVE}	&	{SnapCol}	& {BTF}	& {SLEVE}	& {SnapCol}
 	\label{fig:gw:courant}
 \end{figure}
 
-Little evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving}, was found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  After 5 hours, the maximum Courant number gradually rises (not shown).  In figure~\ref{fig:gw:courant:mean}, we see that the mean Courant number is similar across all grids, but also increases slowly throughout the simulation.  It has not yet been possible to determine the cause of the rising Courant number and associated increase in wind speeds.
+Little evidence of the `small cell' problem associated with cut cell grids, discussed in section~\ref{sec:theory:shaving}, was found on the SnapCol grid.  At each timestep, the maximum and mean Courant number for all cells in the grid was calculated.  Whilst initially larger on the SnapCol grid, the maximum Courant number eventually converges for all three grids (figure~\ref{fig:gw:courant:max}).  After 5 hours, the maximum Courant number gradually rises (not shown).  In figure~\ref{fig:gw:courant:mean}, we see that the mean Courant number is similar across all grids, but also increases slowly throughout the simulation.  It is likely that this is because the gravity waves are still amplifying, leading to a steady increase in wind speeds.
 
 \begin{figure}
 	\centering
@@ -164,7 +166,7 @@ Little evidence of the `small cell' problem associated with cut cell grids, disc
 	\label{fig:gw:small-cell}
 \end{figure}
 
-This can be explained by considering flow through a two-dimensional, rectangular cell in the $x-z$ plane in which $\Delta x$ is several times larger than $\Delta z$ (figure~\ref{fig:gw:small-cell}).  Using equation~\ref{eqn:method:courant} and assuming a uniform flow $\vect{u} = ( u, 0, w )^\intercal$, the Courant number is
+The lack of evidence for the small cell problem be explained by considering flow through a two-dimensional, rectangular cell in the $x-z$ plane in which $\Delta x$ is several times larger than $\Delta z$ (figure~\ref{fig:gw:small-cell}).  Using equation~\ref{eqn:method:courant} and assuming a uniform flow $\vect{u} = ( u, 0, w )^\intercal$, the Courant number is
 \begin{align}
 	\courant &= \frac{\Delta t}{\Delta x \Delta z} \left( u \Delta z + w \Delta x \right)
 %

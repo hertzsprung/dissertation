@@ -66,7 +66,7 @@ The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve 
 	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) = 0 \label{eq:advection:continuous}
 \end{align}
 
-The time derivative ($\partial \varphi / \partial t$) is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}
+The time derivative is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}.  At time level $n$, the time derivative, $\partial \varphi / \partial t$, is
 \begin{align}
 	\frac{\partial}{\partial t} \int_V \varphi \diff V = \frac{
 		3 \left( \varphi V \right)^{(n)} - 
@@ -119,7 +119,7 @@ Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\D
 \end{figure}
 
 Results of advection are presented in figure~\ref{fig:advection:cubicUpwind}.
-On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Comparing figures~\ref{fig:advection:cubicUpwind:btf} and \ref{fig:advection:schaer:btf}, we see that the tracer retains its shape far better than the result from \textcite{schaer2002} that uses a second-order centred difference scheme.  This is expected since the upwind-biased cubic scheme has a larger stencil.  Comparing figures~\ref{fig:advection:error:btf:cubicUpwind} and \ref{fig:advection:error:schaer:btf} we see that, unlike the results from \textcite{schaer2002}, errors on the BTF grid are confined to regions around the tracer and near the mountain peak.
+On the BTF grid, the tracer suffers from distortion over the mountain and some artefacts just above the mountain remain as the tracer moves over it.  Comparing figures~\ref{fig:advection:cubicUpwind:btf} and \ref{fig:advection:schaer:btf}, we see that the tracer retains its shape far better than the result from \textcite{schaer2002} that uses a second-order centred difference scheme.  This is expected since the upwind-biased cubic scheme has a larger stencil and higher order accuracy.  Comparing figures~\ref{fig:advection:error:btf:cubicUpwind} and \ref{fig:advection:error:schaer:btf} we see that, unlike the results from \textcite{schaer2002}, errors on the BTF grid are confined to regions around the tracer and near the mountain peak.
 
 As seen in figure~\ref{fig:advection:cubicUpwind:sleve}, results on the SLEVE grid are much closer to the analytic solution on a regular grid (figure~\ref{fig:advection:analytic}).  The tracer retains its shape throughout the simulation and does not suffer from any noticeable distortion.  We find that accuracy is slightly better than the result from \textcite{schaer2002} (see figures~\ref{fig:advection:error:sleve:cubicUpwind} and \ref{fig:advection:error:schaer:sleve}).  Unlike \textcite{schaer2002}, a further improvement in accuracy is seen on a regular grid, as shown in figure~\ref{fig:advection:error:noOrography:cubicUpwind}.
 
@@ -133,4 +133,5 @@ Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the a
 \end{align}
 where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytic value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even on the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
 
+\TODO{why do we get massive errors over the mountain?  plot tracer contours at t=5000s including the grid lines}
 

@@ -23,4 +23,4 @@ To describe the finite volume method, we start by considering the conservation o
 \end{align}
 where $S_f$ is the surface area of face $f$, and $\varphi_F$ is the interpolated value of $\varphi$ at the face.  This interpolation of cell averages onto faces is a significant source of truncation error in finite volume systems \autocite{adcroft1997}.
 
-The finite volume method often leads to a staggering of variables with fluxes at cell faces similar to an Arakawa C grid.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ that fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.
+The finite volume method often leads to a staggering of variables with fluxes at cell faces.  Because cell averages are modified only through surface fluxes, a quantity of $\varphi$ that fluxes out of one cell must flux into another.  Thus, $\varphi$ is conserved in the finite volume method.

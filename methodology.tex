@@ -1,7 +1,7 @@
 \chapter{Methodology}
 \label{sec:method}
 
-Here, we describe the construction of BTF and SLEVE terrain following grids and a cut cell style grid.  A finite volume model of the fully-compressible Euler equations from \textcite{weller-shahrokhi2014} is discussed.  In the next chapter, five tests are presented in which this model is run on the terrain following and cut cell grids.  Finally, we give details of energy measures and the Courant--Friedrich--Lewy criterion, which constraints the model timestep.  These metrics are used to evaluate model performance in chapter~\ref{sec:results}.
+Here, we describe the construction of BTF and SLEVE terrain following grids and a cut cell style grid.  A finite volume model of the fully-compressible Euler equations from \textcite{weller-shahrokhi2014} is summarised.  In the next chapter, five tests are presented in which this model is run on the terrain following and cut cell grids.  Finally, we give details of energy measures and the Courant--Friedrich--Lewy criterion, which constraints the model timestep.  These metrics are used to evaluate model performance in chapter~\ref{sec:results}.
 
 \section{Grid construction}
 \label{sec:method:grid}
@@ -22,7 +22,7 @@ Most implementations of terrain following layers use a coordinate system that ma
 
 At the time of writing, there is no OpenFOAM utility to generate cut cell grids\footnote{An enhancement request was filed in 2013 to add support for Cartesian cut cells to OpenFOAM, see \url{http://www.openfoam.org/mantisbt/view.php?id=1083}}.  Instead, the OpenFOAM utility \shellcmd{snappyHexMesh} was used to create a grid that approximates the cut cell method.  First, a custom utility was used to move points beneath the surface up to the surface creating small cells near mountain peaks.  Second, a description of the surface was taken from any of the terrain following grids and \shellcmd{snappyHexMesh} was used to intersect the surface with the grid.  The tool removes cells whose centres are below the surface.  An example of the resulting grid is shown in figure~\ref{fig:method:cut-cell}.
 
-The grid is not strictly a cut cell mesh because, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  It has not been possible to correct this issue for this project.  This grid is referred to as the `SnapCol' grid throughout this project.
+There are some issues with grid construction which mean that this is not strictly a cut cell grid.  First, when \shellcmd{snappyHexMesh} moves points along the surface according to its heuristics, some points are moved horizontally.  Secondly, the utility does not create new points necessary for pentagonal cells, such as those seen in figure~\ref{fig:intro:shaved:piecewise-linear}.  It has not been possible to correct these issues for this project.  Henceforth, this grid is referred to as the `SnapCol' grid.
 
 
 \section{Discretisation of Euler equations}
@@ -54,6 +54,7 @@ Here, we outline the placement of prognostic variables, pressure gradient discre
 \label{fig:method:placement}
 \end{figure}
 
+\TODO{describe discretisation of momentum eq first, continuity eq afterward}
 To solve the continuity equation (equation~\ref{eqn:method:continuity}), in section~\ref{sec:theory:fv} we found that we must calculate the flux across all cell faces (see equation~\ref{eqn:theory:discrete-continuity}).  To do this, we first find the mass flux component $V_f$ in the direction between cell centres such that
 \begin{align}
 V_f &= \rho \vect{u} \cdot \vect{d}_f
@@ -66,6 +67,7 @@ where $U_f = \rho \vect{u} \cdot \vect{S}_f$, and $\vect{S}_f$ is normal to the 
 
 As shown in figure~\ref{fig:method:placement:variables}, the discretisation uses a Lorenz vertical staggering, as described in section~\ref{sec:theory:staggering}, with $\theta$ stored at the cell centre.
 
+\TODO{we're not attempting to calculate a horizontal pressure gradient}
 The Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the Exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
 \begin{align}
 \del_d \exner = \frac{1}{| \vect{d}_f |} \sum_{c \in\: f} - n_f \exner_c
