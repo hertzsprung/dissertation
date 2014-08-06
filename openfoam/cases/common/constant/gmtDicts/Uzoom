@@ -17,7 +17,7 @@ projection2D XZ;
 
 FieldsToPlot (
     [none mesh ",128"]
-    [Uf vectors 50 1 "black"]
+    [U vectors 50 1 "black"]
 );
 
 region "-5e3/10e3/0/1.2e3";

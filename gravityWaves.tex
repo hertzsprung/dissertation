@@ -83,16 +83,19 @@ Since the same model was used, vertical velocities match those from \textcite{we
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\TODO{should I plot BTF velocity vectors, too?}
-	\subcaptionbox{SLEVE \label{fig:gw:flow:sleve}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/UfZoom.eps}} \\
-	\subcaptionbox{SnapCol \label{fig:gw:flow:snapCol}}[\textwidth]{\includegraphics[width=1.6in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}}
-	\TODO{are these flows divergence free?  how would I find out?}
+	\subcaptionbox{BTF (gravity waves test) \label{fig:gw:flow:btf}}[0.49\textwidth]{\includegraphics[width=1.5in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/UfZoom.eps}}
+	\subcaptionbox{SnapCol (gravity waves test) \label{fig:gw:flow:snapCol}}[0.49\textwidth]{\includegraphics[width=1.5in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/UfZoom.eps}} \\
 %
-	\caption{Vertical cross section of velocity vectors in the centremost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter} after 5 hours.  The velocity field follows the terrain and is qualitatively similar on (\subcaptionref{fig:gw:flow:sleve}) the SLEVE grid, (\subcaptionref{fig:gw:flow:snapCol}) the SnapCol grid, and the BTF grid (not shown).}
+	\subcaptionbox{BTF (thermal advection test) \label{fig:wobblyThetaAdvection:flow:btf}}[0.49\textwidth]{\includegraphics[width=1.5in,angle=270]{openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps}}
+	\subcaptionbox{SnapCol (thermal advection test) \label{fig:wobblyThetaAdvection:flow:snapCol}}[0.49\textwidth]{\includegraphics[width=1.5in,angle=270]{openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps}} \\
+	\TODO{are these flows divergence free?  how would I find out?}
+	\TODO{should I plot SLEVE velocity vectors, too? (for gravityWaves only)}
+%
+	\caption{Vertical cross section of velocity vectors in the centremost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter}.  In the gravity waves test, the velocity field after 5 hours follows the terrain and is qualitatively similar on (\subcaptionref{fig:gw:flow:btf}) the BTF grid, (\subcaptionref{fig:gw:flow:snapCol}) the SnapCol grid, and the SLEVE grid (not shown).  For the thermal advection test described in section~\ref{sec:wobblyThetaAdvection}, the terrain following velocity field is prescribed.  It is designed to imitate the velocity field of the gravity waves test, and is shown here on the BTF grid (\subcaptionref{fig:wobblyThetaAdvection:flow:btf}) and SnapCol grid (\subcaptionref{fig:wobblyThetaAdvection:flow:snapCol}).}
 	\label{fig:gw:flow}
 \end{figure}
 
-Examining the velocity vector field we find that the flow is qualitatively similar between the SLEVE grid (figure~\ref{fig:gw:flow:sleve}), SnapCol grid (figure~\ref{fig:gw:flow:snapCol}), and BTF grid (not shown).  Flow near the ground follows the terrain, accelerating as it passes over the mountain peaks, with velocities becoming more horizontal aloft.  
+Examining the velocity vector field we find that the flow is qualitatively similar between the BTF grid (figure~\ref{fig:gw:flow:btf}), SnapCol grid (figure~\ref{fig:gw:flow:snapCol}), and SLEVE grid (not shown).  Flow near the ground follows the terrain, accelerating as it passes over the mountain peaks, with velocities becoming more horizontal aloft.  
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}

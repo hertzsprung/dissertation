@@ -20,5 +20,5 @@ FieldsToPlot (
     [U vectors 50 1 "black"]
 );
 
-region "-5e3/20e3/0/1.2e3";
-boundaryMarks "5e3/300SWne";
+region "-30e3/30e3/0/15e3";
+boundaryMarks "10e3/5e3SWne";
