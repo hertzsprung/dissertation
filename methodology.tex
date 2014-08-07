@@ -54,25 +54,11 @@ Here, we outline the placement of prognostic variables, pressure gradient discre
 \label{fig:method:placement}
 \end{figure}
 
-\TODO{describe discretisation of momentum eq first, continuity eq afterward}
-To solve the continuity equation (equation~\ref{eqn:method:continuity}), in section~\ref{sec:theory:fv} we found that we must calculate the flux across all cell faces (see equation~\ref{eqn:theory:discrete-continuity}).  To do this, we first find the mass flux component $V_f$ in the direction between cell centres such that
+Because the model operates on an unstructured grid, it does not use the horizontal and vertical pressure gradients commonly employed by structured grid models.  Instead, the Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the Exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
 \begin{align}
-V_f &= \rho \vect{u} \cdot \vect{d}_f
+\del_d \exner = \frac{1}{| \vect{d}_f |} \sum_{c \in\: f} - n_f \exner_c \label{eqn:method:exner-grad}
 %
-\intertext{where $\vect{d}_f$ is the vector between the centres of the two cells who share the face $f$.  Second, we use the H operator given in \textcite{weller-shahrokhi2014} to find the mass flux normal to the surface, $U_f$, that is}
-%
-U &= HV
-\end{align}
-where $U_f = \rho \vect{u} \cdot \vect{S}_f$, and $\vect{S}_f$ is normal to the face $f$ having a magnitude equal to the face area.  \textcite{thuburn-cotter2012} recommend the use of $V$ instead of $U$ as the prognostic variable to obtain mimetic properties including a curl-free pressure gradient.  The geometry just described is summarised in figure~\ref{fig:method:placement}.
-
-As shown in figure~\ref{fig:method:placement:variables}, the discretisation uses a Lorenz vertical staggering, as described in section~\ref{sec:theory:staggering}, with $\theta$ stored at the cell centre.
-
-\TODO{we're not attempting to calculate a horizontal pressure gradient}
-The Exner gradient at a face $f$ in the direction between cell centres, $\del_d \exner$, is calculated from the Exner value of the two cells who share the face \autocite{weller-shahrokhi2014}
-\begin{align}
-\del_d \exner = \frac{1}{| \vect{d}_f |} \sum_{c \in\: f} - n_f \exner_c
-%
-\intertext{where $n_f$ corrects for the face orientation so that}
+\intertext{where $\vect{d}_f$ is the vector between the centres of the two cells who share the face $f$, and $n_f$ corrects for the face orientation so that}
 %
 n_f =
 \begin{cases}
@@ -80,6 +66,21 @@ n_f =
 	-1 & \text{if $\vect{S}_f$ points toward the cell}
 \end{cases}
 \end{align}
+Equation~\ref{eqn:method:exner-grad} is second-order accurate when the cell face is equidistant from the centres of the two adjoining cells, and first-order accurate otherwise.
+
+To solve the continuity equation (equation~\ref{eqn:method:continuity}), in section~\ref{sec:theory:fv} we found that we must calculate the flux across all cell faces (see equation~\ref{eqn:theory:discrete-continuity}).  To do this, we first find the mass flux component $V_f$ in the direction between cell centres such that
+\begin{align}
+V_f &= \rho \vect{u} \cdot \vect{d}_f
+%
+\intertext{Second, we use the H operator given in \textcite{weller-shahrokhi2014} to find the mass flux normal to the surface, $U_f$, that is}
+%
+U &= HV
+\end{align}
+where $U_f = \rho \vect{u} \cdot \vect{S}_f$, and $\vect{S}_f$ is normal to the face $f$ having a magnitude equal to the face area.  \textcite{thuburn-cotter2012} recommend the use of $V$ instead of $U$ as the prognostic variable to obtain mimetic properties including a curl-free pressure gradient.  The geometry just described is summarised in figure~\ref{fig:method:placement}.
+
+As shown in figure~\ref{fig:method:placement:variables}, the discretisation uses a Lorenz vertical staggering, as described in section~\ref{sec:theory:staggering}, with $\theta$ stored at the cell centre.
+
+While the pressure gradient is calculated in the direction of $\vect{d}$, continuity must be calculated in the direction of $\vect{s}$ in order to find the mass flux through the faces.  The H operator, which performs this transformation, is a source of numerical error.  This is analogous to the errors introduced in calculating the horizontal pressure gradient, as described in section~\ref{sec:horizPressureGrad}.
 
 \begin{figure}
 \centering
