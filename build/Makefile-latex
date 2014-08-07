@@ -11,6 +11,7 @@ COMPONENTS := \
   tf.tex \
   cellShaving.tex \
   finiteVolume.tex \
+  skewness.tex \
   verticalStaggering.tex \
   gravityWavesTheory.tex \
   methodology.tex \
@@ -30,7 +31,9 @@ COMPONENTS := \
   small-cell.tex \
   vertical-staggering.tex \
   theta-oscillation.tex \
-  gw-phases.tex
+  gw-phases.tex \
+  skewOrtho.tex \
+  skewNonOrtho.tex
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \

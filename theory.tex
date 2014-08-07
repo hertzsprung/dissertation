@@ -4,13 +4,14 @@
 In this chapter, we review the theory that underpins the construction of the TF grids, cut cell grids, and discretisation techniques that are used in this project.
 First, we present the theory of coordinate transformation, commonly used in terrain following layers, and demonstrate how it can be applied to a forward-in-space discretisation of a horizontal pressure gradient.  We go on to review the origins of terrain following coordinates and more recent refinements to terrain following grids.  Next, the cut cell method is described.  We outline the `small cell' problem that is inherent with the cut cell method and explain some approaches that address it.
 
-After outlining the finite volume discretisation method that is used by the model for this project, we discuss the two most common vertical staggerings of variables: the Charney--Phillips grid and the Lorenz grid.  The chapter concludes with a review of linear wave theory, giving examples of the structure of stationary waves over infinite sinusoidal hills.
+After outlining the finite volume discretisation method that is used by the model for this project, we discuss grid orthogonality, uniformity and skewness and their impact on numerical accuracy.   Next, we outline the two most common vertical staggerings of variables: the Charney--Phillips grid and the Lorenz grid.  The chapter concludes with a review of linear wave theory, giving examples of the structure of stationary waves over infinite sinusoidal hills.
 
 \input{coordTransform}
 \input{horizPressureGrad}
 \input{tf}
 \input{cellShaving}
 \input{finiteVolume}
+\input{skewness}
 \input{verticalStaggering}
 \input{gravityWavesTheory}
 

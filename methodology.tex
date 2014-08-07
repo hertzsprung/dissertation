@@ -66,7 +66,7 @@ n_f =
 	-1 & \text{if $\vect{S}_f$ points toward the cell}
 \end{cases}
 \end{align}
-Equation~\ref{eqn:method:exner-grad} is second-order accurate when the cell face is equidistant from the centres of the two adjoining cells, and first-order accurate otherwise.
+As discussed in section~\ref{sec:theory:skewness}, equation~\ref{eqn:method:exner-grad} is second-order accurate where the grid is uniform, and and first-order accurate elsewhere.
 
 To solve the continuity equation (equation~\ref{eqn:method:continuity}), in section~\ref{sec:theory:fv} we found that we must calculate the flux across all cell faces (see equation~\ref{eqn:theory:discrete-continuity}).  To do this, we first find the mass flux component $V_f$ in the direction between cell centres such that
 \begin{align}
