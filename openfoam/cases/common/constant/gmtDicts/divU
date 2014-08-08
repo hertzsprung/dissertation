@@ -18,8 +18,8 @@ separateLegend true;
 
 FieldsToPlot (
     [divU rawValues -0.006 0.006 0.001 "$GMTU/colours/red_white_blue.cpt"]
-    [none mesh "black"]
+    [none mesh ",128"]
 );
 
 region "-10e3/10e3/0/10e3";
-boundaryMarks "5e3/1e3SWne";
+boundaryMarks "5e3/2e3SWne";

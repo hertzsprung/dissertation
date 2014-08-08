@@ -1,9 +1,10 @@
 \documentclass[tikz]{standalone}
 \usepackage{bm}
 \input{mathmacros}
+\input{dissertationmacros}
 \begin{document}
 \begin{tikzpicture}[
-  scale=0.75,
+  scale=0.7,
   cpnt/.style={fill=gray},
   vertex/.style={fill=black},
   arr/.style={ultra thick, ->},
@@ -22,7 +23,7 @@
 \draw (0,1.5) circle [radius=0.15];
 \draw (4,1.5) circle [radius=0.15];o
 
-\draw [thick, ->] (-0.5,1.5) -- (0.5,1.5) node [above] {$f_\mathrm{in}$};
-\draw [ultra thick, ->] (3,1.5) -- (5,1.5) node [above] {$f_\mathrm{out}$};
+\draw [thick, ->] (-0.5,1.5) -- (0.5,1.5) node [above] {$\fin$};
+\draw [ultra thick, ->] (3,1.5) -- (5,1.5) node [above] {$\fout$};
 \end{tikzpicture}
 \end{document}

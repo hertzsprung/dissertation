@@ -145,14 +145,16 @@ Because the upwind-biased advection scheme is not monotonic, one source of new e
 	\label{fig:advection:flux}
 \end{figure}
 
-Let us consider the fluxes in and out of the vertically-oriented faces of a rectangular cell in the region of vertical wind shear such that its cell centre $c_1$ has a height $\SI{4}{\kilo\meter} < z < \SI{5}{\kilo\meter}$.  To its left is a cell whose centre, $c_0$, is lower and to its right, a cell whose centre, $c_2$, is higher.  This situation is shown in figure~\ref{fig:advection:flux}.
+Let us consider the fluxes in and out of the vertically-oriented faces, $\fin$ and $\fout$, of a rectangular cell in the region of vertical wind shear such that its cell centre $c_1$ has a height $\SI{4}{\kilo\meter} < z < \SI{5}{\kilo\meter}$.  To its left is a cell whose centre, $c_0$, is lower and to its right, a cell whose centre, $c_2$, is higher.  This situation is shown in figure~\ref{fig:advection:flux}.
+
+During model initialisation, the solver interpolates velocities at cell centres onto cell faces, such that $\fin$ is interpolated from $c_0$ and $c_1$, and $\fout$ is an interpolation of $c_1$ and $c_2$.  Remember that horizontal wind is increasing with height, $u(c_2) > u(c_1) > u(c_0)$, and so $\fout > \fin$.  Therefore, there is a net divergence in the rectangular cell, which leads to a decrease in tracer magnitude.
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{BTF \label{fig:advection:div:btf}}[0.49\textwidth]{\includegraphics[width=1.7in,angle=270]{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/0/divU.eps}}
+	\subcaptionbox{BTF \label{fig:advection:div:btf}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/0/divU.eps}}
 	\hfill
-	\subcaptionbox{SLEVE \label{fig:advection:div:sleve}}[0.49\textwidth]{\includegraphics[width=1.7in,angle=270]{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/0/divU.eps}}
+	\subcaptionbox{SLEVE \label{fig:advection:div:sleve}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/0/divU.eps}}
 %
 	\includegraphics[height=5in,angle=270]{legends/divU.eps}
 %
@@ -160,6 +162,7 @@ Let us consider the fluxes in and out of the vertically-oriented faces of a rect
 	\label{fig:advection:div}
 \end{figure}
 
+\TODO{now we can talk about how we measured divergence, and the results we got, and what we can conclude from this}
 
 The $\ell^2$ error norms are also summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even on the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
 
