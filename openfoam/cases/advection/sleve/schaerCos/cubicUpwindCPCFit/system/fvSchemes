@@ -9,6 +9,6 @@ FoamFile {
 #include "$COMMON_CASE/system/fvSchemesAdvection"
 
 divSchemes {
-    default         none;
+    default         Gauss linear;
     div(phi,T)      Gauss cubicUpwindCPCFit 3;
 }
