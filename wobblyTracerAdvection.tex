@@ -47,6 +47,22 @@ Accuracy increases on the BTF grid compared to the horizontal tracer advection t
 
 In contrast, the tracer suffers from significantly reduced accuracy on the SnapCol grid as evidenced by the fewer, wider contours in figure~\ref{fig:wobblyTracerAdvection:snapCol}.  Accuracy on the SnapCol grid is lower than that for any other tracer advection.  Tracer amplitude is reduced to \input{openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/max.txt} (see figure~\ref{fig:wobblyTracerAdvection:ranges:tf}).  $\ell^2$ error norms are compared with those for horizontal advection in table~\ref{tab:advection:errors}.
 
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+%
+	\subcaptionbox{BTF \label{fig:wobblyTracerAdvection:div:btf}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/divU-wobblyTracerAdvection.eps}}
+	\hfill
+	\subcaptionbox{SnapCol \label{fig:wobblyTracerAdvection:div:snapCol}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/0/divU-wobblyTracerAdvection.eps}}
+%
+	\includegraphics[height=5in,angle=270]{legends/divU-wobblyTracerAdvection_divU.eps}
+%
+	\caption{Divergence (\si{\per\second}) of the discrete velocity field in the centremost \SI{20}{\kilo\meter} and lowest \SI{8}{\kilo\meter} on (\subcaptionref{fig:wobblyTracerAdvection:div:btf}) the BTF grid, and (\subcaptionref{fig:wobblyTracerAdvection:div:snapCol}) the SnapCol grid.  Note that the colour scale is an order of magnitude less than that in figure~\ref{fig:advection:div}.}
+	\label{fig:wobblyTracerAdvection:div}
+\end{figure}
+
+\TODO{discuss (lack of) divergence in this test.}
+
 Given these results, we conclude that advection errors are mainly due to lack of flow alignment rather than skewness or grid non-uniformity.
 
 \begin{figure}

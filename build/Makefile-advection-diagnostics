@@ -23,6 +23,8 @@ define ADVECTION_DIAGNOSTICS_TEMPLATE
 
   $(eval $(call PLOT_MULTIDIFF_TEMPLATE,$(1),$(2),tracer-contour-error,$(ADVECTION_END_TIME),T,T_analytic,Tdiff))
   $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),divU,0))
+  $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),divU-wobblyTracerAdvection,0))
+  $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),tracer-contour-mountainPeak,5000))
 
   .INTERMEDIATE: $(2).contour.intermediate
 

@@ -17,7 +17,7 @@ boundaryPatch ground;
 separateLegend true;
 
 FieldsToPlot (
-    [T rawValues -0.1 0.1 0.01 "$GMTU/colours/red_white_blue.cpt"]
+    [divU rawValues -0.0006 0.0006 0.0001 "$GMTU/colours/red_white_blue.cpt"]
     [none mesh ",128"]
 );
 

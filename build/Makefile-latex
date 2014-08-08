@@ -72,6 +72,8 @@ PLOT_PATCH_DATA_OUTPUTS := \
   openfoam/cases/advection/noOrography/cubicUpwindCPCFit/10000/tracer-contour-error.eps \
   openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/0/divU.eps \
   openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/0/divU.eps \
+  openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/5000/tracer-contour-mountainPeak.eps \
+  openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/5000/tracer-contour-mountainPeak.eps \
   data/gravityWaves-btf-schaerExp-h/18000/w.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/w.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/w.eps \
@@ -84,6 +86,8 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps \
   data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps \
   openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps \
+  openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/divU-wobblyTracerAdvection.eps \
+  openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/0/divU-wobblyTracerAdvection.eps \
   openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps \
   openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps \
   openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps \

@@ -21,5 +21,5 @@ FieldsToPlot (
     [none mesh ",128"]
 );
 
-region "-10e3/10e3/0/10e3";
+region "-10e3/10e3/0/8e3";
 boundaryMarks "5e3/2e3SWne";
