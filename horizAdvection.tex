@@ -24,7 +24,6 @@ where $a = \SI{25}{\kilo\meter}$ is the mountain half-width, $h_0 = \SI{3}{\kilo
 	\surface_1(x) &= \frac{1}{2}\surface^\star(x)
 \end{align}
 and $s_1 = \SI{15}{\kilo\meter}$ is the large scale height, and $s_2 = \SI{2.5}{\kilo\meter}$ is the small scale height.  The optimisation of SLEVE by \textcite{leuenberger2010} is not used, so the exponent $n = 1$.
-
 For comparison, the same tests were performed with no orography, such that $\surface = \SI{0}{\kilo\meter}$ everywhere.
 
 The wind is entirely horizontal and is prescribed as
@@ -79,7 +78,16 @@ Spatial discretisation follows the finite volume method described in section~\re
 The domain is discretised onto a grid having $300 \times 50$ cells such that $\Delta x = \SI{1}{\kilo\meter}$ and $\Delta \trans{z} = \SI{500}{\meter}$.  Unlike \textcite{schaer2002} who use periodic lateral boundaries, we use a fixed value of 0 at the inlet boundary and zero gradient boundaries elsewhere.
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.
 
-\subsection{Results}
+\subsection{Diagnostics}
+Results of advection are evaluated in four ways.  First, tracer contours are plotted to visualise the extent to which tracer shape and magnitude are preserved.  Second, tracer error contours are found by subtracting the analytic solution from the numerical solution.  Both sets of contours enable results to be compared with those from \textcite{schaer2002}.  Third, preservation of tracer magnitude is quantified by finding the minimum and maximum tracer values at the end of the simulation.
+
+Finally, error norms are calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
+\begin{align}
+\ell^2 = \sqrt{\frac{\sum \left( \varphi - \varphi_T \right)^2 V}{\sum V}}
+\end{align}
+where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytic value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  
+
+\subsection{Analysis}
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
@@ -125,13 +133,9 @@ As seen in figure~\ref{fig:advection:cubicUpwind:sleve}, results on the SLEVE gr
 
 Since the SnapCol grid is entirely regular away from the surface, it is unsurprising that the results (shown in figure~\ref{fig:advection:cubicUpwind:snapCol}) are the same as advection on a regular grid (not shown).  This result agrees with that found by \textcite{good2013}.
 
-At $t = \SI{0}{\second}$, the tracer ranges between zero and one.  Over time, new extrema are generated because the upwind-biased advection scheme is not monotonic.  This is most evident on the BTF grid where the stationary artefacts above the mountain peak reach a minimum of \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/min.txt} by the end of the simulation.  The results of the second-order centred difference scheme of \textcite{schaer2002} show significant negative tracer values as evidenced by the dashed contours in figure~\ref{fig:advection:schaer:btf}.  Minimum values remain close to zero on the SLEVE, SnapCol and regular grids.  All grids show some decrease in maximum tracer magnitude and, once again, the decrease is most severe on the BTF grid.  Results of tracer extrema on all grids are compared to the analytic solution in figure~\ref{fig:wobblyTracerAdvection:ranges:horizontal} and the values are given in table~\ref{tab:advection:errors}.
+At $t = \SI{0}{\second}$, the tracer ranges between zero and one.  Over time, new extrema are generated because the upwind-biased advection scheme is not monotonic.  This is most evident on the BTF grid where the stationary artefacts above the mountain peak reach a minimum of \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/min.txt} by the end of the simulation.  The results of the second-order centred difference scheme of \textcite{schaer2002} show significant negative tracer values as evidenced by the dashed contours in figure~\ref{fig:advection:schaer:btf}.  Minimum values remain close to zero on the SLEVE, SnapCol and regular grids.  All grids show some decrease in maximum tracer magnitude and, once again, the decrease is most severe on the BTF grid.  Results of tracer extrema on all grids are compared to the analytic solution in figure~\ref{fig:wobblyTracerAdvection:ranges:horizontal} and the values are given in table~\ref{tab:advection:errors} on page~\pageref{tab:advection:errors}.
 
-Error norms were calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
-\begin{align}
-\ell^2 = \sqrt{\frac{\sum \left( \varphi - \varphi_T \right)^2 V}{\sum V}}
-\end{align}
-where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytic value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  The resulting errors are summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even on the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
+The $\ell^2$ error norms are also summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even on the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
 
 \TODO{why do we get massive errors over the mountain?  plot tracer contours at t=5000s including the grid lines}
 

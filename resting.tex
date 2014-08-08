@@ -17,7 +17,7 @@ and, following \cite{leuenberger2010}, $s_1 = \SI{4}{\kilo\meter}$ is the large 
 The initial thermodynamic conditions have a surface temperature of $\theta_0 = \SI{288}{\kelvin}$ and constant stability with Brunt-V\"ais\"al\"a frequency $N = \SI{0.01}{\per\second}$ everywhere, except for a more stable layer of $N = \SI{0.02}{\per\second}$ between $\SI{2}{\kilo\meter} \leq z \leq \SI{3}{\kilo\meter}$.
 
 \subsection{Diagnostics}
-Two metrics were used to measure the model error.  First, maximum vertical velocity is measured at each timestep.  An analytic solution has no vertical velocity $w$ since the atmosphere is at rest.  However, numerical error in calculating the horizontal pressure gradient give rise to spurious vertical velocities which become more severe over steep terrain \autocite{klemp2011}.
+Two metrics were used to measure the model error.  First, maximum vertical velocity is measured at each timestep.  An analytic solution has no vertical velocity, $w$, since the atmosphere is at rest.  However, numerical error in calculating the horizontal pressure gradient give rise to spurious vertical velocities which become more severe over steep terrain \autocite{klemp2011}.
 
 Second, normalised energy change $\Delta E$ is measured for each timestep as described in section~\ref{sec:method:energy}.  The total normalised energy change is the sum of normalised kinetic, potential, and internal energy changes.
 An analytic solution would conserve total energy such that $\Delta E(t) = 0\;\forall\;t$.  As discussed in \textcite{weller-shahrokhi2014}, energy is not exactly conserved in the model presented because of damping by the advection scheme and inexact transfer between kinetic, internal and potential energy.
@@ -25,7 +25,7 @@ An analytic solution would conserve total energy such that $\Delta E(t) = 0\;\fo
 \subsection{Discretisation}
 The simulation uses the discretisation of the fully-compressible Euler equations described in section~\ref{sec:method:discretisation}.  The domain is discretised on a grid having $40 \times 40$ cells such that $\Delta x = \Delta z = \SI{0.5}{\kilo\meter}$.  All boundary conditions are no normal flow.  The simulation is integrated forward by 5 hours with a timestep $\Delta t = \SI{100}{\second}$.  Unlike \textcite{klemp2011}, there is no eddy diffusion in the equation set.
 
-\subsection{Results}
+\subsection{Analysis}
 \TODO{Hilary finds improvment between SLEVE and SnapCol surprising.  Plot grid lines and theta contours to see what distortions are present around the change in stability.}
 
 \begin{figure}
