@@ -1,0 +1,28 @@
+\documentclass[tikz]{standalone}
+\usepackage{bm}
+\input{mathmacros}
+\begin{document}
+\begin{tikzpicture}[
+  scale=0.75,
+  cpnt/.style={fill=gray},
+  vertex/.style={fill=black},
+  arr/.style={ultra thick, ->},
+  mag/.style={dashed, thick, <->}
+]
+\draw (0,0) -- (4,0);
+\draw (0,3) -- (4,3);
+\draw [dashed, thick] (0,0) -- (0,3);
+\draw [dashed, thick] (4,0) -- (4,3);
+\draw (4,3) -- (8,5) -- (8,2) -- (4,0);
+\draw (0,0) -- (-4,-3) -- (-4,0) -- (0,3);
+\path [cpnt] (-2,0) circle [radius=0.15] node [above right] {$c_0$};
+\path [cpnt] (2,1.5) circle [radius=0.15] node [above right] {$c_1$};
+\path [cpnt] (6,2.5) circle [radius=0.15] node [above right] {$c_2$};
+
+\draw (0,1.5) circle [radius=0.15];
+\draw (4,1.5) circle [radius=0.15];o
+
+\draw [thick, ->] (-0.5,1.5) -- (0.5,1.5) node [above] {$f_\mathrm{in}$};
+\draw [ultra thick, ->] (3,1.5) -- (5,1.5) node [above] {$f_\mathrm{out}$};
+\end{tikzpicture}
+\end{document}

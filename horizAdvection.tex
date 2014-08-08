@@ -64,6 +64,7 @@ The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve 
 \begin{align}
 	\frac{\partial \varphi}{\partial t} + \del \cdot \left( \vect{u} \varphi \right) = 0 \label{eq:advection:continuous}
 \end{align}
+The solver uses a velocity field with values defined at cell centres, and linearly interpolates onto cell faces during the model initialisation phase.
 
 The time derivative is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}.  At time level $n$, the time derivative, $\partial \varphi / \partial t$, is
 \begin{align}
@@ -135,7 +136,31 @@ Since the SnapCol grid is entirely regular away from the surface, it is unsurpri
 
 At $t = \SI{0}{\second}$, the tracer ranges between zero and one.  Over time, new extrema are generated because the upwind-biased advection scheme is not monotonic.  This is most evident on the BTF grid where the stationary artefacts above the mountain peak reach a minimum of \input{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/min.txt} by the end of the simulation.  The results of the second-order centred difference scheme of \textcite{schaer2002} show significant negative tracer values as evidenced by the dashed contours in figure~\ref{fig:advection:schaer:btf}.  Minimum values remain close to zero on the SLEVE, SnapCol and regular grids.  All grids show some decrease in maximum tracer magnitude and, once again, the decrease is most severe on the BTF grid.  Results of tracer extrema on all grids are compared to the analytic solution in figure~\ref{fig:wobblyTracerAdvection:ranges:horizontal} and the values are given in table~\ref{tab:advection:errors} on page~\pageref{tab:advection:errors}.
 
+Because the upwind-biased advection scheme is not monotonic, one source of new extrema is a divergent velocity field.  Areas of convergence will increase tracer magnitude and areas of divergence will reduce it.  Although the continuous velocity field in this test is non-divergent, this is not necessarily true of the discrete velocity field, especially where the grid is non-orthogonal.
+
+\begin{figure}
+	\centering
+	\input{advectionFlux}
+	\caption{Flux through two faces, shown with dashed lines, in a rectangular cell in the region of vertical wind shear.  Because the surrounding cells are non-orthogonal, interpolation onto cell faces results in a net outward flux which leads to a decrease in tracer magnitude.  Cell centres are denoted by grey circles, face centres are denoted by open circles.}
+	\label{fig:advection:flux}
+\end{figure}
+
+Let us consider the fluxes in and out of the vertically-oriented faces of a rectangular cell in the region of vertical wind shear such that its cell centre $c_1$ has a height $\SI{4}{\kilo\meter} < z < \SI{5}{\kilo\meter}$.  To its left is a cell whose centre, $c_0$, is lower and to its right, a cell whose centre, $c_2$, is higher.  This situation is shown in figure~\ref{fig:advection:flux}.
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{BTF \label{fig:advection:div:btf}}[0.49\textwidth]{\includegraphics[width=1.7in,angle=270]{openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/0/divU.eps}}
+	\hfill
+	\subcaptionbox{SLEVE \label{fig:advection:div:sleve}}[0.49\textwidth]{\includegraphics[width=1.7in,angle=270]{openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/0/divU.eps}}
+%
+	\includegraphics[height=5in,angle=270]{legends/divU.eps}
+%
+	\caption{\TODO{divergence. don't forget units}}
+	\label{fig:advection:div}
+\end{figure}
+
+
 The $\ell^2$ error norms are also summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even on the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
 
-\TODO{why do we get massive errors over the mountain?  plot tracer contours at t=5000s including the grid lines}
 

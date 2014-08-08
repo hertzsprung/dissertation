@@ -33,7 +33,8 @@ COMPONENTS := \
   theta-oscillation.tex \
   gw-phases.tex \
   skewOrtho.tex \
-  skewNonOrtho.tex
+  skewNonOrtho.tex \
+  advectionFlux.tex
 GNUPLOT_OUTPUTS := \
   btf-plot.tex \
   sleve-plot.tex \
@@ -69,6 +70,8 @@ PLOT_PATCH_DATA_OUTPUTS := \
   openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/10000/tracer-contour-error.eps \
   openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/10000/tracer-contour-error.eps \
   openfoam/cases/advection/noOrography/cubicUpwindCPCFit/10000/tracer-contour-error.eps \
+  openfoam/cases/advection/btf/schaerCos/cubicUpwindCPCFit/0/divU.eps \
+  openfoam/cases/advection/sleve/schaerCos/cubicUpwindCPCFit/0/divU.eps \
   data/gravityWaves-btf-schaerExp-h/18000/w.eps \
   data/gravityWaves-sleve-schaerExp-h/18000/w.eps \
   data/gravityWaves-snapCol-schaerExp-h/18000/w.eps \
