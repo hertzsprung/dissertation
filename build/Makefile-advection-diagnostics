@@ -1,4 +1,5 @@
 ADVECTION_END_TIME := 10000
+ADVECTION_INITIAL_VELOCITY_FIELD = 0/U
 ADVECTION_INITIAL_TRACER_FIELD = 0/T
 ADVECTION_FINAL_TRACER_FIELD := $(ADVECTION_END_TIME)/T
 ADVECTION_ANALYTIC_TRACER_FIELD := 0/T_analytic # TODO: should really be in $(ADVECTION_END_TIME) directory but don't know how to make OpenFOAM do this
@@ -23,8 +24,12 @@ define ADVECTION_DIAGNOSTICS_TEMPLATE
 
   $(eval $(call PLOT_MULTIDIFF_TEMPLATE,$(1),$(2),tracer-contour-error,$(ADVECTION_END_TIME),T,T_analytic,Tdiff))
   $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),divU,0))
-  $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),divU-wobblyTracerAdvection,0))
   $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),tracer-contour-mountainPeak,5000))
+
+  $(1)/0/divU.eps: $(1)/0/divU
+
+  $(1)/0/divU: $(1)/$(ADVECTION_INITIAL_VELOCITY_FIELD)
+	$(FOAM_CALC) div -case $(1) -time 0 U > $(2).foamCalc.divU.log
 
   .INTERMEDIATE: $(2).contour.intermediate
 

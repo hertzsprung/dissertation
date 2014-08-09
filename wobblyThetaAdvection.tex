@@ -16,6 +16,22 @@ The velocity field is given by equation~\ref{eqn:wobblyTracerAdvection:velocity}
 \subsection{Analysis}
 The velocity field is shown on both BTF and SnapCol grids (figures~\ref{fig:wobblyThetaAdvection:flow:btf} and \ref{fig:wobblyThetaAdvection:flow:snapCol}) for comparison with the velocity field from the gravity waves test (figures~\ref{fig:gw:flow:btf} and \ref{fig:gw:flow:snapCol}).  The prescribed flow is qualitatively similar to the flow in the gravity waves test.  However, because the velocity field follows the terrain, vertical velocities are stronger in areas of steep terrain in the thermal advection test.  A quantitative comparison would require all velocities to be defined at cell faces, and this is the subject of further work discussed in section~\ref{sec:further-work:advection}.
 
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+%
+	\subcaptionbox{BTF \label{fig:wobblyThetaAdvection:div:btf}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/0/divU.eps}}
+	\hfill
+	\subcaptionbox{SnapCol \label{fig:wobblyThetaAdvection:div:snapCol}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/0/divU.eps}}
+%
+	\includegraphics[height=5in,angle=270]{legends/divU.eps}
+%
+	\caption{Divergence (\si{\per\second}) of the discrete velocity field in the centremost \SI{20}{\kilo\meter} and lowest \SI{8}{\kilo\meter} on (\subcaptionref{fig:wobblyThetaAdvection:div:btf}) the BTF grid, and (\subcaptionref{fig:wobblyThetaAdvection:div:snapCol}) the SnapCol grid.}
+	\label{fig:wobblyThetaAdvection:div}
+\end{figure}
+
+\TODO{discuss divergence}
+
 Potential temperature anomalies after 5 hours on the BTF and SnapCol grids are shown in figure~\ref{fig:wobblyThetaAdvection:thetaDiff}.  On both grids, columns of lower potential temperature are seen above the mountain peaks, due to the orographic lifting of air at the ground.  Hence, the highest central peak produces the largest cold anomaly.  Similarly, on both grids, a warm anomaly is found near the outlet (not shown).  It is created by high potential temperature initially above the mountain peaks being advected down to the ground.
 
 Similar to the gravity waves result, on the SnapCol grid, potential temperature anomalies are found near the ground in the lee of the mountain (see figure~\ref{fig:wobblyThetaAdvection:thetaDiff:snapCol}).  Importantly, however, the anomalies are reversed when compared to the result from the gravity waves test in figure~\ref{fig:gw:thetaDiff:snapCol}: in this advection test, the layer nearest the ground is anomalously cold and the layer above it is anomalously warm.  This error structure could not cause the thermal errors found in the gravity waves test.

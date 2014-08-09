@@ -9,6 +9,7 @@ define WOBBLY_THETA_ADVECTION_TEMPLATE
   $(eval $(call TEST_CASE_TEMPLATE,$(1),,$(3)))
   $(eval $(call PLOT_DIFF_TEMPLATE,$(1),$(2),thetaDiff,$(GRAVITY_WAVES_END_TIME),T,thetaDiff))
   $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),Uzoom,0))
+  $(eval $(call PLOT_PATCH_DATA_TEMPLATE,$(1),$(2),divU,0))
 
   .PHONY: $(2) clean-$(2)
   .INTERMEDIATE: $(2).intermediate
@@ -54,6 +55,11 @@ define WOBBLY_THETA_ADVECTION_TEMPLATE
 
   $(1)/$(SAMPLE_DICT): $(COMMON_CASE)/$(SAMPLE_DICT).wobblyThetaAdvection | $(1)/system
 	$(LN) -fs $$< $$@
+
+  $(1)/0/divU.eps: $(1)/0/divU
+
+  $(1)/0/divU: $(1)/$(ADVECTION_INITIAL_VELOCITY_FIELD)
+	$(FOAM_CALC) div -case $(1) -time 0 U > $(2).foamCalc.divU.log
 
 endef
 

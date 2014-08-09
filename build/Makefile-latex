@@ -85,13 +85,21 @@ PLOT_PATCH_DATA_OUTPUTS := \
   data/gravityWaves-snapCol-schaerExp-h/18000/nonlinearMomentumZoom.eps \
   data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps \
   data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/nonlinearMomentumZoom.eps \
+  data/gravityWaves-btf-schaerExp-h/18000/divUf.eps \
+  data/gravityWaves-sleve-schaerExp-h/18000/divUf.eps \
+  data/gravityWaves-snapCol-schaerExp-h/18000/divUf.eps \
+  data/gravityWaves-btf-schaerExp-doubleHigh-h/18000/divUf.eps \
+  data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/divUf.eps \
+  data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/divUf.eps \
   openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps \
-  openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/divU-wobblyTracerAdvection.eps \
-  openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/0/divU-wobblyTracerAdvection.eps \
+  openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/divU.eps \
+  openfoam/cases/wobblyTracerAdvection/snapCol/schaerCos/cubicUpwindCPCFit/0/divU.eps \
   openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps \
   openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/18000/thetaDiff.eps \
   openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps \
-  openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps
+  openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps \
+  openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/0/divU.eps \
+  openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/0/divU.eps
 PLOTS := $(GNUPLOT_OUTPUTS) $(PLOT_PATCH_DATA_OUTPUTS)
 STATISTICS_FILES := \
   advection/noOrography/cubicUpwindCPCFit/$(L2_ERROR_STAT) \

@@ -58,6 +58,7 @@ define PLOT_MULTIDIFF_TEMPLATE
 endef
 
 $(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-btf-schaerExp-h))
+$(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-btf-schaerExp-doubleHigh-h))
 $(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-sleve-schaerExp-h))
 $(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-sleve-schaerExp-doubleHigh-h))
 $(eval $(call PLOT_PATCH_DATA_CASE_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h))
@@ -70,6 +71,13 @@ $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,dat
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-btf-schaerExp-h,data-gravityWaves-btf-schaerExp-h,UfZoom,18000))
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-sleve-schaerExp-h,data-gravityWaves-sleve-schaerExp-h,UfZoom,18000))
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,data-gravityWaves-snapCol-schaerExp-h,UfZoom,18000))
+
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-btf-schaerExp-h,data-gravityWaves-btf-schaerExp-h,divUf,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-sleve-schaerExp-h,data-gravityWaves-sleve-schaerExp-h,divUf,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,data-gravityWaves-snapCol-schaerExp-h,divUf,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-btf-schaerExp-doubleHigh-h,data-gravityWaves-btf-schaerExp-doubleHigh-h,divUf,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-sleve-schaerExp-doubleHigh-h,data-gravityWaves-sleve-schaerExp-doubleHigh-h,divUf,18000))
+$(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-doubleHigh-h,data-gravityWaves-snapCol-schaerExp-doubleHigh-h,divUf,18000))
 
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-sleve-schaerExp-h,data-gravityWaves-sleve-schaerExp-h,nonlinearMomentumZoom,18000))
 $(eval $(call PLOT_PATCH_DATA_TEMPLATE,data/gravityWaves-snapCol-schaerExp-h,data-gravityWaves-snapCol-schaerExp-h,nonlinearMomentumZoom,18000))

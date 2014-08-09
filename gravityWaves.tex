@@ -87,14 +87,36 @@ Since the same model was used, vertical velocities match those from \textcite{we
 %
 	\subcaptionbox{BTF (thermal advection test) \label{fig:wobblyThetaAdvection:flow:btf}}[0.49\textwidth]{\includegraphics[width=1.5in,angle=270]{openfoam/cases/wobblyThetaAdvection/btf/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps}}
 	\subcaptionbox{SnapCol (thermal advection test) \label{fig:wobblyThetaAdvection:flow:snapCol}}[0.49\textwidth]{\includegraphics[width=1.5in,angle=270]{openfoam/cases/wobblyThetaAdvection/snapCol/schaerExp/cubicUpwindCPCFit/0/Uzoom.eps}} \\
-	\TODO{are these flows divergence free?  how would I find out?}
-	\TODO{should I plot SLEVE velocity vectors, too? (for gravityWaves only)}
 %
 	\caption{Vertical cross section of velocity vectors in the centremost \SI{10}{\kilo\meter} and lowest \SI{1.2}{\kilo\meter}.  In the gravity waves test, the velocity field after 5 hours follows the terrain and is qualitatively similar on (\subcaptionref{fig:gw:flow:btf}) the BTF grid, (\subcaptionref{fig:gw:flow:snapCol}) the SnapCol grid, and the SLEVE grid (not shown).  For the thermal advection test described in section~\ref{sec:wobblyThetaAdvection}, the terrain following velocity field is prescribed.  It is designed to imitate the velocity field of the gravity waves test, and is shown here on the BTF grid (\subcaptionref{fig:wobblyThetaAdvection:flow:btf}) and SnapCol grid (\subcaptionref{fig:wobblyThetaAdvection:flow:snapCol}).}
 	\label{fig:gw:flow}
 \end{figure}
 
 Examining the velocity vector field we find that the flow is qualitatively similar between the BTF grid (figure~\ref{fig:gw:flow:btf}), SnapCol grid (figure~\ref{fig:gw:flow:snapCol}), and SLEVE grid (not shown).  Flow near the ground follows the terrain, accelerating as it passes over the mountain peaks, with velocities becoming more horizontal aloft.  
+
+\begin{figure}
+	\captionsetup[subfigure]{position=b}
+	\centering
+	%
+	\subcaptionbox{BTF $h_0 = \SI{250}{\meter}$ \label{fig:gw:div:btf}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-btf-schaerExp-h/18000/divUf.eps}}
+	\hfill
+	\subcaptionbox{BTF $h_0 = \SI{500}{\meter}$ \label{fig:gw:div:btf-dh}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-btf-schaerExp-doubleHigh-h/18000/divUf.eps}} \\
+%
+	\subcaptionbox{SLEVE $h_0 = \SI{250}{\meter}$ \label{fig:gw:div:sleve}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-sleve-schaerExp-h/18000/divUf.eps}}
+	\hfill
+	\subcaptionbox{SLEVE $h_0 = \SI{500}{\meter}$ \label{fig:gw:div:sleve-dh}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-sleve-schaerExp-doubleHigh-h/18000/divUf.eps}} \\
+%
+	\subcaptionbox{SnapCol $h_0 = \SI{250}{\meter}$ \label{fig:gw:div:snapCol}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/divUf.eps}}
+	\hfill
+	\subcaptionbox{SnapCol $h_0 = \SI{500}{\meter}$ \label{fig:gw:div:snapCol-dh}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/divUf.eps}} \\
+%
+	\includegraphics[height=5in,angle=270]{legends/divU.eps}
+%
+	\caption{Divergence (\si{\per\second}) of the discrete velocity field in the centremost \SI{20}{\kilo\meter} and lowest \SI{8}{\kilo\meter} on \TODO{grids and mountain heights}}
+	\label{fig:gw:div}
+\end{figure}
+
+\TODO{discuss divergence}
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
