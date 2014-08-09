@@ -66,7 +66,7 @@ The OpenFOAM solver \shellcmd{scalarTransportFoam} was used to implicitly solve 
 \end{align}
 The solver uses a velocity field with values defined at cell centres, and linearly interpolates onto cell faces during the model initialisation phase.
 
-The time derivative is solved implicitly using a backward-in-time, second order accurate scheme defined as \autocite{openfoam-progguide}.  At time level $n$, the time derivative, $\partial \varphi / \partial t$, is
+The time derivative is solved implicitly using a backward-in-time, second order accurate scheme.  At time level $n$, the time derivative, $\partial \varphi / \partial t$, is \autocite{openfoam-progguide}
 \begin{align}
 	\frac{\partial}{\partial t} \int_V \varphi \diff V = \frac{
 		3 \left( \varphi V \right)^{(n)} - 
@@ -80,7 +80,7 @@ The domain is discretised onto a grid having $300 \times 50$ cells such that $\D
 Tests are integrated forward in time for \SI{10000}{\second} with a timestep $\Delta t = \SI{25}{\second}$.
 
 \subsection{Diagnostics}
-Results of advection are evaluated using five metrics.  First, tracer contours are plotted to visualise the extent to which tracer shape and magnitude are preserved.  Second, tracer error contours are found by subtracting the analytic solution from the numerical solution.  Both sets of contours enable results to be compared with those from \textcite{schaer2002}.  Third, preservation of tracer magnitude is quantified by finding the minimum and maximum tracer values at the end of the simulation.  Fourth, divergence of the discrete velocity fields are calculated for comparison with plots of tracer magnitude.
+Results of advection are evaluated using five metrics.  First, tracer contours are plotted to visualise the extent to which tracer shape and magnitude are preserved.  Second, tracer error contours are found by subtracting the analytic solution from the numerical solution.  Both sets of contours enable results to be compared with those from \textcite{schaer2002}.  Third, preservation of tracer magnitude is quantified by finding the minimum and maximum tracer values at the end of the simulation.  Fourth, divergence of the discrete velocity fields is calculated for comparison with plots of tracer magnitude.
 
 Finally, error norms are calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
 \begin{align}
@@ -141,13 +141,13 @@ Because the upwind-biased advection scheme is not monotonic, one source of new e
 \begin{figure}
 	\centering
 	\input{advectionFlux}
-	\caption{Flux through two faces, shown with dotted lines, in a rectangular cell in the region of vertical wind shear.  Because the surrounding cells are non-orthogonal, interpolation onto cell faces results in a net outward flux which leads to a decrease in tracer magnitude.  Cell centres are denoted by grey circles, face centres are denoted by open circles.  Flux magnitude is indicated by arrow length and line thickness.}
+	\caption{Flux through two faces, shown with dotted lines, in a rectangular cell in the region of vertical wind shear.  Because the surrounding cells are non-orthogonal, interpolation onto cell faces results in a net outward flux which leads to a decrease in tracer magnitude.  Cell centres are denoted by grey circles, face centres by open circles.  Flux magnitude is indicated by arrow length and line thickness.}
 	\label{fig:advection:flux}
 \end{figure}
 
 Let us consider the fluxes in and out of the vertically-oriented faces, $\fin$ and $\fout$, of a rectangular cell in the region of vertical wind shear such that its cell centre $c_1$ has a height $\SI{4}{\kilo\meter} < z < \SI{5}{\kilo\meter}$.  To its left is a cell whose centre, $c_0$, is lower and to its right, a cell whose centre, $c_2$, is higher.  This situation is shown in figure~\ref{fig:advection:flux}.
 
-During model initialisation, the solver interpolates velocities at cell centres onto cell faces, such that $\fin$ is interpolated from $c_0$ and $c_1$, and $\fout$ is an interpolation of $c_1$ and $c_2$.  Remember that horizontal wind is increasing with height, $u(c_2) > u(c_1) > u(c_0)$, and so $\fout > \fin$.  Therefore, there is a net divergence in the rectangular cell, which leads to a decrease in tracer magnitude.
+During model initialisation, the solver interpolates velocities at cell centres onto cell faces, such that $\fin$ is interpolated from $c_0$ and $c_1$, and $\fout$ is an interpolation of $c_1$ and $c_2$.  Remember that horizontal wind is increasing with height, $u(c_2) > u(c_1) > u(c_0)$, and so $\fout > \fin$.  Therefore, there is a net divergence in the rectangular cell which leads to a decrease in tracer magnitude.
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -168,12 +168,12 @@ During model initialisation, the solver interpolates velocities at cell centres 
 	\label{fig:advection:div}
 \end{figure}
 
-Divergence was calculated on the BTF, SLEVE and SnapCol grids using linear interpolation.  Divergence is found between about \SI{2}{\kilo\meter} and \SI{6}{\kilo\meter} above the surface, which includes the region of vertical wind shear.  As seen in figure~\ref{fig:advection:div:btf}, divergence is most significant on the BTF grid, with magnitudes reaching $\sim \SI{6e-3}{\per\second}$.  Divergence is also present on the SLEVE grid, but magnitudes do not exceed \SI{8e-4}{\per\second}.
+Divergence was calculated on the BTF, SLEVE and SnapCol grids using linear interpolation.  Divergence is found between about \SI{2}{\kilo\meter} and \SI{6}{\kilo\meter} above the surface, which includes the region of vertical wind shear.  As seen in figure~\ref{fig:advection:div:btf}, divergence is most significant on the BTF grid, with magnitudes reaching $\sim \SI{6e-3}{\per\second}$.  Divergence is also present on the SLEVE grid, shown in figure~\ref{fig:advection:div:sleve}, but magnitudes do not exceed \SI{8e-4}{\per\second}.
 Compared to the BTF grid, the affected region is shallower on the SLEVE grid.
 The SnapCol grid is orthogonal except at the surface, where there is no flow and, hence, the velocity field on the SnapCol grid was found to be non-divergent.
 
 Examining the tracer field at $t = \SI{5000}{\second}$ on the BTF and SLEVE grids in figures~\ref{fig:advection:tracer5000:btf} and \ref{fig:advection:tracer5000:sleve} respectively, we see that tracer magnitude is most negative in cells that have the greatest divergence.  Therefore, we conclude that divergence in the discrete velocity field is a cause of error in tracer magnitude.
 
-The $\ell^2$ error norms are also summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even on the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
+The $\ell^2$ error norms are summarised in table~\ref{tab:advection:errors}.  Errors on the BTF grid are an order of magnitude greater than the three other grids tested.  The cut cell grid offers only a small error reduction compared to the SLEVE grid.  Even on the BTF grid, the upwind-biased advection scheme is far more tolerant of grid distortions than results of the fourth-order centred scheme from \textcite{schaer2002} (not shown).
 
 
