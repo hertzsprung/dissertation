@@ -108,15 +108,15 @@ Examining the velocity vector field we find that the flow is qualitatively simil
 %
 	\subcaptionbox{SnapCol $h_0 = \SI{250}{\meter}$ \label{fig:gw:div:snapCol}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/divUf.eps}}
 	\hfill
-	\subcaptionbox{SnapCol $h_0 = \SI{500}{\meter}$ \label{fig:gw:div:snapCol-dh}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-snapCol-schaerExp-h/18000/divUf.eps}} \\
+	\subcaptionbox{SnapCol $h_0 = \SI{500}{\meter}$ \label{fig:gw:div:snapCol-dh}}[0.49\textwidth]{\includegraphics[width=1.8in,angle=270]{data/gravityWaves-snapCol-schaerExp-doubleHigh-h/18000/divUf.eps}} \\
 %
 	\includegraphics[height=5in,angle=270]{legends/divU.eps}
 %
-	\caption{Divergence (\si{\per\second}) of the discrete velocity field in the centremost \SI{20}{\kilo\meter} and lowest \SI{8}{\kilo\meter} on \TODO{grids and mountain heights}}
+	\caption{Divergence (\si{\per\second}) of the discrete velocity field in the centremost \SI{20}{\kilo\meter} and lowest \SI{8}{\kilo\meter} for a mountain height of $h_0 = \SI{250}{\meter}$ on the BTF grid (\subcaptionref{fig:gw:div:btf}), SLEVE grid (\subcaptionref{fig:gw:div:sleve}), and SnapCol grid (\subcaptionref{fig:gw:div:snapCol}), and for a mountain height of $h_ = \SI{500}{\meter}$ on the BTF, SLEVE and SnapCol grids (\subcaptionref{fig:gw:div:btf-dh}, \subcaptionref{fig:gw:div:sleve-dh} and \subcaptionref{fig:gw:div:snapCol-dh} respectively).}
 	\label{fig:gw:div}
 \end{figure}
 
-\TODO{discuss divergence}
+As shown in figure~\ref{fig:gw:div:btf}, \ref{fig:gw:div:sleve} and \ref{fig:gw:div:snapCol}, divergence in the velocity field was found to be negligible everywhere except the lowest layer on all grids.  Magnitude of divergence is slightly greater on the SnapCol grid.
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -138,7 +138,9 @@ Examining more closely the potential temperature anomaly on the SnapCol grid, in
 Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential temperature in the lowest \SI{1}{\kilo\meter} in the lee of the mountain at $x = \SI{50}{\kilo\meter}$.  The Exner function decreases linearly and is identical on BTF and SnapCol grids.  The potential temperature profile is linear on the BTF grid but a slight zig-zag is present on the SnapCol grid in the lowest two layers, corresponding to the warm and cold anomalies.  This profile shares the same shape as the example presented in figure~\ref{fig:theory:theta-oscillation}.
 This implies that the computational mode of the Lorenz vertical staggering has been excited, because the zig-zag is present in the potential temperature profile, but not in the Exner profile.
 
-Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.  Differences in potential temperature from the initial profile are summarised in table~\ref{tab:theta-sample}.
+Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Divergence of the velocity field was visually unchanged on the BTF grid (figure~\ref{fig:gw:div:btf-dh}), but magnitude of divergence increased above the mountain peaks on the SLEVE and SnapCol grids (figures~\ref{fig:gw:div:sleve-dh} and \ref{fig:gw:div:snapCol-dh} respectively).
+
+Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.  Differences in potential temperature from the initial profile are summarised in table~\ref{tab:theta-sample}.
 
 In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} to test this hypothesis.
 
@@ -202,4 +204,4 @@ That is, the two-dimensional Courant number reduces to the one-dimensional Coura
 
 In the gravity waves test, vertical motion is induced by the terrain and, for the shallow gradients used in this test, horizontal velocities dominate.
 
-In conclusion, test results were similar on all grids and vertical velocities are in good agreement with results from the literature.  On the SnapCol grid, thin cells had little effect on the timestep because the flow was predominantely horizontal.  Errors in potential temperature were found near the ground in the lee of the mountain on the SnapCol grid and these were attributed to the Lorenz computational mode.
+In conclusion, test results were similar on all grids and vertical velocities are in good agreement with results from the literature.  On the SnapCol grid, thin cells had little effect on the timestep because the flow was predominantely horizontal.  Errors in potential temperature were found near the ground in the lee of the mountain on the SnapCol grid and these were attributed to the Lorenz computational mode.  It is possible that regions of relatively large divergence and convergence immediately above the ground are a cause of these thermal errors.

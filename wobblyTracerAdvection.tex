@@ -25,7 +25,6 @@ The resulting velocity field is shown in figure~\ref{fig:wobblyTracer:u}.
 \begin{figure}
 	\centering
 	\includegraphics[width=2.0in,angle=270]{openfoam/cases/wobblyTracerAdvection/btf/schaerCos/cubicUpwindCPCFit/0/U.eps}
-	\TODO{also plot flow on snapCol grid?}
 %
 	\caption{Terrain following velocity field with flow everywhere tangential to BTF coordinate surfaces.  Outline of BTF grid shown in grey.  Only the lowest \SI{15}{\kilo\meter} of the central \SI{60}{\kilo\meter} is shown.  The entire domain is \SI{300}{\kilo\meter} wide and \SI{25}{\kilo\meter} high.}
 	\label{fig:wobblyTracer:u}
@@ -61,7 +60,7 @@ In contrast, the tracer suffers from significantly reduced accuracy on the SnapC
 	\label{fig:wobblyTracerAdvection:div}
 \end{figure}
 
-\TODO{discuss (lack of) divergence in this test.}
+Divergence of the velocity fields was calculated on both grids in the same manner as the previous test.  Divergence magnitudes, shown in figure~\ref{fig:wobblyTracerAdvection:div}, are negligible on both grids, except for cells immediately above the ground on the SnapCol grid.  However, these cells do not affect the tracer which is transported well above the mountain peaks.  Therefore, divergence has little effect on tracer magnitude in this test.
 
 Given these results, we conclude that advection errors are mainly due to lack of flow alignment rather than skewness or grid non-uniformity.
 
