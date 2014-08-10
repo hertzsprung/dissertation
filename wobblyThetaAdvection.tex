@@ -6,7 +6,7 @@ This test is designed to investigate the cause of the potential temperature erro
 \subsection{Specification}
 The spatial domain, mountain profile and potential temperature profile are the same as those from the gravity waves test.  The potential temperature profile is fixed at the inlet and zero gradient at the outlet boundary so that it is advected consistently.  The upwind-biased advection scheme is used, as described in section~\ref{sec:method:discretisation}.  Following the gravity waves test, the model is integrated forward by 5 hours with a timestep $\Delta t = \SI{8}{\second}$. 
 
-The velocity field is given by equation~\ref{eqn:wobblyTracerAdvection:velocity} but, because the mountain profile is different, the derivative of terrain height, $\partial h / \partial z$, is
+The velocity field is given by equation~\ref{eqn:wobblyTracerAdvection:velocity} but, because the mountain profile is different, the derivative of terrain height, $\partial h / \partial x$, is
 \begin{align}
 \frac{\partial h}{\partial x} &= - 2 h_0 \exp \left( - \left( \frac{x}{a} \right)^2 \right) \cos \left( \frac{\pi x}{\lambda} \right) \left[
 \frac{\pi}{\lambda} \sin \left(\frac{\pi x}{\lambda} \right) +

@@ -15,7 +15,7 @@
 
 \textcite{adcroft1997} proposed a partial-step system for modelling the ocean surface in which the cell height is adjusted so that cell volume is accurately represented (figure~\ref{fig:intro:shaved:partial}).  Compared to the full-step approach of \textcite{mesinger1988}, spurious oscillations were significantly reduced advecting a tracer over topography.
 
-The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular Cartesian grid such that cells are cut where they intersect with the ground (see figure~\ref{fig:intro:shaved:piecewise-linear}).  
+The piecewise linear cut cell method is another alternative to terrain following layers.  Here, the surface terrain is intersected with a regular Cartesian grid such that cells are cut where they intersect with the ground.  
 This leads to cells that are entirely above the surface, entirely below it, and those which intersect with the ground.  Those cells which intersect the ground have, in two dimensions, a triangular, trapezoidal or pentagonal shape \autocite{rosatti2005}.  Figure~\ref{fig:intro:shaved:piecewise-linear} shows an example of this method.  In some grid boxes, small cells, marked with an asterisk ($\ast$), are created by intersection with the surface.
 The primary difficulty is with numerical stability and reduced model efficiency associated with small cells.  Additionally, because vertical resolution varies at the mountain top, this non-uniformity leads to second-order accurate schemes becoming only first-order accurate (grid uniformity is discussed in section~\ref{sec:theory:skewness}).
 

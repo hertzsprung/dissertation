@@ -116,7 +116,7 @@ Examining the velocity vector field we find that the flow is qualitatively simil
 	\label{fig:gw:div}
 \end{figure}
 
-As shown in figure~\ref{fig:gw:div:btf}, \ref{fig:gw:div:sleve} and \ref{fig:gw:div:snapCol}, divergence in the velocity field was found to be negligible everywhere except the lowest layer on all grids.  Magnitude of divergence is slightly greater on the SnapCol grid.
+As shown in figures~\ref{fig:gw:div:btf}, \subcaptionref{fig:gw:div:sleve} and \subcaptionref{fig:gw:div:snapCol}, divergence in the velocity field was found to be negligible everywhere except the lowest layer on all grids.  Magnitude of divergence is slightly greater on the SnapCol grid.
 
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
@@ -139,7 +139,6 @@ Figure~\ref{fig:gw:exner-theta} plots vertical profiles of Exner and potential t
 This implies that the computational mode of the Lorenz vertical staggering has been excited, because the zig-zag is present in the potential temperature profile, but not in the Exner profile.
 
 Another test was performed in which the mountain height was doubled such that $\surface_0 = \SI{500}{\meter}$, with all other parameter values unchanged.  Divergence of the velocity field was visually unchanged on the BTF grid (figure~\ref{fig:gw:div:btf-dh}), but magnitude of divergence increased above the mountain peaks on the SLEVE and SnapCol grids (figures~\ref{fig:gw:div:sleve-dh} and \ref{fig:gw:div:snapCol-dh} respectively).
-
 Overall potential temperature anomalies increase in magnitude because the gravity wave amplitude is larger, but these waves do not reach all the way to the ground.  In the lowest two layers, results on the SLEVE grid are similar for both mountain heights (see figures~\ref{fig:gw:thetaDiffZoom:sleve} and \ref{fig:gw:thetaDiffZoom:sleve-dh}).  On the SnapCol grid, the Lorenz computational mode is more severe.  Figure~\ref{fig:gw:exner-theta} also shows that potential temperature errors are no longer confined to the lowest two layers, but extend beyond \SI{1200}{\meter} above the ground.  Differences in potential temperature from the initial profile are summarised in table~\ref{tab:theta-sample}.
 
 In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest when advecting a tracer over the SnapCol grid in a terrain following velocity field.  This suggests that the computational mode is excited by errors in the upwind-biased advection scheme.  A further experiment is presented in section~\ref{sec:wobblyThetaAdvection} to test this hypothesis.
@@ -147,7 +146,7 @@ In section~\ref{sec:wobblyTracerAdvection}, we found that errors were largest wh
 \begin{figure}
 	\captionsetup[subfigure]{position=b}
 	\centering
-	\subcaptionbox{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the gravity waves experiment.  Exner profile is visually identical on all grids for both $\surface_0 = \SI{250}{\meter}$ and $\surface_0 = \SI{500}{\meter}$; for clarity, Exner profile is only plotted for the SLEVE grid.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.  The double height mountain increases the severity of the computational mode, but has negligible effect on the SLEVE grid (not shown).  All results on the BTF grid are qualitatively the same as those on the SLEVE grid (not shown). \label{fig:gw:exner-theta}}[\textwidth]{\input{gravityWaves-schaerExp-h-exnerTheta-plot}} \\
+	\subcaptionbox{Vertical profiles of the Exner function of pressure, $\exner$, and potential temperature, $\theta$, in the gravity waves experiment.  Exner profile is visually identical on all grids for both $\surface_0 = \SI{250}{\meter}$ and $\surface_0 = \SI{500}{\meter}$; for clarity, the Exner profile is only plotted for the SLEVE grid.  The computational mode is manifested as a zig-zag in potential temperature on the SnapCol grid.  The double height mountain increases the severity of the computational mode, but has negligible effect on the SLEVE grid (not shown).  All results on the BTF grid are qualitatively the same as those on the SLEVE grid (not shown). \label{fig:gw:exner-theta}}[\textwidth]{\input{gravityWaves-schaerExp-h-exnerTheta-plot}} \\
 %
 	\subcaptionbox{Vertical potential temperature profile from the test of terrain following advection of a stable thermal profile, described in section~\ref{sec:wobblyThetaAdvection}.  Results on the BTF grid are visually identical to the initial potential temperature profile (not shown).  \label{fig:wobblyThetaAdvection:theta}}[\textwidth]{\input{wobblyThetaAdvection-schaerExp-theta-plot}}
 %
@@ -204,4 +203,4 @@ That is, the two-dimensional Courant number reduces to the one-dimensional Coura
 
 In the gravity waves test, vertical motion is induced by the terrain and, for the shallow gradients used in this test, horizontal velocities dominate.
 
-In conclusion, test results were similar on all grids and vertical velocities are in good agreement with results from the literature.  On the SnapCol grid, thin cells had little effect on the timestep because the flow was predominantely horizontal.  Errors in potential temperature were found near the ground in the lee of the mountain on the SnapCol grid and these were attributed to the Lorenz computational mode.  It is possible that regions of relatively large divergence and convergence immediately above the ground are a cause of these thermal errors.
+In conclusion, test results were similar on all grids and vertical velocities are in good agreement with results from the literature.  On the SnapCol grid, thin cells had little effect on the timestep because the flow was predominantely horizontal.  Errors in potential temperature were found near the ground in the lee of the mountain on the SnapCol grid and these were attributed to the Lorenz computational mode.  It is possible that regions of relatively large divergence and convergence immediately above the ground are a cause of these thermal errors.  Alternatively, the errors may be due to the inaccurate advection of potential temperature, and this possibility is explored in the next test.

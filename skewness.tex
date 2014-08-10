@@ -18,7 +18,7 @@ A grid is orthogonal when angles between cell vertices are \ang{90}; that is, wh
 	\label{fig:theory:skewness}
 \end{figure}
 
-Non-orthogonality typically causes skewness, which is the misalignment of cell faces with adjoining cell centres.
+Non-orthogonality typically causes skewness, which is created by the misalignment of cell faces with adjoining cell centres.
 Consider a two dimensional grid having two cells, $c_1$ and $c_2$ that share a common face $f$ having vertices $p_1$ and $p_2$.  Skewness is defined as the distance between the centre of face $f$, and the intercept of a line connecting the centres of $c_1$ and $c_2$ with the line passing through points $p_1$ and $p_2$ \autocite{moraes2013}.
 
 In an orthogonal grid, seen in figure~\ref{fig:theory:skewness:ortho}, the skewness is zero.  Skewness increases when the grid becomes non-orthogonal, as shown in figure~\ref{fig:theory:skewness:nonortho}.  If high accuracy is required, a numerical scheme must account for this skewness when interpolating values at cell centres onto a cell face.
