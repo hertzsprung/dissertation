@@ -26,6 +26,7 @@ where $\overline{\mu} = 1.2$ is the damping coefficient, $z_B = \SI{20}{\kilo\me
 
 Note that, while the domain itself is \SI{30}{\kilo\meter} in height, for the purposes of generating of BTF and SLEVE grids, the domain height is set to \SI{20}{\kilo\meter} because the sponge layer occupies the uppermost \SI{10}{\kilo\meter}.
 
+\TODO{verify boundary conditions}
 No slip conditions are imposed on the top and bottom boundaries and the outlet is zero gradient.  For Exner, hydrostatic balance is prescribed on all boundaries.  Following \textcite{melvin2010}, the simulation is integrated forward by 5 hours with a timestep $\Delta t = \SI{8}{\second}$.
 
 \subsection{Analysis}
@@ -112,7 +113,7 @@ Examining the velocity vector field we find that the flow is qualitatively simil
 %
 	\includegraphics[height=5in,angle=270]{legends/divU.eps}
 %
-	\caption{Divergence (\si{\per\second}) of the discrete velocity field in the centremost \SI{20}{\kilo\meter} and lowest \SI{8}{\kilo\meter} for a mountain height of $h_0 = \SI{250}{\meter}$ on the BTF grid (\subcaptionref{fig:gw:div:btf}), SLEVE grid (\subcaptionref{fig:gw:div:sleve}), and SnapCol grid (\subcaptionref{fig:gw:div:snapCol}), and for a mountain height of $h_ = \SI{500}{\meter}$ on the BTF, SLEVE and SnapCol grids (\subcaptionref{fig:gw:div:btf-dh}, \subcaptionref{fig:gw:div:sleve-dh} and \subcaptionref{fig:gw:div:snapCol-dh} respectively).}
+	\caption{Divergence (\si{\per\second}) of the discrete velocity field in the centremost \SI{20}{\kilo\meter} and lowest \SI{8}{\kilo\meter} for a mountain height of $h_0 = \SI{250}{\meter}$ on the BTF grid (\subcaptionref{fig:gw:div:btf}), SLEVE grid (\subcaptionref{fig:gw:div:sleve}), and SnapCol grid (\subcaptionref{fig:gw:div:snapCol}), and for a mountain height of $h_0 = \SI{500}{\meter}$ on the BTF, SLEVE and SnapCol grids (\subcaptionref{fig:gw:div:btf-dh}, \subcaptionref{fig:gw:div:sleve-dh} and \subcaptionref{fig:gw:div:snapCol-dh} respectively).}
 	\label{fig:gw:div}
 \end{figure}
 
