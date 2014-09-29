@@ -68,10 +68,10 @@ The solver uses a velocity field with values defined at cell centres, and linear
 
 The time derivative is solved implicitly using a backward-in-time, second order accurate scheme.  At time level $n$, the time derivative, $\partial \varphi / \partial t$, is \autocite{openfoam-progguide}
 \begin{align}
-	\frac{\partial}{\partial t} \int_V \varphi \diff V = \frac{
-		3 \left( \varphi V \right)^{(n)} - 
-		4 \left( \varphi V \right)^{(n-1)} + 
-		\left( \varphi V \right)^{(n-2)}
+	\frac{\partial}{\partial t} \int_\vol \varphi \diff \vol = \frac{
+		3 \left( \varphi \vol \right)^{(n)} - 
+		4 \left( \varphi \vol \right)^{(n-1)} + 
+		\left( \varphi \vol \right)^{(n-2)}
 	}{2 \Delta t}
 \end{align}
 
@@ -84,9 +84,9 @@ Results of advection are evaluated using five metrics.  First, tracer contours a
 
 Finally, error norms are calculated at $t = \SI{10000}{\second}$ by comparing with the analytic solution.  The $\ell^2$ error norm is defined as
 \begin{align}
-\ell^2 = \sqrt{\frac{\sum \left( \varphi - \varphi_T \right)^2 V}{\sum V}}
+	\ell^2 = \sqrt{\frac{\sum_c \left( \varphi - \varphi_{T} \right)^2 \vol_c}{\sum_c \left( \varphi_T^2 \vol_c \right)}}
 \end{align}
-where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytic value and $V$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  
+where $\varphi$ is the numerical tracer value, $\varphi_T$ is the analytic value and $\vol_c$ is the cell volume.  Because the test is two dimensional, the cell volume is equivalent to the cell area.  
 
 \subsection{Analysis}
 \begin{figure}

@@ -98,23 +98,23 @@ Energy conservation is desirable in the discretisation of the Euler equations.  
 \begin{align}
 \Delta E(t) &= \frac{E(t) - E(t = \SI{0}{\second})}{E(t = \SI{0}{\second})}
 \end{align}
-Three energy measures are considered, where the volume integral of some field $\varphi$ is the volume-weighted sum given by
+Three energy measures are considered.  The volume integral of some field $\varphi$ is the volume-weighted sum given by
 \begin{align}
-\int_V \varphi \diff{V} &= \frac{\sum_c \varphi_c V_c}{\sum_c V_c}
+\int_\vol \varphi \diff{\vol} &= \frac{\sum_c \varphi_c \vol_c}{\sum_c \vol_c}
 \end{align}
 First, kinetic energy $E_K$ is calculated as \autocite{thuburn2014}
 \begin{align}
-E_K(t) &= \int_V \frac{1}{4} \sum_{f \in \: c} \frac{\left( \vect{u} \cdot \vect{S}_f \right) \left( \vect{u} \cdot \vect{d}_f \right)}{V_c} \diff{V}
+E_K(t) &= \int_{\vol} \frac{1}{4} \sum_{f \in \: c} \frac{UV}{\rho \vol_c} \diff{\vol}
 %
 \intertext{Second, potential energy $E_P$ is}
 %
-E_P(t) &= - \int_V \rho \vect{g} \cdot \vect{x}_c \diff{V}
+E_P(t) &= - \int_\vol \rho \vect{g} \cdot \vect{x}_c \diff{\vol}
 %
 \intertext{where $\vect{x}_c$ is the position vector of the centre of cell $c$.  Third, the internal energy $E_I$ is \autocite{curry-webster1998}}
 %
-E_I(t) &= \int_V \rho T c_v \diff{V}\\
-       &= \int_V \rho T \left( \frac{p_0}{p} \frac{p}{p_0} \right)^{R/c_p} c_v \diff{V} \\
-       &= \int_V \rho \theta \Pi c_v \diff{V}
+E_I(t) &= \int_\vol \rho T c_v \diff{\vol}\\
+       &= \int_\vol \rho T \left( \frac{p_0}{p} \frac{p}{p_0} \right)^{R/c_p} c_v \diff{\vol} \\
+       &= \int_\vol \rho \theta \Pi c_v \diff{\vol}
 \end{align}
 where $c_v$ the heat capacity of dry air at constant volume, assuming an perfect gas with constant $c_v$.
 
@@ -125,7 +125,7 @@ The CFL criterion states that the numerical domain of dependence must contain th
 
 On a two-dimensional unstructured grid, the Courant number for cell $c$ is \autocite{weller-shahrokhi2014}
 \begin{align}
-\courant_c = \frac{\Delta t}{2 V_c} \sum_{f \in\: c} \vect{u} \cdot \vect{S}_f \label{eqn:method:courant}
+\courant_c = \frac{\Delta t}{2 \vol_c} \sum_{f \in\: c} \vect{u} \cdot \vect{S}_f \label{eqn:method:courant}
 \end{align}
 so that the CFL criterion is $\courant_c \leq 1\:\forall\:c$.
 
